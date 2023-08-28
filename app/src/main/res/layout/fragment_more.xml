@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.HomeViewModel" />
+    </data>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <TextView
+                android:id="@+id/tv_services"
+                style="@style/MoreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/more_services"
+                app:drawableStartCompat="@drawable/ic_services"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_complaints"
+                style="@style/MoreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/more_complaints"
+                app:drawableStartCompat="@drawable/ic_complaint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_services" />
+
+            <TextView
+                android:id="@+id/tv_financing"
+                style="@style/MoreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/financing"
+                app:drawableStartCompat="@drawable/ic_financing_service"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_complaints"
+                />
+
+            <TextView
+                android:id="@+id/tv_atm"
+                style="@style/MoreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/order_atm_card"
+                app:drawableStartCompat="@drawable/ic_order_atm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_financing"
+                />
+
+            <TextView
+                android:id="@+id/tv_location"
+                style="@style/MoreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/guest_locations"
+                android:paddingStart="28dp"
+                app:drawableStartCompat="@drawable/ic_location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_atm" />
+
+            <TextView
+                android:id="@+id/tv_calculator"
+                style="@style/MoreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/profits_and_deposit_calculate"
+                app:drawableStartCompat="@drawable/ic_calculator"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_location" />
+
+            <TextView
+                android:id="@+id/tv_exchangeRate"
+                style="@style/MoreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/guest_rate"
+                app:drawableStartCompat="@drawable/ic_exchange_rate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_calculator" />
+
+            <TextView
+                android:id="@+id/tv_about"
+                style="@style/MoreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/more_about"
+                app:drawableStartCompat="@drawable/ic_logo_outlined"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exchangeRate" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

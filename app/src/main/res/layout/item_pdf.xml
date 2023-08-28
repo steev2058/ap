@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+
+        <variable
+            name="item"
+            type="com.apps2you.albaraka.data.model.Transaction" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:orientation="horizontal"
+        android:layoutDirection="locale"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            dateTZ="@{item.date}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{item.operationName}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{item.displayedAmount}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            />
+    </LinearLayout>
+</layout>

@@ -1,0 +1,85 @@
+<resources>
+
+    <style name="AppTheme" parent="BaseAppTheme" />
+
+    <!-- Base application theme. -->
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/gray_light</item>
+        <item name="fontFamily">@font/trebuc</item>
+        <item name="android:fontFamily">@font/trebuc</item>
+
+        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+
+    </style>
+    <style name="Widget.AppTheme.MaterialDatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+    <item name="materialCalendarHeaderToggleButton">@style/Widget.AppTheme.MaterialCalendar.HeaderToggleButton</item>
+    </style>
+    <style name="Widget.AppTheme.MaterialCalendar.HeaderToggleButton" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
+    <item name="android:visibility">gone</item>
+    </style>
+    <style name="Theme.TradinosDialog" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="fontFamily">@font/trebuc</item>
+        <item name="android:fontFamily">@font/trebuc</item>
+    </style>
+
+    <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+    </style>
+
+    <style name="ButtonPrimary" parent="Widget.AppCompat.Button">
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_shadow_primary</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+    </style>
+
+    <style name="ButtonPrimary.Toggle" parent="ButtonPrimary">
+        <item name="android:background">@drawable/selector_confirm_button</item>
+    </style>
+
+
+    <style name="WhiteButton" parent="Widget.AppCompat.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:background">@drawable/bg_shadow_white</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+    </style>
+
+    <style name="ButtonGuest" parent="WhiteButton">
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="InputEt">
+        <item name="android:padding">@dimen/margin_small</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:background">@drawable/bg_edittext_selector</item>
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="MoreButton">
+        <item name="android:background">@drawable/bg_shadow_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">24dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

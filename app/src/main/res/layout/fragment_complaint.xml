@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.ComplaintViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingStart="@dimen/padding_home"
+            android:paddingEnd="@dimen/padding_home"
+            tools:context=".ui.complaints.fragments.ComplaintFragment">
+
+            <!--Personal information-->
+            <TextView
+                android:id="@+id/tv_personal_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/personal_information"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_personal"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_first_name"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/first_name"
+                    android:inputType="textPersonName"
+                    android:text="@={viewModel.complaint.firstName}"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/ti_first_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_last_name"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/last_name"
+                    android:inputType="textPersonName"
+                    android:text="@={viewModel.complaint.lastName}"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_client"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_edittext_selector"
+                android:spinnerMode="dropdown"
+                app:layout_constraintTop_toBottomOf="@id/ti_last_name"
+                tools:listitem="@layout/item_complaint_spinner" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_client"
+                app:layout_constraintEnd_toEndOf="@id/spinner_client"
+                app:layout_constraintTop_toTopOf="@id/spinner_client"
+                app:tint="@color/gray" />
+
+            <!--Contact information-->
+            <View
+                android:id="@+id/divider_contact"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="18dp"
+                android:background="@color/bright_gray"
+                app:layout_constraintTop_toBottomOf="@id/spinner_client" />
+
+            <TextView
+                android:id="@+id/tv_contact_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/contact_information"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_contact"
+                app:layout_constraintTop_toBottomOf="@id/divider_contact" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_mobile_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/tv_contact_info">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_mobile_number"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/mobile_number"
+                    android:inputType="phone"
+                    android:text="@={viewModel.complaint.mobileNumber}"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.apps2you.albaraka.utils.CustomTextInputLayout
+                android:id="@+id/ti_telephone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/ti_mobile_number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_telephone_number"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/telephone_number"
+                    android:inputType="phone"
+                    android:text="@={viewModel.complaint.phoneNumber}"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp" />
+            </com.apps2you.albaraka.utils.CustomTextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/ti_telephone_number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_email"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.complaint.email}"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Contact time information-->
+            <View
+                android:id="@+id/divider_contact_time"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="18dp"
+                android:background="@color/bright_gray"
+                app:layout_constraintTop_toBottomOf="@id/ti_email" />
+
+            <TextView
+                android:id="@+id/tv_contact_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/the_appropriate_contact_time"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_time"
+                app:layout_constraintTop_toBottomOf="@id/divider_contact_time" />
+
+            <RadioGroup
+                android:id="@+id/rg_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@id/rb_morning"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintTop_toBottomOf="@id/tv_contact_time">
+
+                <RadioButton
+                    android:id="@+id/rb_morning"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_radio_button"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:text="@string/_9_11_morning"
+                    android:textAlignment="center"
+                    android:textColor="@color/radio_button_color" />
+
+                <RadioButton
+                    android:id="@+id/rb_afternoon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_radio_button"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:text="@string/_12_2_afternoon"
+                    android:textAlignment="center"
+                    android:textColor="@color/radio_button_color" />
+
+                <RadioButton
+                    android:id="@+id/rb_evening"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_radio_button"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:text="@string/_3_5_evening"
+                    android:textAlignment="center"
+                    android:textColor="@color/radio_button_color" />
+            </RadioGroup>
+
+            <!--Details of complaint information-->
+            <View
+                android:id="@+id/divider_details"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="18dp"
+                android:background="@color/bright_gray"
+                app:layout_constraintTop_toBottomOf="@id/rg_time" />
+
+            <TextView
+                android:id="@+id/tv_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/details_of_the_complaints_or_suggestion"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_details"
+                app:layout_constraintTop_toBottomOf="@id/divider_details" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_message_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext_selector"
+                android:spinnerMode="dropdown"
+                app:layout_constraintTop_toBottomOf="@id/tv_details"
+                tools:listitem="@layout/item_complaint_spinner" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_message_title"
+                app:layout_constraintEnd_toEndOf="@id/spinner_message_title"
+                app:layout_constraintTop_toTopOf="@id/spinner_message_title"
+                app:tint="@color/gray" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_edittext_selector"
+                android:spinnerMode="dropdown"
+                app:layout_constraintTop_toBottomOf="@id/spinner_message_title"
+                tools:listitem="@layout/item_complaint_spinner" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_place"
+                app:layout_constraintEnd_toEndOf="@id/spinner_place"
+                app:layout_constraintTop_toTopOf="@id/spinner_place"
+                app:tint="@color/gray" />
+
+            <ImageButton
+                android:id="@+id/iBtn_date"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_rounded_gray"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/ti_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ti_date"
+                app:srcCompat="@drawable/ic_calendar_white"
+             />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toStartOf="@id/iBtn_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinner_place">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_date"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/date_of_incident"
+                    android:inputType="none"
+                    android:text="@={viewModel.complaint.complaintDate}"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.apps2you.albaraka.utils.CustomTextInputLayout
+                android:id="@+id/ti_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ti_date">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_message"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|start"
+                    android:hint="@string/type_your_message_here"
+                    android:inputType="none"
+                    android:minLines="8"
+                    android:text="@={viewModel.complaint.message}"
+                    android:textAlignment="gravity"
+                    android:textSize="14sp" />
+            </com.apps2you.albaraka.utils.CustomTextInputLayout>
+
+            <Button
+                android:id="@+id/btn_send"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="18dp"
+                android:text="@string/send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ti_message" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

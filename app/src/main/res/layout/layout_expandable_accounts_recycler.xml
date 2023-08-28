@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="selectedAccount"
+            type="com.apps2you.albaraka.data.model.Account" />
+
+        <variable
+            name="title"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_light">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/margin_small"
+            android:text="@{title}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_medium"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="To" />
+
+        <include
+            android:id="@+id/layout_selected_account"
+            layout="@layout/item_account_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item="@{selectedAccount}"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:showArrow="@{true}" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_accounts"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_selected_account"
+            tools:listitem="@layout/item_account_spinner" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

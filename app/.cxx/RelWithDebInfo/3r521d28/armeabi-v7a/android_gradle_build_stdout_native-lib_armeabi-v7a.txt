@@ -1,0 +1,2 @@
+ninja: Entering directory `D:\mobile application new albaraka\albaraka-android\app\.cxx\RelWithDebInfo\3r521d28\armeabi-v7a'
+ninja: no work to do.

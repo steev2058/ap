@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_transfer"
+    app:startDestination="@id/transferOptionsFragment">
+    <fragment
+        android:id="@+id/transferOptionsFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.accountsTransfer.TransferOptionsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_transfer_options">
+        <action
+            android:id="@+id/action_transferOptionsFragment_to_alBarakaTransferFragment"
+            app:destination="@id/alBarakaTransferFragment"
+            app:enterAnim="@anim/slide_in_end"
+            app:exitAnim="@anim/slide_out_start"
+            app:popEnterAnim="@anim/slide_in_start"
+            app:popExitAnim="@anim/slide_out_end" />
+
+        <action
+            android:id="@+id/action_transferOptionsFragment_to_mYTransferFragment"
+            app:destination="@id/mYTransferFragment"
+            app:enterAnim="@anim/slide_in_end"
+            app:exitAnim="@anim/slide_out_start"
+            app:popEnterAnim="@anim/slide_in_start"
+            app:popExitAnim="@anim/slide_out_end" />
+        <action
+            android:id="@+id/action_transferOptionsFragment_to_SYGSActivity"
+            app:destination="@id/SYGSActivity" />
+        <!--        <action-->
+<!--            android:id="@+id/action_transferOptionsFragment_to_sygsTransferFragment"-->
+<!--            app:destination="@id/sygsTransferFragment"-->
+<!--            app:enterAnim="@anim/slide_in_end"-->
+<!--            app:exitAnim="@anim/slide_out_start"-->
+<!--            app:popEnterAnim="@anim/slide_in_start"-->
+<!--            app:popExitAnim="@anim/slide_out_end" />-->
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/alBarakaTransferFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.accountsTransfer.alBarakaTransfer.AlBarakaTransferFragment"
+        android:label="AlBarakaTransferFragment"
+        tools:layout="@layout/fragment_albaraka_transfer">
+        <action
+            android:id="@+id/action_alBarakaTransferFragment_to_addFavoriteAccountDialog"
+            app:destination="@id/addFavoriteAccountDialog" />
+        <action
+            android:id="@+id/action_alBarakaTransferFragment_to_favoriteAccountsFragment"
+            app:destination="@id/favoriteAccountsFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mYTransferFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.accountsTransfer.myTransfer.MyTransferFragment"
+        android:label="MyTransferFragment"
+        tools:layout="@layout/fragment_my_transfer" />
+
+    <dialog
+        android:id="@+id/addFavoriteAccountDialog"
+        android:name="com.apps2you.albaraka.ui.transfer.accountsTransfer.alBarakaTransfer.favorite.dialogs.AddFavoriteAccountDialog"
+        android:label="AddFavoriteAccountDialog"
+        tools:layout="@layout/dialog_add_favorite_account">
+
+        <argument
+            android:name="CIF"
+            android:defaultValue="@null"
+            app:argType="java.lang.String"
+            app:nullable="true" />
+
+        <argument
+            android:name="GSM"
+            android:defaultValue="@null"
+            app:argType="java.lang.String"
+            app:nullable="true" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/favoriteAccountsFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.accountsTransfer.alBarakaTransfer.favorite.FavoriteAccountsFragment"
+        android:label="FavoriteAccountsFragment"
+        tools:layout="@layout/item_favorite_account">
+        <action
+            android:id="@+id/action_favoriteAccountsFragment_to_updateFavoriteAccountDialog"
+            app:destination="@id/updateFavoriteAccountDialog" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/updateFavoriteAccountDialog"
+        android:name="com.apps2you.albaraka.ui.transfer.accountsTransfer.alBarakaTransfer.favorite.dialogs.UpdateFavoriteAccountDialog"
+        android:label="UpdateFavoriteAccountDialog">
+
+        <argument
+            android:name="favoriteAccount"
+            android:defaultValue="@null"
+            app:argType="com.apps2you.albaraka.data.model.FavoriteAccount"
+            app:nullable="true" />
+    </dialog>
+    <activity
+        android:id="@+id/SYGSActivity"
+        android:name="com.apps2you.albaraka.ui.transfer.accountsTransfer.sygs.SYGSActivity"
+        android:label="SYGSActivity" />
+
+</navigation>

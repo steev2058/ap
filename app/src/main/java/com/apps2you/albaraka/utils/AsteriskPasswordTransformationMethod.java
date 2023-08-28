@@ -1,0 +1,46 @@
+package com.apps2you.albaraka.utils;
+
+import android.text.method.PasswordTransformationMethod;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+
+public class AsteriskPasswordTransformationMethod extends PasswordTransformationMethod {
+
+    @Override
+    public CharSequence getTransformation(CharSequence source, View view) {
+        return new PasswordCharSequence(source);
+    }
+
+    private class PasswordCharSequence implements CharSequence {
+
+        private CharSequence mSource;
+
+        public PasswordCharSequence(CharSequence source) {
+            mSource = source;
+        }
+
+        public char charAt(int index) {
+            return '*';
+        }
+
+        public int length() {
+            return mSource.length();
+        }
+
+        public CharSequence subSequence(int start, int end) {
+            return mSource.subSequence(start, end); // Return default
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            StringBuilder stringBuilder = new StringBuilder();
+            int l = length();
+            while (l-- > 0) {
+                stringBuilder.append(charAt(l));
+            }
+            return stringBuilder.toString();
+        }
+    }
+};

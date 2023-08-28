@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.transfer.SYGSTransferViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fillViewport="true">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/corner_radius">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_xxlarge"
+                    android:layout_marginVertical="@dimen/margin_small"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_payment" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/margin_xxlarge" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/transfer_preview"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/font_xlarge" />
+
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/margin_xxlarge" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!--                        Amount-->
+                        <include
+                            layout="@layout/layout_key_value_item"
+                            app:key="@{@string/Amount + `:`}"
+                            app:value="@{viewModel.form.amount + ` ` + @string/SYP}" />
+
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_small" />
+
+                        <!--                        commission-->
+                        <include
+                            layout="@layout/layout_key_value_item"
+                            app:key="@{@string/commission_ios}"
+                            app:value="@{viewModel.commission + ` ` + @string/SYP}" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/margin_large" />
+
+                    <View
+                        android:id="@+id/divider_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/bright_gray" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/margin_large" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".4"
+                            android:drawablePadding="@dimen/margin_small"
+                            android:text="@{@string/Total + `:`}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/font_medium"
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/ic_invoice"
+                            tools:text="Total :" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".6"
+                            android:text="@{viewModel.totalCost + ` ` + @string/SYP}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/font_large"
+                            android:textStyle="bold"
+                            tools:text="9200 sp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_xlarge"
+                        android:orientation="horizontal"
+                        android:clipChildren="false"
+                        >
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <Button
+                            android:id="@+id/button_cancel"
+                            style="@style/WhiteButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/prompt_info_cancel"
+                            app:layout_constraintEnd_toStartOf="@id/guideline"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            />
+
+                        <Button
+                            android:id="@+id/button_confirm"
+                            style="@style/ButtonPrimary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/confirm"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+        </ScrollView>
+    </RelativeLayout>
+</layout>

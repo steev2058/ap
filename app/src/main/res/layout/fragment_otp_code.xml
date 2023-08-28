@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:paddingTop="20dp"
+            tools:context=".ui.settings.SettingsActivity">
+
+
+            <com.apps2you.albaraka.utils.CustomTextInputLayout
+                android:id="@+id/otpCode_inputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <EditText
+                    android:id="@+id/et_otp_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_edittext_selector"
+                    android:hint="@string/code"
+                    android:inputType="numberPassword"
+                    android:padding="6dp"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/dark_gray"
+                    android:textColorHint="@color/gray"
+                    android:textSize="14sp"
+                    app:hintEnabled="false" />
+
+            </com.apps2you.albaraka.utils.CustomTextInputLayout>
+
+            <TextView
+                android:id="@+id/otpCode_disclaimer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_padding"
+                android:gravity="center"
+                android:text="@string/code_msg"
+                app:layout_constraintEnd_toEndOf="@id/otpCode_inputLayout"
+                app:layout_constraintStart_toStartOf="@id/otpCode_inputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/otpCode_inputLayout"
+                />
+
+            <TextView
+                android:id="@+id/resendCode_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/otpCode_disclaimer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/resend"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_underlined_border"/>
+
+            <Button
+                android:id="@+id/submit_button"
+                style="@style/ButtonPrimary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/submit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/resendCode_tv"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_login"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.apps2you.albaraka.ui.registration.LoginFragment"
+        android:label=""
+        tools:layout="@layout/fragment_login"
+        >
+        <action
+            android:id="@+id/action_loginFragment_to_resetPassFragment"
+            app:destination="@id/resetPassFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_resetPinFragment"
+            app:destination="@id/resetPinFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resetPassFragment"
+        android:name="com.apps2you.albaraka.ui.registration.ResetPasswordFragment"
+        android:label=""
+        tools:layout="@layout/fragment_reset_password"
+        >
+        <action
+            android:id="@+id/action_resetPassFragment_to_resetPinFragment"
+            app:destination="@id/resetPinFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resetPinFragment"
+        android:name="com.apps2you.albaraka.ui.registration.ResetPinFragment"
+        android:label=""
+        tools:layout="@layout/fragment_reset_pin"
+        />
+</navigation>

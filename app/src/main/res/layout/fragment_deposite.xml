@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="result"
+            type="com.apps2you.albaraka.data.model.DepositResult" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/padding_calculator"
+            android:paddingTop="20dp"
+            android:paddingEnd="@dimen/padding_calculator"
+            android:paddingBottom="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/duration_in_months"
+                    android:textColor="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_months"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_edittext_selector"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    tools:listitem="@layout/item_complaint_spinner" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_arrow"
+                    app:layout_constraintBottom_toBottomOf="@id/spinner_months"
+                    app:layout_constraintEnd_toEndOf="@id/spinner_months"
+                    app:layout_constraintTop_toTopOf="@id/spinner_months"
+                    app:tint="@color/gray" />
+
+                <com.apps2you.albaraka.utils.CustomTextInputLayout
+                    android:id="@+id/ti_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:textColorHint="@color/gray"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_months">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_amount"
+                        style="@style/InputEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/Amount"
+                        android:inputType="numberDecimal"
+                        android:textDirection="ltr"
+                        android:textSize="14sp" />
+                </com.apps2you.albaraka.utils.CustomTextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/iBtn_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_rounded_gray"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    app:layout_constraintBottom_toBottomOf="@id/ti_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ti_date"
+                    app:srcCompat="@drawable/ic_calendar_white" />
+
+                <com.apps2you.albaraka.utils.CustomTextInputLayout
+                    android:id="@+id/ti_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:textColorHint="@color/gray"
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toStartOf="@id/iBtn_date"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ti_amount">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_date"
+                        style="@style/InputEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/Date"
+                        android:inputType="none"
+                        android:textAlignment="viewStart"
+                        android:textSize="14sp" />
+                </com.apps2you.albaraka.utils.CustomTextInputLayout>
+
+                <Button
+                    android:id="@+id/button_submit"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/calculate"
+                    app:layout_constraintTop_toBottomOf="@+id/ti_date" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/layout_form">
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="12dp"
+                    android:text="@string/calculating_result"
+                    android:textColor="@color/gray"
+                    app:drawableStartCompat="@drawable/ic_invoice"
+                    app:drawableTint="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_deposit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monthly_advance_amount"
+                    android:textColor="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_advance" />
+
+                <TextView
+                    android:id="@+id/tv_advance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="4dp"
+                    android:gravity="end"
+                    android:text="@{result.expectedDeposit +' '+ result.currency}"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/label_deposit"
+                    app:layout_constraintTop_toBottomOf="@+id/text" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_height"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/gray_light"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_advance"
+                    />
+
+                <TextView
+                    android:id="@+id/label_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_first_deposit_advance"
+                    android:textColor="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_date" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="end"
+                    android:text="@{result.firstPatchDate}"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/label_date"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_advance" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                android:id="@+id/progressBar"
+                layout="@layout/partial_progressbar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

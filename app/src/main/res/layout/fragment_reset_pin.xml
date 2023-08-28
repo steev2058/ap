@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.registration.ResetPinFragment">
+
+        <TextView
+            android:id="@+id/resetPin_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/pin_title"
+            android:gravity="center"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"
+            />
+
+        <com.apps2you.albaraka.utils.CustomTextInputLayout
+            android:id="@+id/currentPin_inputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@+id/resetPin_textView"
+            >
+
+            <com.apps2you.albaraka.utils.NoMenuEditText
+                android:id="@+id/et_currentPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:imeOptions="flagForceAscii"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ !@^#$%^*?-_+()., 1234567890"
+                android:padding="6dp"
+                android:textColor="@color/dark_gray"
+                android:hint="@string/pin_current"
+                android:background="@drawable/bg_edittext_selector"
+                android:textColorHint="@color/gray"
+                android:textAlignment="viewStart"
+                android:textSize="14sp"
+                app:hintEnabled="false"/>
+
+        </com.apps2you.albaraka.utils.CustomTextInputLayout>
+
+        <com.apps2you.albaraka.utils.CustomTextInputLayout
+            android:id="@+id/inputLayout_newPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@+id/currentPin_inputLayout"
+            >
+
+            <com.apps2you.albaraka.utils.NoMenuEditText
+                android:id="@+id/et_newPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:imeOptions="flagForceAscii"
+                android:digits="1234567890"
+                android:maxLength="4"
+                android:padding="6dp"
+                android:textColor="@color/dark_gray"
+                android:hint="@string/pin_new"
+                android:background="@drawable/bg_edittext_selector"
+                android:textColorHint="@color/gray"
+                android:textAlignment="viewStart"
+                android:textSize="14sp"
+                app:hintEnabled="false"/>
+
+        </com.apps2you.albaraka.utils.CustomTextInputLayout>
+
+        <com.apps2you.albaraka.utils.CustomTextInputLayout
+            android:id="@+id/inputLayout_confirmPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@+id/inputLayout_newPin"
+            >
+
+            <com.apps2you.albaraka.utils.NoMenuEditText
+                android:id="@+id/et_confirmNewPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:inputType="numberPassword"
+                android:imeOptions="flagForceAscii"
+                android:digits="1234567890"
+                android:maxLength="4"
+                android:textColor="@color/dark_gray"
+                android:hint="@string/pin_confirmation"
+                android:background="@drawable/bg_edittext_selector"
+                android:textColorHint="@color/gray"
+                android:textAlignment="viewStart"
+                android:textSize="14sp"
+                app:hintEnabled="false"/>
+
+        </com.apps2you.albaraka.utils.CustomTextInputLayout>
+
+        <Button
+            android:id="@+id/submit_button"
+            style="@style/ButtonPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/action_save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputLayout_confirmPin"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="100dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+</layout>

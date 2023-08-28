@@ -1,0 +1,84 @@
+{
+  "project_info": {
+    "project_number": "27238929947",
+    "project_id": "albaraka-ae487",
+    "storage_bucket": "albaraka-ae487.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27238929947:android:f910dbdb5d69587a904abe",
+        "android_client_info": {
+          "package_name": "com.apps2you.albaraka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27238929947-v3thnk9i2pq87ipt6u0ust97tkn9fd5v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK1teIqcMl8xyPWYwhqzr7WsYKp2rIAos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27238929947-v3thnk9i2pq87ipt6u0ust97tkn9fd5v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "27238929947-3d73eh5k6p41i4s2g5jn7qqfsk470s1v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tradinos.albaraka",
+                "app_store_id": "1572644006"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27238929947:android:395548839250232c904abe",
+        "android_client_info": {
+          "package_name": "com.baraka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27238929947-v3thnk9i2pq87ipt6u0ust97tkn9fd5v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK1teIqcMl8xyPWYwhqzr7WsYKp2rIAos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27238929947-v3thnk9i2pq87ipt6u0ust97tkn9fd5v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "27238929947-3d73eh5k6p41i4s2g5jn7qqfsk470s1v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tradinos.albaraka",
+                "app_store_id": "1572644006"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

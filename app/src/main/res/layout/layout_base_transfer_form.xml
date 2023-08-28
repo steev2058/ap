@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="form"
+            type="com.apps2you.albaraka.ui.transfer.base.BaseTransferForm" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layout_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_amount"
+            style="@style/InputEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_amount"
+            android:drawablePadding="@dimen/margin_small"
+            android:hint="@string/Amount"
+            android:inputType="numberDecimal"
+            android:textDirection="ltr"
+            android:text="@={form.amount}"
+            android:textColor="@color/gray" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_medium" />
+
+        <EditText
+            android:id="@+id/et_reason"
+            style="@style/InputEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_reason"
+            android:drawablePadding="@dimen/margin_small"
+            android:hint="@string/purpose"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="@={form.reason}"
+            android:textColor="@color/gray" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/homeFragment"
+        android:title="@string/home_menu_main"
+        android:icon="@drawable/ic_home_main"
+        />
+
+    <item android:id="@+id/accountFragment"
+        android:title="@string/home_menu_accounts"
+        android:icon="@drawable/ic_accounts"
+        />
+
+<!--    <item android:id="@+id/bottom_scan"-->
+<!--        android:title=""-->
+<!--        />-->
+
+    <item android:id="@+id/paymentFragment"
+        android:title="@string/home_menu_payments"
+        android:icon="@drawable/ic_payment"
+        />
+
+    <item android:id="@+id/MoreFragment"
+        android:title="@string/home_menu_more"
+        android:icon="@drawable/ic_more_main"
+        />
+</menu>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.transfer.payment.MobilePaymentViewModel" />
+
+        <import type="com.apps2you.albaraka.utils.Constants" />
+
+        <import type="com.apps2you.albaraka.ui.transfer.payment.mobile.MobilePaymentForm.MobilePaymentStatus" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/mobile_payment}" />
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/padding_page_horizontal"
+            android:visibility="@{!(viewModel.isContentLoading || viewModel.isOperatorsLoading) &amp;&amp; !viewModel.isError()}"
+            app:layoutDescription="@xml/scene_expandable_accounts_recycler"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+            <!--                Accounts Recycler-->
+            <include
+                android:id="@+id/layout_expandable_accounts_recycler"
+                layout="@layout/layout_expandable_accounts_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xsmall"
+                app:existence="@{!(viewModel.selectedAccount == null)}"
+                app:selectedAccount="@{viewModel.selectedAccount}"
+                app:title="@{@string/From}" />
+
+            <ScrollView
+                android:id="@+id/layout_form"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:fillViewport="true"
+                app:layout_constraintTop_toBottomOf="@id/layout_expandable_accounts_recycler"
+                app:layout_constraintBottom_toBottomOf="parent"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:orientation="vertical">
+
+                            <!--                    GSM number-->
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/layout_gsm"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:visibility="visible">
+
+                                <EditText
+                                    android:id="@+id/et_gsm_number"
+                                    style="@style/InputEt"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:drawableStart="@drawable/ic_hashtag"
+                                    android:drawablePadding="@dimen/margin_small"
+                                    android:hint="@string/gsm_number"
+                                    android:inputType="phone"
+                                    android:textColor="@color/gray"
+                                    android:text="@={viewModel.form.gsmNumber}"
+                                    app:requestFocus="@{viewModel.form.status == MobilePaymentStatus.GSM_ERROR}" />
+
+                                <View
+                                    android:layout_width="@dimen/margin_small"
+                                    android:layout_height="1dp" />
+
+                                <ImageButton
+                                    android:id="@+id/button_pick_contact"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/bg_rounded_gray"
+                                    android:paddingHorizontal="@dimen/margin_medium"
+                                    app:srcCompat="@drawable/ic_contact_list" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_small"
+                                android:drawablePadding="@dimen/margin_xsmall"
+                                android:text="@{@string/operator_msg + ` ` + viewModel.selectedOperator.name}"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font_small"
+                                app:drawableStartCompat="@drawable/ic_information_small_red"
+                                app:drawableTint="@color/black"
+                                tools:text="This number is MTN"
+                                app:existence="@{viewModel.selectedOperator != null}"
+                                />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_edittext"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinner_line_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:background="@android:color/transparent"
+                                android:loadData="@{viewModel.selectedOperator.lineTypes}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                style="@style/InputEt"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/margin_small"
+                                android:text="@string/line_type"
+                                android:textColor="@color/gray"
+                                android:visibility="@{viewModel.selectedOperator == null}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/iv_arrow"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_arrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margin_small"
+                                android:src="@drawable/ic_arrow_black"
+                                app:layout_constraintBottom_toBottomOf="@id/spinner_line_type"
+                                app:layout_constraintEnd_toEndOf="@id/spinner_line_type"
+                                app:layout_constraintTop_toTopOf="@id/spinner_line_type" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:orientation="vertical"
+                            app:existence="@{viewModel.selectedLineType.type.equals(Constants.POST_PAID)}">
+
+                            <EditText
+                                android:id="@+id/et_amount"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_amount"
+                                android:drawablePadding="@dimen/margin_small"
+                                android:hint="@string/Amount"
+                                android:inputType="numberDecimal"
+                                android:textDirection="ltr"
+                                android:text="@={viewModel.form.amount}"
+                                android:textColor="@color/gray" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/margin_small"
+                                app:existence="@{viewModel.selectedOperator != null}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/margin_xsmall"
+                                android:text="@{@string/maximum_msg + ` ` + viewModel.selectedOperator.maxLimit}"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font_small"
+                                app:drawableStartCompat="@drawable/ic_information_small_red"
+                                app:drawableTint="@color/black"
+                                app:existence="@{viewModel.selectedOperator != null}"
+                                tools:text="The maximum allowed amount per transfer is: 9900" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_edittext"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:existence="@{!viewModel.selectedLineType.type.equals(Constants.POST_PAID)}"
+                            tools:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinner_payment_category"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:background="@android:color/transparent"
+                                android:loadData="@{viewModel.selectedLineType.paymentCategories}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                style="@style/InputEt"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/margin_small"
+                                android:text="@string/payment_category"
+                                android:textColor="@color/gray"
+                                android:visibility="@{viewModel.selectedPaymentCategory == null}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/iv_arrow_down"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_arrow_down"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margin_small"
+                                android:src="@drawable/ic_arrow_black"
+                                app:layout_constraintBottom_toBottomOf="@id/spinner_payment_category"
+                                app:layout_constraintEnd_toEndOf="@id/spinner_payment_category"
+                                app:layout_constraintTop_toTopOf="@id/spinner_payment_category" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <Button
+                        android:id="@+id/button_submit"
+                        style="@style/ButtonPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:text="@string/submit"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/container"
+                        app:layout_constraintVertical_bias="1"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/partial_progressbar"
+            app:existence="@{viewModel.isContentLoading || viewModel.isOperatorsLoading}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

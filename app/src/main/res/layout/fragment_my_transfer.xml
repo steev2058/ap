@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.transfer.MyTransferViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/my_transfers}" />
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/padding_page_horizontal"
+            android:visibility="@{!(viewModel.isContentLoading || viewModel.isFeeLoading) &amp;&amp; !viewModel.isError()}"
+            app:layoutDescription="@xml/scene_double_expandable_accounts_recycler"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+
+            <!--                From Accounts Recycler-->
+            <include
+                android:id="@+id/layout_expandable_from_accounts_recycler"
+                layout="@layout/layout_expandable_accounts_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xsmall"
+                app:existence="@{!(viewModel.selectedAccount == null)}"
+                app:selectedAccount="@{viewModel.selectedAccount}"
+                app:title="@{@string/From}" />
+
+            <include
+                android:id="@+id/layout_expandable_to_accounts_recycler"
+                layout="@layout/layout_expandable_accounts_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xsmall"
+                app:existence="@{!(viewModel.selectedToAccount == null)}"
+                app:selectedAccount="@{viewModel.selectedToAccount}"
+                app:title="@{@string/To}" />
+
+            <include
+                android:id="@+id/layout_form"
+                layout="@layout/layout_base_transfer_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:form="@{viewModel.myTransferForm}"
+                app:layout_constraintTop_toBottomOf="@id/layout_expandable_to_accounts_recycler" />
+
+            <Button
+                android:id="@+id/button_submit"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_form"
+                app:layout_constraintVertical_bias="1"
+                />
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/partial_progressbar"
+            app:existence="@{viewModel.isContentLoading || viewModel.isFeeLoading}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

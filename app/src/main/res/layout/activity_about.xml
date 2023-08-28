@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.AboutViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:filterTouchesWhenObscured="true"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/partial_progressbar" />
+
+        <TextView
+            android:id="@+id/content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textSize="14sp"
+            android:textIsSelectable="true"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toTopOf="@id/contacts_cv"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/contacts_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="2dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ImageButton
+                    android:id="@+id/facebook_ib"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/bg_shadow_white"
+                    android:src="@drawable/ic_facebook"
+                    app:layout_constraintEnd_toStartOf="@id/website_ib"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/share_btn"
+                     />
+
+                <ImageButton
+                    android:id="@+id/website_ib"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/bg_shadow_white"
+                    android:src="@drawable/ic_website"
+                    app:layout_constraintEnd_toStartOf="@id/linkedin_ib"
+                    app:layout_constraintStart_toEndOf="@id/facebook_ib"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/share_btn"
+                    />
+
+                <ImageButton
+                    android:id="@+id/linkedin_ib"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_shadow_white"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_linkedin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/share_btn"
+                    android:padding="10dp"/>
+                <ImageButton
+                    android:id="@+id/insta_ib"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_shadow_white"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_instagram"
+                    app:layout_constraintEnd_toStartOf="@+id/telegram_ib"
+                    app:layout_constraintStart_toEndOf="@id/linkedin_ib"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/share_btn"
+                    android:padding="10dp"/>
+                <ImageButton
+                    android:id="@+id/telegram_ib"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_shadow_white"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_telegram"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/insta_ib"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/share_btn"
+                    android:padding="10dp"/>
+                <LinearLayout
+                    android:id="@+id/share_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/bg_rounded_dark_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <TextView
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Tell_a_friend_about_us"
+                        android:drawablePadding="5dp"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        app:drawableStartCompat="@drawable/ic_friends" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

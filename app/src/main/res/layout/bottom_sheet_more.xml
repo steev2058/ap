@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.apps2you.albaraka.BuildConfig" />
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.HomeViewModel" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/bottom_sheet_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <ImageView
+            android:id="@+id/close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="40dp"
+            android:elevation="9dp"
+            android:padding="10dp"
+            android:src="@drawable/close_icon"
+            app:tint="@color/black" />
+
+        <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bg_rounded_white_top"
+            android:elevation="8dp"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/tv_user"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/bg_circle_primary"
+                    android:gravity="center"
+                    android:text="@{viewModel.initial}"
+                    android:textColor="@color/white"
+                    android:textSize="36sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/tv_userName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@{viewModel.userName}"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_user" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_notification"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/Notifications"
+                    android:textAlignment="viewStart"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_notification_red"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_userName"
+                    app:thumbTint="@color/white"
+                    app:trackTint="@color/switch_track_color" />
+
+                <View
+                    android:id="@+id/divider_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/bright_gray"
+                    app:layout_constraintTop_toBottomOf="@id/switch_notification" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_touch_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/Touch_ID"
+                    android:textAlignment="viewStart"
+                    android:textSize="16sp"
+                    android:visibility="@{viewModel.showTouchIDOption ? View.VISIBLE : View.GONE}"
+                    app:drawableStartCompat="@drawable/ic_touch_id"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_notification"
+                    app:thumbTint="@color/white"
+                    app:trackTint="@color/switch_track_color" />
+
+                <View
+                    android:id="@+id/divider_touchId"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/bright_gray"
+                    android:visibility="@{viewModel.showTouchIDOption ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintTop_toBottomOf="@id/switch_touch_id" />
+
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_music"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.soundEnabled}"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:text="@string/Sound_effect"
+                    android:textAlignment="viewStart"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    app:drawableStartCompat="@drawable/ic_music"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_touchId"
+                    app:thumbTint="@color/white"
+                    app:trackTint="@color/switch_track_color" />
+
+                <View
+                    android:id="@+id/divider_music"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/bright_gray"
+                    app:layout_constraintTop_toBottomOf="@id/switch_music" />
+
+                <TextView
+                    android:id="@+id/tv_changePass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:text="@string/password_title"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    app:drawableStartCompat="@drawable/ic_change_password"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_music" />
+
+                <View
+                    android:id="@+id/divider_change_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/bright_gray"
+                    app:layout_constraintTop_toBottomOf="@id/tv_changePass" />
+
+                <TextView
+                    android:id="@+id/tv_changePin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:text="@string/pin_title"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    app:drawableStartCompat="@drawable/ic_change_pin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_change_pass" />
+
+                <View
+                    android:id="@+id/divider_change_pin"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/bright_gray"
+                    app:layout_constraintTop_toBottomOf="@id/tv_changePin" />
+
+                <TextView
+                    android:id="@+id/tv_privacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:text="@string/privacy_policy"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    app:drawableStartCompat="@drawable/ic_privacy_policy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_change_pin" />
+
+                <View
+                    android:id="@+id/divider_privacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/bright_gray"
+                    app:layout_constraintTop_toBottomOf="@id/tv_privacy" />
+
+                <TextView
+                    android:id="@+id/tv_change_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="10dp"
+                    android:padding="12dp"
+                    android:text="@string/Change_language"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_language"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_privacy" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/gray"
+                    app:layout_constraintTop_toBottomOf="@id/tv_change_language" />
+
+                <TextView
+                    android:id="@+id/tv_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:gravity="start"
+                    android:padding="12dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/logout_title"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_exit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                <TextView
+                    android:id="@+id/tv_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@{String.format(@string/version_number_with_param, BuildConfig.VERSION_NAME)}"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_logout"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+</layout>

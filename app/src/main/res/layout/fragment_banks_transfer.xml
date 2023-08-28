@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.transfer.SYGSTransferViewModel" />
+
+        <import type="com.apps2you.albaraka.data.model.SYGSType" />
+
+        <import type="com.apps2you.albaraka.ui.transfer.accountsTransfer.sygs.SYGSTransferForm.FormStatus" />
+
+        <import type="com.apps2you.albaraka.utils.BindingUtils" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/sygs_payment}" />
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/padding_page_horizontal"
+            android:visibility="@{!(viewModel.isContentLoading || viewModel.isOperatorsLoading) &amp;&amp; !viewModel.isError()}"
+            app:layoutDescription="@xml/scene_expandable_accounts_recycler"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+            <!--                Accounts Recycler-->
+            <include
+                android:id="@+id/layout_expandable_accounts_recycler"
+                layout="@layout/layout_expandable_accounts_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xsmall"
+                app:existence="@{!(viewModel.selectedAccount == null)}"
+                app:selectedAccount="@{viewModel.selectedAccount}"
+                app:title="@{@string/From}" />
+
+            <ScrollView
+                android:id="@+id/layout_form"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_expandable_accounts_recycler">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/margin_xsmall"
+                                android:text="@string/beneficiary_info"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font_small"
+                                app:drawableStartCompat="@drawable/ic_benef_info" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="0dp">
+
+                                <TextView
+                                    android:id="@+id/button_pick_bank"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawablePadding="@dimen/margin_small"
+                                    android:paddingStart="@dimen/margin_small"
+                                    android:text="@{viewModel.selectedItemLiveData == null ? @string/choose_bank : viewModel.selectedItemLiveData.name}"
+                                    android:textColor="@color/gray"
+                                    app:drawableEndCompat="@drawable/ic_arrow_black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:text="@string/choose_bank" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+
+                            <EditText
+                                android:id="@+id/et_bank_address"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/bank_address"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.bankAddress}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_BANK_ADDRESS}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+
+                            <EditText
+                                android:id="@+id/et_name"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/full_name"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.fullName}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_FULL_NAME}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+
+                            <EditText
+                                android:id="@+id/et_account_number"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/Account_Number"
+                                android:imeOptions="flagForceAscii"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.accountNo}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_BANK_ACCOUNT}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+
+                            <EditText
+                                android:id="@+id/et_beneficiary_address"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/beneficiary_address"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.beneficiaryAddress}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_BENEFICIARY_ADDRESS}" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/margin_xsmall"
+                            android:text="@string/transfer_info"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_small"
+                            app:drawableStartCompat="@drawable/ic_title_note" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_edittext"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <com.apps2you.albaraka.utils.CustomSpinner
+                                android:id="@+id/spinner_sygs_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:background="@android:color/transparent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                style="@style/InputEt"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/margin_small"
+                                android:text="@string/transfer_type"
+                                android:textColor="@color/gray"
+                                android:visibility="@{viewModel.selectedTransferType==null}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/iv_arrow"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_arrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margin_small"
+                                android:src="@drawable/ic_arrow_black"
+                                app:layout_constraintBottom_toBottomOf="@id/spinner_sygs_type"
+                                app:layout_constraintEnd_toEndOf="@id/spinner_sygs_type"
+                                app:layout_constraintTop_toTopOf="@id/spinner_sygs_type" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            existence="@{viewModel.selectedTransferType != null}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/margin_xsmall"
+                            android:text="@string/commission"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_xsmall"
+                            app:drawableStartCompat="@drawable/ic_information_small_red"
+                            app:drawableTint="@color/black" />
+
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_medium" />
+
+
+                        <EditText
+                            android:id="@+id/et_amount"
+                            style="@style/InputEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/Amount"
+                            android:inputType="numberDecimal"
+                            android:singleLine="true"
+                            android:text="@={viewModel.form.amount}"
+                            android:textColor="@color/gray"
+                            android:textDirection="ltr"
+                            app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_AMOUNT}" />
+
+                        <TextView
+                            existence="@{viewModel.selectedTransferType != null}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/margin_xsmall"
+                            android:text="@{@string/sygs_limit(BindingUtils.formatNumber(String.valueOf(viewModel.selectedTransferType.minLimit)), BindingUtils.formatNumber(String.valueOf(viewModel.selectedTransferType.maxLimit)), viewModel.selectedAccount.currency.symbol) }"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_xsmall"
+                            app:drawableStartCompat="@drawable/ic_information_small_red"
+                            app:drawableTint="@color/black" />
+
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_medium" />
+
+
+                        <EditText
+                            android:id="@+id/et_reason"
+                            style="@style/InputEt"
+                            existence="@{viewModel.selectedTransferType.id == SYGSType.General.id}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/purpose"
+                            android:singleLine="true"
+                            android:text="@={viewModel.form.reason}"
+                            android:textColor="@color/gray"
+                            app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_REASON}" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <TextView
+                            existence="@{viewModel.selectedTransferType != null &amp;&amp; viewModel.selectedTransferType.id != SYGSType.General.id}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/margin_xsmall"
+                            android:text="@{viewModel.selectedTransferType.id==SYGSType.Vehicles.id?@string/car_info:@string/property_info}"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_small"
+                            app:drawableStartCompat="@drawable/ic_title_note" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/land_layout"
+                            existence="@{viewModel.selectedTransferType.id == SYGSType.Lands.id}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:orientation="vertical">
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+
+                            <EditText
+                                android:id="@+id/et_landNo"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/ground_no"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.landNo}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_LAND_NO}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_landArea"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/property_area"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.propertyArea}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{SYGSType.getTypeById(viewModel.selectedTransferType.id) == SYGSType.Lands &amp;&amp; viewModel.form.status == FormStatus.ERROR_PROPERTY_AREA}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_contractNo"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/contract_no"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.contractNo}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{SYGSType.getTypeById(viewModel.selectedTransferType.id) == SYGSType.Lands &amp;&amp;viewModel.form.status == FormStatus.ERROR_CONTRACT_NO}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_contractDate"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:hint="@string/contract_date"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.contractDate}"
+                                android:textColor="@color/gray" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/vehicle_layout"
+                            existence="@{viewModel.selectedTransferType.id == SYGSType.Vehicles.id}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:orientation="vertical">
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+
+                            <EditText
+                                android:id="@+id/et_vehicleNo"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/vehicle_no"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.vehicleNo}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_VEHICLE_NO}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_vehicleType"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/vehicle_type"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.vehicleType}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_VEHICLE_TYPE}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_vehicleModel"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/vehicle_model"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.vehicleModel}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_VEHICLE_MODEL}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_province"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/province"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.province}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_PROVINCE}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_vehicleClass"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/vehicle_class"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.vehicleClass}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_VEHICLE_CLASS}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_vehicleContractNo"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/contract_no"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.contractNo}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{SYGSType.getTypeById(viewModel.selectedTransferType.id) == SYGSType.Vehicles &amp;&amp; viewModel.form.status == FormStatus.ERROR_CONTRACT_NO}" />
+
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_vehicleContractDate"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:hint="@string/contract_date"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.contractDate}"
+                                android:textColor="@color/gray" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_chassis"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/chassis_no"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.chassisNo}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{viewModel.form.status == FormStatus.ERROR_VEHICLE_CHASSIS}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/margin_xsmall"
+                                android:text="@string/vehicle_chassis_note"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font_xsmall"
+                                app:drawableStartCompat="@drawable/ic_information_small_red"
+                                app:drawableTint="@color/black" />
+
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/property_layout"
+                            existence="@{viewModel.selectedTransferType.id == SYGSType.Property.id}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:orientation="vertical">
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+
+                            <EditText
+                                android:id="@+id/et_propertyNo"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/property_no"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.propertyNo}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{SYGSType.getTypeById(viewModel.selectedTransferType.id) == SYGSType.Property &amp;&amp; viewModel.form.status == FormStatus.ERROR_PROPERTY_NO}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_propertyArea"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/property_area"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.propertyArea}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{SYGSType.getTypeById(viewModel.selectedTransferType.id) == SYGSType.Property &amp;&amp; viewModel.form.status == FormStatus.ERROR_PROPERTY_AREA}" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_propertyContractNo"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/contract_no"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.contractNo}"
+                                android:textColor="@color/gray"
+                                app:requestFocus="@{SYGSType.getTypeById(viewModel.selectedTransferType.id) == SYGSType.Property &amp;&amp; viewModel.form.status == FormStatus.ERROR_CONTRACT_NO}" />
+
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                            <EditText
+                                android:id="@+id/et_propertyContractDate"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:hint="@string/contract_date"
+                                android:singleLine="true"
+                                android:text="@={viewModel.form.contractDate}"
+                                android:textColor="@color/gray" />
+
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_medium" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <Button
+                        android:id="@+id/button_submit"
+                        style="@style/ButtonPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:text="@string/submit"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/container"
+                        app:layout_constraintVertical_bias="1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/partial_progressbar"
+            app:existence="@{viewModel.isContentLoading || viewModel.isOperatorsLoading}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

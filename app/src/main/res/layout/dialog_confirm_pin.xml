@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.ConfirmPinViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="300dp"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:filterTouchesWhenObscured="true"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:cardCornerRadius="@dimen/corner_radius"
+                app:contentPadding="@dimen/margin_large">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_enter_pin_code"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_small"
+                        android:gravity="center"
+                        android:text="@string/pin_code_confirm"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/font_medium"
+                        app:layout_constraintEnd_toEndOf="@id/pin_view"
+                        app:layout_constraintStart_toStartOf="@id/pin_view"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.chaos.view.PinView
+                        android:id="@+id/pin_view"
+                        style="@style/PinWidget.PinView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:cursorVisible="false"
+                        android:digits="1234567890"
+                        android:hint="----"
+                        android:imeOptions="flagForceAscii"
+                        android:inputType="numberPassword"
+                        android:itemBackground="@drawable/bg_pin_box_selector"
+                        android:text="@={viewModel.pinCode}"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/font_xlarge"
+                        android:textStyle="bold"
+                        android:visibility="@{!viewModel.isContentLoading}"
+                        app:itemCount="4"
+                        app:itemSpacing="@dimen/margin_medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_enter_pin_code"
+                        app:viewType="none" />
+
+                    <Button
+                        android:id="@+id/button_confirm"
+                        style="@style/ButtonPrimary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:onClick="@{() -> viewModel.check()}"
+                        android:text="@string/confirm"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/pin_view" />
+
+
+                    <include
+                        android:id="@+id/progressBar"
+                        layout="@layout/partial_progressbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:existence="@{viewModel.isContentLoading}"
+                        app:layout_constraintBottom_toBottomOf="@id/pin_view"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/pin_view" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
+</layout>

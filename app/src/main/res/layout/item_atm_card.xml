@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.apps2you.albaraka.data.model.AtmCard" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/corner_atm"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="ltr">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@{item.male ? @drawable/bg_atm_male : @drawable/bg_atm_female}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:0.6"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/bg_atm_male" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:text="@{item.active ? @string/active : @string/inactive}"
+                    android:textColor="@{item.active ? @color/green : @color/white}"
+                    android:drawableStart="@{item.active ? @drawable/ic_circle_active : @drawable/ic_circle_inactive}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:drawableStart="@drawable/ic_circle_active"
+                    tools:text="@string/active"
+                    tools:textColor="@color/green" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/layout_options"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{item.name}"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Ahmad Haj Kaddour" />
+
+                    <TextView
+                        android:id="@+id/tv_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@{item.cardNumber}"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_name"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                        tools:text="645549684569898" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        expiryDate="@{item.expiryDate}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_name"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_number"
+                        tools:text="29/11/2022" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_options"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginBottom="-8dp">
+
+                    <ImageButton
+                        android:id="@+id/iBtn_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:paddingHorizontal="8dp"
+                        android:src="@drawable/ic_more_horiz"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:tint="@color/white" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@{item.male ? @drawable/ic_albaraka_e_logo : @drawable/img_logo_white}"
+                        tools:src="@drawable/ic_albaraka_e_logo"
+                        app:layout_constraintBottom_toTopOf="@id/iBtn_more"
+                        app:layout_constraintEnd_toEndOf="@+id/iBtn_more" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

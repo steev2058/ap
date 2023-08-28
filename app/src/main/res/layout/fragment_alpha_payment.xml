@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.transfer.AlphaPaymentVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/padding_page_horizontal"
+            android:visibility="@{!(viewModel.isContentLoading || viewModel.isFeeLoading) &amp;&amp; !viewModel.isError()}"
+            app:layoutDescription="@xml/scene_expandable_accounts_recycler">
+
+            <!--                Accounts Recycler-->
+            <include
+                android:id="@+id/layout_expandable_accounts_recycler"
+                layout="@layout/layout_expandable_accounts_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xsmall"
+                app:existence="@{!(viewModel.selectedAccount == null)}"
+                app:selectedAccount="@{viewModel.selectedAccount}"
+                app:title="@{@string/From}" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/layout_expandable_accounts_recycler">
+
+                <EditText
+                    android:id="@+id/et_id"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:hint="@string/alpha_capital_id"
+                    android:text="@={viewModel.alphaId}"
+                    android:textColor="@color/gray"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:drawableStart="@drawable/ic_hashtag"
+                    android:drawablePadding="@dimen/margin_small"
+                    />
+
+                <EditText
+                    android:id="@+id/et_amount"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:hint="@string/Amount"
+                    android:text="@={viewModel.amount}"
+                    android:textColor="@color/gray"
+                    android:singleLine="true"
+                    android:inputType="numberDecimal"
+                    android:textDirection="ltr"
+                    android:drawableStart="@drawable/ic_amount"
+                    android:drawablePadding="@dimen/margin_small"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <Button
+                android:id="@+id/button_submit"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:text="@string/submit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_form"
+                app:layout_constraintVertical_bias="1"
+                />
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/partial_progressbar"
+            app:existence="@{viewModel.isContentLoading || viewModel.isFeeLoading}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

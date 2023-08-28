@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_schools"
+    app:startDestination="@id/schoolsPaymentFragment">
+
+    <fragment
+        android:id="@+id/schoolsPaymentFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.payment.education.schools.SchoolsPaymentFragment"
+        android:label="SchoolsPaymentFragment"
+        tools:layout="@layout/fragment_education_payment">
+        <action
+            android:id="@+id/action_schoolsPaymentFragment_to_schoolSelectionFragment"
+            app:destination="@id/schoolSelectionFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/schoolSelectionFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.payment.education.schools.SchoolSelectionFragment"
+        android:label="SchoolSelectionFragment"
+        tools:layout="@layout/fragment_item_selection" />
+</navigation>

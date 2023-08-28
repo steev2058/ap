@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config>
+
+        <trust-anchors>
+            <certificates src="@raw/albaraka" />
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    <domain-config>
+        <domain includeSubdomains="true">albarakasyria.com</domain>
+        <domain includeSubdomains="true">https://albarakasyria.com:5533</domain>
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

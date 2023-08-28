@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rounded_white"
+        android:minWidth="300dp"
+        android:padding="12dp">
+
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_padding"
+            android:paddingBottom="10dp"
+            android:gravity="center"
+            android:text="@string/Currency_calculator"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/from_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding"
+            android:text="@string/From"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_tv" />
+
+        <LinearLayout
+            android:id="@+id/from_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/from_tv">
+
+            <EditText
+                android:id="@+id/from_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@android:color/transparent"
+                android:inputType="numberDecimal"
+                android:textDirection="ltr"
+                android:padding="@dimen/text_padding" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray_line_view" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/currencies_spinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/exchange_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_exchange_arrows"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/from_layout" />
+
+
+        <TextView
+            android:id="@+id/to_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding"
+            android:text="@string/To"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/exchange_iv" />
+
+        <LinearLayout
+            android:id="@+id/to_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/to_tv">
+
+            <EditText
+                android:id="@+id/to_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:padding="@dimen/text_padding"
+                android:textColor="@color/black" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray_line_view" />
+
+            <TextView
+                android:id="@+id/syp_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/text_padding"
+                android:paddingEnd="@dimen/text_padding"
+                android:text="@string/SYP"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_submit"
+            style="@style/ButtonPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/Exchange"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/to_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

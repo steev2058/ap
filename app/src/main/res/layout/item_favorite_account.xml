@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="favorite"
+            type="com.apps2you.albaraka.data.model.FavoriteAccount" />
+
+        <variable
+            name="showCloseIcon"
+            type="boolean" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:background="@drawable/bg_shadow_white"
+        android:padding="@dimen/margin_small">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/layout_options"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{favorite.name}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_medium"
+                    tools:text="hiba" />
+
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_xxsmall"
+                    app:existence="@{favorite.CIF != null}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/cif_number + `: ` + favorite.CIF}"
+                    android:textColor="@color/colorTextGray"
+                    android:textSize="@dimen/font_small"
+                    app:existence="@{favorite.CIF != null}"
+                    tools:text="CIF: 500050" />
+
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_xxsmall"
+                    app:existence="@{favorite.GSM != null}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/GSM + `: ` + favorite.GSM}"
+                    android:textColor="@color/colorTextGray"
+                    android:textSize="@dimen/font_small"
+                    app:existence="@{favorite.GSM != null}"
+                    tools:text="GSM: 500050" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:existence="@{!showCloseIcon}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageButton
+                        android:id="@+id/button_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="@dimen/margin_xsmall"
+                        android:src="@drawable/ic_edit" />
+
+                    <Space
+                        android:layout_width="@dimen/margin_xsmall"
+                        android:layout_height="wrap_content" />
+
+                    <ImageButton
+                        android:id="@+id/button_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="@dimen/margin_xsmall"
+                        android:src="@drawable/ic_delete" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <ImageButton
+                    android:id="@+id/button_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="@dimen/margin_xsmall"
+                    android:src="@drawable/close_icon"
+                    app:existence="@{showCloseIcon}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/red"
+                    tools:visibility="gone" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.ExchangeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/guest_rate" />
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/partial_progressbar" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:iconifiedByDefault="true"
+            app:layout_constraintEnd_toStartOf="@id/tv_last_update"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:queryHint="@string/search" />
+
+        <TextView
+            android:id="@+id/tv_last_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/last_update"
+            app:layout_constraintBottom_toBottomOf="@id/search_view"
+            app:layout_constraintEnd_toStartOf="@id/tv_last_update_date"
+            app:layout_constraintTop_toTopOf="@id/search_view" />
+
+        <TextView
+            android:id="@+id/tv_last_update_date"
+            dateWYearTZ="@{viewModel.lastUpdate}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_home"
+            app:layout_constraintBottom_toBottomOf="@id/search_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/search_view" />
+
+        <LinearLayout
+            android:id="@+id/table_titles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_home"
+            android:layout_marginTop="@dimen/padding_home"
+            android:layout_marginEnd="@dimen/padding_home"
+            android:weightSum="4"
+            app:layout_constraintTop_toBottomOf="@id/search_view">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/currency"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="@string/buying_rate"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/selling_rate"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/padding_home"
+            android:layout_marginTop="@dimen/padding_home"
+            android:layout_marginEnd="@dimen/padding_home"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/calculator_iv"
+            app:layout_constraintTop_toBottomOf="@id/table_titles"
+            tools:itemCount="15"
+            tools:listitem="@layout/item_exchange_rate" />
+        <ImageView
+            android:id="@+id/calculator_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/recyclerView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_balance_sheet"
+            android:background="@drawable/bg_circle_primary"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="17dp"
+            android:paddingEnd="17dp"
+            android:layout_margin="8dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

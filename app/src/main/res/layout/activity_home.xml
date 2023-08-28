@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.apps2you.albaraka.viewmodels.HomeViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.HomeViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:filterTouchesWhenObscured="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:contentInsetStart="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/padding_home"
+                    android:paddingEnd="@dimen/padding_home">
+
+                    <ImageButton
+                        android:id="@+id/iBtn_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_logout" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/padding_home"
+                        android:layout_toStartOf="@+id/iBtn_more">
+
+                        <ImageButton
+                            android:id="@+id/iBtn_notifications"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_notification"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="19dp"
+                            android:layout_height="19dp"
+                            android:background="@drawable/bg_circle_orange"
+                            android:gravity="center"
+                            android:lines="1"
+                            android:text="@{HomeViewModel.notificationCount.toString()}"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:visibility="@{HomeViewModel.notificationCount > 0 ? View.VISIBLE : View.GONE}"
+                            app:layout_constraintEnd_toEndOf="@id/iBtn_notifications"
+                            app:layout_constraintTop_toTopOf="@id/iBtn_notifications" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageButton
+                        android:id="@+id/iBtn_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_more" />
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <fragment
+                android:id="@+id/fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:navGraph="@navigation/nav_home" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rounded_white_top"
+                android:elevation="8dp"
+                app:labelVisibilityMode="labeled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:menu="@menu/menu_home_bottom" />
+
+            <ImageButton
+                android:id="@+id/iBtn_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_shadow_primary"
+                android:elevation="8dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_qr_code"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+            <!-- Adding bottom sheet after main content -->
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/bottom_sheet"
+            layout="@layout/bottom_sheet_more" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

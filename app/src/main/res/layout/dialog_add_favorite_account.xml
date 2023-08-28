@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.transfer.FavoriteAccountsViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:filterTouchesWhenObscured="true"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:cardCornerRadius="@dimen/corner_radius"
+                app:contentPadding="@dimen/margin_large">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_favorite_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/favorite_account"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/font_large"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/layout_fields"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_large"
+                        android:orientation="vertical"
+                        android:visibility="@{!viewModel.isContentLoading}"
+                        app:layout_constraintTop_toBottomOf="@id/tv_favorite_account">
+
+                        <EditText
+                            android:id="@+id/edit_text_account_name"
+                            style="@style/InputEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/Account_Name"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:text="@={viewModel.addFavoriteAccountForm.accountName}" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_small" />
+
+                        <EditText
+                            android:id="@+id/edit_text_cif_number"
+                            style="@style/InputEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/cif_number"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:text="@={viewModel.addFavoriteAccountForm.accountCIF}" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_small" />
+
+                        <EditText
+                            android:id="@+id/edit_text_gsm_number"
+                            style="@style/InputEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/GSM"
+                            android:inputType="phone"
+                            android:maxLines="1"
+                            android:text="@={viewModel.addFavoriteAccountForm.accountGSM}" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <Button
+                        android:id="@+id/button_save"
+                        style="@style/ButtonPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_large"
+                        android:text="@string/action_save"
+                        app:layout_constraintTop_toBottomOf="@id/layout_fields" />
+
+
+                    <include
+                        android:id="@+id/progressBar"
+                        layout="@layout/partial_progressbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:existence="@{viewModel.isContentLoading}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
+</layout>

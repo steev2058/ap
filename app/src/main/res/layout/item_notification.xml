@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.apps2you.albaraka.data.model.NotificationContent" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/iv_notification"
+            notificationImage="@{item.type}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:text="@{item.title}"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            titleFontOfLanguage="@{item.title}"
+            app:layout_constraintEnd_toStartOf="@+id/iBtn_more"
+            app:layout_constraintStart_toEndOf="@id/iv_notification"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{item.text}"
+            fontOfLanguage="@{item.text}"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            dateTZ="@{item.createdAt}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAlignment="viewEnd"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/gray_light"
+            app:layout_constraintTop_toBottomOf="@id/tv_text" />
+
+        <ImageButton
+            android:id="@+id/iBtn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:src="@drawable/ic_more"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

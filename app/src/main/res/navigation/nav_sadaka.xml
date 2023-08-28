@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_sadaka"
+    app:startDestination="@id/sadakaFragment">
+
+    <fragment
+        android:id="@+id/sadakaFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.sadaka.SadakaFragment"
+        android:label=""
+        tools:layout="@layout/fragment_sadaka">
+        <action
+            android:id="@+id/action_sadakaFragment_to_charitiesFragment"
+            app:destination="@id/charitiesFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/charitiesFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.sadaka.charities.CharitiesFragment"
+        android:label=""
+        tools:layout="@layout/fragment_item_selection" />
+
+</navigation>

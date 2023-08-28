@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.apps2you.albaraka.data.model.QuickService" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_padding"
+        android:background="@drawable/bg_shadow_white">
+
+        <ImageView
+            android:id="@+id/iv_drag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@drawable/ic_drag_n_drop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_services"
+            serviceIcon="@{item.id}"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="start|center_vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:drawablePadding="10dp"
+            android:text="@{item.name}"
+            android:textAlignment="gravity"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/switch_notification"
+            app:layout_constraintStart_toEndOf="@+id/iv_drag"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={item.enabled}"
+            android:drawablePadding="8dp"
+            android:padding="12dp"
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:thumbTint="@color/white"
+            app:trackTint="@color/switch_track_color" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

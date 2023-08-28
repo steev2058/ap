@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="corner_atm">16dp</dimen>
+
+    <dimen name="padding_guest">12dp</dimen>
+    <dimen name="margin_guest">4dp</dimen>
+    <dimen name="padding_home">12dp</dimen>
+    <dimen name="padding_details">12dp</dimen>
+    <dimen name="padding_calculator">16dp</dimen>
+    <dimen name="line_height">0.5dp</dimen>
+
+    <dimen name="text_padding">8dp</dimen>
+    <dimen name="x_Title">32sp</dimen>
+    <dimen name="title">24sp</dimen>
+
+
+    <dimen name="font_xsmall">@dimen/_8ssp</dimen>
+    <dimen name="font_small">@dimen/_10ssp</dimen>
+    <dimen name="font_medium">@dimen/_12ssp</dimen>
+    <dimen name="font_large">@dimen/_14ssp</dimen>
+    <dimen name="font_xlarge">@dimen/_16ssp</dimen>
+    <dimen name="font_xxlarge">@dimen/_20ssp</dimen>
+    <dimen name="font_xxxlarge">@dimen/_24ssp</dimen>
+
+    <dimen name="margin_xxsmall">@dimen/_2sdp</dimen>
+    <dimen name="margin_xsmall">@dimen/_5sdp</dimen>
+    <dimen name="margin_small">@dimen/_10sdp</dimen>
+    <dimen name="margin_medium">@dimen/_14sdp</dimen>
+    <dimen name="margin_large">@dimen/_20sdp</dimen>
+    <dimen name="margin_xlarge">@dimen/_24sdp</dimen>
+    <dimen name="margin_xxlarge">@dimen/_30sdp</dimen>
+
+    <dimen name="padding_page_horizontal">@dimen/_12sdp</dimen>
+
+</resources>

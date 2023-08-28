@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_restaurants"
+    app:startDestination="@id/restaurantsPaymentFragment">
+
+    <fragment
+        android:id="@+id/restaurantsPaymentFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.payment.restaurants.RestaurantsPaymentFragment"
+        android:label="RestaurantsPaymentFragment"
+        tools:layout="@layout/fragment_restuaurant_payment">
+        <action
+            android:id="@+id/action_restaurantsPaymentFragment_to_restaurantSelectionFragment"
+            app:destination="@id/restaurantSelectionFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down"/>
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantSelectionFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.payment.restaurants.RestaurantSelectionFragment"
+        android:label="RestaurantSelectionFragment"
+        tools:layout="@layout/fragment_item_selection"/>
+</navigation>

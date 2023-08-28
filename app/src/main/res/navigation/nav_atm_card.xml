@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_my_services"
+    app:startDestination="@id/atmCardsFragment">
+
+    <fragment
+        android:id="@+id/atmCardsFragment"
+        android:name="com.apps2you.albaraka.ui.atmCard.AtmCardsFragment"
+        tools:layout="@layout/fragment_atm_cards"
+        >
+        <action
+            android:id="@+id/action_atmCardsFragment_to_atmLimitsFragment"
+            app:destination="@id/atmLimitsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/atmLimitsFragment"
+        android:name="com.apps2you.albaraka.ui.atmCard.AtmLimitsFragment"
+        tools:layout="@layout/fragment_atm_limits"
+        />
+</navigation>

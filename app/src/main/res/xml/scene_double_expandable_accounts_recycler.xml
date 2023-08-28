@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/collapsed">
+        <Constraint
+            android:id="@id/layout_expandable_from_accounts_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/layout_expandable_to_accounts_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/layout_expandable_from_accounts_recycler" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/expandFrom">
+        <Constraint
+            android:id="@id/layout_expandable_from_accounts_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="2dp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/expandTo">
+        <Constraint
+            android:id="@id/layout_expandable_to_accounts_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="2dp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_expandable_from_accounts_recycler" />
+    </ConstraintSet>
+
+    <Transition
+        app:duration="200"
+        motion:constraintSetEnd="@id/expandFrom"
+        motion:constraintSetStart="@id/collapsed">
+
+        <OnClick motion:targetId="@id/layout_expandable_from_accounts_recycler" />
+
+    </Transition>
+
+    <Transition
+        app:duration="200"
+        motion:constraintSetEnd="@id/expandTo"
+        motion:constraintSetStart="@id/collapsed">
+
+        <OnClick motion:targetId="@id/layout_expandable_to_accounts_recycler" />
+
+    </Transition>
+</MotionScene>

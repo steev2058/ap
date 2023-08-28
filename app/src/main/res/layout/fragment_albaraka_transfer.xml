@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.transfer.AlBarakaTransferViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/alBaraka_transfer}" />
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/padding_page_horizontal"
+            android:visibility="@{!(viewModel.isContentLoading || viewModel.isFeeLoading) &amp;&amp; !viewModel.isError()}"
+            app:layoutDescription="@xml/scene_expandable_accounts_recycler"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+            <!--                Accounts Recycler-->
+            <include
+                android:id="@+id/layout_expandable_accounts_recycler"
+                layout="@layout/layout_expandable_accounts_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xsmall"
+                app:existence="@{!(viewModel.selectedAccount == null)}"
+                app:selectedAccount="@{viewModel.selectedAccount}"
+                app:title="@{@string/From}" />
+
+            <ScrollView
+                android:id="@+id/layout_form"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_expandable_accounts_recycler">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/To"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_medium"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/button_favorite_list"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/button_favorite_list" />
+
+                    <Button
+                        android:id="@+id/button_favorite_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:background="@drawable/bg_shadow_white"
+                        android:drawableStart="@{viewModel.alBarakaTransferForm.selectedFavoriteAccount == null ? @drawable/ic_star : @drawable/ic_star_filled, default=@drawable/ic_star}"
+                        android:drawableEnd="@drawable/ic_list"
+                        android:drawablePadding="@dimen/margin_small"
+                        android:minHeight="0dp"
+                        android:paddingHorizontal="@dimen/margin_small"
+                        android:paddingVertical="@dimen/margin_small"
+                        android:text="@string/favorite_list"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorTextGray"
+                        app:iconPadding="@dimen/margin_xsmall"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!--                    Transfer options radio group-->
+                    <RadioGroup
+                        android:id="@+id/rg_transfer_options"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:checkedButton="@id/rb_cif"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/margin_large"
+                        app:existence="@{viewModel.alBarakaTransferForm.selectedFavoriteAccount == null}"
+                        app:layout_constraintTop_toBottomOf="@+id/button_favorite_list">
+
+                        <RadioButton
+                            android:id="@+id/rb_cif"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:buttonTint="@color/radio_button_color"
+                            android:onClick="@{() -> viewModel.alBarakaTransferForm.setTransferUsingCIF(true)}"
+                            android:padding="10dp"
+                            android:text="@string/cif_number" />
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/rb_gsm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:buttonTint="@color/radio_button_color"
+                            android:onClick="@{() -> viewModel.alBarakaTransferForm.setTransferUsingCIF(false)}"
+                            android:padding="10dp"
+                            android:text="@string/GSM" />
+                    </RadioGroup>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_to_account_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/rg_transfer_options">
+
+                        <RelativeLayout
+                            android:id="@+id/layout_selected_transfer_option"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:animateLayoutChanges="true"
+                            app:existence="@{viewModel.alBarakaTransferForm.selectedFavoriteAccount == null}">
+
+                            <!--                    CIF number-->
+                            <com.apps2you.albaraka.utils.NoMenuEditText
+                                android:id="@+id/et_cif_number"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_hashtag"
+                                android:drawablePadding="@dimen/margin_small"
+                                android:hint="@string/cif_number"
+                                android:inputType="number"
+                                android:text="@={viewModel.alBarakaTransferForm.toCIFNumber}"
+                                android:textColor="@color/gray"
+                                app:existence="@{viewModel.alBarakaTransferForm.transferToCIF}"
+                                tools:visibility="gone" />
+
+                            <!--                    GSM number-->
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/layout_gsm"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:existence="@{!viewModel.alBarakaTransferForm.transferToCIF}">
+
+                                <EditText
+                                    android:id="@+id/et_gsm_number"
+                                    style="@style/InputEt"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/margin_small"
+                                    android:drawableStart="@drawable/ic_hashtag"
+                                    android:drawablePadding="@dimen/margin_small"
+                                    android:hint="@string/GSM"
+                                    android:inputType="phone"
+                                    android:text="@={viewModel.alBarakaTransferForm.toGSMNumber}"
+                                    android:textColor="@color/gray"
+                                    app:layout_constraintEnd_toStartOf="@+id/button_pick_contact"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageButton
+                                    android:id="@+id/button_pick_contact"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/bg_rounded_gray"
+                                    android:paddingHorizontal="@dimen/margin_medium"
+                                    app:layout_constraintBottom_toBottomOf="@+id/et_gsm_number"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/et_gsm_number"
+                                    app:srcCompat="@drawable/ic_contact_list" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_small"
+                                    android:drawablePadding="@dimen/margin_xsmall"
+                                    android:text="@string/gsm_condition"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/font_small"
+                                    app:drawableStartCompat="@drawable/ic_information_small_red"
+                                    app:drawableTint="@color/black"
+                                    app:layout_constraintStart_toStartOf="@+id/et_gsm_number"
+                                    app:layout_constraintTop_toBottomOf="@+id/et_gsm_number" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </RelativeLayout>
+
+                        <!--                                Selected favorite account-->
+                        <include
+                            android:id="@+id/layout_selected_favorite_account"
+                            layout="@layout/item_favorite_account"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:existence="@{viewModel.alBarakaTransferForm.selectedFavoriteAccount != null}"
+                            app:favorite="@{viewModel.alBarakaTransferForm.selectedFavoriteAccount}"
+                            app:showCloseIcon="@{true}"
+                            tools:visibility="gone" />
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/et_amount"
+                        style="@style/InputEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:drawableStart="@drawable/ic_amount"
+                        android:drawablePadding="@dimen/margin_small"
+                        android:hint="@string/Amount"
+                        android:inputType="numberDecimal"
+                        android:text="@={viewModel.alBarakaTransferForm.amount}"
+                        android:textColor="@color/gray"
+                        android:textDirection="ltr"
+                        app:layout_constraintTop_toBottomOf="@id/layout_to_account_info" />
+
+                    <EditText
+                        android:id="@+id/et_reason"
+                        style="@style/InputEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:drawableStart="@drawable/ic_reason"
+                        android:drawablePadding="@dimen/margin_small"
+                        android:hint="@string/purpose"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text="@={viewModel.alBarakaTransferForm.reason}"
+                        android:textColor="@color/gray"
+                        app:layout_constraintTop_toBottomOf="@id/et_amount" />
+
+                    <TextView
+                        android:id="@+id/button_add_to_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:drawablePadding="@dimen/margin_small"
+                        android:focusable="true"
+                        android:paddingVertical="@dimen/margin_xsmall"
+                        android:text="@string/add_account"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorTextGray"
+                        app:drawableStartCompat="@drawable/ic_star_filled"
+                        app:existence="@{viewModel.alBarakaTransferForm.selectedFavoriteAccount == null}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/et_reason" />
+
+                    <Button
+                        android:id="@+id/button_submit"
+                        style="@style/ButtonPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:text="@string/submit"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/button_add_to_favorites"
+                        app:layout_constraintVertical_bias="1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/partial_progressbar"
+            app:existence="@{viewModel.isContentLoading || viewModel.isFeeLoading}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

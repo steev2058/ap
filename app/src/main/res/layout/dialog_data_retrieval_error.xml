@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="emittedException"
+            type="Exception" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="@dimen/corner_radius">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_page_horizontal"
+                android:layout_marginVertical="@dimen/margin_xlarge"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:errorSrc="@{emittedException}"
+                    tools:src="@drawable/img_no_internet" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_xlarge" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/font_xxlarge"
+                    app:errorTitle="@{emittedException}"
+                    tools:text="@string/no_internet_title" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_xxsmall" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/font_small"
+                    app:errorMessage="@{emittedException}"
+                    tools:text="@string/no_internet_message" />
+
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_large" />
+
+                <Button
+                    android:id="@+id/button_retry"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_xlarge"
+                    android:backgroundTint="@color/dark_gray"
+                    android:text="@string/try_again"
+                    app:layout_constraintEnd_toEndOf="@id/layout_error"
+                    app:layout_constraintStart_toStartOf="@id/layout_error"
+                    app:layout_constraintTop_toBottomOf="@id/layout_error" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</layout>

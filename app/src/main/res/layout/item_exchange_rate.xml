@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.apps2you.albaraka.data.model.ExchangeRate" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:weightSum="4"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+                <ImageView
+                    android:id="@+id/iv_currency_flag"
+                    imageUrl="@{item.currency.flag}"
+                    android:layout_width="35dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true" />
+
+                <TextView
+                    android:id="@+id/tv_currency_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@id/iv_currency_flag"
+                    android:gravity="center_vertical|start"
+                    android:lines="1"
+                    android:text="@{item.currency.symbol}"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_buy"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:lines="1"
+                android:textAlignment="center"
+                formattedNum="@{item.buyingRate}"
+                />
+
+            <TextView
+                android:id="@+id/tv_sell"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:lines="1"
+                android:textAlignment="viewEnd"
+                formattedNum="@{item.sellingRate}"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@color/bright_gray"
+            app:layout_constraintTop_toBottomOf="@id/item_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

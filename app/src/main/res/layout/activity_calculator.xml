@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:filterTouchesWhenObscured="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_calculator"
+            android:layout_marginEnd="@dimen/padding_calculator"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <RadioButton
+                android:id="@+id/btn_financing"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/selector_calculator"
+                android:button="@null"
+                android:drawableTop="@drawable/ic_financing"
+                android:drawablePadding="8dp"
+                android:padding="8dp"
+                android:text="@string/finance_calculator"
+                android:textAlignment="center"
+                android:textColor="@color/radio_button_color" />
+
+            <RadioButton
+                android:id="@+id/btn_profits"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@drawable/selector_calculator"
+                android:button="@null"
+                android:drawableTop="@drawable/ic_profits"
+                android:drawablePadding="8dp"
+                android:padding="8dp"
+                android:text="@string/profits_and_deposit_calculate"
+                android:textAlignment="center"
+                android:textColor="@color/radio_button_color" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/radio_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_calculator"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/padding_calculator"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/radio">
+
+            <RadioButton
+                android:id="@+id/btn_profits_cal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@drawable/selector_profit"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/profit_calculator"
+                android:textAlignment="center"
+                android:textColor="@color/radio_text_color" />
+        </RadioGroup>
+
+        <fragment
+            android:id="@+id/fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_sub"
+            app:navGraph="@navigation/nav_calculator" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_calculator"
+    app:startDestination="@id/financingFragment">
+
+
+    <fragment
+        android:id="@+id/financingFragment"
+        android:name="com.apps2you.albaraka.ui.calculator.FinancingFragment"
+        tools:layout="@layout/fragment_financing"
+        android:label=""
+        />
+
+    <fragment
+        android:id="@+id/profitsFragment"
+        android:name="com.apps2you.albaraka.ui.calculator.ProfitsFragment"
+        tools:layout="@layout/fragment_profits"
+        android:label=""
+        />
+
+    <fragment
+        android:id="@+id/depositFragment"
+        android:name="com.apps2you.albaraka.ui.calculator.DepositFragment"
+        tools:layout="@layout/fragment_deposite"
+        android:label="" />
+</navigation>

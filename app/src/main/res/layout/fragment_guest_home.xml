@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.text.Html" />
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.ui.base.BaseViewModel" />
+    </data>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:padding="@dimen/padding_guest">
+
+            <Button
+                android:id="@+id/btn_services"
+                style="@style/ButtonGuest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:lines="2"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/more_services"
+                app:drawableTopCompat="@drawable/ic_services"
+                app:layout_constraintBottom_toTopOf="@+id/btn_complaint"
+                app:layout_constraintEnd_toStartOf="@+id/btn_locations"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <Button
+                android:id="@+id/btn_locations"
+                style="@style/ButtonGuest"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/margin_guest"
+                android:text="@string/guest_locations"
+                app:drawableTopCompat="@drawable/ic_location"
+                app:layout_constraintBottom_toBottomOf="@id/btn_services"
+                app:layout_constraintEnd_toStartOf="@id/btn_financing"
+                app:layout_constraintStart_toEndOf="@id/btn_services"
+                app:layout_constraintTop_toTopOf="@+id/btn_services" />
+
+            <Button
+                android:id="@+id/btn_financing"
+                style="@style/ButtonGuest"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/margin_guest"
+                android:text="@string/financing"
+                app:drawableTopCompat="@drawable/ic_financing_service"
+                app:layout_constraintBottom_toBottomOf="@id/btn_services"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_locations"
+                app:layout_constraintTop_toTopOf="@+id/btn_services" />
+
+            <Button
+                android:id="@+id/btn_complaint"
+                style="@style/ButtonGuest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_guest"
+                android:lines="2"
+                android:text="@string/guest_complaints"
+                app:drawableTopCompat="@drawable/ic_complaint"
+                app:layout_constraintBottom_toTopOf="@+id/view"
+                app:layout_constraintEnd_toStartOf="@+id/btn_about"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_services" />
+
+            <Button
+                android:id="@+id/btn_about"
+                style="@style/ButtonGuest"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/margin_guest"
+                android:text="@string/About_us"
+                app:drawableTopCompat="@drawable/ic_logo_outlined"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_complaint"
+                app:layout_constraintEnd_toStartOf="@+id/btn_calculator"
+                app:layout_constraintStart_toEndOf="@+id/btn_complaint"
+                app:layout_constraintTop_toTopOf="@+id/btn_complaint" />
+
+            <Button
+                android:id="@+id/btn_calculator"
+                style="@style/ButtonGuest"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/margin_guest"
+                android:text="@string/profits_and_deposit_calculate"
+                app:drawableTopCompat="@drawable/ic_calculator"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_complaint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_about"
+                app:layout_constraintTop_toTopOf="@+id/btn_complaint" />
+
+            <LinearLayout
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_guest"
+                android:background="@drawable/bg_shadow_white"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_guest"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_complaint">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/padding_guest"
+                    android:text="@{Html.fromHtml(@string/guest_intro)}"
+                    android:textAlignment="center"
+                    android:textColor="@color/gray"
+                    app:drawableTopCompat="@drawable/img_guest" />
+
+                <Button
+                    android:id="@+id/btn_login"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_guest"
+                    android:text="@string/login" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
