@@ -31,6 +31,7 @@
     <string name="code">Code</string>
     <string name="guest_complaints">Complaints</string>
     <string name="more_complaints">Complaints and suggestions</string>
+    <string name="more_kyc">Kyc</string>
     <string name="error_connection">Connection error!</string>
     <string name="contact_information">Contact information</string>
     <string name="Contact_us">Contact us</string>
@@ -53,6 +54,16 @@
     <string name="Exchange">Exchange</string>
     <string name="guest_rate">Exchange rate</string>
     <string name="first_name">First Name</string>
+    <string name="father_name">Father Name</string>
+    <string name="mother_name">Mother Name</string>
+    <string name="mother_last_name">Mother Last Name</string>
+    <string name="place_of_birth">Place Of Birth</string>
+    <string name="date_of_birth">Date Of Birth</string>
+    <string name="normal_account">Kyc</string>
+    <string name="btn_previous">Previous</string>
+    <string name="btn_next">Next</string>
+
+    <string name="student_account">Student Kyc</string>
     <string name="From">From</string>
     <string name="from_account">From %1$s</string>
     <string name="home_menu_main">Home</string>
@@ -83,6 +94,7 @@
     <string name="login_using_finger_print">or login using fingerprint</string>
     <string name="password">Password</string>
     <string name="personal_information">Personal information</string>
+    <string name="personal_information_kyc">Personal information-In Arabic[Click to fill in data automatically]</string>
     <string name="place_of_incident">Place of incident</string>
     <string name="login_error_required">Please enter CIF number and password</string>
     <string name="code_error">Please enter the code</string>
@@ -312,6 +324,22 @@
     <string name="alpha_capital_id">Alpha Capital id</string>
     <string name="gsm_condition">User should subscribe with Done service</string>
     <string name="delete">Delete</string>
+    <string name="job_kyc">Job</string>
+    <string name="enter_numbers_here">Enter numbers here</string>
+    <string name="auth_term_1">I authorize the bank to deduct the value of the stamps necessary for the request to issue the card (more information, call center 011-9525)</string>
+    <string name="commission_card_kyc">Card issuance commission: 40,000 SYP</string>
+    <string name="payed_card_kyc">Payed when you receive the card.</string>
+    <string name="first_name_en">First name in English</string>
+    <string name="father_name_en">Father name in English</string>
+    <string name="last_name_en">Last name in English</string>
+    <string name="student">Student</string>
+    <string name="issuing_card">Issuing a card for the account</string>
+    <string name="id_back_side">ID/back side</string>
+    <string name="id_front_side">ID/front side</string>
+    <string name="university_card">University card</string>
+    <string name="personal_image">Personal Image</string>
+    <string name="download_attachments">Click to download the required attachments</string>
+    <string name="FATCA">Foreign Account Tax Compliance Act (FATCA)</string>
     <string name="invalid_date">Please enter a valid date</string>
     <string name="charge">Charge</string>
     <string name="gsm_number_validate">Please enter a valid number</string>
@@ -323,4 +351,19 @@
     <string name="write_external_storage_permission">Write External Storage Permission</string>
     <string name="msg_write_external_storage_permission">alBaraka app requires access to the external storage in order to save files</string>
     <string name="cancel">Cancel</string>
+    <string name="address">Address</string>
+    <string name="phone_number_kyc">Phone Number</string>
+    <string name="alqayd">alqayd</string>
+    <string name="place_of_issue">Place of Issue</string>
+    <string name="national_number">National Number</string>
+    <string name="personal_info_kyc_qr">[Click to fill data]</string>
+    <string name="step_two_title">Identity proof document data</string>
+
+    <array name="details">
+        <item>Personal Data</item>
+        <item>Identity proof</item>
+        <item>Contact and Work</item>
+        <item>Attachments</item>
+        <item>Card</item>
+    </array>
 </resources>

@@ -1,13 +1,20 @@
 package com.apps2you.albaraka.ui.complaints
 
+import android.os.Bundle
 import android.view.MenuItem
 import com.apps2you.albaraka.BR
 import com.apps2you.albaraka.R
 import com.apps2you.albaraka.databinding.ActivityComplaintBinding
+import com.apps2you.albaraka.databinding.ActivityKycBinding
 import com.apps2you.albaraka.ui.base.BaseActivity
+import com.apps2you.albaraka.ui.base.BaseViewModel
 import com.apps2you.albaraka.viewmodels.ComplaintViewModel
+import com.apps2you.albaraka.viewmodels.KycViewModel
 
 class ComplaintActivity : BaseActivity<ActivityComplaintBinding, ComplaintViewModel>() {
+
+
+
 
     override fun getBindingVariable(): Int {
         return BR.viewModel

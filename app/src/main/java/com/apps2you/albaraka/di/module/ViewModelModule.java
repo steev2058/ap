@@ -12,6 +12,7 @@ import com.apps2you.albaraka.viewmodels.DepositCalculatorVM;
 import com.apps2you.albaraka.viewmodels.ExchangeViewModel;
 import com.apps2you.albaraka.viewmodels.FinancingCalculatorVM;
 import com.apps2you.albaraka.viewmodels.HomeViewModel;
+import com.apps2you.albaraka.viewmodels.KycViewModel;
 import com.apps2you.albaraka.viewmodels.LocationsVM;
 import com.apps2you.albaraka.viewmodels.LoginViewModel;
 import com.apps2you.albaraka.viewmodels.NotificationsViewModel;
@@ -89,6 +90,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ComplaintViewModel.class)
     abstract ViewModel bindsComplaintViewModel(ComplaintViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(KycViewModel.class)
+    abstract ViewModel bindsKycViewModel(KycViewModel viewModel);
 
     @Binds
     @IntoMap
@@ -200,4 +206,5 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AtmViewModel.class)
     abstract ViewModel bindsAtmViewModel(AtmViewModel viewModel);
+
 }

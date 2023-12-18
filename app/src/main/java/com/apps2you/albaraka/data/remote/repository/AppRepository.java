@@ -7,6 +7,7 @@ import com.apps2you.albaraka.data.model.About;
 import com.apps2you.albaraka.data.model.Branch;
 import com.apps2you.albaraka.data.model.City;
 import com.apps2you.albaraka.data.model.Complaint;
+import com.apps2you.albaraka.data.model.Kyc;
 import com.apps2you.albaraka.data.model.NotificationContent;
 import com.apps2you.albaraka.data.model.PrivacyPolicy;
 import com.apps2you.albaraka.data.model.ProductCategory;
@@ -108,6 +109,34 @@ public class AppRepository {
                         complaint.getBranchID(),
                         complaint.getComplaintDate(),
                         complaint.getMessage());
+            }
+        }.getAsLiveServerData();
+    }
+
+
+
+
+    public LiveData<Resource<ArrayList<Title>>> getKycTitles() {
+        return new NetworkBoundResource<ArrayList<Title>>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<ArrayList<Title>>> createCall() {
+                return apiService.getKycTitles();
+            }
+        }.getAsLiveServerData();
+    }
+
+    public LiveData<Resource<Kyc>> sendKyc(Kyc kyc) {
+        return new NetworkBoundResource<Kyc>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<Kyc>> createCall() {
+                return apiService.kyc(
+                        kyc.getFirstName(),
+                        kyc.getFatherName(),
+                        kyc.getMobileNumber(),
+                        kyc.getMotherName(),
+                        kyc.getEmail());
             }
         }.getAsLiveServerData();
     }

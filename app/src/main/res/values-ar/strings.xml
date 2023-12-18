@@ -31,6 +31,8 @@
     <string name="code">الرمز</string>
     <string name="guest_complaints">شكاوى ومقترحات</string>
     <string name="more_complaints">شكاوى ومقترحات</string>
+    <string name="more_kyc">طلب حساب إلكتروني</string>
+    <string name="personal_information_kyc">البيانات الشخصية-باللغة العربية[اضغط لتعبئة البيانات]</string>
     <string name="error_connection">حدث خطأ في الاتصال!</string>
     <string name="contact_information">معلومات جهة الاتصال</string>
     <string name="Contact_us">تواصل معنا</string>
@@ -53,16 +55,47 @@
     <string name="Exchange">تحويل</string>
     <string name="guest_rate">سعر الصرف</string>
     <string name="first_name">الاسم</string>
+    <string name="father_name">اسم الأب</string>
+    <string name="mother_name">اسم الأم</string>
+    <string name="mother_last_name">نسبة الأم</string>
+    <string name="place_of_birth">مكان الولادة</string>
+    <string name="date_of_birth">تاريخ الميلاد</string>
+    <string name="normal_account">حساب إلكتروني</string>
+    <string name="student_account">حساب طلابي (عالمي)</string>
+    <string name="btn_previous">السابق</string>
+    <string name="btn_next">التالي</string>
     <string name="From">من</string>
     <string name="from_account">من %1$s</string>
     <string name="home_menu_main">الرئيسية</string>
     <string name="Invite_Friends">دعوة أصدقاء</string>
     <string name="guest_intro">انضم لنا لتعرف أكثر عن بنك البركة وخدماته</string>
-    <string name="last_name">اسم العائلة</string>
+    <string name="last_name">النسبة</string>
+    <string name="step_two_title">بيانات وثيقة إثبات الشخصية</string>
+    <string name="national_number">الرقم الوطني</string>
     <string name="home_last_seen">آخر ظهور</string>
     <string name="last_update">آخر تحديث</string>
     <string name="loading">جاري التحميل..</string>
     <string name="guest_locations">المواقع</string>
+    <string name="place_of_issue">مكان الإصدار(الأمانة)</string>
+    <string name="alqayd">القيد</string>
+    <string name="address">العنوان</string>
+    <string name="job_kyc">المهنة</string>
+    <string name="first_name_en">الاسم الأول باللغة الانكليزية</string>
+    <string name="commission_card_kyc"> عمولة اصدار البطاقة: 40,000 ل.س</string>
+    <string name="payed_card_kyc"> تدفع عند استلام البطاقة.</string>
+    <string name="enter_numbers_here">أدخل الارقام هنا</string>
+    <string name="auth_term_1"> افوض البنك باقتطاع قيمة الطوابع اللازمة لطلب اصدار البطاقة ( لمزيد من المعلومات مركز الاتصال 011-9525) </string>
+    <string name="last_name_en">الكنية باللغة الانكليزية</string>
+    <string name="student">طالب جامعي</string>
+    <string name="father_name_en">اسم الأب باللغة الانكليزية</string>
+    <string name="personal_image">الصورة الشخصية </string>
+    <string name="id_back_side">الهوية/الوجه الخلفي</string>
+    <string name="id_front_side">الهوية/الوجه الأمامي</string>
+    <string name="issuing_card">إصدار بطاقة للحساب</string>
+    <string name="university_card">البطاقة الجامعية</string>
+    <string name="download_attachments">اضغط لتحميل المرفقات المطلوبة</string>
+    <string name="FATCA">قانون الامتثال الضريبي للحسابات الخارجية (FATCA)</string>
+    <string name="phone_number_kyc">رقم الموبايل</string>
     <string name="Logging_in_to_access_password">تسجيل الدخول للوصول إلى كلمة المرور</string>
     <string name="login">تسجيل الدخول</string>
     <string name="logout_title">تسجيل الخروج</string>
@@ -323,4 +356,12 @@
     <string name="write_external_storage_permission">إذن الوصول للتخزين الخارجي</string>
     <string name="msg_write_external_storage_permission">يتطلب تطبيق البركة الوصول إلى وحدة التخزين الخارجية من أجل حفظ الملفات</string>
     <string name="cancel">الغاء</string>
+    <string name="personal_info_kyc_qr">[اضغط لتعبئة البيانات]</string>
+    <array name="details">
+        <item>البيانات الشخصية</item>
+        <item> إثبات الشخصية</item>
+        <item>الاتصال والعمل</item>
+        <item>المرفقات</item>
+        <item>البطاقة</item>
+    </array>
 </resources>

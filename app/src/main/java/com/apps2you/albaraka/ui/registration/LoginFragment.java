@@ -14,15 +14,20 @@ import android.widget.TextView;
 
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.BR;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.preference.UserUtils;
+import com.apps2you.albaraka.databinding.FragmentKycBinding;
 import com.apps2you.albaraka.databinding.FragmentLoginBinding;
 import com.apps2you.albaraka.ui.base.BaseFragment;
 import com.apps2you.albaraka.ui.home.GuestHomeActivity;
+import com.apps2you.albaraka.ui.kyc.KycActivity;
+import com.apps2you.albaraka.ui.kyc.fragments.KycFragment;
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.utils.CustomTextWatcher;
 import com.apps2you.albaraka.utils.cryptography.ConstantsKt;
@@ -90,15 +95,27 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
             }
         });
 
+//        mViewDataBinding.applicationSubscriptionRequest.setOnClickListener(view -> {
+//            try {
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://albaraka.com.sy/KYC/"));
+//                startActivity(intent);
+//            }catch (Exception e) {
+//                // Handle other exceptions
+//                showToast("Error occurred");
+//            }
+//        });
         mViewDataBinding.applicationSubscriptionRequest.setOnClickListener(view -> {
             try {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://albaraka.com.sy/KYC/"));
+                Intent intent = new Intent(requireContext(), KycActivity.class);
                 startActivity(intent);
-            }catch (Exception e) {
+            } catch (Exception e) {
                 // Handle other exceptions
                 showToast("Error occurred");
             }
         });
+
+
+
 
         mViewDataBinding.requestToOpenAnAccount.setOnClickListener(view -> {
             try {

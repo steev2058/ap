@@ -225,7 +225,15 @@
             android:name=".ui.atmCard.AtmCardsActivity"
             android:screenOrientation="portrait"
             android:taskAffinity="" />
+        <activity
+            android:name=".ui.kyc.KycActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
 
+        <activity
+            android:name=".ui.kyc.fragments.ScannerActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
         <service
             android:name=".BarakaFirebaseMessagingService"
             android:exported="false">
