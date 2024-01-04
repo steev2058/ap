@@ -72,6 +72,15 @@ public class AlBarakaTransferViewModel extends TransferViewModel {
         Account account = selectedAccount.getValue();
         if (isLoadingValue() ||  account == null) return;
         User user = UserUtils.getInstance(MyApplication.getAppContext()).getUser();
+        FavoriteAccount favoriteAccount = alBarakaTransferForm.selectedFavoriteAccount.getValue();
+
+        String number = favoriteAccount == null ? alBarakaTransferForm.getNumber() : favoriteAccount.getNumber();
+        String cif_no ="";
+        String phone_number= "";
+        if (getTransferChannelType().equals(TransferChannelType.GSM))
+            phone_number = number = TextUtils.withoutCountryCode(number);
+        else
+            cif_no = number;
 
         _commissionFetched.addSource(
                 transferRepository.getBarakaTransferFees(
@@ -79,7 +88,9 @@ public class AlBarakaTransferViewModel extends TransferViewModel {
                         selectedAccount.getValue().getNumber(),
                         selectedAccount.getValue().getAccountCode(),
                         alBarakaTransferForm.amount.getLocalizedNumber(),
-                        user.getCif_number()
+                        user.getCif_number(),
+                        cif_no,
+                        phone_number
                 ),
                 resource -> {
                     stopLoading();

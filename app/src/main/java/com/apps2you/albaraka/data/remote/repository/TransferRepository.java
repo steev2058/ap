@@ -520,14 +520,15 @@ public class TransferRepository {
                                                                  String fromAccountNumber,
                                                                  String fromAccountCode,
                                                                  String amount,
-                                                                 String cif
+                                                                 String cif,
+                                                                 String toCif,String phoneNumber
                                                                  ) {
         return new NetworkBoundResource<SygsCommissionData>() {
 
             @NonNull
             @Override
             protected Call<MyResponse<SygsCommissionData>> createCall() {
-                return apiService.alBarakaTransferFees( channelType.toString(),fromAccountNumber,fromAccountCode,amount,cif);
+                return apiService.alBarakaTransferFees( channelType.toString(),fromAccountNumber,fromAccountCode,amount,cif,toCif,phoneNumber);
             }
         }.getAsLiveServerData();
     }

@@ -187,7 +187,7 @@ public interface ApiService {
                                                    @Field("from_account_no") String fromAccountNo,
                                                    @Field("from_account_code") String fromAccountCode,
                                                    @Field("amount") String amount,
-                                                   @Field("cif") String cif);
+                                                   @Field("cif") String cif,@Field("to_cif") String to_cif,@Field("phoneNumber") String phoneNumber);
 
     @FormUrlEncoded
     @POST("my_transfer")
