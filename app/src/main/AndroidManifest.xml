@@ -234,6 +234,14 @@
             android:name=".ui.kyc.fragments.ScannerActivity"
             android:screenOrientation="portrait"
             android:taskAffinity="" />
+        <activity
+            android:name=".ui.kyc.fragments.finishActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
+        <activity
+            android:name=".ui.kyc.fragments.OtpScreen"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
         <service
             android:name=".BarakaFirebaseMessagingService"
             android:exported="false">

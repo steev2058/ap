@@ -32,7 +32,8 @@
     <string name="guest_complaints">شكاوى ومقترحات</string>
     <string name="more_complaints">شكاوى ومقترحات</string>
     <string name="more_kyc">طلب حساب إلكتروني</string>
-    <string name="personal_information_kyc">البيانات الشخصية-باللغة العربية[اضغط لتعبئة البيانات]</string>
+    <string name="personal_information_kyc">البيانات الشخصية-باللغة العربية[يرجى الضغط هنا لتعبئة البيانات تلقائيا أو يمكنك ملء الحقول أدناه يدويا]</string>
+
     <string name="error_connection">حدث خطأ في الاتصال!</string>
     <string name="contact_information">معلومات جهة الاتصال</string>
     <string name="Contact_us">تواصل معنا</string>
@@ -161,6 +162,8 @@
     <string name="home_welcome_with_name">أهلاً %1$s</string>
     <string name="home_welcome">أهلاً بعودتك!</string>
     <string name="login_welcome">أهلاً بك!</string>
+    <string name="success_msg">تمت العملية بنجاح!</string>
+    <string name="success_msg2">تم تسجيل طلبكم يرجى الانتظار لحين الموافقة عليه</string>
     <string name="Yes">نعم</string>
     <string name="please_provide_a_contact_info">الرجاء إدخال أحد معلومات الاتصال على الأقل</string>
     <string name="msg_error">الرجاء إدخال الرسالة</string>
@@ -169,11 +172,13 @@
     <string name="transfer_money">تحويل أموال</string>
     <string name="alBaraka_transfer">تحويلات البركة</string>
     <string name="another_transfer">التحويل إلى بنك آخر (SYGS)</string>
+    <string name="another_transfer_haram_fouad">التحويل إلى الهرم أو الفؤاد</string>
     <string name="gsm_number">رقم الموبايل</string>
     <string name="purpose">السبب</string>
     <string name="send_again">إرسال مرة أخرى</string>
     <string name="my_transfers">تحويلاتي</string>
     <string name="another_transfer_text">تحويل أموال إلى حساب آخر في بنك آخر (SYGS)</string>
+    <string name="another_transfer_text_haram_fouad">تحويل أموال إلى حساب آخر في الهرم او الفؤاد</string>
     <string name="my_transfer_text">تحويل أموال بين حساباتي</string>
     <string name="albaraka_transfer_text">تحويل أموال ضمن حسابات بنك البركة</string>
     <string name="pin_code_confirm">يرجى إدخال رمز التحقق الخاص بك لتأكيد العملية</string>
@@ -245,6 +250,7 @@
     <string name="you_must_select_restaurant">يجب اختيار مطعم أولاً</string>
     <string name="you_must_select_provider">يجب اختيار مزود خدمة انترنت أولاً</string>
     <string name="sygs_payment">تحويلات لبنك آخر (SYGS)</string>
+    <string name="HF_payment">تحويلات الهرم أو الفؤاد</string>
     <string name="please_enter_a_phone_number">يرجى إدخال رقم الهاتف</string>
     <string name="pos">نقطة بيع</string>
     <string name="transaction">رقم عملية التحويل</string>
@@ -356,7 +362,13 @@
     <string name="write_external_storage_permission">إذن الوصول للتخزين الخارجي</string>
     <string name="msg_write_external_storage_permission">يتطلب تطبيق البركة الوصول إلى وحدة التخزين الخارجية من أجل حفظ الملفات</string>
     <string name="cancel">الغاء</string>
-    <string name="personal_info_kyc_qr">[اضغط لتعبئة البيانات]</string>
+
+
+    <string name="txt_student">بيانات الاتصال والتعليم (طالب جامعي) </string>
+    <string name="txt_normal">بيانات الاتصال والعمل  </string>
+    <string name="personal_info_kyc_qr">[يرجى الضغط هنا لتعبئة البيانات تلقائيا أو يمكنك ملء الحقول أدناه يدويا]</string>
+
+
     <array name="details">
         <item>البيانات الشخصية</item>
         <item> إثبات الشخصية</item>

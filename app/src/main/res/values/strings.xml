@@ -140,6 +140,8 @@
     <string name="home_welcome_with_name">Welcome %1$s</string>
     <string name="home_welcome">Welcome back!</string>
     <string name="login_welcome">Welcome!</string>
+    <string name="success_msg">Success!</string>
+    <string name="success_msg2">Your request has been registered, please wait until it is approved</string>
     <string name="Yes">Yes</string>
     <string name="please_provide_a_contact_info">One of contact info is required</string>
     <string name="msg_error">Please enter a message</string>
@@ -148,6 +150,8 @@
     <string name="transfer_money">Transfer money</string>
     <string name="alBaraka_transfer">alBaraka Transfer</string>
     <string name="another_transfer">Transfer to another bank account (SYGS)</string>
+    <string name="another_transfer_haram_fouad">Transfer to Al-Haram or Al-Fouad</string>
+    <string name="another_transfer_text_haram_fouad">Transfer funds to another account in Al-Haram or Al-Fouad</string>
     <string name="gsm_number">GSM number</string>
     <string name="purpose">Purpose</string>
     <string name="send_again">Send again</string>
@@ -224,6 +228,7 @@
     <string name="you_must_select_restaurant">You must select Restaurant first</string>
     <string name="you_must_select_provider">You must select Provider first</string>
     <string name="sygs_payment">Transfer To Another Bank account (SYGS)</string>
+    <string name="HF_payment">Transfer To Al-Haram or Al-Fouad</string>
     <string name="please_enter_a_phone_number">Please enter a phone number</string>
     <string name="pos">POS</string>
     <string name="transaction">Transaction #</string>
@@ -358,6 +363,11 @@
     <string name="national_number">National Number</string>
     <string name="personal_info_kyc_qr">[Click to fill data]</string>
     <string name="step_two_title">Identity proof document data</string>
+    <string name="txt_student">Contact and education information (university student)</string>
+    <string name="txt_normal">Contact and Job information</string>
+
+
+
 
     <array name="details">
         <item>Personal Data</item>
