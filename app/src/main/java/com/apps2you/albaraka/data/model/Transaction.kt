@@ -30,3 +30,16 @@ class Transaction(
         @Bindable @SerializedName("desc") val description: String,
         @Bindable @SerializedName("branch_code") val branchCode: String?,
 ) : Serializable, BaseObservable()
+
+// Additional properties for ApiResponse for Haram and Fouad
+//@SerializedName("message")
+//val message: String? = null
+//
+//@SerializedName("status")
+//val status: Boolean = false
+//
+//@SerializedName("data")
+//val responseData: Transaction? = null
+//
+//@SerializedName("result_code")
+//val resultCode: Int = 0

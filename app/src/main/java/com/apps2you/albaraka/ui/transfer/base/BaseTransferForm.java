@@ -14,6 +14,8 @@ public class BaseTransferForm extends BaseForm {
 
     public final MutableLiveData<String> reason = new MutableLiveData<>("");
 
+    public final MutableLiveData<String> bname = new MutableLiveData<>("");
+
     public BaseTransferForm() {
         addMutableLiveDataStringField(amount, reason);
     }
@@ -30,6 +32,9 @@ public class BaseTransferForm extends BaseForm {
         return TextUtils.isEmpty(reason.getValue());
     }
 
+    public boolean isBNameEmpty() {
+        return TextUtils.isEmpty(bname.getValue());
+    }
     public Integer getAmountValue(){
         return stringValueToInt(amount);
     }

@@ -41,6 +41,9 @@ public class TransferOptionsFragment extends BaseFragment<FragmentTransferOption
         mViewDataBinding.layoutSygsTransfer.getRoot().setOnClickListener(view ->
                 navigateToSYGSTransferFragment()
         );
+        mViewDataBinding.layoutHaramFouadTransfer.getRoot().setOnClickListener(view ->
+                navigateToHFTransferFragment()
+        );
     }
 
     private void navigateToAlBarakaTransferFragment() {
@@ -57,6 +60,12 @@ public class TransferOptionsFragment extends BaseFragment<FragmentTransferOption
     private void navigateToSYGSTransferFragment() {
         navController.navigate(
                 TransferOptionsFragmentDirections.actionTransferOptionsFragmentToSYGSActivity()
+        );
+    }
+
+    private void navigateToHFTransferFragment() {
+        navController.navigate(
+                TransferOptionsFragmentDirections.actionTransferOptionsFragmentToHFFragment()
         );
     }
 

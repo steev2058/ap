@@ -39,6 +39,7 @@ import com.apps2you.albaraka.ui.transfer.adsl.ADSLActivity;
 import com.apps2you.albaraka.ui.transfer.alphaCapital.AlphaPaymentActivity;
 import com.apps2you.albaraka.ui.transfer.bills.BillsActivity;
 import com.apps2you.albaraka.ui.transfer.di.TransferProvider;
+import com.apps2you.albaraka.ui.transfer.hf.HFActivity;
 import com.apps2you.albaraka.ui.transfer.payment.education.schools.SchoolsPaymentActivity;
 import com.apps2you.albaraka.ui.transfer.payment.education.universities.UniversitiesPaymentActivity;
 import com.apps2you.albaraka.ui.transfer.payment.mobile.MobilePaymentActivity;
@@ -119,6 +120,9 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector(modules = {TransferProvider.class})
     abstract ADSLActivity adslActivity();
+
+    @ContributesAndroidInjector(modules = {TransferProvider.class})
+    abstract HFActivity hfActivity();
 
     @ContributesAndroidInjector(modules = {TransferProvider.class})
     abstract UniversitiesPaymentActivity universitiesPaymentActivity();

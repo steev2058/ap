@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_hf"
+    app:startDestination="@id/hfFragment">
+
+    <fragment
+        android:id="@+id/hfFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.hf.HFFragment"
+        android:label=""
+        tools:layout="@layout/fragment_hf">
+        <action
+            android:id="@+id/action_hfFragment_to_providersFragment"
+            app:destination="@id/providersFragment_hf"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/providersFragment_hf"
+        android:name="com.apps2you.albaraka.ui.transfer.hf.HFProvidersFragment"
+        android:label=""
+        tools:layout="@layout/fragment_item_selection" />
+
+</navigation>

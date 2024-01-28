@@ -13,6 +13,7 @@ import com.apps2you.albaraka.data.model.DepositResult;
 import com.apps2you.albaraka.data.model.FavoriteAccount;
 import com.apps2you.albaraka.data.model.FinancingResult;
 import com.apps2you.albaraka.data.model.FinancingType;
+import com.apps2you.albaraka.data.model.HfTransferType;
 import com.apps2you.albaraka.data.model.NotificationContent;
 import com.apps2you.albaraka.data.model.Operator;
 import com.apps2you.albaraka.data.model.Partner;
@@ -28,6 +29,7 @@ import com.apps2you.albaraka.data.model.User;
 import com.apps2you.albaraka.data.remote.responseModel.AtmServicesData;
 import com.apps2you.albaraka.data.remote.responseModel.CalculatorData;
 import com.apps2you.albaraka.data.remote.responseModel.ExchangeData;
+import com.apps2you.albaraka.data.remote.responseModel.HfCommissionData;
 import com.apps2you.albaraka.data.remote.responseModel.HomeData;
 import com.apps2you.albaraka.data.remote.responseModel.SYGSData;
 import com.apps2you.albaraka.data.remote.responseModel.SygsCommissionData;
@@ -88,6 +90,10 @@ public interface ApiService {
                                                                  @Field("type_code") int type,
                                                                  @Field("currency_code") String currencyCode);
 
+    @FormUrlEncoded
+    @POST("get_charge_exchange_mob")
+    Call<MyResponse<HfCommissionData>> calculateHfCommission(@Field("amount") String amount,
+                                                             @Field("type_code") int type);
     @GET("recent_transactions")
     Call<MyResponse<ArrayList<Transaction>>> getRecentTransactions();
 
@@ -219,6 +225,10 @@ public interface ApiService {
     @GET("get_adsl_providers")
     Call<MyResponse<ArrayList<Partner>>> getADSLProviders();
 
+    @GET("get_exchanges")
+    Call<MyResponse<ArrayList<Partner>>> getHFProviders();
+
+
     @GET("get_partners/University")
     Call<MyResponse<ArrayList<Partner>>> getUniversities();
 
@@ -254,6 +264,20 @@ public interface ApiService {
                                                @Field("pin_code") String pinCode
     );
 
+
+    @FormUrlEncoded
+    @POST("hf")
+    Call<MyResponse<Transaction>> hfTransfer(@Field("from_account_no") String accountNo,
+                                               @Field("from_account_code") String fromAccountCode,
+                                               @Field("hf_provider_id") int providerId,
+                                               @Field("telephone_number") String phoneNumber,
+                                               @Field("amount") String amount,
+                                               @Field("note") String reason,
+                                               @Field("GSM") String gsm,
+//                                             @Field("type_code") String type_code,
+                                               @Field("city_id") int citId,
+                                               @Field("pin_code") String pinCode
+    );
 
     @FormUrlEncoded
     @POST("restaurant_transfer")

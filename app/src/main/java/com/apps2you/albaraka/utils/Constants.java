@@ -15,11 +15,11 @@ public class Constants {
             GENDER_MALE = "male",
             GENDER_FEMALE = "female";
 
-    // test link
-   //public static String BASE_URL = "Dapz/9upWXEoKkswz0bIqOPt34RWfWu9HRrfhk3MB6TH+AgrU1sFMg1PEzU9sF8XMUBHfhT43/VrfcDwh7e5j4JTc99bn1yQMAh3o4YZ6BjCxoITog==";
+    // test link 50471 12345q
+   public static String BASE_URL = "Dapz/9upWXEoKkswz0bIqOPt34RWfWu9HRrfhk3MB6TH+AgrU1sFMg1PEzU9sF8XMUBHfhT43/VrfcDwh7e5j4JTc99bn1yQMAh3o4YZ6BjCxoITog==";
 
     // live link
-    public static String BASE_URL = "RLTWlkMoTClzcij5FhztackcT0FhNy6tBKB/DwqOpJgYSVNA47xPT5FTjPuRKpXGnGu3N1ApQcH87GcjWwnJCkGh6uLEG+1Ei5FV89JS9i9ong==";
+   // public static String BASE_URL = "RLTWlkMoTClzcij5FhztackcT0FhNy6tBKB/DwqOpJgYSVNA47xPT5FTjPuRKpXGnGu3N1ApQcH87GcjWwnJCkGh6uLEG+1Ei5FV89JS9i9ong==";
 
     public static String LINK_CREATE_ACCOUNT = "rvhV2HLplH95BCLFyBP7c6YTi/eBTAvYigwT1Hd9dioGrdApqLIlcFymRkPzUFC3V2aH6zAkEFpg48GZ7btdFp/xQIu67DoFodvq",
             LINK_FINANCING = "9VQwaXIdzDKzBy1cGnCKLWIuh1Ov5uchEwo4YSEWHBsQTE2jTa48UuErehNzaiWWuzQ3FO2P7N78v8/VkS0gNQcpzaKYisHjACTB5pPsQZ0lufxRYZ35FcuBZEg=",
@@ -47,6 +47,7 @@ public class Constants {
             TRANSFER_SCHOOL = 7,
             TRANSFER_QR = 8,
             TRANSFER_ADSL = 9,
+            TRANSFER_HF = 13,
             TRANSFER_ALPHA = 11;
 
     public static final int NOTIFICATION_NORMAL = 1,

@@ -24,9 +24,12 @@ public abstract class TransferViewModel extends BaseViewModel {
     private final MutableLiveData<Account> _selectedAccount = new MutableLiveData<>();
     public final LiveData<Account> selectedAccount = _selectedAccount;
 
+
+
     protected final MediatorLiveData<Event<Transaction>> _transferStatus = new MediatorLiveData<>();
     public final LiveData<Event<Transaction>> transferStatus = _transferStatus;
-
+//    protected final MediatorLiveData<Event<Transaction>> _code = new MediatorLiveData<>();
+//    public final LiveData<Event<Transaction>> code = _code;
     protected final MediatorLiveData<List<Account>> _accountList = new MediatorLiveData<>();
     public final LiveData<List<Account>> accountList = _accountList;
 

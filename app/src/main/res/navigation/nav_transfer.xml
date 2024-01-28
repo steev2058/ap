@@ -24,9 +24,24 @@
             app:exitAnim="@anim/slide_out_start"
             app:popEnterAnim="@anim/slide_in_start"
             app:popExitAnim="@anim/slide_out_end" />
+
+
+
         <action
             android:id="@+id/action_transferOptionsFragment_to_SYGSActivity"
             app:destination="@id/SYGSActivity" />
+
+
+        <action
+            android:id="@+id/action_transferOptionsFragment_to_HFFragment"
+            app:destination="@id/hFTransferFragment"
+            app:enterAnim="@anim/slide_in_end"
+            app:exitAnim="@anim/slide_out_start"
+            app:popEnterAnim="@anim/slide_in_start"
+            app:popExitAnim="@anim/slide_out_end" />
+
+
+
         <!--        <action-->
 <!--            android:id="@+id/action_transferOptionsFragment_to_sygsTransferFragment"-->
 <!--            app:destination="@id/sygsTransferFragment"-->
@@ -55,12 +70,32 @@
             app:popExitAnim="@anim/slide_down" />
     </fragment>
 
+
+
+
     <fragment
         android:id="@+id/mYTransferFragment"
         android:name="com.apps2you.albaraka.ui.transfer.accountsTransfer.myTransfer.MyTransferFragment"
         android:label="MyTransferFragment"
         tools:layout="@layout/fragment_my_transfer" />
-
+    <fragment
+        android:id="@+id/hFTransferFragment"
+        android:name="com.apps2you.albaraka.ui.transfer.hf.HFFragment"
+        android:label="HaramFouadTransferFragment"
+        tools:layout="@layout/activity_hf">
+    <action
+        android:id="@+id/action_hf_to_pickhorf"
+        app:destination="@id/providersFragment_hf"
+        app:enterAnim="@anim/slide_up"
+        app:exitAnim="@anim/stationary"
+        app:popEnterAnim="@anim/stationary"
+        app:popExitAnim="@anim/slide_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/providersFragment_hf"
+        android:name="com.apps2you.albaraka.ui.transfer.hf.HFProvidersFragment"
+        android:label=""
+        tools:layout="@layout/fragment_item_selection" />
     <dialog
         android:id="@+id/addFavoriteAccountDialog"
         android:name="com.apps2you.albaraka.ui.transfer.accountsTransfer.alBarakaTransfer.favorite.dialogs.AddFavoriteAccountDialog"

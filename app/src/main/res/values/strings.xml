@@ -72,6 +72,8 @@
     <string name="home_menu_accounts">My accounts</string>
     <string name="my_transactions">My Transactions</string>
     <string name="Name">Name</string>
+    <string name="thirdName">Beneficiary Full Name</string>
+    <string name="phone_number_hf">Beneficiary Phone Number</string>
     <string name="password_new">New password</string>
     <string name="password_confirmation">New password confirmation</string>
     <string name="pin_new">New PIN code</string>
@@ -191,6 +193,8 @@
     <string name="valid_amount">Please enter a valid amount</string>
     <string name="personalization">Personalization</string>
     <string name="ADSL_payment">ADSL payment</string>
+    <string name="HF_payment">Al-Haram &amp; Al-Fouad payment</string>
+    <string name="provider_hf">Provider</string>
     <string name="provider">Provider</string>
     <string name="city">City</string>
     <string name="landline_number">Landline number</string>
@@ -323,4 +327,7 @@
     <string name="write_external_storage_permission">Write External Storage Permission</string>
     <string name="msg_write_external_storage_permission">alBaraka app requires access to the external storage in order to save files</string>
     <string name="cancel">Cancel</string>
+    <string name="another_transfer_haram_fouad">Transfer to Al-Haram or Al-Fouad</string>
+
+    <string name="another_transfer_text_haram_fouad">Transfer funds to another account in Al-Haram or Al-Fouad</string>
 </resources>

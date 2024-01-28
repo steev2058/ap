@@ -72,6 +72,7 @@
     <string name="home_menu_accounts">حساباتي</string>
     <string name="my_transactions">حركات الحساب</string>
     <string name="Name">الاسم</string>
+    <string name="thirdName">الاسم الثلاثي للمستفيد</string>
     <string name="password_new">كلمة المرور الجديدة</string>
     <string name="password_confirmation">تأكيد كلمة المرور</string>
     <string name="pin_new">رمز التحقق الجديد</string>
@@ -162,6 +163,7 @@
     <string name="CIF">رقم الحساب</string>
     <string name="GSM">رقم الموبايل</string>
     <string name="phone_number">رقم الهاتف</string>
+    <string name="phone_number_hf">رقم موبايل المستفيد</string>
     <string name="mobile_payment">فواتير الموبايل وشحن الرصيد</string>
     <string name="maximum_msg">القيمة العظمى المسموح فيها للتحويل هي:</string>
     <string name="balance_msg">ليس لديك رصيد كافي</string>
@@ -191,7 +193,9 @@
     <string name="valid_amount">الرجاء إدخال قيمة صحيحة</string>
     <string name="personalization">تخصيص</string>
     <string name="ADSL_payment">فواتير ADSL (مزودي خدمة الإنترنت)</string>
-    <string name="provider">مزود خدمة انترنت</string>
+    <string name="HF_payment">تحويلات الهرم والفؤاد</string>
+    <string name="provider">مزود خدمة انترنت</string>+
+    <string name="provider_hf">اختر شركة الحوالة</string>
     <string name="city">المدينة</string>
     <string name="landline_number">رقم الهاتف الثابت</string>
     <string name="note">ملاحظة</string>
@@ -323,4 +327,8 @@
     <string name="write_external_storage_permission">إذن الوصول للتخزين الخارجي</string>
     <string name="msg_write_external_storage_permission">يتطلب تطبيق البركة الوصول إلى وحدة التخزين الخارجية من أجل حفظ الملفات</string>
     <string name="cancel">الغاء</string>
+
+    <string name="another_transfer_text_haram_fouad">تحويل أموال إلى حساب آخر في الهرم او الفؤاد</string>
+
+    <string name="another_transfer_haram_fouad">التحويل إلى الهرم أو الفؤاد</string>
 </resources>
