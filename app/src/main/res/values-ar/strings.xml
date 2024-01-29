@@ -300,6 +300,7 @@
     <string name="card_opposition">الإيقاف المؤقت للبطاقة</string>
     <string name="card_opposition_withdrawal">إلغاء الإيقاف المؤقت للبطاقة</string>
     <string name="commission_question">عمولة هذه الخدمة هي %1$s ليرة سورية. هل ترغب في المتابعة؟</string>
+    <string name="commission_question_baraka_trans">عمولة هذه الخدمة هي %1$s ليرة سورية. هل ترغب بمتابعة التحويل للمتعامل (%2$s)؟</string>
     <string name="fee_for_service_is">عمولة هذه الخدمة هي</string>
     <string name="want_continue">هل ترغب في المتابعة؟</string>
     <string name="confirmation">تأكيد</string>

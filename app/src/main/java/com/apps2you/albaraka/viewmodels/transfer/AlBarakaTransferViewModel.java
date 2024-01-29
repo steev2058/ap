@@ -10,8 +10,10 @@ import com.apps2you.albaraka.data.model.SYGSTransferType;
 import com.apps2you.albaraka.data.model.TransferChannelType;
 import com.apps2you.albaraka.data.model.User;
 import com.apps2you.albaraka.data.preference.UserUtils;
+import com.apps2you.albaraka.data.remote.networkUtils.Resource;
 import com.apps2you.albaraka.data.remote.repository.TransferRepository;
 import com.apps2you.albaraka.data.remote.repository.UserRepository;
+import com.apps2you.albaraka.data.remote.responseModel.SygsCommissionData;
 import com.apps2you.albaraka.ui.transfer.accountsTransfer.alBarakaTransfer.AlBarakaTransferForm;
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.utils.lifecyle.Event;
@@ -81,17 +83,17 @@ public class AlBarakaTransferViewModel extends TransferViewModel {
             phone_number = number = TextUtils.withoutCountryCode(number);
         else
             cif_no = number;
-
+        LiveData<Resource<SygsCommissionData>> source =  transferRepository.getBarakaTransferFees(
+                getTransferChannelType(),
+                selectedAccount.getValue().getNumber(),
+                selectedAccount.getValue().getAccountCode(),
+                alBarakaTransferForm.amount.getLocalizedNumber(),
+                user.getCif_number(),
+                cif_no,
+                phone_number
+        );
         _commissionFetched.addSource(
-                transferRepository.getBarakaTransferFees(
-                        getTransferChannelType(),
-                        selectedAccount.getValue().getNumber(),
-                        selectedAccount.getValue().getAccountCode(),
-                        alBarakaTransferForm.amount.getLocalizedNumber(),
-                        user.getCif_number(),
-                        cif_no,
-                        phone_number
-                ),
+                source,
                 resource -> {
                     stopLoading();
                     switch (resource.status) {
@@ -104,6 +106,8 @@ public class AlBarakaTransferViewModel extends TransferViewModel {
                         case SUCCESS:
                             if (resource.data != null)
                                 commission = new BigDecimal(resource.data.getCommission());
+                            toFullName = new String(resource.data.getFullName());
+                            //resource.data.getFullName();
                             totalCost = commission.add(new BigDecimal(alBarakaTransferForm.amount.getLocalizedNumber()));
                             _commissionFetched.setValue(Event.of(true));
                             break;

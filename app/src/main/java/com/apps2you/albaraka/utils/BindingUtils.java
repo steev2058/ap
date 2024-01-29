@@ -155,6 +155,7 @@ public class BindingUtils {
                 .load(Constants.BASE_URL + "/" + url)
                 .placeholder(R.drawable.ic_albaraka_logo)
                 .error(R.drawable.ic_albaraka_logo)
+
                 .into(imageView);
     }
 

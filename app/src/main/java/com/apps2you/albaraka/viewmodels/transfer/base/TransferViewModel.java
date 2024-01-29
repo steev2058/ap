@@ -151,6 +151,10 @@ public abstract class TransferViewModel extends BaseViewModel {
     public final LiveData<Event<Boolean>> commissionFetched = _commissionFetched;
 
     public BigDecimal commission = new BigDecimal(0);
+
+    public String toFullName = new String();
+
+
     public abstract void calculateCommission();
 
     public void setPinCode(String pinCode) {

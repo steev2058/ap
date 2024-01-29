@@ -8,7 +8,7 @@ apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     lintOptions {
 
         checkReleaseBuilds false
@@ -17,9 +17,9 @@ android {
     defaultConfig {
         applicationId "com.apps2you.albaraka"
         minSdkVersion 21
-        targetSdkVersion 31
-        versionCode 36
-        versionName "3.2"
+        targetSdkVersion 33
+        versionCode 38
+        versionName "3.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -151,7 +151,7 @@ public class AppModule {
                     .addHeader("Accept", "application/json")
                     .addHeader("os", "android")
                     .addHeader("lang", UserUtils.getInstance(MyApplication.getAppContext()).getLanguage());
-            //     .addHeader("Skip-Crypt", "1") // send this to skip encryption
+                    // .addHeader("Skip-Crypt", "1") // send this to skip encryption
             //     and comment adding getEncRequestInterceptor and getDecResponseInterceptor
             //     .addHeader("Content-Type", "application/json");
 

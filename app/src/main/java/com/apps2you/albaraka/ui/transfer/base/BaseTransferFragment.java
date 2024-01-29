@@ -89,7 +89,7 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
                 .observe(
                         getViewLifecycleOwner(),
                         new EventObserver<>(result -> {
-                            if (result) feeConfirmationDialog(title,mViewModel.commission.toString());
+                            if (result) feeConfirmationDialog(title,mViewModel.commission.toString(),mViewModel.toFullName);
                         })
                 );
     }
@@ -384,6 +384,36 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
         dialogDataBinding.textView.setText(title);
         BindingUtils.setFontDependingOnLanguage(dialogDataBinding.text, getString(R.string.commission_question, fee));//String.valueOf(getViewModel().getTransferFee())
         dialogDataBinding.text.setText(getString(R.string.commission_question, fee));//String.valueOf(getViewModel().getTransferFee())
+
+        dialogDataBinding.btnOk.setVisibility(View.GONE);
+
+        dialog.show();
+
+        dialogDataBinding.buttonSubmit.setOnClickListener(v -> {
+            dialog.dismiss();
+            openConfirmPinDialog();
+        });
+
+        dialogDataBinding.cancelButton.setOnClickListener(v -> dialog.dismiss());
+    }
+
+    private void feeConfirmationDialog(String title,String fee,String name) {
+        Dialog dialog = new Dialog(requireContext());
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        }
+
+        DialogConfirmBinding dialogDataBinding = DialogConfirmBinding.inflate(LayoutInflater.from(requireContext()),
+                null,
+                false);
+
+        dialog.setContentView(dialogDataBinding.getRoot());
+        BindingUtils.setFontDependingOnLanguage(dialogDataBinding.textView, title);
+        dialogDataBinding.textView.setText(title);
+        BindingUtils.setFontDependingOnLanguage(dialogDataBinding.text, getString(R.string.commission_question_baraka_trans, fee,name));//String.valueOf(getViewModel().getTransferFee())
+        dialogDataBinding.text.setText(getString(R.string.commission_question_baraka_trans, fee,name));//String.valueOf(getViewModel().getTransferFee())
 
         dialogDataBinding.btnOk.setVisibility(View.GONE);
 

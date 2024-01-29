@@ -300,6 +300,7 @@
     <string name="card_opposition">Suspend Card</string>
     <string name="card_opposition_withdrawal">Cancel Suspend Card</string>
     <string name="commission_question">The commission for this service is %1$s SP. Do you want to continue?</string>
+    <string name="commission_question_baraka_trans">The commission for this service is %1$s SP. Do you want to continue transfer to (%2$s)?</string>
     <string name="fee_for_service_is">The fee for this service is</string>
     <string name="want_continue">Do you want to continue?</string>
     <string name="confirmation">Confirmation</string>
