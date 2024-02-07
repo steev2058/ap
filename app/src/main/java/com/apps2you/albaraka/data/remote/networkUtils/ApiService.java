@@ -266,18 +266,20 @@ public interface ApiService {
 
 
     @FormUrlEncoded
-    @POST("hf")
-    Call<MyResponse<Transaction>> hfTransfer(@Field("from_account_no") String accountNo,
-                                               @Field("from_account_code") String fromAccountCode,
-                                               @Field("hf_provider_id") int providerId,
-                                               @Field("telephone_number") String phoneNumber,
-                                               @Field("amount") String amount,
-                                               @Field("note") String reason,
-                                               @Field("GSM") String gsm,
-//                                             @Field("type_code") String type_code,
-                                               @Field("city_id") int citId,
-                                               @Field("pin_code") String pinCode
-    );
+    @POST("exchange_payment")
+    Call<MyResponse<Transaction>> hfTransfer(@Field("amount") String amount,
+                                             @Field("type_code") String typeCode,
+                                             @Field("exchange_id") int providerId,
+                                             @Field("reason") String reason,
+                                             @Field("benef_name") String benefName,
+                                             @Field("benef_second_name") String benefSecondName,
+                                             @Field("benef_last_name") String benefLastName,
+                                             @Field("benf_mobile") String benfMobile,
+                                             @Field("benef_address") String benefAddress,
+                                             @Field("pin_code") String pinCode,
+                                             @Field("city_id") int cityId,
+                                             @Field("from_account_no") String accountNo);
+
 
     @FormUrlEncoded
     @POST("restaurant_transfer")

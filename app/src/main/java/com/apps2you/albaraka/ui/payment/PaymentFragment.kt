@@ -14,6 +14,7 @@ import com.apps2you.albaraka.ui.transfer.accountsTransfer.sygs.SYGSActivity
 import com.apps2you.albaraka.ui.transfer.adsl.ADSLActivity
 import com.apps2you.albaraka.ui.transfer.alphaCapital.AlphaPaymentActivity
 import com.apps2you.albaraka.ui.transfer.bills.BillsActivity
+import com.apps2you.albaraka.ui.transfer.hf.HFActivity
 import com.apps2you.albaraka.ui.transfer.payment.education.schools.SchoolsPaymentActivity
 import com.apps2you.albaraka.ui.transfer.payment.education.universities.UniversitiesPaymentActivity
 import com.apps2you.albaraka.ui.transfer.payment.mobile.MobilePaymentActivity
@@ -66,6 +67,13 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, HomeViewModel>(),
                         adapter.itemClickListener = this
                         adapter
                     }
+                    viewDataBinding.recyclerView.adapter = it?.data?.let { items ->
+                        viewModel.isHFActivated = items.find { q: QuickService -> q.id == Constants.TRANSFER_HF } != null
+
+                        val adapter = PayQuickServiceAdapter(items)
+                        adapter.itemClickListener = this
+                        adapter
+                    }
                 }
             }
         })
@@ -96,11 +104,13 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, HomeViewModel>(),
             Constants.ATM_CARDS -> activityNavigation.navigate(Intent(requireContext(), AtmCardsActivity::class.java))
 
             Constants.SYGS -> activityNavigation.navigate(Intent(requireContext(), SYGSActivity::class.java))
+
+            Constants.HF -> activityNavigation.navigate(Intent(requireContext(), HFActivity::class.java))
         }
     }
 
     private fun openTransferActivity() {
-        activityNavigation.navigate(TransferActivity.getIntent(requireContext(), viewModel.isSYGSActivated))
+        activityNavigation.navigate(TransferActivity.getIntent(requireContext(), viewModel.isSYGSActivated,viewModel.isHFActivated))
     }
 
     private fun openZakatActivity() {

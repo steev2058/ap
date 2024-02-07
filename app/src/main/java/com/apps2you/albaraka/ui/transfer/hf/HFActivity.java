@@ -4,6 +4,7 @@ import com.apps2you.albaraka.BR;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.databinding.ActivityHfBinding;
 import com.apps2you.albaraka.ui.base.BaseActivity;
+import com.apps2you.albaraka.utils.lifecyle.EventObserver;
 import com.apps2you.albaraka.viewmodels.transfer.HFViewModel;
 
 public class HFActivity extends BaseActivity<ActivityHfBinding, HFViewModel> {
@@ -29,6 +30,7 @@ public class HFActivity extends BaseActivity<ActivityHfBinding, HFViewModel> {
 
     @Override
     public void fetchData() {
+
 
     }
 

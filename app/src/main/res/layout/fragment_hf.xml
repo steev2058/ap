@@ -8,6 +8,8 @@
         <variable
             name="viewModel"
             type="com.apps2you.albaraka.viewmodels.transfer.HFViewModel" />
+
+        <import type="com.apps2you.albaraka.utils.BindingUtils" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -152,16 +154,50 @@
                             android:layout_height="@dimen/margin_medium" />
 
                         <EditText
+                            android:id="@+id/et_first_name"
+                            style="@style/InputEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_student"
+                            android:drawablePadding="@dimen/margin_small"
+                            android:hint="@string/first_nameHF"
+                            android:inputType="text"
+                            android:textDirection="rtl"
+                            android:text="@={viewModel.hfForm.bfirsname}"
+                            android:textColor="@color/gray" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <EditText
+                            android:id="@+id/et_secondName"
+                            style="@style/InputEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_student"
+                            android:drawablePadding="@dimen/margin_small"
+                            android:hint="@string/seconde_nameHF"
+                            android:inputType="text"
+                            android:textDirection="rtl"
+                            android:text="@={viewModel.hfForm.bsecname}"
+                            android:textColor="@color/gray" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <EditText
                             android:id="@+id/et_thirdName"
                             style="@style/InputEt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_student"
                             android:drawablePadding="@dimen/margin_small"
-                            android:hint="@string/thirdName"
+                            android:hint="@string/last_nameHF"
                             android:inputType="text"
                             android:textDirection="rtl"
-                            android:text="@={viewModel.hfForm.bname}"
+                            android:text="@={viewModel.hfForm.blastname}"
                             android:textColor="@color/gray" />
 
                         <Space
@@ -176,6 +212,10 @@
                             android:drawablePadding="@dimen/margin_small"
                             android:hint="@string/phone_number_hf"
                             android:inputType="phone"
+                            android:textDirection="rtl"
+                            android:digits="0123456789"
+                            android:maxLines="1"
+                            android:maxLength="10"
                             android:text="@={viewModel.hfForm.phoneNumber}"
                             android:textColor="@color/gray" />
 
@@ -195,8 +235,22 @@
                             android:hint="@string/Amount"
                             android:inputType="numberDecimal"
                             android:textDirection="ltr"
+                            android:digits="0123456789"
+                            android:maxLines="1"
+                            android:maxLength="10"
                             android:text="@={viewModel.hfForm.amount}"
                             android:textColor="@color/gray" />
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/margin_xsmall"
+                            android:text="@{@string/hf_limit(BindingUtils.formatNumber(String.valueOf(viewModel.getTransferMinLimit())), BindingUtils.formatNumber(String.valueOf(viewModel.getTransferMaxLimit())), viewModel.selectedAccount.currency.symbol) }"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_xsmall"
+                            app:drawableStartCompat="@drawable/ic_information_small_red"
+                            app:drawableTint="@color/black" />
 
                         <Space
                             android:layout_width="wrap_content"

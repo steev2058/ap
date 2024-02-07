@@ -53,6 +53,10 @@
     <string name="Exchange">Exchange</string>
     <string name="guest_rate">Exchange rate</string>
     <string name="first_name">First Name</string>
+    <string name="first_nameHF">Beneficiary Name</string>
+    <string name="seconde_nameHF">Beneficiary Father Name</string>
+    <string name="last_nameHF">Beneficiary Last Name</string>
+    <string name="father_name">Father Name</string>
     <string name="From">From</string>
     <string name="from_account">From %1$s</string>
     <string name="home_menu_main">Home</string>
@@ -213,8 +217,14 @@
     <string name="you_must_select_university">You must select University first</string>
     <string name="you_must_select_school">You must select School first</string>
     <string name="you_must_select_city">You must select City first</string>
+    <string name="you_must_select_fname">You must enter the beneficiarys name</string>
+    <string name="you_must_select_secname">You must enter the beneficiarys fathers name</string>
+    <string name="you_must_select_lastname">You must enter the beneficiarys nickname</string>
+    <string name="you_must_select_phonenumber">You must enter the beneficiarys mobile number</string>
+    <string name="you_must_select_reason">You must enter a reason</string>
     <string name="you_must_select_restaurant">You must select Restaurant first</string>
     <string name="you_must_select_provider">You must select Provider first</string>
+    <string name="you_must_select_provider_hf">You must select the transfer company first</string>
     <string name="sygs_payment">Transfer To Another Bank account (SYGS)</string>
     <string name="please_enter_a_phone_number">Please enter a phone number</string>
     <string name="pos">POS</string>
@@ -230,6 +240,7 @@
     <string name="transfer_info">Transfer info</string>
     <string name="commission">Commission:  of the transaction</string>
     <string name="sygs_limit">Min limit of amount is %1$s %3$s , max limit is %2$s %3$s</string>
+    <string name="hf_limit">Min limit of amount is %1$s %3$s , max limit is %2$s %3$s</string>
     <string name="car_info">Car info</string>
     <string name="property_info">Property information</string>
     <string name="ground_no">Ground No.</string>

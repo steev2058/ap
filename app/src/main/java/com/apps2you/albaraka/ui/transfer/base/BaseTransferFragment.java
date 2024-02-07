@@ -30,6 +30,7 @@ import com.apps2you.albaraka.data.model.Account;
 import com.apps2you.albaraka.data.model.Transaction;
 import com.apps2you.albaraka.data.model.TransferData;
 import com.apps2you.albaraka.databinding.DialogConfirmBinding;
+import com.apps2you.albaraka.databinding.DialogConfirmHfPaymentBinding;
 import com.apps2you.albaraka.ui.base.BaseFragment;
 import com.apps2you.albaraka.ui.base.adapter.OnItemClickListener;
 import com.apps2you.albaraka.ui.common.adapters.AccountsRecyclerAdapter;
@@ -38,11 +39,13 @@ import com.apps2you.albaraka.ui.common.dialogs.ConfirmPinDialog;
 import com.apps2you.albaraka.ui.home.HomeActivity;
 import com.apps2you.albaraka.ui.transactions.TransactionDetailsActivity;
 import com.apps2you.albaraka.ui.transfer.accountsTransfer.TransferActivity;
+import com.apps2you.albaraka.ui.transfer.hf.HFForm;
 import com.apps2you.albaraka.utils.BindingUtils;
 import com.apps2you.albaraka.utils.bus.Bus;
 import com.apps2you.albaraka.utils.lifecyle.EventObserver;
 import com.apps2you.albaraka.utils.navigation.ActivityResultObserver;
 import com.apps2you.albaraka.utils.navigation.NavigationUtil;
+import com.apps2you.albaraka.viewmodels.transfer.HFViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.base.TransferViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -64,6 +67,7 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
     private ActivityResultObserver<String, Boolean> permissionsObserver;
 
     private AccountsRecyclerAdapter accountsRecyclerAdapter;
+    public HFViewModel hfViewModel;
 
     private final OnItemClickListener<Account> onAccountClickListener = (item, position) -> {
         onAccountSelected(item);
@@ -89,7 +93,13 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
                 .observe(
                         getViewLifecycleOwner(),
                         new EventObserver<>(result -> {
-                            if (result) feeConfirmationDialog(title,mViewModel.commission.toString());
+                            if (result) {
+                                if(getViewModel().getTransferFee() == -2)
+                                    feeConfirmationDialogDetails(title,mViewModel.commission.toString());
+                                else
+                                    feeConfirmationDialog(title,mViewModel.commission.toString());
+
+                            };
                         })
                 );
     }
@@ -363,6 +373,8 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
             feeConfirmationDialog(title);
         else if (getViewModel().getTransferFee() == -1) // fee might be 0 or -1
             mViewModel.calculateCommission();
+        else if (getViewModel().getTransferFee() == -2) // fee might be 0 or -1
+            mViewModel.calculateCommission();
         else
             openConfirmPinDialog();
     }
@@ -396,6 +408,37 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
 
         dialogDataBinding.cancelButton.setOnClickListener(v -> dialog.dismiss());
     }
+
+
+
+    private void feeConfirmationDialogDetails(String title, String fee) {
+        Dialog dialog = new Dialog(requireContext());
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        }
+
+        DialogConfirmHfPaymentBinding dialogDataBinding = DialogConfirmHfPaymentBinding.inflate(LayoutInflater.from(requireContext()),
+                null,
+                false);
+
+        dialog.setContentView(dialogDataBinding.getRoot());
+
+
+        dialogDataBinding.setViewModel((HFViewModel) getViewModel());
+
+        // Show the dialog
+        dialog.show();
+
+        dialogDataBinding.buttonConfirm.setOnClickListener(v -> {
+            dialog.dismiss();
+            openConfirmPinDialog();
+        });
+
+        dialogDataBinding.buttonCancel.setOnClickListener(v -> dialog.dismiss());
+    }
+
 
     private void feeConfirmationDialog(String title) {
         Dialog dialog = new Dialog(requireContext());

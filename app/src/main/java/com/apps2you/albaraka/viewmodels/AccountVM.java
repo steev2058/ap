@@ -13,7 +13,7 @@ import javax.inject.Inject;
 public class AccountVM extends BaseViewModel {
 
     public boolean isSYGSActivated = false;
-
+    public boolean isHFActivated = false;
     private final UserRepository userRepository;
 
     @Inject

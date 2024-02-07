@@ -27,6 +27,7 @@ import com.apps2you.albaraka.ui.transfer.accountsTransfer.sygs.SYGSActivity
 import com.apps2you.albaraka.ui.transfer.adsl.ADSLActivity
 import com.apps2you.albaraka.ui.transfer.alphaCapital.AlphaPaymentActivity
 import com.apps2you.albaraka.ui.transfer.bills.BillsActivity
+import com.apps2you.albaraka.ui.transfer.hf.HFActivity
 import com.apps2you.albaraka.ui.transfer.payment.education.schools.SchoolsPaymentActivity
 import com.apps2you.albaraka.ui.transfer.payment.education.universities.UniversitiesPaymentActivity
 import com.apps2you.albaraka.ui.transfer.payment.mobile.MobilePaymentActivity
@@ -222,6 +223,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
                             it.data.quickServices.find { q: QuickService -> q.id == Constants.SYGS } != null
                     }
 
+                    if (it?.data?.quickServices != null) {
+                        viewModel.isHFActivated =
+                            it.data.quickServices.find { q: QuickService -> q.id == Constants.HF } != null
+                    }
+
 //                    viewDataBinding.rvQuickServices.adapter = it.data?.quickServices?.let { items ->
 //
 //                        val personalizedList = arrayListOf<QuickService>()
@@ -320,6 +326,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
                     SYGSActivity::class.java
                 )
             )
+
+            Constants.HF -> activityNavigation.navigate(
+                Intent(
+                    requireContext(),
+                    HFActivity::class.java
+                )
+            )
         }
     }
 
@@ -327,7 +340,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         activityNavigation.navigate(
             TransferActivity.getIntent(
                 requireContext(),
-                viewModel.isSYGSActivated
+                viewModel.isSYGSActivated,
+                viewModel.isHFActivated
             )
         )
     }

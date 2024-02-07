@@ -11,8 +11,10 @@ import com.apps2you.albaraka.data.model.City;
 import com.apps2you.albaraka.databinding.FragmentHfBinding;
 import com.apps2you.albaraka.ui.common.model.HFProviderUI;
 import com.apps2you.albaraka.ui.complaints.fragments.SpinnerAdapter;
+import com.apps2you.albaraka.ui.transfer.accountsTransfer.sygs.SYGSTransferPreviewDialog;
 import com.apps2you.albaraka.ui.transfer.base.BaseTransferFragment;
 import com.apps2you.albaraka.utils.NumberTextWatcher;
+import com.apps2you.albaraka.utils.lifecyle.EventObserver;
 import com.apps2you.albaraka.viewmodels.transfer.HFViewModel;
 
 import java.util.ArrayList;
@@ -28,9 +30,12 @@ public class HFFragment extends BaseTransferFragment<FragmentHfBinding, HFViewMo
         super.setUpView();
 
         getViewDataBinding().etAmount.addTextChangedListener(new NumberTextWatcher(getViewDataBinding().etAmount));
+        getViewDataBinding().etFirstName.addTextChangedListener(new NumberTextWatcher(getViewDataBinding().etFirstName));
+        getViewDataBinding().etSecondName.addTextChangedListener(new NumberTextWatcher(getViewDataBinding().etSecondName));
+        getViewDataBinding().etThirdName.addTextChangedListener(new NumberTextWatcher(getViewDataBinding().etThirdName));
 
         mViewDataBinding.buttonPickProvider.setOnClickListener(view -> openHFProvidersFragment());
-        mViewDataBinding.buttonSubmit.setOnClickListener(view -> transfer());
+        mViewDataBinding.buttonSubmit.setOnClickListener(view ->  transfer());
         cities.add(0,new City(-1,getResources().getString(R.string.city),""));
         citySpinnerAdapter=new SpinnerAdapter<>(cities);
         mViewDataBinding.citiesSpinner.setAdapter(citySpinnerAdapter);
@@ -66,25 +71,50 @@ public class HFFragment extends BaseTransferFragment<FragmentHfBinding, HFViewMo
 
         if (selectedAccount == null) {
             showToast(R.string.you_must_select_account);
+
         } else if (selectedProvider == null) {
-            showToast(R.string.you_must_select_provider);
-        }else if(((City)mViewDataBinding.citiesSpinner.getSelectedItem()).getId()==-1) {
+            mViewDataBinding.buttonPickProvider.requestFocus();
+            showToast(R.string.you_must_select_provider_hf);
+        }
+        else if(((City)mViewDataBinding.citiesSpinner.getSelectedItem()).getId()==-1) {
+            mViewDataBinding.citiesSpinner.requestFocus();
             showToast(R.string.you_must_select_city);
-        }else if (!HFForm.allowed()) {
-            showToast(HFForm.getErrorResource());
-            if (HFForm.isAmountEmpty()) {
-                mViewDataBinding.etAmount.requestFocus();
-            } else if (HFForm.isPhoneEmpty()) {
-                mViewDataBinding.etPhone.requestFocus();
-            }else if (HFForm.isReasonEmpty()) {
-                mViewDataBinding.etReason.requestFocus();
-            }
-        } else if (HFForm.isAmountInvalid()) {
+        }
+        else if (HFForm.isBFirstNameEmpty()) {
+            showToast(R.string.you_must_select_fname);
+            mViewDataBinding.etFirstName.requestFocus();
+        }
+        else if (HFForm.isBSecNameEmpty()) {
+            showToast(R.string.you_must_select_secname);
+            mViewDataBinding.etSecondName.requestFocus();
+        }
+        else if (HFForm.isBLastNameEmpty()) {
+            showToast(R.string.you_must_select_lastname);
+            mViewDataBinding.etThirdName.requestFocus();
+        }
+
+        else if (HFForm.phoneNumber.getLocalizedNumber().length()!=10) {
+            showToast(R.string.you_must_select_phonenumber);
+            mViewDataBinding.etPhone.requestFocus();
+        }
+        else if (HFForm.isAmountEmpty()) {
             showToast(R.string.invalid_amount);
             mViewDataBinding.etAmount.requestFocus();
-        } else if (!thereIsEnoughBalance(HFForm.amount.getValue())) {
+        }
+
+        else if (HFForm.isReasonEmpty()) {
+            showToast(R.string.you_must_select_reason);
+            mViewDataBinding.etReason.requestFocus();
+        }
+
+        else if (!thereIsEnoughBalance(HFForm.amount.getValue())) {
             showToast(R.string.balance_msg);
-        } else {
+        }else if (HFForm.isAmountInvalid(mViewModel.getMinLimit(),mViewModel.getMaxLimit())) {
+            showToast(R.string.invalid_amount);
+            mViewDataBinding.etAmount.requestFocus();
+        }
+
+        else {
             mViewModel.setSelectedCity((City)mViewDataBinding.citiesSpinner.getSelectedItem());
 
             nextStep(getString(R.string.HF_payment));
@@ -107,7 +137,21 @@ public class HFFragment extends BaseTransferFragment<FragmentHfBinding, HFViewMo
         super.onDetach();
         mViewModel.stopContentLoading();
     }
+    private void openTransferPreviewDialog() {
+        HFTransferPreviewDialog.show(getChildFragmentManager());
+    }
+    @Override
+    public void fetchData() {
+        super.fetchData();
 
+        mViewModel.commissionFetched
+                .observe(
+                        getViewLifecycleOwner(),
+                        new EventObserver<>(result -> {
+                            if (result) openTransferPreviewDialog();
+                        })
+                );
+    }
     @Override
     protected ViewModelStoreOwner getViewModelOwner() {
         return getActivity();

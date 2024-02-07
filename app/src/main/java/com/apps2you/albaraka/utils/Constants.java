@@ -36,7 +36,9 @@ public class Constants {
             BILLS = 9,
             ALPHA_CAPITAL = 10,
             ATM_CARDS = 11,
-            SYGS = 12;
+            SYGS = 12,
+            HF = 13;
+
 
     public static final int TRANSFER_AL_BARAKA = 1,
             TRANSFER_MY_TRANSFER = 2,

@@ -277,32 +277,36 @@ public class TransferRepository {
     }
 
 
-    public LiveData<Resource<Transaction>> hfTransfer(String accountNumber,
-                                                        String fromAccountCode,
-                                                        int providerId,
-                                                        String phoneNumber,
-                                                        String amount,
-                                                        String reason,
-                                                        int cityId,
-//                                                        String type_code,
-                                                        String userPhone,
-                                                        String pinCode) {
+    public LiveData<Resource<Transaction>> hfTransfer(String amount,
+                                                      String typeCode,
+                                                      int providerId,
+                                                      String reason,
+                                                      String benefName,
+                                                      String benefSecondName,
+                                                      String benefLastName,
+                                                      String benfMobile,
+                                                      String benefAddress,
+                                                      String pinCode,
+                                                      int cityId,
+                                                      String accountNumber) {
 
         return new NetworkBoundResource<Transaction>() {
             @NonNull
             @Override
             protected Call<MyResponse<Transaction>> createCall() {
                 return apiService.hfTransfer(
-                        accountNumber,
-                        fromAccountCode,
-                        providerId,
-                        phoneNumber,
                         amount,
+                        typeCode,
+                        providerId,
                         reason,
-                        userPhone,
-//                        type_code,
+                        benefName,
+                        benefSecondName,
+                        benefLastName,
+                        benfMobile,
+                        benefAddress,
+                        pinCode,
                         cityId,
-                        pinCode
+                        accountNumber
                 );
             }
         }.getAsLiveServerData();

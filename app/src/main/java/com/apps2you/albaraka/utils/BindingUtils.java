@@ -80,6 +80,8 @@ public class BindingUtils {
         return formatNumber(new BigDecimal(number));
     }
 
+
+
     @BindingAdapter("account_background")
     public static void setViewBackground(ConstraintLayout constraintLayout, String color) {
         if (color == null) return;
@@ -239,6 +241,9 @@ public class BindingUtils {
                 resource = R.drawable.ic_my_cards;
                 break;
             case Constants.SYGS:
+                resource = R.drawable.ic_bank_transfer;
+                break;
+            case Constants.TRANSFER_HF:
                 resource = R.drawable.ic_bank_transfer;
                 break;
         }

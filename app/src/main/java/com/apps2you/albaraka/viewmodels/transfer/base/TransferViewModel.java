@@ -41,7 +41,8 @@ public abstract class TransferViewModel extends BaseViewModel {
 
     protected String pinCode;
     protected int transferFee;
-
+    protected int minlimit;
+    protected int maxlimit;
     private String lastSelectedAccountId;
 
 
@@ -61,6 +62,21 @@ public abstract class TransferViewModel extends BaseViewModel {
 
     public int getTransferFee() {
         return transferFee;
+    }
+
+    public void setTransferMinLimit(int minLimit) {
+        this.minlimit = minLimit;
+    }
+    public void setTransferMaxLimit(int maxLimit) {
+        this.maxlimit = maxLimit;
+    }
+
+
+    public int getTransferMinLimit() {
+        return minlimit;
+    }
+    public int getTransferMaxLimit() {
+        return maxlimit;
     }
 
     public LiveData<List<TransferData>> getTransferFees() {
@@ -88,6 +104,8 @@ public abstract class TransferViewModel extends BaseViewModel {
                             for (TransferData transferData : resource.data) {
                                 if (transferData.getId() == getTransferTypeId()) {
                                     setTransferFee(transferData.getFee());
+                                    setTransferMinLimit(Integer.parseInt(transferData.getMinLimit()));
+                                    setTransferMaxLimit(Integer.parseInt(transferData.getMaxLimit()));
                                     break;
                                 }
                             }

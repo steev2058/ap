@@ -53,12 +53,16 @@
     <string name="Exchange">تحويل</string>
     <string name="guest_rate">سعر الصرف</string>
     <string name="first_name">الاسم</string>
+    <string name="first_nameHF">اسم المستفيد</string>
+    <string name="seconde_nameHF">اسم أب المستفيد</string>
+    <string name="last_nameHF">كنية المستفيد</string>
+    <string name="father_name">اسم الأب</string>
     <string name="From">من</string>
     <string name="from_account">من %1$s</string>
     <string name="home_menu_main">الرئيسية</string>
     <string name="Invite_Friends">دعوة أصدقاء</string>
     <string name="guest_intro">انضم لنا لتعرف أكثر عن بنك البركة وخدماته</string>
-    <string name="last_name">اسم العائلة</string>
+    <string name="last_name">اسم عائلة المستفيد</string>
     <string name="home_last_seen">آخر ظهور</string>
     <string name="last_update">آخر تحديث</string>
     <string name="loading">جاري التحميل..</string>
@@ -193,8 +197,8 @@
     <string name="valid_amount">الرجاء إدخال قيمة صحيحة</string>
     <string name="personalization">تخصيص</string>
     <string name="ADSL_payment">فواتير ADSL (مزودي خدمة الإنترنت)</string>
-    <string name="HF_payment">تحويلات الهرم والفؤاد</string>
-    <string name="provider">مزود خدمة انترنت</string>+
+    <string name="HF_payment">التحويل إلى شركات الحوالات </string>
+    <string name="provider">مزود خدمة انترنت</string>
     <string name="provider_hf">اختر شركة الحوالة</string>
     <string name="city">المدينة</string>
     <string name="landline_number">رقم الهاتف الثابت</string>
@@ -213,8 +217,14 @@
     <string name="you_must_select_university">يجب اختيار جامعة أولاً</string>
     <string name="you_must_select_school">يجب اختيار مدرسة أولاً</string>
     <string name="you_must_select_city">يجب اختيار مدينة أولاً</string>
+    <string name="you_must_select_fname">يجب إدخال اسم المستفيد  </string>
+    <string name="you_must_select_secname">يجب إدخال اسم أب المستفيد  </string>
+    <string name="you_must_select_lastname">يجب إدخال كنية المستفيد  </string>
+    <string name="you_must_select_phonenumber">يجب إدخال رقم موبايل المستفيد   </string>
+    <string name="you_must_select_reason">يجب إدخال السبب  </string>
     <string name="you_must_select_restaurant">يجب اختيار مطعم أولاً</string>
     <string name="you_must_select_provider">يجب اختيار مزود خدمة انترنت أولاً</string>
+    <string name="you_must_select_provider_hf">يجب اختيار شركة الحوالة أولاً</string>
     <string name="sygs_payment">تحويلات لبنك آخر (SYGS)</string>
     <string name="please_enter_a_phone_number">يرجى إدخال رقم الهاتف</string>
     <string name="pos">نقطة بيع</string>
@@ -230,6 +240,7 @@
     <string name="transfer_info">معلومات التحويل</string>
     <string name="commission">العمولات:  من قيمة الحوالة</string>
     <string name="sygs_limit">الحد الأدنى للمبلغ هو %1$s %3$s , الحد الأعلى هو %2$s %3$s</string>
+    <string name="hf_limit">الحد الأدنى للمبلغ هو %1$s %3$s , الحد الأعلى هو %2$s %3$s</string>
     <string name="car_info">معلومات المركبة</string>
     <string name="property_info">معلومات العقار</string>
     <string name="ground_no">رقم الأرض</string>
@@ -328,7 +339,7 @@
     <string name="msg_write_external_storage_permission">يتطلب تطبيق البركة الوصول إلى وحدة التخزين الخارجية من أجل حفظ الملفات</string>
     <string name="cancel">الغاء</string>
 
-    <string name="another_transfer_text_haram_fouad">تحويل أموال إلى حساب آخر في الهرم او الفؤاد</string>
+    <string name="another_transfer_text_haram_fouad">تحويل أموال إلى مستفيد في شركات الحوالات </string>
 
-    <string name="another_transfer_haram_fouad">التحويل إلى الهرم أو الفؤاد</string>
+    <string name="another_transfer_haram_fouad">التحويل إلى شركات الحوالات  </string>
 </resources>

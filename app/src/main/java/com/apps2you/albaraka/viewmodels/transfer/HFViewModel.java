@@ -5,13 +5,10 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.apps2you.albaraka.MyApplication;
 import com.apps2you.albaraka.data.model.Account;
 import com.apps2you.albaraka.data.model.City;
 import com.apps2you.albaraka.data.model.HFModel;
 import com.apps2you.albaraka.data.model.HfTransferType;
-import com.apps2you.albaraka.data.model.SYGSTransferType;
-import com.apps2you.albaraka.data.preference.UserUtils;
 import com.apps2you.albaraka.data.remote.networkUtils.Resource;
 import com.apps2you.albaraka.data.remote.repository.AppRepository;
 import com.apps2you.albaraka.data.remote.repository.TransferRepository;
@@ -32,12 +29,20 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-
-
-public class HFViewModel extends BaseSelectionViewModel<HFProviderUI>  {
+public class HFViewModel extends BaseSelectionViewModel<HFProviderUI> {
     private MutableLiveData<HFModel> hfItem = new MutableLiveData<>();
     private MutableLiveData<HfTransferType> selectedTransferType = new MutableLiveData<>();
+
+    private BigDecimal minLimit = BigDecimal.ZERO;
+    private BigDecimal maxLimit = BigDecimal.ZERO;
+
+
     private MutableLiveData<HFProviderUI> trans_code = new MutableLiveData<>();
+    private BigDecimal totalCost = BigDecimal.ZERO;
+    private BigDecimal commission = BigDecimal.ZERO;
+
+    private BigDecimal amount = BigDecimal.ZERO;
+
     public LiveData<HFModel> getHfItem() {
         return hfItem;
     }
@@ -45,34 +50,49 @@ public class HFViewModel extends BaseSelectionViewModel<HFProviderUI>  {
     public void setHfItem(HFModel item) {
         hfItem.setValue(item);
     }
-    public HFForm hfForm = new HFForm();
-    protected final AppRepository appRepository;
 
-    private final HFProviderUIMapper hfProviderUIMapper;
+    public HFForm hfForm = new HFForm();
+
+    protected final HFProviderUIMapper hfProviderUIMapper;
+
+    protected final AppRepository appRepository;
     private final MediatorLiveData<ArrayList<City>> _citiesList = new MediatorLiveData<>();
     public final LiveData<ArrayList<City>> citiesList = _citiesList;
 
     private final MutableLiveData<City> _selectedCity = new MutableLiveData<>();
     public final LiveData<City> selectedCity = _selectedCity;
 
+    private final MutableLiveData<Event<Boolean>> _paymentConfirmed = new MutableLiveData<>();
 
+    private MutableLiveData<BigDecimal> _amountLiveData = new MutableLiveData<>();
+    private MutableLiveData<BigDecimal> _commissionLiveData = new MutableLiveData<>();
+    private MutableLiveData<BigDecimal> _totalCostLiveData = new MutableLiveData<>();
+
+    public LiveData<BigDecimal> amountLiveData = _amountLiveData;
+
+    public LiveData<BigDecimal> commissionLiveData = _commissionLiveData;
+    public LiveData<BigDecimal> totalCostLiveData = _totalCostLiveData;
 
     @Inject
     public HFViewModel(UserRepository userRepository, TransferRepository transferRepository, AppRepository appRepository,
-                         HFProviderUIMapper hfProviderUIMapper) {
+                       HFProviderUIMapper hfProviderUIMapper) {
         super(userRepository, transferRepository);
         this.hfProviderUIMapper = hfProviderUIMapper;
         this.appRepository= appRepository;
         fetchCities();
     }
 
+    public void confirmPayment() {
+        _paymentConfirmed.setValue(Event.of(true));
+    }
+
     @Override
     public int getTransferTypeId() {
         return Constants.TRANSFER_HF;
     }
+
     @Override
     public void calculateCommission() {
-        //HfTransferType selectedType = selectedTransferType.getValue();
         String code = getSelectedItem().getProviderCode();
         Account account = selectedAccount.getValue();
         if (isLoadingValue() || code == null || account == null) return;
@@ -94,8 +114,18 @@ public class HFViewModel extends BaseSelectionViewModel<HFProviderUI>  {
                             break;
                         case SUCCESS:
                             if (resource.data != null) {
-                                BigDecimal commission = new BigDecimal(resource.data.getCommission());
-                                BigDecimal totalCost = commission.add(new BigDecimal(hfForm.amount.getLocalizedNumber()));
+                                commission = new BigDecimal(resource.data.getCommission());
+
+                                totalCost = commission.add(new BigDecimal(hfForm.amount.getLocalizedNumber()));
+
+                                _amountLiveData.setValue(new BigDecimal(hfForm.amount.getLocalizedNumber()));
+                                _commissionLiveData.setValue(commission);
+                                _totalCostLiveData.setValue(totalCost);
+
+                                hfForm.setAmount(new BigDecimal(hfForm.amount.getLocalizedNumber()));
+                                hfForm.setCommission(commission);
+                                hfForm.setTotalCost(totalCost);
+
                                 _commissionFetched.setValue(Event.of(true));
                             }
                             break;
@@ -104,65 +134,91 @@ public class HFViewModel extends BaseSelectionViewModel<HFProviderUI>  {
         );
     }
 
-//    public void calculateCommission() {
-//        SYGSTransferType selectedType = selectedTransferType.getValue();
-//        Account account = selectedAccount.getValue();
-//        if (isLoadingValue() || selectedType == null || account == null) return;
-//
-//        _commissionFetched.addSource(
-//                transferRepository.calculateHfCommission(
-//                        form.amount.getLocalizedNumber(),
-//                        selectedType.getTypeCode(),
-//                        account.getCurrency().getCode()
-//                ),
-//                resource -> {
-//                    stopLoading();
-//                    switch (resource.status) {
-//                        case LOADING:
-//                            startLoading();
-//                            break;
-//                        case ERROR:
-//                            setError(resource.error);
-//                            break;
-//                        case SUCCESS:
-//                            if (resource.data != null)
-//                                commission = new BigDecimal(resource.data.getCommission());
-//                            totalCost = commission.add(new BigDecimal(form.amount.getLocalizedNumber()));
-//                            _commissionFetched.setValue(Event.of(true));
-//                            break;
-//                    }
-//                }
-//        );
-//    }
+    public int getMinLimit() {
+        return getTransferMinLimit();
+    }
+
+    public int getMaxLimit() {
+        return getTransferMaxLimit();
+    }
+
+    public void setMinLimit(BigDecimal minLimit) {
+      this.minLimit=minLimit;
+    }
+
+
+    public void setMaxLimit(BigDecimal maxLimit) {
+        this.maxLimit=maxLimit;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        hfForm.setAmount(amount);
+        _amountLiveData.setValue(amount);
+    }
+
+
+
+    public void setCommission(BigDecimal commission) {
+        hfForm.setCommission(commission);
+        _commissionLiveData.setValue(commission);
+    }
+
+    public void setTotalCost(BigDecimal totalCost) {
+        hfForm.setTotalCost(totalCost);
+        _totalCostLiveData.setValue(totalCost);
+    }
+
+    public String getAmount() {
+        return hfForm.amount.getLocalizedValue() + " ";
+    }
+
+    public String getCommission() {
+        return commissionLiveData + " ";
+    }
+
+    public String getTotalCost() {
+        return totalCostLiveData + " ";
+    }
+
+
     @Override
     public void transfer() {
+
         if (selectedAccount.getValue() != null
                 && getSelectedItem() != null
                 && hfForm.allowed()) {
             if (isLoadingValue()) {
                 return;
             }
+            String benefAddressValue = "";
+
+            if (selectedCity.getValue() != null) {
+                benefAddressValue = selectedCity.getValue().getName();
+
+                hfForm.benefAddress.setValue(benefAddressValue);
+            }
+
             _transferStatus.addSource(
                     transferRepository.hfTransfer(
-                            selectedAccount.getValue().getNumber(),
-                            selectedAccount.getValue().getAccountCode(),
-                            getSelectedItem().getId(),
-                            hfForm.phoneNumber.getLocalizedValue(),
                             hfForm.amount.getLocalizedNumber(),
+                            getSelectedItem().getProviderCode(),
+                            getSelectedItem().getId(),
                             hfForm.reason.getValue(),
-//                            code.getValue(),
+                            hfForm.bfirsname.getValue(),
+                            hfForm.bsecname.getValue(),
+                            hfForm.blastname.getValue(),
+                            hfForm.phoneNumber.getValue(),
+                            benefAddressValue,
+                            pinCode,
                             selectedCity.getValue().getId(),
-                            UserUtils.getInstance(MyApplication.getAppContext()).getUser().getPhone(),
-                            pinCode),
+                            selectedAccount.getValue().getNumber()
+
+                    ),
                     this::handleTransferResponse
             );
         }
     }
 
-//    @Override
-//    public void calculateCommission() {
-//
-//    }
 
     @Override
     protected List<HFProviderUI> filter(List<HFProviderUI> data, String searchQuery) {
@@ -187,10 +243,7 @@ public class HFViewModel extends BaseSelectionViewModel<HFProviderUI>  {
         return appRepository.getCities();
     }
 
-    private void fetchCities(){
-//        if (isContentLoadingValue()) {
-//            return;
-//        }
+    private void fetchCities() {
         _citiesList.addSource(getCities(),
                 resource -> {
                     stopContentLoading();
@@ -202,20 +255,15 @@ public class HFViewModel extends BaseSelectionViewModel<HFProviderUI>  {
                             setError(resource.error);
                             break;
                         case SUCCESS:
-                            if (resource.data==null) return;
+                            if (resource.data == null) return;
                             _citiesList.setValue(resource.data);
                             break;
                     }
                 });
     }
 
-
     public void setSelectedCity(City city) {
         _selectedCity.setValue(city);
     }
-
-//    public void setSelectedhf(City city) {
-//        _selectedCity.setValue(city);
-//    }
-
 }
+
