@@ -10,3 +10,6 @@
 0	13	0	clean	e8e56a750ac41363
 2	462	727262486	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
 462	690	727262487	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
+0	22	0	clean	e8e56a750ac41363
+9	877	730206638	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
+877	1115	730206639	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e

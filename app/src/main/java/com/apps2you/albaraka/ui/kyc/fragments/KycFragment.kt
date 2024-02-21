@@ -48,6 +48,7 @@ import com.apps2you.albaraka.databinding.FragmentKycBinding
 import com.apps2you.albaraka.ui.base.BaseFragment
 import com.apps2you.albaraka.ui.kyc.CompressImageTask
 import com.apps2you.albaraka.viewmodels.KycViewModel
+import com.bumptech.glide.Glide
 import com.chaos.view.PinView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -113,6 +114,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
     private lateinit var collegeSpinner: Spinner
     private lateinit var zxingScannerView: ZXingScannerView
     private lateinit var scanButton: Button
+    private lateinit var gif: ImageView
     private lateinit var browseButton: Button
     private lateinit var datePicker : DatePicker
     var responseWaiting: Boolean = false
@@ -121,6 +123,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
     var mobnumEditText: TextInputEditText? = null
 
     private fun setupStepView(){
+
 
     mViewDataBinding.stepView.done(false)
         mViewDataBinding.button.setOnClickListener {
@@ -154,6 +157,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
         mViewDataBinding.previousButton.setOnClickListener {
             when (position) {
                 0 -> {
+
                     // No previous step on the first screen
                     // You can handle this as needed (e.g., go back to a previous activity or fragment)
                 }
@@ -167,6 +171,8 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
         mViewDataBinding.radio.setOnCheckedChangeListener { _, _ ->
             handleRadioButtons()
         }
+
+        mViewDataBinding.previousButton.visibility = if (position == 0) View.GONE else View.VISIBLE
     }
 
 
@@ -336,7 +342,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                 }
 
                 if (fatherName.isEmpty()) {
-                    mViewDataBinding.etFirstNamde.error = "يرجى إدخال اسم والدك"
+                    mViewDataBinding.etFirstNamde.error = "يرجى إدخال اسم الأب"
                     return false
                 } else {
                     mViewDataBinding.etFirstNamde.error = null
@@ -350,14 +356,14 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                 }
 
                 if (motherName.isEmpty()) {
-                    mViewDataBinding.moss.error = "يرجى إدخال اسم والدتك"
+                    mViewDataBinding.moss.error = "يرجى إدخال اسم الأم"
                     return false
                 } else {
                     mViewDataBinding.moss.error = null
                 }
 
                 if (motherLastName.isEmpty()) {
-                    mViewDataBinding.mos22.error = "يرجى إدخال كنية والدتك"
+                    mViewDataBinding.mos22.error = "يرجى إدخال كنية الأم"
                     return false
                 } else {
                     mViewDataBinding.mos22.error = null
@@ -492,10 +498,10 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                 }
 
                 // Validate image uploads
-                val image1 = mViewDataBinding.imageUploadView1.drawable != null
-                val image2 = mViewDataBinding.imageUploadView2.drawable != null
-                val image3 = mViewDataBinding.imageUploadView3.drawable != null
-                val image5 = mViewDataBinding.imageUploadView5.drawable != null
+                val image1 = mViewDataBinding.imageUploadView1.drawable == null
+                val image2 = mViewDataBinding.imageUploadView2.drawable == null
+                val image3 = mViewDataBinding.imageUploadView3.drawable == null
+                val image5 = mViewDataBinding.imageUploadView5.drawable == null
 
                 if (!image1 || !image2 || !image3|| !image5) {
                     showToast("يرجى تحميل جميع الصور المطلوبة")
@@ -801,8 +807,10 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                  val builder = AlertDialog.Builder(requireContext(), R.style.RoundedDialog)
                  builder.setTitle("قم باختيار طريقة لمسح باركود الهوية الشخصية:")
                  val view = layoutInflater.inflate(R.layout.qr_modal, null)
+                 val gifImageView = view.findViewById<ImageView>(R.id.gifImageView)
                  scanButton = view.findViewById(R.id.scanButton)
                  browseButton = view.findViewById(R.id.browseButton)
+                 Glide.with(this).asGif().load(R.drawable.modal1).into(gifImageView)
                  scanButton = view.findViewById(R.id.scanButton)
                  scanButton.setOnClickListener {
                      MyApplication.skipQuit = true

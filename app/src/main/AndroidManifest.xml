@@ -228,20 +228,24 @@
         <activity
             android:name=".ui.kyc.KycActivity"
             android:screenOrientation="portrait"
-            android:taskAffinity="" />
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity
             android:name=".ui.kyc.fragments.ScannerActivity"
             android:screenOrientation="portrait"
-            android:taskAffinity="" />
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.kyc.fragments.finishActivity"
             android:screenOrientation="portrait"
-            android:taskAffinity="" />
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.kyc.fragments.OtpScreen"
             android:screenOrientation="portrait"
-            android:taskAffinity="" />
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
         <service
             android:name=".BarakaFirebaseMessagingService"
             android:exported="false">
