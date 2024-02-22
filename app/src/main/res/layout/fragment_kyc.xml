@@ -371,7 +371,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/Confirm_Personalty"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="330dp"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
@@ -492,7 +492,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/Contact_And_Job"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="330dp"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -648,7 +648,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/Attachments"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="530dp"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -771,33 +771,34 @@
 
 
                         </LinearLayout>
-
                         <LinearLayout
-                            android:id="@+id/image_upload_view4"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginLeft="13dp"
-                            android:foregroundGravity="center_horizontal"
-
+                            android:id="@+id/image_upload_view4"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             app:layout_constraintTop_toBottomOf="@+id/uploads"
-                            android:orientation="vertical">
-
+                            android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="10dp"
+                            android:layout_weight="1"
+                            android:layout_height="120dp"
+                            android:orientation="vertical"
+                            android:gravity="start">
                             <ImageView
                                 android:id="@+id/image_upload_view5"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:src="@drawable/a"
-
                                 android:tag="@id/image_upload_view_tag"
                                 android:scaleType="fitCenter" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                app:layout_constraintTop_toBottomOf="@+id/image_upload_view5"
                                 android:text="@string/university_card" />
                         </LinearLayout>
-
+                        </LinearLayout>
 
                         <!-- YOUR_VIEWS for Step 4 -->
 
@@ -1035,7 +1036,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/background_image"
                                     android:textSize="15sp"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/white"
                                     android:textStyle="bold"
                                     android:textAlignment="center"
                                     android:letterSpacing="0.5"

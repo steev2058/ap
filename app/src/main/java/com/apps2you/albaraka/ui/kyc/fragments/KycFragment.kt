@@ -1,8 +1,10 @@
 package com.apps2you.albaraka.ui.kyc.fragments
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -121,6 +123,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
     private val CAPTURE_IMAGE_REQUEST = 1234 // You can use any positive integer
     private var lastFetchedUniversityData: JSONArray? = null
     var mobnumEditText: TextInputEditText? = null
+    private val CAMERA_PERMISSION_CODE = 1001
 
     private fun setupStepView(){
 
@@ -134,6 +137,18 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                 2 -> goToStep(3)
                 3 -> goToStep(4)
                 4 -> {
+                    val selectedBranch = mViewDataBinding.branchSpinnerId.selectedItem.toString()
+                    if (selectedBranch == "اختر الفرع الذي ترغب بفتح الحساب فيه") {
+                        showToast("يرجى تحديد الفرع")
+
+                    }
+
+                    // Validate the Agreement Checkbox 2
+                    val isAgreementCheckbox2Checked = mViewDataBinding.agreementCheckbox2.isChecked
+                    if (!isAgreementCheckbox2Checked) {
+                        showToast("يرجى التحقق من مربع الاقتراح الثاني")
+
+                    }
                    // setupCaptcha()
                     val captchaTextView = mViewDataBinding.captchaTextView.text.toString()
                     val captchaInput:String = mViewDataBinding.captchaInput.text.toString()
@@ -176,7 +191,47 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
     }
 
 
+    private fun requestCameraPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission is not granted, request the permission
+            requestPermissions(
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_CODE
+            )
+        } else {
+            // Permission has already been granted, start the camera activity
+            //startCameraActivity()
+        }
+    }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, start the camera activity
+                startCameraActivity()
+            } else {
+                // Permission denied, show a message or handle it gracefully
+                Toast.makeText(requireContext(), "تم رفض إذن الكاميرا", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun startCameraActivity() {
+        // Start the camera activity here
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (context?.let { cameraIntent.resolveActivity(it.packageManager) } != null) {
+            startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST)
+        } else {
+            showToast("يوجد خطأ بحزمة تطبيق الكاميرا")
+        }
+    }
 
     private inner class MaskWatcher(private val mask: String) : TextWatcher {
         private var isRunning = false
@@ -244,7 +299,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
     private fun goToStep(step: Int,checkValidate:Boolean = true) {
         if(checkValidate)
             if (!validateForm()) {
-                showToast("يرجى ملء جميع الحقول المطلوبة.")
+              //  showToast("يرجى ملء جميع الحقول المطلوبة.")
                 return
             }
         // Hide all steps
@@ -492,20 +547,30 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                 // Validate the form on the fourth step (Attachments) if needed
                 val selectedQanon = mViewDataBinding.qanonSpinner.selectedItem.toString()
                 if (selectedQanon == "اختر نوع الوثيقة") {
-                    // No option selected for قانون الامتثال الضريبي للحسابات الخارجية (FATCA)
                     showToast("يرجى تحديد خيار قانون الامتثال الضريبي للحسابات الخارجية (FATCA)")
                     return false
                 }
 
-                // Validate image uploads
-                val image1 = mViewDataBinding.imageUploadView1.drawable == null
-                val image2 = mViewDataBinding.imageUploadView2.drawable == null
-                val image3 = mViewDataBinding.imageUploadView3.drawable == null
-                val image5 = mViewDataBinding.imageUploadView5.drawable == null
+                // Validate image uploads based on the buttons' state
+                if (mViewDataBinding.btnProfits.isChecked) {
 
-                if (!image1 || !image2 || !image3|| !image5) {
-                    showToast("يرجى تحميل جميع الصور المطلوبة")
-                    return false
+                    if (getImageUriFromImageView(mViewDataBinding.imageUploadView1) == null ||
+                        getImageUriFromImageView(mViewDataBinding.imageUploadView2) == null ||
+                        getImageUriFromImageView(mViewDataBinding.imageUploadView3) == null) {
+                        showToast("يرجى تحميل جميع الصور المطلوبة")
+                        return false
+                    }
+
+                } else if (mViewDataBinding.btnFinancing.isChecked) {
+
+                    if (getImageUriFromImageView(mViewDataBinding.imageUploadView1) == null ||
+                        getImageUriFromImageView(mViewDataBinding.imageUploadView2) == null ||
+                        getImageUriFromImageView(mViewDataBinding.imageUploadView3) == null||
+                        getImageUriFromImageView(mViewDataBinding.imageUploadView5) == null) {
+                        showToast("يرجى تحميل جميع الصور المطلوبة")
+                        return false
+                    }
+
                 }
             }
             4 -> {
@@ -552,14 +617,10 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                 val captchaInput = mViewDataBinding.captchaInput.text.toString().trim()
                 val captchaText = mViewDataBinding.captchaTextView.text.toString()
                 if (captchaInput != captchaText) {
-                    showToast("CAPTCHA غير صحيح، يرجى المحاولة مرة أخرى")
+                    showToast("الرمز المدخل غير صحيح، يرجى المحاولة مرة أخرى")
                     return false
                 }
             }
-
-
-
-
         }
 
         //  all validations pass
@@ -594,8 +655,6 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
     }
 
     private fun cardInfo(){
-
-
         universitySpinner = mViewDataBinding.universitySpinner
         collegeSpinner = mViewDataBinding.collegeSpinner
         imageUploadView4 = mViewDataBinding.imageUploadView4
@@ -606,8 +665,6 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
 
     // All Spinner
     private  fun  setupSpinners(){
-
-
 
 
         val genderSpinner = mViewDataBinding.genderSpinner
@@ -769,12 +826,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                 });
 //                val loader: ProgressBar = view.findViewById(R.id.loader)
                 builder.setNegativeButton("موافق") { dialog, which ->
-
-
-
                          saveNewAccountRequest2(otp);
-                            val intent = Intent(requireContext(), finishActivity::class.java)
-                            startActivity(intent)
 
                 }
 
@@ -782,10 +834,6 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
 
                 builder.setPositiveButton("إعادة ارسال") { dialog, which ->
                     // Handle positive button click
-
-
-
-
                     SendOtpReq()
                 }
 
@@ -916,7 +964,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
 
     private fun openImagePicker(imageViewTag: Int) {
         currentImageViewTag = imageViewTag
-
+        requestCameraPermission()
         val options = arrayOf("اختر من الاستوديو", "التقاط صورة")
         val builder = AlertDialog.Builder(requireContext(), R.style.RoundedDialog)
         builder.setTitle("اختر الخيار")
@@ -1504,7 +1552,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
             val jsonResponse = JSONObject(response)
             if (jsonResponse.getBoolean("data")) {
                 showOtpDialog()
-                showToast("تم إرسال الرمز (OTP) بنجاح")
+                showToast("تم إرسال رمز التحقق بنجاح")
             } else {
                 showToast(jsonResponse.getString("وصف خاطئ"))
             }
@@ -1666,12 +1714,14 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                         withContext(Dispatchers.Main) {
                             if (jsonResponse.getBoolean("done")) {
                                 showToast("تم حفظ الحساب بنجاح")
+                                val intent = Intent(requireContext(), finishActivity::class.java)
+                                startActivity(intent)
                                 // Response indicates success
                                 // Handle accordingly
                             } else {
                                 // Response indicates failure
                                 goToStep(4)
-                                showToast("حدث خطأ يرجى التأكد من جميع المعلومات والمحاولة لاحقا")
+                                showToast("حدث خطأ يرجى التأكد من صحة رمز التحقق والمحاولة مرة أخرى ")
                                 // Handle accordingly
                             }
                         }
