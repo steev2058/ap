@@ -31,6 +31,11 @@ public class TransferOptionsFragment extends BaseFragment<FragmentTransferOption
         else
             getViewDataBinding().layoutSygsTransfer.getRoot().setVisibility(View.GONE);
 
+        if (requireActivity().getIntent().getBooleanExtra(TransferActivity.EXTRA_HF_ACTIVATED, false))
+            getViewDataBinding().layoutHaramFouadTransfer.getRoot().setVisibility(View.VISIBLE);
+        else
+            getViewDataBinding().layoutHaramFouadTransfer.getRoot().setVisibility(View.GONE);
+
         mViewDataBinding.layoutAlbarakaTransfer.getRoot().setOnClickListener( view ->
                         navigateToAlBarakaTransferFragment()
         );
@@ -40,6 +45,10 @@ public class TransferOptionsFragment extends BaseFragment<FragmentTransferOption
         );
         mViewDataBinding.layoutSygsTransfer.getRoot().setOnClickListener(view ->
                 navigateToSYGSTransferFragment()
+        );
+
+        mViewDataBinding.layoutHaramFouadTransfer.getRoot().setOnClickListener(view ->
+                navigateToHFTransferFragment()
         );
     }
 
@@ -57,6 +66,12 @@ public class TransferOptionsFragment extends BaseFragment<FragmentTransferOption
     private void navigateToSYGSTransferFragment() {
         navController.navigate(
                 TransferOptionsFragmentDirections.actionTransferOptionsFragmentToSYGSActivity()
+        );
+    }
+
+    private void navigateToHFTransferFragment() {
+        navController.navigate(
+                TransferOptionsFragmentDirections.actionTransferOptionsFragmentToHFFragment()
         );
     }
 

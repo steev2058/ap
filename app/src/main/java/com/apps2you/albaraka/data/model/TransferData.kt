@@ -5,4 +5,6 @@ import com.google.gson.annotations.SerializedName
 class TransferData(@SerializedName("id") val id: Int,
                    @SerializedName("fee") val fee: Int,
                    @SerializedName("name") val name: String,
+                   @SerializedName("min_limit") val minLimit: String,
+                   @SerializedName("limit") val maxLimit: String,
 )

@@ -13,6 +13,8 @@ import com.apps2you.albaraka.ui.transfer.accountsTransfer.sygs.SYGSTransferPrevi
 import com.apps2you.albaraka.ui.transfer.adsl.ADSLFragment;
 import com.apps2you.albaraka.ui.transfer.adsl.ADSLProvidersFragment;
 import com.apps2you.albaraka.ui.transfer.alphaCapital.AlphaPaymentFragment;
+import com.apps2you.albaraka.ui.transfer.hf.HFFragment;
+import com.apps2you.albaraka.ui.transfer.hf.HFProvidersFragment;
 import com.apps2you.albaraka.ui.transfer.payment.education.schools.SchoolSelectionFragment;
 import com.apps2you.albaraka.ui.transfer.payment.education.schools.SchoolsPaymentFragment;
 import com.apps2you.albaraka.ui.transfer.payment.education.universities.UniversitiesPaymentFragment;
@@ -51,11 +53,19 @@ public abstract class TransferProvider {
     @ContributesAndroidInjector(modules = {TransferModule.class})
     abstract ADSLFragment provideADSLFragment();
 
+
+    @ContributesAndroidInjector(modules = {TransferModule.class})
+    abstract HFFragment provideHFFragment();
+
     @ContributesAndroidInjector(modules = {TransferModule.class})
     abstract CharitiesFragment provideCharitiesFragment();
 
     @ContributesAndroidInjector(modules = {TransferModule.class})
     abstract ADSLProvidersFragment provideADSLProvidersFragment();
+
+
+    @ContributesAndroidInjector(modules = {TransferModule.class})
+    abstract HFProvidersFragment provideHFProvidersFragment();
 
     @ContributesAndroidInjector(modules = {TransferModule.class})
     abstract FavoriteAccountsFragment provideFavoriteAccountsFragment();

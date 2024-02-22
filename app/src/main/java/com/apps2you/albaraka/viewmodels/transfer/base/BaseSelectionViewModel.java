@@ -19,6 +19,7 @@ public abstract class BaseSelectionViewModel<Model extends SelectableItem> exten
     public final LiveData<List<Model>> dataList = _filteredList;
 
     private final MutableLiveData<Model> _selectedItem = new MutableLiveData<>();
+
     public final LiveData<Model> selectedItemLiveData = _selectedItem;
 
     private final MutableLiveData<String> _searchQuery = new MutableLiveData<>("");

@@ -15,6 +15,7 @@ import com.apps2you.albaraka.data.remote.networkUtils.ApiService;
 import com.apps2you.albaraka.data.remote.networkUtils.MyResponse;
 import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
 import com.apps2you.albaraka.data.remote.networkUtils.Resource;
+import com.apps2you.albaraka.data.remote.responseModel.HfCommissionData;
 import com.apps2you.albaraka.data.remote.responseModel.SYGSData;
 import com.apps2you.albaraka.data.remote.responseModel.SygsCommissionData;
 import com.apps2you.albaraka.ui.transfer.accountsTransfer.sygs.SYGSTransferForm;
@@ -135,6 +136,16 @@ public class TransferRepository {
         }.getAsLiveServerData();
     }
 
+    public LiveData<Resource<ArrayList<Partner>>> getHFProviders() {
+        return new NetworkBoundResource<ArrayList<Partner>>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<ArrayList<Partner>>> createCall() {
+                return apiService.getHFProviders();
+            }
+        }.getAsLiveServerData();
+    }
+
     public LiveData<Resource<ArrayList<Partner>>> getUniversities() {
         return new NetworkBoundResource<ArrayList<Partner>>() {
             @NonNull
@@ -197,6 +208,17 @@ public class TransferRepository {
         }.getAsLiveServerData();
     }
 
+
+    public LiveData<Resource<HfCommissionData>> calculateHfCommission(String amount, int type, String currencyCode) {
+        return new NetworkBoundResource<HfCommissionData>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<HfCommissionData>> createCall() {
+                return apiService.calculateHfCommission(amount, type);
+            }
+        }.getAsLiveServerData();
+    }
+
     public LiveData<Resource<Transaction>> sadakaTransfer(String accountNumber,
                                                           String fromAccountCode,
                                                           int charityId, String charityAccountNumber,
@@ -249,6 +271,42 @@ public class TransferRepository {
                         userPhone,
                         cityId,
                         pinCode
+                );
+            }
+        }.getAsLiveServerData();
+    }
+
+
+    public LiveData<Resource<Transaction>> hfTransfer(String amount,
+                                                      String typeCode,
+                                                      int providerId,
+                                                      String reason,
+                                                      String benefName,
+                                                      String benefSecondName,
+                                                      String benefLastName,
+                                                      String benfMobile,
+                                                      String benefAddress,
+                                                      String pinCode,
+                                                      int cityId,
+                                                      String accountNumber) {
+
+        return new NetworkBoundResource<Transaction>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<Transaction>> createCall() {
+                return apiService.hfTransfer(
+                        amount,
+                        typeCode,
+                        providerId,
+                        reason,
+                        benefName,
+                        benefSecondName,
+                        benefLastName,
+                        benfMobile,
+                        benefAddress,
+                        pinCode,
+                        cityId,
+                        accountNumber
                 );
             }
         }.getAsLiveServerData();

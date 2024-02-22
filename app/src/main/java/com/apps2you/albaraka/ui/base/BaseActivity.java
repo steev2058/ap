@@ -170,7 +170,8 @@ public abstract class BaseActivity<VB extends ViewDataBinding, VM extends BaseVi
             } else {
                 hideProgress();
             }
-        });
+        }
+        );
     }
 
     private void setBackButtonAction() {

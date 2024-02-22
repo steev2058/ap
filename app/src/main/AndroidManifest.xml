@@ -182,6 +182,12 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".ui.transfer.hf.HFActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".ui.transfer.adsl.ADSLActivity"
             android:screenOrientation="portrait"
             android:taskAffinity=""

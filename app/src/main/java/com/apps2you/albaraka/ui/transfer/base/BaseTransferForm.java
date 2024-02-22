@@ -12,7 +12,14 @@ import java.math.BigDecimal;
 public class BaseTransferForm extends BaseForm {
     public final LocalizedStringLiveData amount = new LocalizedStringLiveData("");
 
+
     public final MutableLiveData<String> reason = new MutableLiveData<>("");
+
+    public final MutableLiveData<String> bfirsname = new MutableLiveData<>("");
+
+    public final MutableLiveData<String> bsecname = new MutableLiveData<>("");
+
+    public final MutableLiveData<String> blastname = new MutableLiveData<>("");
 
     public BaseTransferForm() {
         addMutableLiveDataStringField(amount, reason);
@@ -30,6 +37,17 @@ public class BaseTransferForm extends BaseForm {
         return TextUtils.isEmpty(reason.getValue());
     }
 
+
+
+    public boolean isBFirstNameEmpty() {
+        return TextUtils.isEmpty(bfirsname.getValue());
+    }
+    public boolean isBSecNameEmpty() {
+        return TextUtils.isEmpty(bsecname.getValue());
+    }
+    public boolean isBLastNameEmpty() {
+        return TextUtils.isEmpty(blastname.getValue());
+    }
     public Integer getAmountValue(){
         return stringValueToInt(amount);
     }

@@ -29,7 +29,11 @@ public class HomeViewModel extends BaseViewModel {
     private User user;
 
     public String lang;
+
     public boolean isSYGSActivated = false;
+
+    public boolean isHFActivated = false;
+
     public ObservableField<Boolean> showTouchIDOption;
     public static ObservableField<Integer> notificationCount = new ObservableField<>(0);
     private MutableLiveData<ArrayList<QuickService>> homeQuickServices = new MutableLiveData<>(new ArrayList<>());

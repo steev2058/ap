@@ -73,6 +73,22 @@
                     app:subTitle="@{@string/another_transfer_text}"
                     app:title="@{@string/another_transfer}"
                     />
+
+
+                <!--    Transfer to haram and fouad account-->
+
+                <include
+                    android:id="@+id/layout_haram_fouad_transfer"
+                    layout="@layout/layout_transfer_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_xlarge"
+                    app:icon="@{@drawable/ic_bank_transfer_circel}"
+                    app:layout_constraintTop_toBottomOf="@id/layout_sygs_transfer"
+                    app:subTitle="@{@string/another_transfer_text_haram_fouad}"
+                    app:title="@{@string/another_transfer_haram_fouad}"
+                    />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -98,9 +98,9 @@ public class MyApplication extends Application implements HasAndroidInjector {
                 new ApplicationStateTracker.ApplicationStateCallback() {
                     @Override
                     public void applicationWentToForeground() {
-                        if (isInBackground && isLoggedIn && !skipQuit){
-                            Bus.instance().publish(UnAuthorizedUserEvent.getInstance());
-                        }
+//                        if (isInBackground && isLoggedIn && !skipQuit){
+//                            Bus.instance().publish(UnAuthorizedUserEvent.getInstance());
+//                        }
                         isInBackground = false;
                         skipQuit = false;
                     }

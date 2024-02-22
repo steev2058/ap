@@ -1,0 +1,23 @@
+# ninja log v5
+1	897	727783106	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
+899	1117	727783107	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
+1	33	0	clean	e8e56a750ac41363
+0	14	0	clean	e8e56a750ac41363
+2	469	727797647	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
+470	661	727797647	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
+0	12	0	clean	e8e56a750ac41363
+2	401	727798502	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
+402	547	727798502	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
+23	2460	728145162	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
+0	6	0	clean	e8e56a750ac41363
+2	385	728479753	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
+385	542	728479753	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
+0	12	0	clean	e8e56a750ac41363
+2	437	728916791	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
+437	654	728916791	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
+1	12	0	clean	e8e56a750ac41363
+2	473	728925146	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
+473	667	728925147	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
+0	11	0	clean	e8e56a750ac41363
+3	481	728998152	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
+482	691	728998153	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e

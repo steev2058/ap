@@ -67,6 +67,10 @@ class AccountsFragment : BaseFragment<FragmentAccountsBinding, AccountVM>(),
                     if (it?.data?.quickServices != null) {
                         viewModel.isSYGSActivated = it.data.quickServices.find { q: QuickService -> q.id == Constants.SYGS } != null
                     }
+
+                    if (it?.data?.quickServices != null) {
+                        viewModel.isHFActivated = it.data.quickServices.find { q: QuickService -> q.id == Constants.HF } != null
+                    }
                 }
             }
         })
@@ -91,7 +95,7 @@ class AccountsFragment : BaseFragment<FragmentAccountsBinding, AccountVM>(),
                 }
                 R.id.menu_transfer -> {
                     activityNavigation.navigate(
-                            TransferActivity.getIntent(requireContext(), viewModel.isSYGSActivated, item.number)
+                            TransferActivity.getIntent(requireContext(),viewModel.isHFActivated, viewModel.isSYGSActivated, item.number)
                     )
                 }
             }
