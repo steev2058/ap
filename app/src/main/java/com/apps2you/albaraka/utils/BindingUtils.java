@@ -211,8 +211,10 @@ public class BindingUtils {
         int resource = 0;
         switch (id) {
             case Constants.TRANSFER:
-            case Constants.BILLS:
                 resource = R.drawable.ic_transfer;
+                break;
+            case Constants.BILLS:
+                resource = R.drawable.ic_sep;
                 break;
             case Constants.ZAKAT:
                 resource = R.drawable.ic_hand;
@@ -244,8 +246,8 @@ public class BindingUtils {
             case Constants.SYGS:
                 resource = R.drawable.ic_bank_transfer;
                 break;
-            case Constants.TRANSFER_HF:
-                resource = R.drawable.ic_bank_transfer;
+            case Constants.HF:
+                resource = R.drawable.ic_services;
                 break;
         }
         return resource;
