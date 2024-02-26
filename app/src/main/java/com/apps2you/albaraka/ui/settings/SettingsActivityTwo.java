@@ -12,11 +12,14 @@ import com.apps2you.albaraka.BR;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.preference.UserUtils;
 import com.apps2you.albaraka.databinding.ActivitySettingsBinding;
+import com.apps2you.albaraka.databinding.ActivitySettingstwoBinding;
 import com.apps2you.albaraka.ui.base.BaseActivity;
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.viewmodels.LoginViewModel;
 
-public class SettingsActivity extends BaseActivity<ActivitySettingsBinding, LoginViewModel> {
+
+
+public class SettingsActivityTwo extends BaseActivity<ActivitySettingstwoBinding, LoginViewModel> {
 
     @Override
     public int getBindingVariable() {
@@ -25,7 +28,7 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding, Logi
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_settings;
+        return R.layout.activity_settingstwo;
     }
 
     @Override
@@ -54,11 +57,35 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding, Logi
         }
 
 
+        getViewDataBinding().btnChangePin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToResetPinFragment();
+            }
+        });
 
+        getViewDataBinding().btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToResetPassFragment();
+            }
+        });
 
     }
     // Method to navigate to reset pin fragment
+    private void navigateToResetPinFragment() {
+        setToolbarTitle(getString(R.string.pin_title));
+        Navigation.findNavController(this, R.id.fragment)
+                .navigate(R.id.resetPinFragment);
 
+    }
+
+    // Method to navigate to reset password fragment
+    private void navigateToResetPassFragment() {
+        setToolbarTitle(getString(R.string.password_title));
+        Navigation.findNavController(this, R.id.fragment)
+                .navigate(R.id.resetPassFragment);
+    }
 
 
     public void updateBiometryPassword() {

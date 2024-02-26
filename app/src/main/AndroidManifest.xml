@@ -109,7 +109,19 @@
             android:taskAffinity="" />
 
         <activity
+            android:name=".ui.settings.SettingsActivityTwo"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:taskAffinity="" />
+
+        <activity
             android:name=".ui.complaints.ComplaintActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.mobForm.MobFormActivity"
             android:screenOrientation="portrait"
             android:taskAffinity=""
             android:windowSoftInputMode="adjustResize" />

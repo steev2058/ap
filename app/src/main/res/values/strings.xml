@@ -31,6 +31,7 @@
     <string name="code">Code</string>
     <string name="guest_complaints">Complaints</string>
     <string name="more_complaints">Complaints and suggestions</string>
+    <string name="more_mobile_form">Request to subscribe to Al Baraka application</string>
     <string name="error_connection">Connection error!</string>
     <string name="contact_information">Contact information</string>
     <string name="Contact_us">Contact us</string>

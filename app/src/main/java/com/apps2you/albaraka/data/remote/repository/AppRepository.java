@@ -7,6 +7,7 @@ import com.apps2you.albaraka.data.model.About;
 import com.apps2you.albaraka.data.model.Branch;
 import com.apps2you.albaraka.data.model.City;
 import com.apps2you.albaraka.data.model.Complaint;
+import com.apps2you.albaraka.data.model.MobForm;
 import com.apps2you.albaraka.data.model.NotificationContent;
 import com.apps2you.albaraka.data.model.PrivacyPolicy;
 import com.apps2you.albaraka.data.model.ProductCategory;
@@ -108,6 +109,36 @@ public class AppRepository {
                         complaint.getBranchID(),
                         complaint.getComplaintDate(),
                         complaint.getMessage());
+            }
+        }.getAsLiveServerData();
+    }
+
+    public LiveData<Resource<ArrayList<Title>>> getMobFormTitles() {
+        return new NetworkBoundResource<ArrayList<Title>>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<ArrayList<Title>>> createCall() {
+                return apiService.getMobFormTitles();
+            }
+        }.getAsLiveServerData();
+    }
+
+    public LiveData<Resource<MobForm>> sendMobForm(MobForm mobForm) {
+        return new NetworkBoundResource<MobForm>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<MobForm>> createCall() {
+                return apiService.mobForm(mobForm.getFirstName(),
+                        mobForm.getLastName(),
+                        mobForm.getClientStatus(),
+                        mobForm.getMobileNumber(),
+                        mobForm.getPhoneNumber(),
+                        mobForm.getEmail(),
+                        mobForm.getContactTime(),
+                        mobForm.getComplaintTitleID(),
+                        mobForm.getBranchID(),
+                        mobForm.getComplaintDate(),
+                        mobForm.getMessage());
             }
         }.getAsLiveServerData();
     }

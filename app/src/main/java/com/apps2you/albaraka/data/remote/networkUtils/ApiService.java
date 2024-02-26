@@ -13,6 +13,7 @@ import com.apps2you.albaraka.data.model.DepositResult;
 import com.apps2you.albaraka.data.model.FavoriteAccount;
 import com.apps2you.albaraka.data.model.FinancingResult;
 import com.apps2you.albaraka.data.model.FinancingType;
+import com.apps2you.albaraka.data.model.MobForm;
 import com.apps2you.albaraka.data.model.NotificationContent;
 import com.apps2you.albaraka.data.model.Operator;
 import com.apps2you.albaraka.data.model.Partner;
@@ -138,6 +139,24 @@ public interface ApiService {
                                           @Field("branch_id") @Nullable Integer branch_id,
                                           @Field("complaint_date") String complaint_date,
                                           @Field("message") String message);
+
+
+    @GET("complaint_titles")
+    Call<MyResponse<ArrayList<Title>>> getMobFormTitles();
+
+    @FormUrlEncoded
+    @POST("complaint")
+    Call<MyResponse<MobForm>> mobForm(@Field("first_name") String first_name,
+                                        @Field("last_name") String last_name,
+                                        @Field("client_status") String client_status,
+                                        @Field("mobile_number") String mobile_number,
+                                        @Field("phone_number") String phone_number,
+                                        @Field("email") String email,
+                                        @Field("contact_time") String contact_time,
+                                        @Field("complaint_title_id") @Nullable Integer complaint_title_id,
+                                        @Field("branch_id") @Nullable Integer branch_id,
+                                        @Field("complaint_date") String complaint_date,
+                                        @Field("message") String message);
 
     @GET("get_notifications")
     Call<MyResponse<ArrayList<NotificationContent>>> getNotifications();

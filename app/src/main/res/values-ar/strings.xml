@@ -31,6 +31,7 @@
     <string name="code">الرمز</string>
     <string name="guest_complaints">شكاوى ومقترحات</string>
     <string name="more_complaints">شكاوى ومقترحات</string>
+    <string name="more_mobile_form">طلب الاشتراك بتطبيق البركة</string>
     <string name="error_connection">حدث خطأ في الاتصال!</string>
     <string name="contact_information">معلومات جهة الاتصال</string>
     <string name="Contact_us">تواصل معنا</string>

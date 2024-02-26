@@ -27,6 +27,7 @@ import com.apps2you.albaraka.ui.notifications.NotificationsActivity;
 import com.apps2you.albaraka.ui.registration.CryptPasswordCallback;
 import com.apps2you.albaraka.ui.registration.LoginActivity;
 import com.apps2you.albaraka.ui.settings.SettingsActivity;
+import com.apps2you.albaraka.ui.settings.SettingsActivityTwo;
 import com.apps2you.albaraka.ui.transactions.TransactionDetailsActivity;
 import com.apps2you.albaraka.ui.transfer.qrPayment.QrPaymentActivity;
 import com.apps2you.albaraka.utils.Constants;
@@ -126,6 +127,18 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
         mViewDataBinding.bottomSheet.tvChangePass.setOnClickListener(view -> {
             Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+            intent.putExtra("navigation_type", Constants.NAVIGATION_FROM_SETTINGS_TO_RESET_PASS);
+            startActivity(intent);
+        });
+
+        mViewDataBinding.bottomSheet.tvChangePin.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, SettingsActivityTwo.class);
+            intent.putExtra("navigation_type", Constants.NAVIGATION_FROM_SETTINGS_TO_RESET_PIN);
+            startActivity(intent);
+        });
+
+        mViewDataBinding.bottomSheet.tvChangePass.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, SettingsActivityTwo.class);
             intent.putExtra("navigation_type", Constants.NAVIGATION_FROM_SETTINGS_TO_RESET_PASS);
             startActivity(intent);
         });

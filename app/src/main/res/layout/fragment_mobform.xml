@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.MobFormViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingStart="@dimen/padding_home"
+            android:paddingEnd="@dimen/padding_home"
+            tools:context=".ui.mobForm.fragments.MobFormFragment">
+
+            <TextView
+                android:id="@+id/textView_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/login_welcome"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/x_Title"
+                app:layout_constraintBottom_toTopOf="@+id/divider_contact"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+
+            <!--Contact information-->
+            <View
+                android:id="@+id/divider_contact"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="18dp"
+                android:background="@color/bright_gray"
+                app:layout_constraintTop_toBottomOf="@id/textView_title" />
+
+            <TextView
+                android:id="@+id/tv_contact_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/contact_information"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_contact"
+                app:layout_constraintTop_toBottomOf="@id/divider_contact" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_mobile_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/tv_contact_info">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_mobile_number"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/mobile_number"
+                    android:inputType="phone"
+                    android:text="@={viewModel.mobForm.mobileNumber}"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.apps2you.albaraka.utils.CustomTextInputLayout
+                android:id="@+id/ti_telephone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/ti_mobile_number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_telephone_number"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/telephone_number"
+                    android:inputType="phone"
+                    android:text="@={viewModel.mobForm.phoneNumber}"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp" />
+            </com.apps2you.albaraka.utils.CustomTextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/ti_telephone_number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_email"
+                    style="@style/InputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.mobForm.email}"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Contact time information-->
+            <View
+                android:id="@+id/divider_contact_time"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="18dp"
+                android:background="@color/bright_gray"
+                app:layout_constraintTop_toBottomOf="@id/ti_email" />
+
+
+
+
+
+
+
+
+
+
+
+            <Button
+                android:id="@+id/btn_send"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="18dp"
+                android:text="@string/send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ti_message" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
