@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.KycViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingStart="@dimen/padding_home"
+        android:paddingEnd="@dimen/padding_home"
+        tools:context=".ui.kyc.fragments.KycFragment">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:layout_marginBottom="50dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/cardView">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+            <RadioGroup
+                android:id="@+id/radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="0dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_15ssp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="16dp">
+
+                <!-- Add your RadioButton views here -->
+
+                <!-- Example RadioButton 2 -->
+                <RadioButton
+                    android:id="@+id/btn_profits"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+
+
+                    android:background="@drawable/selector_calculator"
+                    android:button="@null"
+                    android:drawableTop="@drawable/def2account"
+                    android:drawablePadding="8dp"
+                    android:padding="8dp"
+                    android:text="@string/normal_account"
+                    android:textAlignment="center"
+                    android:textColor="@color/radio_button_color" />
+
+                <!-- Example RadioButton 1 -->
+                <RadioButton
+                    android:id="@+id/btn_financing"
+                    android:layout_width="0dp"
+
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/selector_calculator"
+                    android:button="@null"
+                    android:drawableTop="@drawable/telabi"
+                    android:drawablePadding="8dp"
+                    android:padding="8dp"
+                    android:text="@string/student_account"
+                    android:textAlignment="center"
+                    android:textColor="@color/radio_button_color" />
+
+            </RadioGroup>
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/radio"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                    <!-- Step View -->
+                    <com.shuhart.stepview.StepView
+                        android:id="@+id/step_view"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:padding="8dp"
+                        app:sv_animationDuration="1"
+                        app:sv_animationType="Line"
+                        app:sv_doneCircleColor="@color/orange"
+                        app:sv_doneCircleRadius="20dp"
+                        app:sv_doneStepLineColor="@color/orange"
+                        app:sv_doneStepMarkColor="@android:color/white"
+                        app:sv_doneTextColor="@android:color/darker_gray"
+                        app:sv_nextStepLineColor="@color/gray"
+                        app:sv_nextTextColor="@color/gray"
+                        app:sv_selectedCircleColor="@color/red"
+                        app:sv_selectedCircleRadius="12dp"
+                        app:sv_selectedStepNumberColor="@color/white"
+                        app:sv_selectedTextColor="@color/red"
+                        app:sv_stepLineWidth="1dp"
+                        app:sv_stepNumberTextSize="12sp"
+                        app:sv_stepPadding="4dp"
+                        app:sv_stepViewStyle="@style/StepView"
+                        app:sv_steps="@array/details"
+                        app:sv_stepsNumber="3"
+                        app:sv_textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                        <!--Personal information-->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/personal_details"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/step_view">
+                        <!-- Personal Information Label -->
+                        <TextView
+                            android:id="@+id/tv_personal_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="8dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/personal_information_kyc"
+
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/ic_user_icon"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/info_one"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_personal_info">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/ti_first_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_first_name"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/first_name"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp"
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/ti_first_namde"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_first_namde"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/father_name"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:textAlignment="viewStart"
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/ti_first_namde2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_first_namde2"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/last_name"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:textAlignment="viewStart"
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/info_two"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toBottomOf="@+id/info_one">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/mos"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/moss"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/mother_name"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/mos2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/mos22"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/mother_last_name"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/mos3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/mos33"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/place_of_birth"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+
+                        <Spinner
+                            android:id="@+id/gender_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:hint="Select Gender"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/info_two" />
+
+
+                        <Spinner
+                            android:id="@+id/gender2_spinner"
+                            android:layout_width="0dp"
+                            style="@style/InputEt"
+                            android:layout_height="wrap_content"
+                            android:hint="Select Nationality"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/gender_spinner" />
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/linear_layout"
+                            app:layout_constraintTop_toBottomOf="@+id/gender2_spinner"
+                            android:gravity="center">
+
+                            <!-- TextView for Date Info -->
+                            <TextView
+                                android:id="@+id/tv_date_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="8dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+
+                                android:text="@string/date_of_birth"
+                                android:textStyle="bold"
+                                app:drawableStartCompat="@drawable/calendar_icon"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <!-- DatePicker for Date of Birth -->
+                            <DatePicker
+                                android:id="@+id/datePicker2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:datePickerMode="spinner"
+                                android:calendarViewShown="false"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_date_info" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- ConstraintLayout for Step 2 -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/Confirm_Personalty"
+                        android:layout_width="0dp"
+                        android:layout_height="330dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/step_view">
+
+
+                        <TextView
+                            android:id="@+id/national_id_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="8dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/step_two_title"
+
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/ic_personal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- Spinner for gender -->
+                        <Spinner
+                            android:id="@+id/type_id_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:hint="Select Gender"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/national_id_text"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/stp2area"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="10dp"
+                            app:layout_constraintTop_toBottomOf="@+id/type_id_spinner">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/national_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/national_numberr"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/national_number"
+                                    android:inputType="number"
+                                    android:digits="0123456789"
+                                    android:maxLines="1"
+                                    android:maxLength="11"
+                                    android:text=""
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/national_place"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/national_placec"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/place_of_issue"
+                                    android:inputType="text"
+                                    android:text=""
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/kayedw"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/kayed"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/alqayd"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+
+
+                        <!-- YOUR_VIEWS for Step 2 -->
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- ConstraintLayout for Step 3 -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/Contact_And_Job"
+                        android:layout_width="0dp"
+                        android:layout_height="330dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/step_view">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/stp3area"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="10dp">
+                            <TextView
+                                android:id="@+id/tv_contactandedu_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="8dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:text="@string/txt_student"
+                                android:textStyle="bold"
+                                app:drawableStartCompat="@drawable/ic_user_icon"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_contactandjob_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="8dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:text="@string/txt_normal"
+                                android:textStyle="bold"
+                                app:drawableStartCompat="@drawable/ic_user_icon"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+<!--                            <Spinner-->
+<!--                                android:id="@+id/governorate_spinner"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                style="@style/InputEt"-->
+<!--                                android:layout_marginTop="8dp"-->
+<!--                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info" />-->
+
+                            <!-- Spinner for الجامعة -->
+                            <Spinner
+                                android:id="@+id/university_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/InputEt"
+                                android:layout_marginTop="8dp"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info" />
+
+                            <!-- Spinner for الكلية -->
+                            <Spinner
+                                android:id="@+id/college_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/InputEt"
+                                android:layout_marginTop="8dp"
+                                app:layout_constraintTop_toBottomOf="@id/university_spinner" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/addr"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="8dp"
+                                android:layout_height="wrap_content"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/addrr"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/address"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/mobnum"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/mobnumm"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/phone_number_kyc"
+                                    android:inputType="number"
+                                    android:digits="0123456789"
+                                    android:maxLines="1"
+                                    android:maxLength="10"
+                                    android:text="09"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp"
+
+                                    android:imeOptions="actionNext">
+
+
+                                </com.google.android.material.textfield.TextInputEditText>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/jobb"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/job"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/job_kyc"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+
+
+                        <!-- YOUR_VIEWS for Step 3 -->
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- ConstraintLayout for Step 4 -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/Attachments"
+                        android:layout_width="0dp"
+                        android:layout_height="530dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/step_view">
+                        <TextView
+                            android:id="@+id/qanon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="8dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/FATCA"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:textAlignment="viewStart"
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/file_icon"/>
+                        <Spinner
+                            android:id="@+id/qanon_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:hint="Select Gender"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/qanon"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+                        <TextView
+                            android:id="@+id/tv_personal_indfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="8dp"
+                            android:layout_marginTop="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/download_attachments"
+
+                            app:layout_constraintTop_toBottomOf="@+id/qanon_spinner"
+                            android:textAlignment="viewStart"
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/upload_icon"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/uploads"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_personal_indfo"
+                            android:orientation="horizontal">
+
+
+
+                            <!-- First Image View with Label -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_height="120dp"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/image_upload_view1"
+                                    android:layout_width="100dp"
+                                    android:layout_height="85dp"
+                                    android:layout_marginTop="12dp"
+                                    android:src="@drawable/c"
+                                    android:tag="@id/image_upload_view_tag"
+                                    android:scaleType="fitCenter" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/personal_image" />
+
+                            </LinearLayout>
+
+                            <!-- Second Image View with Label -->
+                            <LinearLayout
+                                android:layout_width="15dp"
+                                android:layout_weight="1"
+                                android:layout_height="120dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/image_upload_view2"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:src="@drawable/b"
+                                    android:tag="@id/image_upload_view_tag"
+                                    android:scaleType="fitCenter" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/id_back_side" />
+                            </LinearLayout>
+
+                            <!-- Third Image View with Label -->
+                            <LinearLayout
+                                android:layout_width="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="120dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/image_upload_view3"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:src="@drawable/a"
+
+                                    android:tag="@id/image_upload_view_tag"
+                                    android:scaleType="fitCenter" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/id_front_side" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/image_upload_view4"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            app:layout_constraintTop_toBottomOf="@+id/uploads"
+                            android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="10dp"
+                            android:layout_weight="1"
+                            android:layout_height="120dp"
+                            android:orientation="vertical"
+                            android:gravity="start">
+                            <ImageView
+                                android:id="@+id/image_upload_view5"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:src="@drawable/a"
+                                android:tag="@id/image_upload_view_tag"
+                                android:scaleType="fitCenter" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toBottomOf="@+id/image_upload_view5"
+                                android:text="@string/university_card" />
+                        </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- YOUR_VIEWS for Step 4 -->
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- ConstraintLayout for Step 5 -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/CreditCard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/step_view">
+
+                        <!-- Checkbox for Agreement -->
+<!--                        <CheckBox-->
+<!--                            android:id="@+id/agreement_checkbox"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_marginTop="@dimen/_10sdp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:checked="true"-->
+<!--                            android:text="@string/issuing_card"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent" />-->
+
+
+
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:id="@+id/stp5area"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/agreement_checkbox">-->
+
+<!--                            <com.google.android.material.textfield.TextInputLayout-->
+<!--                                android:id="@+id/fnameen"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:textColorHint="@color/gray"-->
+<!--                                app:hintEnabled="false"-->
+<!--                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">-->
+
+<!--                                <com.google.android.material.textfield.TextInputEditText-->
+<!--                                    android:id="@+id/fnameenn"-->
+<!--                                    style="@style/InputEt"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:hint="@string/first_name_en"-->
+
+<!--                                    android:text=""-->
+<!--                                    android:inputType="textPersonName|textCapCharacters"-->
+<!--                                    android:textAlignment="viewStart"-->
+<!--                                    android:textSize="14sp" />-->
+<!--                            </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                            <com.google.android.material.textfield.TextInputLayout-->
+<!--                                android:id="@+id/father_nameen"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="8dp"-->
+<!--                                android:textColorHint="@color/gray"-->
+<!--                                app:hintEnabled="false"-->
+<!--                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">-->
+
+<!--                                <com.google.android.material.textfield.TextInputEditText-->
+<!--                                    android:id="@+id/fathernameen_n"-->
+<!--                                    style="@style/InputEt"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:hint="@string/father_name_en"-->
+
+<!--                                    android:text=""-->
+<!--                                    android:inputType="textPersonName|textCapCharacters"-->
+<!--                                    android:textAlignment="viewStart"-->
+<!--                                    android:textSize="14sp" />-->
+<!--                            </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                            <com.google.android.material.textfield.TextInputLayout-->
+<!--                                android:id="@+id/last_nameen"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="8dp"-->
+<!--                                android:textColorHint="@color/gray"-->
+<!--                                app:hintEnabled="false"-->
+<!--                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">-->
+
+<!--                                <com.google.android.material.textfield.TextInputEditText-->
+<!--                                    android:id="@+id/last_nameenn"-->
+<!--                                    style="@style/InputEt"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:hint="@string/last_name_en"-->
+
+<!--                                    android:text=""-->
+<!--                                    android:inputType="textPersonName|textCapCharacters"-->
+<!--                                    android:textAlignment="viewStart"-->
+<!--                                    android:textSize="14sp" />-->
+<!--                            </com.google.android.material.textfield.TextInputLayout>-->
+<!--                        </LinearLayout>-->
+
+
+                        <!-- Spinner for gender -->
+<!--                        <Spinner-->
+<!--                            android:id="@+id/country_spinner"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            style="@style/InputEt"-->
+<!--                            android:hint="Select Gender"-->
+<!--                            android:layout_marginTop="@dimen/_10sdp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/stp5area"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"/>-->
+
+
+<!--                        <LinearLayout-->
+<!--                            android:id="@+id/card_issuance_fee_layout"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:layout_marginTop="8dp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/country_spinner">-->
+<!--                            &lt;!&ndash; Red Star Icon &ndash;&gt;-->
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="*"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:textColor="#FF0000"-->
+<!--                                android:layout_gravity="center_vertical" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/card_issuance_fee_label"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="@string/commission_card_kyc"-->
+<!--                                android:textAlignment="viewStart"-->
+<!--                                android:textSize="16sp" />-->
+
+
+
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:id="@+id/card_issuance_fee_layout2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:layout_marginTop="34dp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/country_spinner">-->
+<!--                            &lt;!&ndash; Red Star Icon &ndash;&gt;-->
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="*"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:textColor="#FF0000"-->
+<!--                                android:layout_gravity="center_vertical" />-->
+<!--                            <TextView-->
+<!--                                android:id="@+id/card_issuance_fee_label2"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="@string/payed_card_kyc"-->
+<!--                                android:textAlignment="viewStart"-->
+<!--                                android:textSize="16sp" />-->
+
+
+
+
+<!--                        </LinearLayout>-->
+
+
+
+                        <!-- Checkbox for Agreement 1 -->
+<!--                        <CheckBox-->
+<!--                            android:id="@+id/agreement_checkbox1"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="@string/auth_term_1"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/card_issuance_fee_layout2"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent" />-->
+
+                        <!-- Spinner for branch_spinner_id -->
+                        <Spinner
+                            android:id="@+id/branch_spinner_id"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:hint="Select Gender"
+                            app:layout_constraintBottom_toTopOf="@+id/agreement_checkbox2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+
+                            android:layout_marginTop="16dp" />
+
+                        <!-- Checkbox for Agreement 2 -->
+
+                        <CheckBox
+                            android:id="@+id/agreement_checkbox2"
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@null"
+                            app:layout_constraintTop_toBottomOf="@+id/branch_spinner_id"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginTop="16dp" />
+
+                        <!-- CAPTCHA Layout -->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            app:layout_constraintTop_toBottomOf="@+id/agreement_checkbox2">
+
+                            <LinearLayout
+                                android:id="@+id/captc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginRight="70dp"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="16dp">
+
+                                <TextView
+                                    android:id="@+id/captchaTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/background_image"
+                                    android:textSize="15sp"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center"
+                                    android:letterSpacing="0.5"
+                                    android:text=""
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:layout_marginEnd="8dp" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/refresh_icon"
+                                    android:contentDescription="Refresh"
+                                    android:id="@+id/refreshButton"
+                                    android:clickable="true"
+                                    android:focusable="true" />
+                            </LinearLayout>
+
+
+                            <EditText
+                                android:id="@+id/captchaInput"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/InputEt"
+                                android:textAlignment="center"
+                                android:hint="@string/enter_numbers_here"
+                                android:layout_centerHorizontal="true"
+                                android:layout_below="@id/captc"
+                                android:layout_marginTop="16dp" />
+                        </RelativeLayout>
+                        <!-- YOUR_VIEWS for Step 5 -->
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/cardView"
+            android:orientation="horizontal"
+            android:layout_margin="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <!-- "Previous" Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/previous_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="0.5"
+                android:padding="10dp"
+                android:text="@string/btn_previous" />
+
+
+            <!-- "Next" Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:padding="10dp"
+                android:text="@string/btn_next" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</layout>

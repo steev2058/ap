@@ -10,6 +10,7 @@ import com.apps2you.albaraka.ui.base.BaseFragment
 import com.apps2you.albaraka.ui.calculator.CalculatorActivity
 import com.apps2you.albaraka.ui.complaints.ComplaintActivity
 import com.apps2you.albaraka.ui.exchange.ExchangeActivity
+import com.apps2you.albaraka.ui.kyc.KycActivity
 import com.apps2you.albaraka.ui.locations.LocationsActivity
 import com.apps2you.albaraka.ui.products.ServicesActivity
 import com.apps2you.albaraka.utils.Constants
@@ -33,6 +34,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding, HomeViewModel>() {
     override fun setUpView() {
         viewDataBinding.tvLocation.setOnClickListener { startActivity(Intent(context, LocationsActivity::class.java)) }
         viewDataBinding.tvExchangeRate.setOnClickListener { startActivity(Intent(context, ExchangeActivity::class.java)) }
+        viewDataBinding.tvKyc.setOnClickListener { startActivity(Intent(context, KycActivity::class.java)) }
         viewDataBinding.tvAbout.setOnClickListener { startActivity(Intent(context, AboutActivity::class.java)) }
         viewDataBinding.tvComplaints.setOnClickListener { startActivity(Intent(context, ComplaintActivity::class.java)) }
         viewDataBinding.tvServices.setOnClickListener { startActivity(Intent(context, ServicesActivity::class.java)) }

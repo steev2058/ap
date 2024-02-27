@@ -142,6 +142,11 @@ dependencies {
     def rxAndroidVersion = '2.1.1'
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+
+    //for kyc
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+    implementation 'com.github.shuhart:stepview:1.5.1'
+    implementation 'io.github.chaosleung:pinview:1.4.4'
 }
 repositories {
     mavenCentral()

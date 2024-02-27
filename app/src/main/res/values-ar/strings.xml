@@ -31,7 +31,6 @@
     <string name="code">الرمز</string>
     <string name="guest_complaints">شكاوى ومقترحات</string>
     <string name="more_complaints">شكاوى ومقترحات</string>
-    <string name="more_mobile_form">طلب الاشتراك بتطبيق البركة</string>
     <string name="error_connection">حدث خطأ في الاتصال!</string>
     <string name="contact_information">معلومات جهة الاتصال</string>
     <string name="Contact_us">تواصل معنا</string>
@@ -301,7 +300,6 @@
     <string name="card_opposition">الإيقاف المؤقت للبطاقة</string>
     <string name="card_opposition_withdrawal">إلغاء الإيقاف المؤقت للبطاقة</string>
     <string name="commission_question">عمولة هذه الخدمة هي %1$s ليرة سورية. هل ترغب في المتابعة؟</string>
-    <string name="commission_question_baraka_trans">عمولة هذه الخدمة هي %1$s ليرة سورية. هل ترغب بمتابعة التحويل للمتعامل (%2$s)؟</string>
     <string name="fee_for_service_is">عمولة هذه الخدمة هي</string>
     <string name="want_continue">هل ترغب في المتابعة؟</string>
     <string name="confirmation">تأكيد</string>
@@ -325,13 +323,4 @@
     <string name="write_external_storage_permission">إذن الوصول للتخزين الخارجي</string>
     <string name="msg_write_external_storage_permission">يتطلب تطبيق البركة الوصول إلى وحدة التخزين الخارجية من أجل حفظ الملفات</string>
     <string name="cancel">الغاء</string>
-    <string name="mobFormsubmit">يرجى الضغط لتسجيل طلب</string>
-    <string name="mobFormdelegation">افوض البنك بخصم مبلغ 8,000 ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف الاشتراك بخدمة البركة موبايل
-    و أوافق على الشروط والأحكام </string>
-    <string name="mobFormTerms">لاستكمال الاجراءات يرجى التأكد من صحة البيانات المدخلة والموافقة على الشروط أدناه</string>
-    <string name="mobFormimg">أدخل الأرقام في الصورة</string>
-    <string name="mobFormTitle">استمارة طلب الاشتراك بتطبيق البركة</string>
-    <string name="mobFormtext">يمكّنك تطبيق البركة من إدارة حساباتك المصرفية في بنك البركة من خلال هاتفك الجوال من أي مكان وفي أي وقت على مدار الساعة 24/7 وفقاً لأعلى معايير الدقة والأمان التي تم اتباعها في تصميم تطبيق البركة سورية للحفاظ التام على سريتك المصرفية والمعلومات الخاصة بحساباتك.</string>
-    <string name="mobFormtextinfo">لطفاً منك ملء الاستمارة وسيتم تزويدك بحساب المستخدم بعد التحقق من المعلومات</string>
-    <string name="natoinalnumber">الرقم الوطني أو رقم جواز السفر</string>
 </resources>

@@ -14,7 +14,6 @@ import com.apps2you.albaraka.viewmodels.FinancingCalculatorVM;
 import com.apps2you.albaraka.viewmodels.HomeViewModel;
 import com.apps2you.albaraka.viewmodels.LocationsVM;
 import com.apps2you.albaraka.viewmodels.LoginViewModel;
-import com.apps2you.albaraka.viewmodels.MobFormViewModel;
 import com.apps2you.albaraka.viewmodels.NotificationsViewModel;
 import com.apps2you.albaraka.viewmodels.PrivacyPolicyVM;
 import com.apps2you.albaraka.viewmodels.ProductsViewModel;
@@ -90,11 +89,6 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ComplaintViewModel.class)
     abstract ViewModel bindsComplaintViewModel(ComplaintViewModel viewModel);
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(MobFormViewModel.class)
-    abstract ViewModel bindsMobFormViewModel(MobFormViewModel viewModel);
 
     @Binds
     @IntoMap
