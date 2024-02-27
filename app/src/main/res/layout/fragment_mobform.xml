@@ -23,15 +23,27 @@
             android:paddingStart="@dimen/padding_home"
             android:paddingEnd="@dimen/padding_home"
             tools:context=".ui.mobForm.fragments.MobFormFragment">
-
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="25dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/img_logo"
+                app:layout_constraintBottom_toTopOf="@+id/textView_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:id="@+id/textView_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:text="@string/login_welcome"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/x_Title"
+                android:text="@string/mobFormTitle"
+                android:textColor="@color/gray"
+                android:gravity="center"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toTopOf="@+id/divider_contact"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -50,17 +62,28 @@
                 app:layout_constraintTop_toBottomOf="@id/textView_title" />
 
             <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/mobFormtext"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/divider_contact" />
+            <TextView
                 android:id="@+id/tv_contact_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="@string/contact_information"
+                android:text="@string/mobFormtextinfo"
                 android:textAlignment="viewStart"
                 android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_contact"
-                app:layout_constraintTop_toBottomOf="@id/divider_contact" />
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ti_mobile_number"
@@ -75,7 +98,7 @@
                     style="@style/InputEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/mobile_number"
+                    android:hint="@string/natoinalnumber"
                     android:inputType="phone"
                     android:text="@={viewModel.mobForm.mobileNumber}"
                     android:textAlignment="viewStart"
@@ -96,7 +119,7 @@
                     style="@style/InputEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/telephone_number"
+                    android:hint="@string/Account_Number"
                     android:inputType="phone"
                     android:text="@={viewModel.mobForm.phoneNumber}"
                     android:textAlignment="viewStart"
@@ -117,12 +140,78 @@
                     style="@style/InputEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/email"
+                    android:hint="@string/mobile_number"
                     android:inputType="textEmailAddress"
                     android:text="@={viewModel.mobForm.email}"
                     android:textAlignment="viewStart"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+android:id="@+id/ccc"
+                app:layout_constraintTop_toBottomOf="@+id/ti_email">
+
+                <LinearLayout
+                    android:id="@+id/captc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginRight="70dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/captchaTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_image"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:letterSpacing="0.5"
+                        android:text=""
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginEnd="8dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/refresh_icon"
+                        android:contentDescription="Refresh"
+                        android:id="@+id/refreshButton"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/captchaInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/InputEt"
+                    android:textAlignment="center"
+                    android:hint="@string/mobFormimg"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/captc"
+                    android:layout_marginTop="16dp" />
+            </RelativeLayout>
+
+
+            <CheckBox
+                android:id="@+id/agreement_checkbox2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@null"
+                app:layout_constraintTop_toBottomOf="@+id/ccc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
+
+
 
             <!--Contact time information-->
             <View
@@ -134,15 +223,6 @@
                 app:layout_constraintTop_toBottomOf="@id/ti_email" />
 
 
-
-
-
-
-
-
-
-
-
             <Button
                 android:id="@+id/btn_send"
                 style="@style/ButtonPrimary"
@@ -152,7 +232,7 @@
                 android:layout_marginBottom="18dp"
                 android:text="@string/send"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ti_message" />
+                app:layout_constraintTop_toBottomOf="@id/agreement_checkbox2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

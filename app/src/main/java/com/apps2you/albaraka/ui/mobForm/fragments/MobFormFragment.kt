@@ -1,9 +1,22 @@
 package com.apps2you.albaraka.ui.mobForm.fragments
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.TextUtils
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.util.Patterns
+import android.view.LayoutInflater
 import android.view.View
+import android.webkit.WebChromeClient
+import android.webkit.WebView
 import android.widget.AdapterView
+import android.widget.ProgressBar
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.apps2you.albaraka.BR
@@ -21,8 +34,9 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.Random
 
-class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>(), DatePickerDialog.OnDateSetListener {
+class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>() {
 
     override fun createViewModel() {
         mViewModel = ViewModelProvider(mActivity).get(MobFormViewModel::class.java)
@@ -42,121 +56,110 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
 
     override fun setUpView() {
         mViewDataBinding.etTelephoneNumber.addTextChangedListener(CustomTextWatcher(mViewDataBinding.tiTelephoneNumber))
-        mViewDataBinding.etMessage.addTextChangedListener(CustomTextWatcher(mViewDataBinding.tiMessage))
-
-
-        mViewDataBinding.spinnerClient.adapter = SpinnerAdapter(mViewModel.getClientSpinnerItems(mActivity))
-        mViewDataBinding.spinnerMessageTitle.adapter = SpinnerAdapter(mViewModel.getMessageTitleSpinnerItem(mActivity))
-        mViewDataBinding.spinnerPlace.adapter = SpinnerAdapter(arrayListOf(getDefault(getString(R.string.place_of_incident))))
-
-        mViewDataBinding.iBtnDate.setOnClickListener { openDatePicker() }
-        mViewDataBinding.etDate.setOnClickListener { openDatePicker() }
         mViewDataBinding.btnSend.setOnClickListener {
             mViewDataBinding.layout.requestFocus()
             sendMobForm()
         }
 
-        mViewDataBinding.spinnerClient.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val item = mViewDataBinding.spinnerClient.adapter.getItem(position)
-                if (item is Title && position != 0) {
-                    if (position == 1) {
-                        mViewModel.mobForm.clientStatus = "Client"
-                    } else if (position == 2) { mViewModel.mobForm.clientStatus = "Not a client"
-                    }
-                } else {
-                   mViewModel.mobForm.clientStatus = null
-                }
-            }
+        setupAgreementCheckbox()
+        setupCaptcha()
+    }
+    private fun setupCaptcha() {
+        // Function to generate a random CAPTCHA string
+        fun generateCaptcha(): String {
+            val random = Random()
+            val number1 = random.nextInt(10)
+            val number2 = random.nextInt(10)
+            val number3 = random.nextInt(10)
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
+            return "$number1    $number2    $number3"
         }
 
-        mViewDataBinding.spinnerMessageTitle.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val item = mViewDataBinding.spinnerMessageTitle.adapter.getItem(position)
-                if (item is Title && item.title_id != -1) {
-                    mViewModel.mobForm.complaintTitleID = item.title_id
-                } else {
-                    mViewModel.mobForm.complaintTitleID = null
-                }
-            }
+        // Initialize CAPTCHA elements
+        val captchaTextView = mViewDataBinding.captchaTextView
+        val captchaInput = mViewDataBinding.captchaInput
+        val refreshButton = mViewDataBinding.refreshButton
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+        // Generate and display the initial CAPTCHA
+        val initialCaptcha = generateCaptcha()
+        captchaTextView.text = initialCaptcha
 
-            }
+        // Set an OnClickListener for the Refresh button to generate and set a new CAPTCHA
+        refreshButton.setOnClickListener {
+            val newCaptcha = generateCaptcha()
+            captchaTextView.text = newCaptcha
         }
 
-        mViewDataBinding.spinnerPlace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val item = mViewDataBinding.spinnerPlace.adapter.getItem(position)
-                if (item is Branch && item.branch_id != -1) {
-                    mViewModel.mobForm.branchID = item.branch_id
-                } else {
-                    mViewModel.mobForm.branchID = null
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
-
-        mViewDataBinding.rgTime.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                mViewDataBinding.rbMorning.id -> {
-                    mViewModel.mobForm.contactTime = "9-11"
-                }
-                mViewDataBinding.rbAfternoon.id -> {
-                    mViewModel.mobForm.contactTime = "12-2"
-                }
-                mViewDataBinding.rbEvening.id -> {
-                    mViewModel.mobForm.contactTime = "3-5"
-                }
-            }
-        }
     }
 
-    override fun fetchData() {
-        mViewModel.getBranches().observe(this, {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    @Suppress("UNCHECKED_CAST")
-                    val adapter = mViewDataBinding.spinnerPlace.adapter as SpinnerAdapter<Branch>
-                    it.data?.let { items ->
-                        val list = adapter.items
-                        list.addAll(items)
-                        adapter.refreshList(list)
-                    }
-                }
-                Status.ERROR -> {
-                    showToast(it.message)
-                }
-                Status.LOADING -> {
-                }
-            }
-        })
 
-        mViewModel.getMobFormTitles().observe(this, {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    @Suppress("UNCHECKED_CAST")
-                    val adapter = mViewDataBinding.spinnerMessageTitle.adapter as SpinnerAdapter<Title>
-                    it.data?.let { items ->
-                        val list = adapter.items
-                        list.addAll(items)
-                        adapter.refreshList(list)
+    private fun setupAgreementCheckbox(){
+        val checkBox = mViewDataBinding.agreementCheckbox2
+        val spannableString = SpannableString(" افوض البنك بخصم مبلغ 8,000 ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف الاشتراك بخدمة البركة موبايل\n" +
+                "و أوافق على الشروط والأحكام")
+        // Define a ForegroundColorSpan to color the text in blue
+        val blueColor = ContextCompat.getColor(requireContext(), R.color.blue) // Replace with your blue color resource
+        val blueText = "الشروط والأحكام"
+        val blueColorSpan = ForegroundColorSpan(blueColor)
+        // Find the starting index of the blue text
+        val startIndex = spannableString.indexOf(blueText)
+        // Apply the color span to the specific part of the text
+        spannableString.setSpan(blueColorSpan, startIndex, startIndex + blueText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        // Set the styled text to the CheckBox
+        checkBox.text = spannableString
+        // Define the clickable span for "الشروط والأحكام"
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val builder = AlertDialog.Builder(requireContext(), R.style.RoundedDialog)
+                val inflater = LayoutInflater.from(context)
+                val dialogView = inflater.inflate(R.layout.conditions_modal, null)
+                builder.setView(dialogView)
+
+                val url = "https://albaraka.com.sy/KYC/conditions"
+                val webView: WebView = dialogView.findViewById(R.id.webView)
+                val loader: ProgressBar = dialogView.findViewById(R.id.loader)
+
+                webView.webChromeClient = object : WebChromeClient() {
+                    override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                        if (newProgress < 100) {
+                            loader.visibility = View.VISIBLE
+                        } else {
+                            loader.visibility = View.GONE
+                        }
                     }
                 }
-                Status.ERROR -> {
-                    showToast(it.message)
+
+                webView.loadUrl(url)
+
+                builder.setNegativeButton("إغلاق") { dialog, which ->
+                    dialog.dismiss()
                 }
-                Status.LOADING -> {
-                }
+
+                val alertDialog = builder.create()
+                alertDialog.show()
             }
-        })
+
+            // Add this method to make the text appear as a link
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true // Underline the text
+                ds.color = blueColor // Set the text color to blue
+            }
+        }
+        // Set the clickable span only for the part you want to be clickable
+        spannableString.setSpan(clickableSpan, startIndex, startIndex + blueText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        // Apply the formatted text to the CheckBox
+        checkBox.text = spannableString
+        // Make the CheckBox text appear as a link
+        checkBox.movementMethod = LinkMovementMethod.getInstance()
+        checkBox.highlightColor = Color.TRANSPARENT // Set the highlight color to transparent to remove the background color
+
+    }
+
+
+
+    override fun fetchData() {
+
     }
 
     private fun sendMobForm() {
@@ -172,10 +175,6 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
             return
         }
 
-        if (mViewModel.mobForm.message.isEmpty()) {
-            setInputError(mViewDataBinding.tiMessage, getString(R.string.error_required))
-            return
-        }
 
         mViewModel.sendMobForm().observe(this, {
             when (it.status) {
@@ -195,32 +194,7 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
         })
     }
 
-    private fun openDatePicker() {
-        val now = Calendar.getInstance()
-        val okTitle = getString(R.string.action_ok)
-        val cancelTitle = getString(R.string.prompt_info_cancel)
 
-        val datePickerDialog = DatePickerDialog.newInstance(this,
-            now.get(Calendar.YEAR),
-            now.get(Calendar.MONTH),
-            now.get(Calendar.DAY_OF_MONTH)
-        ).apply {
-            version = DatePickerDialog.Version.VERSION_2
-            setOkColor(ContextCompat.getColor(baseActivity, R.color.colorAccent))
-            setCancelColor(ContextCompat.getColor(baseActivity, R.color.colorAccent))
-            setOkText(okTitle)
-            setCancelText(cancelTitle)
-        }
 
-        datePickerDialog.show(mActivity.supportFragmentManager, DatePickerDialog::class.simpleName)
-    }
-
-    override fun onDateSet(view: DatePickerDialog?, year: Int, month: Int, dayOfMonth: Int) {
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month, dayOfMonth)
-
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-        viewModel.mobForm.complaintDate = sdf.format(calendar.time)
-    }
 
 }

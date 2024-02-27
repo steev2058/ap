@@ -325,4 +325,13 @@
     <string name="write_external_storage_permission">إذن الوصول للتخزين الخارجي</string>
     <string name="msg_write_external_storage_permission">يتطلب تطبيق البركة الوصول إلى وحدة التخزين الخارجية من أجل حفظ الملفات</string>
     <string name="cancel">الغاء</string>
+    <string name="mobFormsubmit">يرجى الضغط لتسجيل طلب</string>
+    <string name="mobFormdelegation">افوض البنك بخصم مبلغ 8,000 ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف الاشتراك بخدمة البركة موبايل
+    و أوافق على الشروط والأحكام </string>
+    <string name="mobFormTerms">لاستكمال الاجراءات يرجى التأكد من صحة البيانات المدخلة والموافقة على الشروط أدناه</string>
+    <string name="mobFormimg">أدخل الأرقام في الصورة</string>
+    <string name="mobFormTitle">استمارة طلب الاشتراك بتطبيق البركة</string>
+    <string name="mobFormtext">يمكّنك تطبيق البركة من إدارة حساباتك المصرفية في بنك البركة من خلال هاتفك الجوال من أي مكان وفي أي وقت على مدار الساعة 24/7 وفقاً لأعلى معايير الدقة والأمان التي تم اتباعها في تصميم تطبيق البركة سورية للحفاظ التام على سريتك المصرفية والمعلومات الخاصة بحساباتك.</string>
+    <string name="mobFormtextinfo">لطفاً منك ملء الاستمارة وسيتم تزويدك بحساب المستخدم بعد التحقق من المعلومات</string>
+    <string name="natoinalnumber">الرقم الوطني أو رقم جواز السفر</string>
 </resources>
