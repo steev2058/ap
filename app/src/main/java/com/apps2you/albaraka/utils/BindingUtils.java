@@ -214,7 +214,7 @@ public class BindingUtils {
                 resource = R.drawable.ic_transfer;
                 break;
             case Constants.BILLS:
-                resource = R.drawable.ic_sep;
+                resource = R.drawable.sep_icon;
                 break;
             case Constants.ZAKAT:
                 resource = R.drawable.ic_hand;
