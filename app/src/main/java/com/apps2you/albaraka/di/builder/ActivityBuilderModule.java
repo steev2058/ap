@@ -17,6 +17,8 @@ import com.apps2you.albaraka.ui.exchange.ExchangeProvider;
 import com.apps2you.albaraka.ui.home.GuestHomeActivity;
 import com.apps2you.albaraka.ui.home.HomeActivity;
 import com.apps2you.albaraka.ui.home.HomeProvider;
+import com.apps2you.albaraka.ui.kyc.KycActivity;
+import com.apps2you.albaraka.ui.kyc.KycProvider;
 import com.apps2you.albaraka.ui.locations.LocationsActivity;
 import com.apps2you.albaraka.ui.mobForm.MobFormActivity;
 import com.apps2you.albaraka.ui.mobForm.MobFormProvider;
@@ -89,7 +91,8 @@ public abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(modules = {ComplaintProvider.class})
     abstract ComplaintActivity complaintActivity();
 
-
+    @ContributesAndroidInjector(modules = {KycProvider.class})
+    abstract KycActivity kycActivity();
     @ContributesAndroidInjector(modules = {MobFormProvider.class})
     abstract MobFormActivity mobFormActivity();
 

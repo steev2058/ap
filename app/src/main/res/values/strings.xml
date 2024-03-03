@@ -69,6 +69,7 @@
     <string name="logout_title">Logout</string>
     <string name="mini_statement">Account Statement</string>
     <string name="mobile_number">Mobile number</string>
+    <string name="mobile_number_moform">Mobile number</string>
     <string name="home_menu_more">More</string>
     <string name="home_menu_accounts">My accounts</string>
     <string name="my_transactions">My Transactions</string>
@@ -334,4 +335,56 @@
     <string name="mobFormtext">Al Baraka application enables you to manage your bank accounts at Al Baraka Bank through your mobile phone from anywhere and at any time around the clock 24/7 in accordance with the highest standards of accuracy and security that were followed in designing the Al Baraka Syria application to fully maintain... Your banking confidentiality and information about your accounts.</string>
     <string name="mobFormtextinfo">Please fill out the form and you will be provided with a user account after verifying the information</string>
     <string name="natoinalnumber">National number or passport number</string>
+
+    <string name="normal_account">Electronic account</string>
+    <string name="student_account">Student Account (Global)</string>
+    <string name="personal_information_kyc">Personal data - in Arabic [Please click here to fill in the data automatically or you can fill in the fields below manually]</string>
+    <string name="personal_info_kyc_qr">[Please click here to fill in the data automatically or you can fill in the fields below manually]</string>
+    <string name="success_msg">The operation was completed successfully!</string>
+    <string name="success_msg2">Your request has been registered, please wait until it is approved</string>
+
+    <string name="father_name">Fathers name</string>
+    <string name="mother_name">Mothers name</string>
+    <string name="mother_last_name">Mothers Percentage</string>
+    <string name="place_of_birth">Place of birth</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="step_two_title">Identity proof document data</string>
+    <string name="national_number">National Number</string>
+    <string name="place_of_issue">Place of issue (secretariat)</string>
+
+    <string name="alqayd">Restriction</string>
+    <string name="address">Address</string>
+    <string name="job_kyc">Occupation</string>
+    <string name="first_name_en">First name in English</string>
+    <string name="commission_card_kyc">Card issuance commission: 40,000 SYP</string>
+    <string name="payed_card_kyc">You pay when you receive the card.</string>
+    <string name="enter_numbers_here">Enter numbers here</string>
+    <string name="auth_term_1"> I authorize the bank to deduct the value of the stamps necessary for the card issuance request (for more information, call center 011-9525) </string>
+    <string name="last_name_en">Name in English</string>
+    <string name="student">University student</string>
+    <string name="more_kyc">Request an online account</string>
+    <string name="father_name_en">Fathers name in English</string>
+    <string name="personal_image">Personal image</string>
+    <string name="id_back_side">ID/Back Side</string>
+    <string name="id_front_side">ID/Front Side</string>
+    <string name="issuing_card">Issuing a card for the account</string>
+    <string name="university_card">University Card</string>
+    <string name="download_attachments">Click to download the required attachments</string>
+    <string name="FATCA">Foreign Account Tax Compliance Act (FATCA)</string>
+    <string name="phone_number_kyc">Mobile number</string>
+
+    <string name="txt_student">بيانات الاتصال المسبق (طالب جامعي) </string>
+    <string name="txt_normal">بيانات الاتصال القضائي </string>
+    <string name="btn_previous">السابق</string>
+    <string name="btn_next">التالي</string>
+    <string name="mobile_form_error">Please enter your mobile number</string>
+    <string name="cif_form_error">Please enter the account number</string>
+    <string name="national_form_error">Please enter the national ID</string>
+    <array name="details">
+        <item>Personal Data</item>
+        <item>Identity proof</item>
+        <item>Contact and Work</item>
+        <item>Attachments</item>
+        <item>Card</item>
+    </array>
 </resources>

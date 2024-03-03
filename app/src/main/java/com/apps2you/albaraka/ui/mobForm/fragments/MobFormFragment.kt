@@ -55,7 +55,7 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
     }
 
     override fun setUpView() {
-        mViewDataBinding.etTelephoneNumber.addTextChangedListener(CustomTextWatcher(mViewDataBinding.tiTelephoneNumber))
+       // mViewDataBinding.etTelephoneNumber.addTextChangedListener(CustomTextWatcher(mViewDataBinding.tiTelephoneNumber))
         mViewDataBinding.btnSend.setOnClickListener {
             mViewDataBinding.layout.requestFocus()
             sendMobForm()
@@ -63,7 +63,111 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
 
         setupAgreementCheckbox()
         setupCaptcha()
+
+        // Set initial state of btn_send
+        updateSendButtonState()
+
+        // Listen for checkbox changes
+        mViewDataBinding.agreementCheckbox2.setOnCheckedChangeListener { _, _ ->
+            // Update send button state when checkbox state changes
+            updateSendButtonState()
+        }
+
+        // Listen for send button click
+        mViewDataBinding.btnSend.setOnClickListener {
+            // Validate fields before sending form
+            mViewDataBinding.layout.requestFocus()
+            if (validateFields()) {
+                sendMobForm()
+            }
+        }
     }
+
+
+    private fun isPhoneNumber(input: String): Boolean {
+        val phoneNoPattern = Regex("^\\(?([0-9]{3})\\)?[ ]?([0-9]{3})[ ]?([0-9]{4})\$")
+        return input.matches(phoneNoPattern)
+    }
+
+    // Function to validate national numbers
+    private fun isNationalNumber(input: String): Boolean {
+        val phoneNoPattern = Regex("^\\d{8,}\$")
+        return input.matches(phoneNoPattern)
+    }
+
+    // Function to validate CIF numbers
+    private fun isCIF(input: String): Boolean {
+        val phoneNoPattern = Regex("^\\d{5,}\$")
+        return input.matches(phoneNoPattern)
+    }
+    private fun validateFields(): Boolean {
+        var isValid = true
+
+        // Validate mobile number
+//        if (TextUtils.isEmpty(mViewModel.mobForm.mobileNumber)) {
+//            setInputError(mViewDataBinding.tiMobileNumber, getString(R.string.error_required))
+//            isValid = false
+//        }
+        if (!mViewModel.mobForm.nationalNumber?.let { isNationalNumber(it) }!!) {
+            // Check if the mobile number is valid
+            setInputError(mViewDataBinding.tiNationalNumber, getString(R.string.national_form_error))
+            isValid = false
+        }
+        if (!mViewModel.mobForm.cif?.let { isCIF(it) }!!) {
+            // Check if the mobile number is valid
+            setInputError(mViewDataBinding.tiCifNumber, getString(R.string.cif_form_error))
+            isValid = false
+        }
+
+        if (!mViewModel.mobForm.mobileNumber?.let { isPhoneNumber(it) }!!) {
+            // Check if the mobile number is valid
+            setInputError(mViewDataBinding.tiMobileNumber, getString(R.string.mobile_form_error))
+            isValid = false
+        }
+//        // Validate telephone number
+//        if (TextUtils.isEmpty(mViewModel.mobForm.phoneNumber)) {
+//            setInputError(mViewDataBinding.tiTelephoneNumber, getString(R.string.error_required))
+//            isValid = false
+//        }
+
+        // Validate email
+//        if (!Patterns.PHONE.matcher(mViewModel.mobForm.email ?: "").matches()) {
+//            setInputError(mViewDataBinding.tiEmail, getString(R.string.error_required))
+//            isValid = false
+//        }
+
+
+
+
+        // setupCaptcha()
+        val captchaTextView = mViewDataBinding.captchaTextView.text.toString()
+        val captchaInput:String = mViewDataBinding.captchaInput.text.toString()
+        if(captchaTextView.reversed().replace("\\s".toRegex(),"") == captchaInput) {
+           // SendOtpReq()
+          //  showToast("تم تسجيل طلبكم بنجاح")
+        }
+        else{
+            showToast("الرقم المدخل غير مطابق حاول مرة اخرى")
+        }
+
+        return isValid
+    }
+
+    private fun updateSendButtonState() {
+        // Enable send button only if the agreement checkbox is checked and all fields are valid
+        mViewDataBinding.btnSend.isEnabled = mViewDataBinding.agreementCheckbox2.isChecked && validateFields()
+
+        // Change button color based on enabled/disabled state
+        if (mViewDataBinding.btnSend.isEnabled) {
+            mViewDataBinding.btnSend.setBackgroundResource(R.drawable.bg_shadow_primary)
+        } else {
+            mViewDataBinding.btnSend.setBackgroundResource(R.drawable.bg_shadow_gray)
+        }
+    }
+
+
+
+
     private fun setupCaptcha() {
         // Function to generate a random CAPTCHA string
         fun generateCaptcha(): String {
@@ -95,8 +199,7 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
 
     private fun setupAgreementCheckbox(){
         val checkBox = mViewDataBinding.agreementCheckbox2
-        val spannableString = SpannableString(" افوض البنك بخصم مبلغ 8,000 ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف الاشتراك بخدمة البركة موبايل\n" +
-                "و أوافق على الشروط والأحكام")
+        val spannableString = SpannableString("افوض البنك بخصم مبلغ 8,000 ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف الاشتراك بخدمة البركة موبايل و أوافق على الشروط والأحكام")
         // Define a ForegroundColorSpan to color the text in blue
         val blueColor = ContextCompat.getColor(requireContext(), R.color.blue) // Replace with your blue color resource
         val blueText = "الشروط والأحكام"
@@ -115,7 +218,7 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
                 val dialogView = inflater.inflate(R.layout.conditions_modal, null)
                 builder.setView(dialogView)
 
-                val url = "https://albaraka.com.sy/KYC/conditions"
+                val url = "https://albaraka.com.sy/AlBarakaForms/conditions"
                 val webView: WebView = dialogView.findViewById(R.id.webView)
                 val loader: ProgressBar = dialogView.findViewById(R.id.loader)
 
@@ -164,16 +267,12 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
 
     private fun sendMobForm() {
 
-        if (TextUtils.isEmpty(mViewModel.mobForm.phoneNumber)) {
-            setInputError(mViewDataBinding.tiTelephoneNumber, getString(R.string.error_required))
-            return
-        }
+//        if (TextUtils.isEmpty(mViewModel.mobForm.phoneNumber)) {
+//            setInputError(mViewDataBinding.tiTelephoneNumber, getString(R.string.error_required))
+//            return
+//        }
 
-        if (mViewModel.mobForm.email != null &&
-            !Patterns.EMAIL_ADDRESS.matcher(mViewModel.mobForm.email!!).matches()) {
-            showToast(getString(R.string.please_enter_a_valid_email))
-            return
-        }
+        showToast("تم تسجيل طلبكم بنجاح")
 
 
         mViewModel.sendMobForm().observe(this, {

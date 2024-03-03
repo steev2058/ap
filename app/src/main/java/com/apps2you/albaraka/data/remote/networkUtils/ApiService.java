@@ -145,18 +145,12 @@ public interface ApiService {
     Call<MyResponse<ArrayList<Title>>> getMobFormTitles();
 
     @FormUrlEncoded
-    @POST("complaint")
-    Call<MyResponse<MobForm>> mobForm(@Field("first_name") String first_name,
-                                        @Field("last_name") String last_name,
-                                        @Field("client_status") String client_status,
-                                        @Field("mobile_number") String mobile_number,
-                                        @Field("phone_number") String phone_number,
-                                        @Field("email") String email,
-                                        @Field("contact_time") String contact_time,
-                                        @Field("complaint_title_id") @Nullable Integer complaint_title_id,
-                                        @Field("branch_id") @Nullable Integer branch_id,
-                                        @Field("complaint_date") String complaint_date,
-                                        @Field("message") String message);
+    @POST("saveMobileData")
+    Call<MyResponse<MobForm>> mobForm(@Field("national_id") String national_id,
+                                        @Field("cif_id") String cif_id,
+                                        @Field("mobile_id") String mobile_id,
+                                        @Field("captcha_challenge") String captcha,
+                                        @Field("complaint_title_id") @Nullable Integer complaint_title_id;
 
     @GET("get_notifications")
     Call<MyResponse<ArrayList<NotificationContent>>> getNotifications();

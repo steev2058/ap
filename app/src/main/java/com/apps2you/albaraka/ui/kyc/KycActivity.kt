@@ -3,6 +3,7 @@ package com.apps2you.albaraka.ui.kyc
 
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import androidx.lifecycle.ViewModelProvider
 import com.apps2you.albaraka.BR
 import com.apps2you.albaraka.R
 import com.apps2you.albaraka.databinding.ActivityKycBinding
@@ -13,10 +14,11 @@ import com.apps2you.albaraka.viewmodels.KycViewModel
 class KycActivity : BaseActivity<ActivityKycBinding, KycViewModel>() {
 
 
-
     override fun getBindingVariable(): Int {
         return BR.viewModel
     }
+    override fun setupBaseObservers() {}
+
 
     override fun getLayoutId(): Int {
         return R.layout.activity_kyc

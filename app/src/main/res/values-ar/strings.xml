@@ -68,6 +68,7 @@
     <string name="logout_title">تسجيل الخروج</string>
     <string name="mini_statement">كشف حساب</string>
     <string name="mobile_number">رقم الهاتف المحمول</string>
+    <string name="mobile_number_moform">رقم الموبايل - *********09</string>
     <string name="home_menu_more">المزيد</string>
     <string name="home_menu_accounts">حساباتي</string>
     <string name="my_transactions">حركات الحساب</string>
@@ -323,4 +324,65 @@
     <string name="write_external_storage_permission">إذن الوصول للتخزين الخارجي</string>
     <string name="msg_write_external_storage_permission">يتطلب تطبيق البركة الوصول إلى وحدة التخزين الخارجية من أجل حفظ الملفات</string>
     <string name="cancel">الغاء</string>
+    <string name="normal_account">حساب إلكتروني</string>
+    <string name="student_account">حساب الطالب (عالمي)</string>
+    <string name="personal_information_kyc">البيانات الشخصية-باللغة العربية[يرجى الضغط هنا لتعبئة البيانات تلقائيا أو يمكنك ملء الحقول أدناه يدويا]</string>
+    <string name="personal_info_kyc_qr">[يرجى الضغط هنا لتعبئة البيانات تلقائيا أو يمكنك ملء الحقول أدناه يدويا]</string>
+    <string name="mobFormsubmit">يرجى الضغط لتسجيل طلب</string>
+    <string name="mobFormdelegation">افوض البنك بخصم مبلغ 8,000 ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف الاشتراك بخدمة البركة موبايل
+    و أوافق على الشروط والأحكام </string>
+    <string name="mobFormTerms">لاستكمال الاجراءات يرجى التأكد من صحة البيانات المدخلة والموافقة على الشروط أدناه</string>
+    <string name="mobFormimg">أدخل الأرقام في الصورة</string>
+    <string name="mobFormTitle">استمارة طلب الاشتراك بتطبيق البركة</string>
+    <string name="mobFormtext">يمكّنك تطبيق البركة من إدارة حساباتك المصرفية في بنك البركة من خلال هاتفك الجوال من أي مكان وفي أي وقت على مدار الساعة 24/7 وفقاً لأعلى معايير الدقة والأمان التي تم اتباعها في تصميم تطبيق البركة سورية للحفاظ التام على سريتك المصرفية والمعلومات الخاصة بحساباتك.</string>
+    <string name="mobFormtextinfo">لطفاً منك ملء الاستمارة وسيتم تزويدك بحساب المستخدم بعد التحقق من المعلومات</string>
+    <string name="natoinalnumber">الرقم الوطني أو رقم جواز السفر</string>
+    <string name="success_msg">تمت العملية بنجاح!</string>
+    <string name="success_msg2">تم تسجيل طلبكم يرجى الانتظار لحين الموافقة عليه</string>
+    <string name="commission_question_baraka_trans">عمولة هذه الخدمة هي %1$s SP. هل تريد متابعة النقل إلى (%2$s)؟</string>
+    <string name="father_name">اسم الأب</string>
+    <string name="mother_name">اسم الأم</string>
+    <string name="more_mobile_form">طلب الاشتراك في تطبيق البركة</string>
+    <string name="mother_last_name">نسبة الأم</string>
+    <string name="place_of_birth">مكان الولادة</string>
+    <string name="date_of_birth">تاريخ الميلاد</string>
+    <string name="step_two_title">بيانات وثيقة إثبات الشخصية</string>
+    <string name="national_number">الرقم الوطني</string>
+    <string name="place_of_issue">مكان الإصدار(الأمانة)</string>
+
+    <string name="alqayd">القيد</string>
+    <string name="address">العنوان</string>
+    <string name="job_kyc">المهنة</string>
+    <string name="first_name_en">الاسم الأول باللغة الانكليزية</string>
+    <string name="commission_card_kyc"> عمولة اصدار البطاقة: 40,000 ل.س</string>
+    <string name="payed_card_kyc"> تدفع عند استلام البطاقة.</string>
+    <string name="enter_numbers_here">أدخل الارقام هنا</string>
+    <string name="auth_term_1"> افوض البنك باقتطاع قيمة الطوابع اللازمة لطلب اصدار البطاقة ( لمزيد من المعلومات مركز الاتصال 011-9525) </string>
+    <string name="last_name_en">الكنية باللغة الانكليزية</string>
+    <string name="student">طالب جامعي</string>
+    <string name="father_name_en">اسم الأب باللغة الانكليزية</string>
+    <string name="personal_image">الصورة الشخصية </string>
+    <string name="id_back_side">الهوية/الوجه الخلفي</string>
+    <string name="id_front_side">الهوية/الوجه الأمامي</string>
+    <string name="issuing_card">إصدار بطاقة للحساب</string>
+    <string name="university_card">البطاقة الجامعية</string>
+    <string name="download_attachments">اضغط لتحميل المرفقات المطلوبة</string>
+    <string name="FATCA">قانون الامتثال الضريبي للحسابات الخارجية (FATCA)</string>
+    <string name="phone_number_kyc">رقم الموبايل</string>
+    <string name="txt_student">بيانات الاتصال والتعليم (طالب جامعي) </string>
+    <string name="txt_normal">بيانات الاتصال والعمل  </string>
+    <string name="btn_previous">السابق</string>
+    <string name="btn_next">التالي</string>
+    <string name="mobile_form_error">الرجاء إدخال رقم الموبايل</string>
+    <string name="cif_form_error">الرجاء إدخال رقم الحساب</string>
+    <string name="national_form_error">الرجاء إدخال الرقم الوطني أو رقم جواز السفر</string>
+    <array name="details">
+        <item>البيانات الشخصية</item>
+        <item> إثبات الشخصية</item>
+        <item>الاتصال والعمل</item>
+        <item>المرفقات</item>
+        <item>البطاقة</item>
+    </array>
+    <string name="more_kyc">طلب حساب إلكتروني</string>
+
 </resources>

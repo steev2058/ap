@@ -27,7 +27,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="25dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/img_logo"
@@ -48,11 +48,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-
-
-
-
-            <!--Contact information-->
             <View
                 android:id="@+id/divider_contact"
                 android:layout_width="match_parent"
@@ -68,9 +63,12 @@
                 android:drawablePadding="8dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
+                android:textSize="12sp"
+                android:lineSpacingExtra="3dp"
+                android:textColor="@color/black"
                 android:text="@string/mobFormtext"
                 android:textAlignment="viewStart"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 app:layout_constraintTop_toBottomOf="@id/divider_contact" />
             <TextView
                 android:id="@+id/tv_contact_info"
@@ -78,15 +76,15 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
                 android:paddingTop="10dp"
+                android:textSize="13sp"
                 android:paddingBottom="10dp"
                 android:text="@string/mobFormtextinfo"
                 android:textAlignment="viewStart"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_contact"
                 app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ti_mobile_number"
+            <com.apps2you.albaraka.utils.CustomTextInputLayout
+                android:id="@+id/ti_national_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/gray"
@@ -94,28 +92,32 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_contact_info">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_mobile_number"
+                    android:id="@+id/et_national_number"
                     style="@style/InputEt"
                     android:layout_width="match_parent"
+                    android:inputType="number"
+                    android:digits="0123456789"
+                    android:maxLines="1"
+                    android:maxLength="11"
                     android:layout_height="wrap_content"
                     android:hint="@string/natoinalnumber"
-                    android:inputType="phone"
+
                     android:text="@={viewModel.mobForm.mobileNumber}"
                     android:textAlignment="viewStart"
                     android:textSize="14sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.apps2you.albaraka.utils.CustomTextInputLayout>
 
             <com.apps2you.albaraka.utils.CustomTextInputLayout
-                android:id="@+id/ti_telephone_number"
+                android:id="@+id/ti_cif_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:textColorHint="@color/gray"
                 app:hintEnabled="false"
-                app:layout_constraintTop_toBottomOf="@id/ti_mobile_number">
+                app:layout_constraintTop_toBottomOf="@id/ti_national_number">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_telephone_number"
+                    android:id="@+id/et_cif_number"
                     style="@style/InputEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -126,41 +128,43 @@
                     android:textSize="14sp" />
             </com.apps2you.albaraka.utils.CustomTextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ti_email"
+            <com.apps2you.albaraka.utils.CustomTextInputLayout
+                android:id="@+id/ti_mobile_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:textColorHint="@color/gray"
                 app:hintEnabled="false"
-                app:layout_constraintTop_toBottomOf="@id/ti_telephone_number">
+                app:layout_constraintTop_toBottomOf="@id/ti_cif_number">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_email"
+                    android:id="@+id/et_mobile_number"
                     style="@style/InputEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/mobile_number"
-                    android:inputType="textEmailAddress"
+                    android:hint="@string/mobile_number_moform"
+                    android:inputType="number"
+                    android:digits="0123456789"
+                    android:maxLines="1"
+                    android:maxLength="10"
                     android:text="@={viewModel.mobForm.email}"
                     android:textAlignment="viewStart"
                     android:textSize="14sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.apps2you.albaraka.utils.CustomTextInputLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-android:id="@+id/ccc"
-                app:layout_constraintTop_toBottomOf="@+id/ti_email">
+                android:id="@+id/ccc"
+                app:layout_constraintTop_toBottomOf="@+id/ti_mobile_number">
 
                 <LinearLayout
                     android:id="@+id/captc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_marginRight="70dp"
                     android:orientation="horizontal"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:id="@+id/captchaTextView"
@@ -206,22 +210,11 @@ android:id="@+id/ccc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@null"
+                android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@+id/ccc"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="16dp" />
-
-
-
-            <!--Contact time information-->
-            <View
-                android:id="@+id/divider_contact_time"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="18dp"
-                android:background="@color/bright_gray"
-                app:layout_constraintTop_toBottomOf="@id/ti_email" />
-
 
             <Button
                 android:id="@+id/btn_send"
@@ -230,7 +223,7 @@ android:id="@+id/ccc"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="18dp"
-                android:text="@string/send"
+                android:text="@string/mobFormsubmit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/agreement_checkbox2" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,8 +11,6 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.AsyncTask
-import android.os.Handler
-import android.os.Looper
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.InputFilter
@@ -33,7 +31,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.DatePicker
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -67,12 +64,17 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.dm7.barcodescanner.zxing.ZXingScannerView
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.UnsupportedEncodingException
@@ -83,16 +85,9 @@ import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.util.Calendar
 import java.util.EnumMap
+import java.util.Locale
 import java.util.Random
 import java.util.regex.Pattern
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.asRequestBody
-import org.json.JSONArray
-import java.io.File
-import java.io.FileOutputStream
-import java.util.Locale
-
-
 
 
 class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingScannerView.ResultHandler  {
@@ -739,7 +734,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
 
     }
 
-
+    override fun setupBaseObservers() {}
 
 
 
