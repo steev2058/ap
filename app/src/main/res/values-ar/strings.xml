@@ -53,8 +53,8 @@
     <string name="Exchange">تحويل</string>
     <string name="guest_rate">سعر الصرف</string>
     <string name="first_name">الاسم</string>
-    <string name="first_nameHF">اسم المستفيد</string>
-    <string name="seconde_nameHF">اسم أب المستفيد</string>
+    <string name="first_nameHF">الاسم الأول للمستفيد</string>
+    <string name="seconde_nameHF">اسم الأب للمستفيد</string>
     <string name="last_nameHF">كنية المستفيد</string>
     <string name="father_name">اسم الأب</string>
     <string name="From">من</string>

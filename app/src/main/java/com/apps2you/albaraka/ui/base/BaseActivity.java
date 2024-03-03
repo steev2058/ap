@@ -69,7 +69,7 @@ import static com.apps2you.albaraka.utils.cryptography.ConstantsKt.SHARED_PREFS_
 
 
 public abstract class BaseActivity<VB extends ViewDataBinding, VM extends BaseViewModel> extends DaggerAppCompatActivity implements IBaseView {
-    private final int INACTIVITY_THRESHOLD = 2 * 60 * 1000; // in milliseconds
+    private final int INACTIVITY_THRESHOLD = 5 * 60 * 1000; // in milliseconds
 
     public VB mViewDataBinding;
     public VM mViewModel;

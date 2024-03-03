@@ -123,7 +123,7 @@
                 android:elevation="8dp"
                 android:padding="12dp"
                 android:src="@drawable/ic_qr_code"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

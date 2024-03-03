@@ -53,7 +53,7 @@
     <string name="Exchange">Exchange</string>
     <string name="guest_rate">Exchange rate</string>
     <string name="first_name">First Name</string>
-    <string name="first_nameHF">Beneficiary Name</string>
+    <string name="first_nameHF">Beneficiary First Name</string>
     <string name="seconde_nameHF">Beneficiary Father Name</string>
     <string name="last_nameHF">Beneficiary Last Name</string>
     <string name="father_name">Father Name</string>

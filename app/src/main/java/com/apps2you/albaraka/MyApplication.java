@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.apps2you.albaraka.data.preference.UserUtils;
 import com.apps2you.albaraka.di.component.DaggerAppComponent;
+import com.apps2you.albaraka.ui.base.BaseActivity;
 import com.apps2you.albaraka.ui.common.busEvent.UnAuthorizedUserEvent;
 import com.apps2you.albaraka.utils.ApplicationStateTracker;
 import com.apps2you.albaraka.utils.Constants;
@@ -32,6 +33,8 @@ public class MyApplication extends Application implements HasAndroidInjector {
 
 
     public static boolean isLoggedIn = false;
+
+    private final int INACTIVITY_THRESHOLD = 2 * 60 * 1000; // in milliseconds
     public static boolean isInBackground = false;
     public static boolean skipQuit = false;
 
@@ -98,9 +101,10 @@ public class MyApplication extends Application implements HasAndroidInjector {
                 new ApplicationStateTracker.ApplicationStateCallback() {
                     @Override
                     public void applicationWentToForeground() {
-//                        if (isInBackground && isLoggedIn && !skipQuit){
-//                            Bus.instance().publish(UnAuthorizedUserEvent.getInstance());
-//                        }
+                        long currentUserInteraction = System.currentTimeMillis();
+                        if (isInBackground && isLoggedIn && !skipQuit && (currentUserInteraction -BaseActivity.lastUserInteraction) > INACTIVITY_THRESHOLD){
+                            Bus.instance().publish(UnAuthorizedUserEvent.getInstance());
+                        }
                         isInBackground = false;
                         skipQuit = false;
                     }

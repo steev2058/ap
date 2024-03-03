@@ -191,7 +191,7 @@
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_reason"
                             android:drawablePadding="@dimen/margin_small"
-                            android:hint="@string/note"
+                            android:hint="@string/transfer_Description"
                             android:inputType="text"
                             android:maxLines="1"
                             android:text="@={viewModel.educationForm.reason}"

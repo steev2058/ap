@@ -4,3 +4,5 @@
 0	14	0	clean	8e26b64f42325620
 3	511	711799554	CMakeFiles/native-lib.dir/src/main/cpp/lib.cpp.o	f52903db53f74da6
 511	690	711799554	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/arm64-v8a/libnative-lib.so	455d98d31bfda64
+1	494	730827087	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	f60baae6f417a015
+494	708	730827087	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/arm64-v8a/libnative-lib.so	3f32da456b4ec3a8
