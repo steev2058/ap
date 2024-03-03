@@ -135,7 +135,7 @@ class PersonalizeQuickServicesActivity : BaseActivity<ActivityPersonalizeQuickSe
             }
             Constants.RESTAURANTS -> {
             }
-            Constants.TRANSFER_HF -> {
+            Constants.HF -> {
             }
         }
     }

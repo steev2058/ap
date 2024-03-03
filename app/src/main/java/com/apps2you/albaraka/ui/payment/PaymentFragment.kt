@@ -68,7 +68,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, HomeViewModel>(),
                         adapter
                     }
                     viewDataBinding.recyclerView.adapter = it?.data?.let { items ->
-                        viewModel.isHFActivated = items.find { q: QuickService -> q.id == Constants.TRANSFER_HF } != null
+                        viewModel.isHFActivated = items.find { q: QuickService -> q.id == Constants.HF } != null
 
                         val adapter = PayQuickServiceAdapter(items)
                         adapter.itemClickListener = this
