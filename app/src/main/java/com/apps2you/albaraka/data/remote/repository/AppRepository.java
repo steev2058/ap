@@ -128,17 +128,12 @@ public class AppRepository {
             @NonNull
             @Override
             protected Call<MyResponse<MobForm>> createCall() {
-                return apiService.mobForm(mobForm.getFirstName(),
-                        mobForm.getLastName(),
-                        mobForm.getClientStatus(),
+                return apiService.mobForm(
+                        mobForm.getNational_id(),
+                        mobForm.getCif_id(),
+                        mobForm.getCaptcha_challenge(),
                         mobForm.getMobileNumber(),
-                        mobForm.getPhoneNumber(),
-                        mobForm.getEmail(),
-                        mobForm.getContactTime(),
-                        mobForm.getComplaintTitleID(),
-                        mobForm.getBranchID(),
-                        mobForm.getComplaintDate(),
-                        mobForm.getMessage());
+                        mobForm.getComplaintTitleID());
             }
         }.getAsLiveServerData();
     }

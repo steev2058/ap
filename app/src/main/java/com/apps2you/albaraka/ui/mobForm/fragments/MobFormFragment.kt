@@ -108,12 +108,12 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
 //            setInputError(mViewDataBinding.tiMobileNumber, getString(R.string.error_required))
 //            isValid = false
 //        }
-        if (!mViewModel.mobForm.nationalNumber?.let { isNationalNumber(it) }!!) {
+        if (!mViewModel.mobForm.national_id?.let { isNationalNumber(it) }!!) {
             // Check if the mobile number is valid
             setInputError(mViewDataBinding.tiNationalNumber, getString(R.string.national_form_error))
             isValid = false
         }
-        if (!mViewModel.mobForm.cif?.let { isCIF(it) }!!) {
+        if (!mViewModel.mobForm.cif_id?.let { isCIF(it) }!!) {
             // Check if the mobile number is valid
             setInputError(mViewDataBinding.tiCifNumber, getString(R.string.cif_form_error))
             isValid = false

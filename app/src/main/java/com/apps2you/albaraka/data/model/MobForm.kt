@@ -7,6 +7,7 @@ import com.apps2you.albaraka.BR
 
 data class MobForm(@SerializedName("id") val id: Int = -1) : BaseObservable() {
 
+
     @SerializedName("national_id")
     @get:Bindable
     var national_id: String = ""

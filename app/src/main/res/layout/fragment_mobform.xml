@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/natoinalnumber"
 
-                    android:text="@={viewModel.mobForm.mobileNumber}"
+                    android:text="@={viewModel.mobForm.national_id}"
                     android:textAlignment="viewStart"
                     android:textSize="14sp" />
             </com.apps2you.albaraka.utils.CustomTextInputLayout>
@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/Account_Number"
                     android:inputType="phone"
-                    android:text="@={viewModel.mobForm.phoneNumber}"
+                    android:text="@={viewModel.mobForm.cif_id}"
                     android:textAlignment="viewStart"
                     android:textSize="14sp" />
             </com.apps2you.albaraka.utils.CustomTextInputLayout>
@@ -147,7 +147,7 @@
                     android:digits="0123456789"
                     android:maxLines="1"
                     android:maxLength="10"
-                    android:text="@={viewModel.mobForm.email}"
+                    android:text="@={viewModel.mobForm.mobileNumber}"
                     android:textAlignment="viewStart"
                     android:textSize="14sp" />
             </com.apps2you.albaraka.utils.CustomTextInputLayout>
@@ -198,6 +198,7 @@
                     android:layout_height="wrap_content"
                     style="@style/InputEt"
                     android:textAlignment="center"
+                    android:text="@={viewModel.mobForm.captcha_challenge}"
                     android:hint="@string/mobFormimg"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@id/captc"

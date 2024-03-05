@@ -150,7 +150,7 @@ public interface ApiService {
                                         @Field("cif_id") String cif_id,
                                         @Field("mobile_id") String mobile_id,
                                         @Field("captcha_challenge") String captcha,
-                                        @Field("complaint_title_id") @Nullable Integer complaint_title_id;
+                                        @Field("complaint_title_id") @Nullable Integer complaint_title_id);
 
     @GET("get_notifications")
     Call<MyResponse<ArrayList<NotificationContent>>> getNotifications();
