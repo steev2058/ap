@@ -340,6 +340,7 @@
     <string name="msg_write_external_storage_permission">alBaraka app requires access to the external storage in order to save files</string>
     <string name="cancel">Cancel</string>
     <string name="another_transfer_haram_fouad">Transfer to Al-Haram or Al-Fouad</string>
+    <string name="merchant">Merchants</string>
 
     <string name="another_transfer_text_haram_fouad">Transfer funds to another account in Al-Haram or Al-Fouad</string>
 </resources>

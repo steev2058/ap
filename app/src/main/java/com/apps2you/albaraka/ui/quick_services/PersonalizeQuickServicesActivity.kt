@@ -137,6 +137,8 @@ class PersonalizeQuickServicesActivity : BaseActivity<ActivityPersonalizeQuickSe
             }
             Constants.HF -> {
             }
+            Constants.MERCHANT -> {
+            }
         }
     }
 

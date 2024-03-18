@@ -10,7 +10,9 @@ class Branch(@SerializedName("id") val branch_id: Int,
              @SerializedName("image") val imageUrl: String,
              @SerializedName("longitude") val longitude: Double,
              @SerializedName("latitude") val latitude: Double,
-             @SerializedName("type") val type: String // Constants.TYPE_BRANCH = "branch", Constants.TYPE_ATM = "atm", TYPE_POS = "POS"
+             @SerializedName("type") val type: String, // Constants.TYPE_BRANCH = "branch", Constants.TYPE_ATM = "atm", TYPE_POS = "POS"
+             @SerializedName("is_avaliable") val is_avaliable: Int
+
 ) : SpinnerItem {
     override fun getId(): Int {
         return branch_id
@@ -24,6 +26,9 @@ class Branch(@SerializedName("id") val branch_id: Int,
         return type == Constants.TYPE_BRANCH
     }
 
+    fun isAvaliable(): Boolean {
+        return is_avaliable == 1;
+    }
     fun isAtm(): Boolean {
         return type == Constants.TYPE_ATM
     }
@@ -31,15 +36,21 @@ class Branch(@SerializedName("id") val branch_id: Int,
     fun isPos(): Boolean {
         return type == Constants.TYPE_POS
     }
+
+    fun isMerchant(): Boolean {
+        return type == Constants.TYPE_MERCHANT
+    }
 }
 
 fun getDefault(name: String): Branch {
     return Branch(-1,
-            name,
-            "",
-            "",
-            "",
-            0.0,
-            0.0,
-            "")
+        name,
+        "",
+        "",
+        "",
+        0.0,
+        0.0,
+        "",
+        0
+    )
 }

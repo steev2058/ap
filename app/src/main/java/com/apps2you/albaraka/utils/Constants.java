@@ -9,6 +9,8 @@ public class Constants {
             COLOR_PINK = "PINK",
             COLOR_GREEN = "GREEN",
             COLOR_BLUE = "BLUE",
+            TYPE_MERCHANT= "merchant",
+
             TYPE_BRANCH = "branch", // types of branches that are display in LocationsActivity
             TYPE_ATM = "atm",
             TYPE_POS = "POS",
@@ -37,8 +39,9 @@ public class Constants {
             ALPHA_CAPITAL = 10,
             ATM_CARDS = 11,
             SYGS = 12,
-            HF = 13;
 
+            MERCHANT = 14,
+            HF = 13;
 
     public static final int TRANSFER_AL_BARAKA = 1,
             TRANSFER_MY_TRANSFER = 2,

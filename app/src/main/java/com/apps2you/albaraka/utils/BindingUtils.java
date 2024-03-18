@@ -249,6 +249,9 @@ public class BindingUtils {
             case Constants.HF:
                 resource = R.drawable.ic_services;
                 break;
+            case Constants.MERCHANT:
+                resource = R.drawable.ic_services;
+                break;
         }
         return resource;
     }
