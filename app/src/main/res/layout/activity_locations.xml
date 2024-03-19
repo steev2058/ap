@@ -36,14 +36,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_margin="8dp"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             app:layout_anchor="@id/bottom_sheet"
-            />
+            >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
             <Button
                 android:id="@+id/btn_branch"
                 android:layout_width="0dp"
@@ -73,13 +69,7 @@
                 android:text="@string/ATM"
                 android:textColor="@color/orange"
                 />
-        </LinearLayout>
 
-        <!-- Bottom LinearLayout for POS and Merchant -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
             <Button
                 android:id="@+id/btn_pos"
                 android:layout_width="0dp"
@@ -95,25 +85,9 @@
                 android:text="@string/pos"
                 android:textColor="@color/gray"
                 />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_merchant"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:gravity="center"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:background="@drawable/bg_shadow_white"
-            android:drawableStart="@drawable/ic_pos"
-            android:text="@string/merchant"
-            android:textColor="@color/blue"
-            />
-    </LinearLayout>
-
-    <!-- Adding bottom sheet after main content -->
+        <!-- Adding bottom sheet after main content -->
         <include
             android:id="@+id/bottom_sheet"
             layout="@layout/bottom_sheet_marker" />
