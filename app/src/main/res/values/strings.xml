@@ -32,6 +32,8 @@
     <string name="guest_complaints">Complaints</string>
     <string name="more_complaints">Complaints and suggestions</string>
     <string name="more_mobile_form">Request to subscribe to Al Baraka application</string>
+
+    <string name="more_resetpassfprm_form">Request Reset Password</string>
     <string name="error_connection">Connection error!</string>
     <string name="contact_information">Contact information</string>
     <string name="Contact_us">Contact us</string>
@@ -70,6 +72,7 @@
     <string name="mini_statement">Account Statement</string>
     <string name="mobile_number">Mobile number</string>
     <string name="mobile_number_moform">Mobile number</string>
+    <string name="mobile_number_resetform">The mobile number submitted in the banking system - *********09</string>
     <string name="home_menu_more">More</string>
     <string name="home_menu_accounts">My accounts</string>
     <string name="my_transactions">My Transactions</string>
@@ -332,9 +335,12 @@
     <string name="mobFormTerms">To complete the procedures, please ensure that the data entered is correct and agree to the terms below</string>
     <string name="mobFormimg">Enter the numbers in the image</string>
     <string name="mobFormTitle">Al Baraka application subscription application form</string>
+
+    <string name="resetPassFormTitle">Password reset request form</string>
     <string name="mobFormtext">Al Baraka application enables you to manage your bank accounts at Al Baraka Bank through your mobile phone from anywhere and at any time around the clock 24/7 in accordance with the highest standards of accuracy and security that were followed in designing the Al Baraka Syria application to fully maintain... Your banking confidentiality and information about your accounts.</string>
     <string name="mobFormtextinfo">Please fill out the form and you will be provided with a user account after verifying the information</string>
     <string name="natoinalnumber">National number or passport number</string>
+    <string name="resetpassFormtextinfo">Please fill out the form :</string>
 
     <string name="normal_account">Electronic account</string>
     <string name="student_account">Student Account (Global)</string>
@@ -342,7 +348,7 @@
     <string name="personal_info_kyc_qr">[Please click here to fill in the data automatically or you can fill in the fields below manually]</string>
     <string name="success_msg">The operation was completed successfully!</string>
     <string name="success_msg2">Your request has been registered, please wait until it is approved</string>
-
+    <string name="success_msg3">The password has been reset successfully. The new password will be sent via text message to the number registered in the banking system</string>
     <string name="father_name">Fathers name</string>
     <string name="mother_name">Mothers name</string>
     <string name="mother_last_name">Mothers Percentage</string>

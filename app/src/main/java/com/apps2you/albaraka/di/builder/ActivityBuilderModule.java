@@ -32,6 +32,8 @@ import com.apps2you.albaraka.ui.quick_services.PersonalizeQuickServicesActivity;
 import com.apps2you.albaraka.ui.quick_services.QuickServicesProvider;
 import com.apps2you.albaraka.ui.registration.LoginActivity;
 import com.apps2you.albaraka.ui.registration.LoginProvider;
+import com.apps2you.albaraka.ui.reset_pass_form.ResetPassFormActivity;
+import com.apps2you.albaraka.ui.reset_pass_form.ResetPassFormProvider;
 import com.apps2you.albaraka.ui.settings.SettingsActivity;
 import com.apps2you.albaraka.ui.settings.SettingsActivityTwo;
 import com.apps2you.albaraka.ui.settings.SettingsProvider;
@@ -96,6 +98,9 @@ public abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(modules = {MobFormProvider.class})
     abstract MobFormActivity mobFormActivity();
 
+
+    @ContributesAndroidInjector(modules = {ResetPassFormProvider.class})
+    abstract ResetPassFormActivity resetPassFormActivity();
     @ContributesAndroidInjector(modules = {TransactionsProvider.class})
     abstract TransactionDetailsActivity transactionDetailsActivity();
 

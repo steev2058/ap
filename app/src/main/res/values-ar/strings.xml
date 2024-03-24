@@ -69,6 +69,7 @@
     <string name="mini_statement">كشف حساب</string>
     <string name="mobile_number">رقم الهاتف المحمول</string>
     <string name="mobile_number_moform">رقم الموبايل - *********09</string>
+    <string name="mobile_number_resetform">رقم الموبايل المثبت على النظام البنكي - *********09</string>
     <string name="home_menu_more">المزيد</string>
     <string name="home_menu_accounts">حساباتي</string>
     <string name="my_transactions">حركات الحساب</string>
@@ -334,15 +335,19 @@
     <string name="mobFormTerms">لاستكمال الاجراءات يرجى التأكد من صحة البيانات المدخلة والموافقة على الشروط أدناه</string>
     <string name="mobFormimg">أدخل الأرقام في الصورة</string>
     <string name="mobFormTitle">استمارة طلب الاشتراك بتطبيق البركة</string>
+    <string name="resetPassFormTitle">  إعادة تعيين كلمة السر / رمز التحقق</string>
     <string name="mobFormtext">يمكّنك تطبيق البركة من إدارة حساباتك المصرفية في بنك البركة من خلال هاتفك الجوال من أي مكان وفي أي وقت على مدار الساعة 24/7 وفقاً لأعلى معايير الدقة والأمان التي تم اتباعها في تصميم تطبيق البركة سورية للحفاظ التام على سريتك المصرفية والمعلومات الخاصة بحساباتك.</string>
     <string name="mobFormtextinfo">لطفاً منك ملء الاستمارة وسيتم تزويدك بحساب المستخدم بعد التحقق من المعلومات</string>
+    <string name="resetpassFormtextinfo"> يرجى ملء الطلب أدناه :</string>
     <string name="natoinalnumber">الرقم الوطني أو رقم جواز السفر</string>
     <string name="success_msg">تمت العملية بنجاح!</string>
     <string name="success_msg2">تم تسجيل طلبكم يرجى الانتظار لحين الموافقة عليه</string>
+    <string name="success_msg3">تم إعادة تعيين كلمة السر بنجاح سيتم إرسال كلمة السر الجديدة عبر رسالة نصية الى الرقم المسجل في النظام البنكي</string>
     <string name="commission_question_baraka_trans">عمولة هذه الخدمة هي %1$s SP. هل تريد متابعة النقل إلى (%2$s)؟</string>
     <string name="father_name">اسم الأب</string>
     <string name="mother_name">اسم الأم</string>
     <string name="more_mobile_form">طلب الاشتراك في تطبيق البركة</string>
+    <string name="more_resetpassfprm_form">إعادة تعيين كلمة السر</string>
     <string name="mother_last_name">نسبة الأم</string>
     <string name="place_of_birth">مكان الولادة</string>
     <string name="date_of_birth">تاريخ الميلاد</string>
@@ -374,6 +379,7 @@
     <string name="btn_previous">السابق</string>
     <string name="btn_next">التالي</string>
     <string name="mobile_form_error">الرجاء إدخال رقم الموبايل</string>
+
     <string name="cif_form_error">الرجاء إدخال رقم الحساب</string>
     <string name="national_form_error">الرجاء إدخال الرقم الوطني أو رقم جواز السفر</string>
     <array name="details">
@@ -383,6 +389,6 @@
         <item>المرفقات</item>
         <item>البطاقة</item>
     </array>
-    <string name="more_kyc">طلب حساب إلكتروني</string>
+    <string name="more_kyc">فتح حساب إلكتروني</string>
 
 </resources>

@@ -25,6 +25,7 @@ import com.apps2you.albaraka.ui.base.BaseFragment;
 import com.apps2you.albaraka.ui.home.GuestHomeActivity;
 import com.apps2you.albaraka.ui.kyc.KycActivity;
 import com.apps2you.albaraka.ui.mobForm.MobFormActivity;
+import com.apps2you.albaraka.ui.reset_pass_form.ResetPassFormActivity;
 import com.apps2you.albaraka.ui.settings.SettingsActivity;
 import com.apps2you.albaraka.ui.settings.SettingsActivityTwo;
 import com.apps2you.albaraka.utils.Constants;
@@ -117,7 +118,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
 
         mViewDataBinding.btnChangeP.setOnClickListener(view -> {
             try {
-                Intent intent = new Intent(requireContext(), SettingsActivityTwo.class);
+                Intent intent = new Intent(requireContext(), ResetPassFormActivity.class);
                 startActivity(intent);
             }catch (Exception e) {
                 // Handle other exceptions
@@ -224,7 +225,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
 
                     if (dialog.getWindow() != null) {
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+                        //dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
                     }
 
                     dialog.setContentView(R.layout.dialog_privacy);

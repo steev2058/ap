@@ -248,7 +248,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/margin_guest"
                 android:text="تغيير كلمة السر"
-                app:drawableTopCompat="@drawable/ic_logo_outlined"
+                app:drawableTopCompat="@drawable/change_pass_icon"
                 app:layout_constraintBottom_toBottomOf="@id/btn_account"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btn_application"

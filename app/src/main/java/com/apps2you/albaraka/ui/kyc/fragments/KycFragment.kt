@@ -1244,11 +1244,9 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                 }
 
                 webView.loadUrl(url)
-
                 builder.setNegativeButton("إغلاق") { dialog, which ->
                     dialog.dismiss()
                 }
-
                 val alertDialog = builder.create()
                 alertDialog.show()
             }
@@ -1488,7 +1486,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                         handleServerResponse(response)
 //                        saveNewAccountRequest()
                     } else {
-                        showToast("حدث خطأ أثناء إرسال الرمز (OTP) حاول مرة اخرى.")
+                        showToast("حدث خطأ أثناء إرسال رمز التحقق حاول مرة اخرى.")
                     }
                 }
             } catch (e: Exception) {

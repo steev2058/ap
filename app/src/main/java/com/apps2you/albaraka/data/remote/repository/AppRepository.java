@@ -11,6 +11,7 @@ import com.apps2you.albaraka.data.model.MobForm;
 import com.apps2you.albaraka.data.model.NotificationContent;
 import com.apps2you.albaraka.data.model.PrivacyPolicy;
 import com.apps2you.albaraka.data.model.ProductCategory;
+import com.apps2you.albaraka.data.model.ResetPassForm;
 import com.apps2you.albaraka.data.model.Title;
 import com.apps2you.albaraka.data.model.Transaction;
 import com.apps2you.albaraka.data.remote.networkUtils.ApiService;
@@ -134,6 +135,20 @@ public class AppRepository {
                         mobForm.getCaptcha_challenge(),
                         mobForm.getMobileNumber(),
                         mobForm.getComplaintTitleID());
+            }
+        }.getAsLiveServerData();
+    }
+
+    public LiveData<Resource<String>> sendResetPassForm(String nationa_id,String cif,String otp ,String reset_password,String reset_pin) {
+        return new NetworkBoundResource<String>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<String>> createCall() {
+                return apiService.resetPassForm(
+                        nationa_id,
+                        cif,
+                        otp,
+                        reset_password,reset_pin);
             }
         }.getAsLiveServerData();
     }
