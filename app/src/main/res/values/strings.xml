@@ -25,6 +25,7 @@
     <string name="prompt_info_cancel">Cancel</string>
     <string name="Change_language">Change language</string>
     <string name="password_title">Change password</string>
+    <string name="more_pass">Forget Password</string>
     <string name="pin_title">Change PIN code</string>
     <string name="cif_number">Account Number</string>
     <string name="client">Client</string>
@@ -344,8 +345,10 @@
 
     <string name="normal_account">Electronic account</string>
     <string name="student_account">Student Account (Global)</string>
-    <string name="personal_information_kyc">Personal data - in Arabic [Please click here to fill in the data automatically or you can fill in the fields below manually]</string>
-    <string name="personal_info_kyc_qr">[Please click here to fill in the data automatically or you can fill in the fields below manually]</string>
+<!--    <string name="personal_information_kyc">Personal data - in Arabic [Please click here to fill in the data automatically or you can fill in the fields below manually]</string>-->
+<!--    <string name="personal_info_kyc_qr">[Please click here to fill in the data automatically or you can fill in the fields below manually]</string>-->
+    <string name="personal_information_kyc">Personal data - in Arabic </string>
+    <string name="personal_info_kyc_qr"></string>
     <string name="success_msg">The operation was completed successfully!</string>
     <string name="success_msg2">Your request has been registered, please wait until it is approved</string>
     <string name="success_msg3">The password has been reset successfully. The new password will be sent via text message to the number registered in the banking system</string>
@@ -368,7 +371,8 @@
     <string name="auth_term_1"> I authorize the bank to deduct the value of the stamps necessary for the card issuance request (for more information, call center 011-9525) </string>
     <string name="last_name_en">Name in English</string>
     <string name="student">University student</string>
-    <string name="more_kyc">Request an online account</string>
+    <string name="more_kyc">Register an account</string>
+    <string name="more_application">Al-Baraka App</string>
     <string name="father_name_en">Fathers name in English</string>
     <string name="personal_image">Personal image</string>
     <string name="id_back_side">ID/Back Side</string>

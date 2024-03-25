@@ -25,6 +25,7 @@
     <string name="prompt_info_cancel">إلغاء</string>
     <string name="Change_language">تغيير اللغة</string>
     <string name="password_title">تغيير كلمة المرور</string>
+    <string name="more_pass">نسيت كلمة السر</string>
     <string name="pin_title">تغيير رمز التحقق</string>
     <string name="cif_number">رقم الحساب</string>
     <string name="client">عميل</string>
@@ -327,9 +328,12 @@
     <string name="cancel">الغاء</string>
     <string name="normal_account">حساب إلكتروني</string>
     <string name="student_account">حساب الطالب (عالمي)</string>
-    <string name="personal_information_kyc">البيانات الشخصية-باللغة العربية[يرجى الضغط هنا لتعبئة البيانات تلقائيا أو يمكنك ملء الحقول أدناه يدويا]</string>
-    <string name="personal_info_kyc_qr">[يرجى الضغط هنا لتعبئة البيانات تلقائيا أو يمكنك ملء الحقول أدناه يدويا]</string>
+    <string name="personal_information_kyc">البيانات الشخصية-باللغة العربية</string>
+<!--    <string name="personal_information_kyc">البيانات الشخصية-باللغة العربية[يرجى الضغط هنا لتعبئة البيانات تلقائيا أو يمكنك ملء الحقول أدناه يدويا]</string>-->
+<!--    <string name="personal_info_kyc_qr">[يرجى الضغط هنا لتعبئة البيانات تلقائيا أو يمكنك ملء الحقول أدناه يدويا]</string>-->
+    <string name="personal_info_kyc_qr"></string>
     <string name="mobFormsubmit">يرجى الضغط لتسجيل طلب</string>
+
     <string name="mobFormdelegation">افوض البنك بخصم مبلغ 8,000 ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف الاشتراك بخدمة البركة موبايل
     و أوافق على الشروط والأحكام </string>
     <string name="mobFormTerms">لاستكمال الاجراءات يرجى التأكد من صحة البيانات المدخلة والموافقة على الشروط أدناه</string>
@@ -390,5 +394,6 @@
         <item>البطاقة</item>
     </array>
     <string name="more_kyc">فتح حساب إلكتروني</string>
+    <string name="more_application">اشتراك بتطبيق البركة</string>
 
 </resources>

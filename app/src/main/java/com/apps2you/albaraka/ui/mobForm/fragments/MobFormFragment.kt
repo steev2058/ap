@@ -1,45 +1,57 @@
 package com.apps2you.albaraka.ui.mobForm.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
-import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
-import android.widget.AdapterView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.apps2you.albaraka.BR
 import com.apps2you.albaraka.R
-import com.apps2you.albaraka.data.model.Branch
-import com.apps2you.albaraka.data.model.Title
-import com.apps2you.albaraka.data.model.getDefault
-import com.apps2you.albaraka.data.remote.networkUtils.Status
 import com.apps2you.albaraka.databinding.FragmentMobformBinding
 import com.apps2you.albaraka.ui.base.BaseFragment
-import com.apps2you.albaraka.ui.complaints.fragments.SpinnerAdapter
-import com.apps2you.albaraka.utils.CustomTextWatcher
+import com.apps2you.albaraka.ui.kyc.fragments.finishActivity
+import com.apps2you.albaraka.ui.reset_pass_form.fragments.finishresetPassActivity
 import com.apps2you.albaraka.viewmodels.MobFormViewModel
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
+import java.net.URLEncoder
 import java.util.Random
 
 class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>() {
+    var responseWaiting: Boolean = false
 
+
+    private lateinit var viewModel: MobFormViewModel
+
+    private lateinit var progressDialog: SweetAlertDialog
     override fun createViewModel() {
         mViewModel = ViewModelProvider(mActivity).get(MobFormViewModel::class.java)
+        progressDialog = SweetAlertDialog(requireContext(), SweetAlertDialog.PROGRESS_TYPE)
+            .setTitleText("جارٍ معالجة الطلب...")
     }
 
     override fun getBindingVariable(): Int {
@@ -103,38 +115,22 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
     private fun validateFields(): Boolean {
         var isValid = true
 
-        // Validate mobile number
-//        if (TextUtils.isEmpty(mViewModel.mobForm.mobileNumber)) {
-//            setInputError(mViewDataBinding.tiMobileNumber, getString(R.string.error_required))
-//            isValid = false
-//        }
-        if (!mViewModel.mobForm.national_id?.let { isNationalNumber(it) }!!) {
-            // Check if the mobile number is valid
+
+        if (mViewModel.mobForm.national_id != null && !isNationalNumber(mViewModel.mobForm.national_id!!)) {
             setInputError(mViewDataBinding.tiNationalNumber, getString(R.string.national_form_error))
             isValid = false
         }
-        if (!mViewModel.mobForm.cif_id?.let { isCIF(it) }!!) {
+        if (mViewModel.mobForm.cif_id != null && !isCIF(mViewModel.mobForm.cif_id!!)) {
             // Check if the mobile number is valid
             setInputError(mViewDataBinding.tiCifNumber, getString(R.string.cif_form_error))
             isValid = false
         }
 
-        if (!mViewModel.mobForm.mobileNumber?.let { isPhoneNumber(it) }!!) {
+        if (mViewModel.mobForm.mobileNumber != null && !isPhoneNumber(mViewModel.mobForm.mobileNumber!!)) {
             // Check if the mobile number is valid
             setInputError(mViewDataBinding.tiMobileNumber, getString(R.string.mobile_form_error))
             isValid = false
         }
-//        // Validate telephone number
-//        if (TextUtils.isEmpty(mViewModel.mobForm.phoneNumber)) {
-//            setInputError(mViewDataBinding.tiTelephoneNumber, getString(R.string.error_required))
-//            isValid = false
-//        }
-
-        // Validate email
-//        if (!Patterns.PHONE.matcher(mViewModel.mobForm.email ?: "").matches()) {
-//            setInputError(mViewDataBinding.tiEmail, getString(R.string.error_required))
-//            isValid = false
-//        }
 
 
 
@@ -143,8 +139,8 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
         val captchaTextView = mViewDataBinding.captchaTextView.text.toString()
         val captchaInput:String = mViewDataBinding.captchaInput.text.toString()
         if(captchaTextView.reversed().replace("\\s".toRegex(),"") == captchaInput) {
-           // SendOtpReq()
-          //  showToast("تم تسجيل طلبكم بنجاح")
+            // SendOtpReq()
+            //  showToast("تم تسجيل طلبكم بنجاح")
         }
         else{
             showToast("الرقم المدخل غير مطابق حاول مرة اخرى")
@@ -266,32 +262,67 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
     }
 
     private fun sendMobForm() {
+        progressDialog.show()
+        mobileFormRequest()
+    }
 
-//        if (TextUtils.isEmpty(mViewModel.mobForm.phoneNumber)) {
-//            setInputError(mViewDataBinding.tiTelephoneNumber, getString(R.string.error_required))
-//            return
-//        }
-
-        showToast("تم تسجيل طلبكم بنجاح")
+        private fun mobileFormRequest() {
 
 
-        mViewModel.sendMobForm().observe(this, {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    hideProgress()
-                    showToast(getString(R.string.sent_successfully))
-                    mActivity.finish()
-                }
-                Status.ERROR -> {
-                    hideProgress()
-                    showToast(it.message)
-                }
-                Status.LOADING -> {
-                    showProgress()
+            GlobalScope.launch {
+                try {
+
+                    responseWaiting = true
+
+                    val requestBody = MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("national_id", mViewDataBinding?.etNationalNumber?.text.toString())
+                        .addFormDataPart("cif_id", mViewDataBinding?.etCifNumber?.text.toString())
+                        .addFormDataPart("mobile_id",  mViewDataBinding?.etMobileNumber?.text.toString())
+                        .addFormDataPart("skip_captcha", "true")
+
+                    val request = Request.Builder()
+                        .url("https://albaraka.com.sy/AlBarakaForms/ApiController/saveMobileData")
+                        .post(requestBody.build())
+                        .build()
+
+                    val response = withContext(Dispatchers.IO) {
+                        OkHttpClient().newCall(request).execute()
+                    }
+
+                    val responseData = response.body?.string()
+
+                    responseData?.let {
+                        try {
+                            val jsonResponse = JSONObject(it)
+                            withContext(Dispatchers.Main) {
+                                if (jsonResponse.getBoolean("done")) {
+                                    showToast("تم إرسال الطلب بنجاح")
+                                    progressDialog.hide()
+                                    mActivity.finish()
+                                } else {
+
+                                    showToast(jsonResponse.getString("message"))
+                                    // Handle accordingly
+                                }
+                                progressDialog.hide()
+
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    responseWaiting = false
                 }
             }
-        })
-    }
+
+        }
+
 
 
 
