@@ -34,7 +34,7 @@ public class TransferOptionsFragment extends BaseFragment<FragmentTransferOption
         if (requireActivity().getIntent().getBooleanExtra(TransferActivity.EXTRA_HF_ACTIVATED, false))
             getViewDataBinding().layoutHaramFouadTransfer.getRoot().setVisibility(View.VISIBLE);
         else
-            getViewDataBinding().layoutHaramFouadTransfer.getRoot().setVisibility(View.VISIBLE);
+            getViewDataBinding().layoutHaramFouadTransfer.getRoot().setVisibility(View.GONE);
 
         mViewDataBinding.layoutAlbarakaTransfer.getRoot().setOnClickListener( view ->
                         navigateToAlBarakaTransferFragment()
