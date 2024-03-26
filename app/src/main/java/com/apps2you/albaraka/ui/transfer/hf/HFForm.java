@@ -17,7 +17,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class HFForm extends BaseTransferForm {
-    public LocalizedStringLiveData phoneNumber = new LocalizedStringLiveData("09");
+    public LocalizedStringLiveData phoneNumber = new LocalizedStringLiveData("");
 //    public final MutableLiveData<HFForm.FormStatus> status = new MutableLiveData<>();
     public final LocalizedStringLiveData firstName = new LocalizedStringLiveData("");
     public final LocalizedStringLiveData fatherName = new LocalizedStringLiveData("");
@@ -86,7 +86,7 @@ public class HFForm extends BaseTransferForm {
 
         BigDecimal amountValue = new BigDecimal(amountValueString);
         return amountValue.compareTo(BigDecimal.ZERO) <= 0
-                || amount <= min
+                || amount < min
                 || amount >= max;
     }
 
