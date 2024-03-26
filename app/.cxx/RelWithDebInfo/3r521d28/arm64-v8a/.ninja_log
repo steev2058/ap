@@ -6,3 +6,5 @@
 511	690	711799554	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/arm64-v8a/libnative-lib.so	455d98d31bfda64
 1	494	730827087	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	f60baae6f417a015
 494	708	730827087	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/arm64-v8a/libnative-lib.so	3f32da456b4ec3a8
+1	469	733151406	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	f60baae6f417a015
+469	733	733151406	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/arm64-v8a/libnative-lib.so	3f32da456b4ec3a8
