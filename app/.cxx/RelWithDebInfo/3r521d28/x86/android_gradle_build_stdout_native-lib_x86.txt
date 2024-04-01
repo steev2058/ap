@@ -1,3 +1,2 @@
 ninja: Entering directory `D:\mobile application new albaraka\albaraka-android\app\.cxx\RelWithDebInfo\3r521d28\x86'
-[1/2] Building CXX object CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o
-[2/2] Linking CXX shared library ..\..\..\..\build\intermediates\cxx\RelWithDebInfo\3r521d28\obj\x86\libnative-lib.so
+ninja: no work to do.
