@@ -36,55 +36,82 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_margin="8dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layout_anchor="@id/bottom_sheet"
             >
-
-            <Button
-                android:id="@+id/btn_branch"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:gravity="center"
-                android:background="@drawable/bg_shadow_primary"
-                android:drawableStart="@drawable/ic_branch_white"
-                android:text="@string/branch"
-                android:textColor="@color/white"
-                />
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_branch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_shadow_primary"
+                    android:drawableStart="@drawable/ic_branch_white"
+                    android:text="@string/branch"
+                    android:textColor="@color/white"
+                    />
 
-            <Button
-                android:id="@+id/btn_atm"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:gravity="center"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:background="@drawable/bg_shadow_white"
-                android:drawableStart="@drawable/ic_atm"
-                android:text="@string/ATM"
-                android:textColor="@color/orange"
-                />
+                <Button
+                    android:id="@+id/btn_atm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:background="@drawable/bg_shadow_white"
+                    android:drawableStart="@drawable/ic_atm"
+                    android:text="@string/ATM"
+                    android:textColor="@color/orange"
+                    />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_pos"
-                android:layout_width="0dp"
+            <!-- Bottom LinearLayout for POS and Merchant -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:gravity="center"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:background="@drawable/bg_shadow_white"
-                android:drawableStart="@drawable/ic_pos"
-                android:text="@string/pos"
-                android:textColor="@color/gray"
-                />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_pos"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:background="@drawable/bg_shadow_white"
+                    android:drawableStart="@drawable/ic_pos"
+                    android:text="@string/pos"
+                    android:textColor="@color/gray"
+                    />
+
+                <Button
+                    android:id="@+id/btn_merchant"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:background="@drawable/bg_shadow_white"
+                    android:drawableStart="@drawable/ic_pos"
+                    android:text="@string/merchant"
+                    android:textColor="@color/blue"
+                    />
+            </LinearLayout>
         </LinearLayout>
 
         <!-- Adding bottom sheet after main content -->

@@ -23,6 +23,8 @@ public class LocationsVM extends BaseViewModel {
     private final ArrayList<Branch> atms = new ArrayList<>();
     private final ArrayList<Branch> pos = new ArrayList<>();
 
+    private final ArrayList<Branch> merchant = new ArrayList<>();
+
     private Call<MyResponse<ArrayList<Branch>>> branchesCall;
     private String selectedType = Constants.TYPE_BRANCH;
 
@@ -61,6 +63,8 @@ public class LocationsVM extends BaseViewModel {
                 this.atms.add(branch);
             else if (branch.isPos())
                 this.pos.add(branch);
+            else if (branch.isMerchant())
+                this.merchant.add(branch);
         }
 //        this.branches.addAll(branches);
     }
@@ -72,6 +76,8 @@ public class LocationsVM extends BaseViewModel {
             return this.atms.get(position);
         else if (selectedType.equals(Constants.TYPE_POS) && position >= 0 && position < this.pos.size())
             return this.pos.get(position);
+        else if (selectedType.equals(Constants.TYPE_MERCHANT) && position >= 0 && position < this.merchant.size())
+            return this.merchant.get(position);
         else
             return null;
     }
@@ -86,6 +92,10 @@ public class LocationsVM extends BaseViewModel {
 
     public ArrayList<Branch> getPos() {
         return this.pos;
+    }
+
+    public ArrayList<Branch> getMerchant() {
+        return this.merchant;
     }
 
     private void cancelPreviousCall() {

@@ -120,6 +120,10 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
             getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_white);
             getViewDataBinding().btnPos.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
             getViewDataBinding().btnPos.setTextColor(getResources().getColor(R.color.gray));
+
+            getViewDataBinding().btnMerchant.setBackgroundResource(R.drawable.bg_shadow_white);
+            getViewDataBinding().btnMerchant.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
+            getViewDataBinding().btnMerchant.setTextColor(getResources().getColor(R.color.blue));
         });
 
         getViewDataBinding().btnAtm.setOnClickListener(v -> {
@@ -137,6 +141,10 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
             getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_white);
             getViewDataBinding().btnPos.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
             getViewDataBinding().btnPos.setTextColor(getResources().getColor(R.color.gray));
+
+            getViewDataBinding().btnMerchant.setBackgroundResource(R.drawable.bg_shadow_white);
+            getViewDataBinding().btnMerchant.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
+            getViewDataBinding().btnMerchant.setTextColor(getResources().getColor(R.color.blue));
         });
 
         getViewDataBinding().btnPos.setOnClickListener(v -> {
@@ -154,6 +162,31 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
             getViewDataBinding().btnAtm.setBackgroundResource(R.drawable.bg_shadow_white);
             getViewDataBinding().btnAtm.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_atm, 0, 0, 0);
             getViewDataBinding().btnAtm.setTextColor(getResources().getColor(R.color.orange));
+
+            getViewDataBinding().btnMerchant.setBackgroundResource(R.drawable.bg_shadow_white);
+            getViewDataBinding().btnMerchant.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
+            getViewDataBinding().btnMerchant.setTextColor(getResources().getColor(R.color.blue));
+        });
+
+        getViewDataBinding().btnMerchant.setOnClickListener(v -> {
+//            getData(Constants.TYPE_POS);
+            setMarkers(Constants.TYPE_MERCHANT);
+
+            getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_white);
+            getViewDataBinding().btnPos.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
+            getViewDataBinding().btnPos.setTextColor(getResources().getColor(R.color.gray));
+
+            getViewDataBinding().btnBranch.setBackgroundResource(R.drawable.bg_shadow_white);
+            getViewDataBinding().btnBranch.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_branch, 0, 0, 0);
+            getViewDataBinding().btnBranch.setTextColor(getResources().getColor(R.color.red));
+
+            getViewDataBinding().btnAtm.setBackgroundResource(R.drawable.bg_shadow_white);
+            getViewDataBinding().btnAtm.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_atm, 0, 0, 0);
+            getViewDataBinding().btnAtm.setTextColor(getResources().getColor(R.color.orange));
+
+            getViewDataBinding().btnMerchant.setBackgroundResource(R.drawable.bg_shadow_blue);
+            getViewDataBinding().btnMerchant.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos_white, 0, 0, 0);
+            getViewDataBinding().btnMerchant.setTextColor(getResources().getColor(R.color.white));
         });
     }
 
@@ -169,14 +202,14 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         googleMap.setOnMarkerClickListener(marker -> {
 
             final Branch branch = getViewModel().getLocation(Integer.parseInt(marker.getTag().toString()));
-            if (branch != null) {
+            if (branch != null && (!branch.isMerchant() || (branch.isMerchant() && branch.isAvaliable()))) {
                 BottomSheetBehavior<LinearLayout> sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
                 sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 getViewDataBinding().bottomSheet.setItem(branch);
                 getViewDataBinding().bottomSheet.executePendingBindings();
 
                 getViewDataBinding().bottomSheet.iBtnPhone.setOnClickListener(v -> {
-                    if (branch.isBranch()) { // not an ATM machine/POS
+                    if (branch.isBranch() || branch.isMerchant()) { // not an ATM machine/POS
                         Intent intent = new Intent(Intent.ACTION_DIAL);
                         intent.setData(Uri.parse("tel:" + branch.getPhoneNumber()));
 
@@ -300,6 +333,9 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
             case Constants.TYPE_POS:
                 data.addAll(getViewModel().getPos());
                 break;
+            case Constants.TYPE_MERCHANT:
+                data.addAll(getViewModel().getMerchant());
+                break;
         }
 
         for (int i = 0; i < data.size(); i++) {
@@ -317,6 +353,16 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
                 marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_atm));
             else if (branch.isPos())
                 marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_pos));
+            else if (branch.isMerchant())
+            {
+                if(branch.isAvaliable())
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_merchant_green));
+                else {
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_merchant_red));
+                }
+
+            }
+
 
             builder.include(pos);
         }

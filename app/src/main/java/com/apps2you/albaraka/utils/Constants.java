@@ -12,6 +12,7 @@ public class Constants {
             TYPE_BRANCH = "branch", // types of branches that are display in LocationsActivity
             TYPE_ATM = "atm",
             TYPE_POS = "POS",
+            TYPE_MERCHANT= "merchant",
             GENDER_MALE = "male",
             GENDER_FEMALE = "female";
 
