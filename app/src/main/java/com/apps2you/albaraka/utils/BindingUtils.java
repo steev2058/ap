@@ -209,8 +209,10 @@ public class BindingUtils {
         int resource = 0;
         switch (id) {
             case Constants.TRANSFER:
-            case Constants.BILLS:
                 resource = R.drawable.ic_transfer;
+                break;
+            case Constants.SEP:
+                resource = R.drawable.newwsepicon;
                 break;
             case Constants.ZAKAT:
                 resource = R.drawable.ic_hand;

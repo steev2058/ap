@@ -5,7 +5,6 @@
 
     <ConstraintSet android:id="@+id/collapsed">
         <Constraint
-            android:id="@id/layout_expandable_accounts_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />

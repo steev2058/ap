@@ -133,6 +133,8 @@ class PersonalizeQuickServicesActivity : BaseActivity<ActivityPersonalizeQuickSe
             }
             Constants.ADSL -> {
             }
+            Constants.SEP -> {
+            }
             Constants.RESTAURANTS -> {
             }
         }

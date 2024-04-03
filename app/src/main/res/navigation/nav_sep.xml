@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_sep"
+    app:startDestination="@id/sepFragment">
+
+    <fragment
+        android:id="@+id/sepFragment"
+        android:name="com.apps2you.albaraka.ui.sep.SEPFragment"
+        android:label=""
+        tools:layout="@layout/fragment_sep">
+        <action
+            android:id="@+id/action_sepFragment_to_providersFragment"
+            app:destination="@id/providersFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/providersFragment"
+        android:name="com.apps2you.albaraka.ui.sep.SEPProvidersFragment"
+        android:label=""
+        tools:layout="@layout/fragment_item_selection" />
+
+</navigation>

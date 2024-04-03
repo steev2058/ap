@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.transfer.SEPViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/SEP_payment}" />
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/padding_page_horizontal"
+            android:visibility="@{!(viewModel.isContentLoading || viewModel.isFeeLoading) &amp;&amp; !viewModel.isError()}"
+            app:layoutDescription="@xml/scene_expandable_accounts_recycler"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+            <TextView
+                android:id="@+id/tv_label_recent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_home"
+                android:layout_marginEnd="@dimen/padding_home"
+                android:drawablePadding="@dimen/text_padding"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp"
+                android:paddingStart="@dimen/padding_home"
+                android:paddingEnd="@dimen/padding_home"
+                android:layout_marginTop="20dp"
+                android:text="@string/home_recent_transactions"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_account_spinner_silver"
+                app:drawableStartCompat="@drawable/ic_albaraka_transfer"
+                app:drawableEndCompat="@drawable/ic_right_arrow" />
+
+            <!-- Add a TabLayout -->
+
+
+            <!-- Add a ViewPager to hold the tab content -->
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_recent"
+                app:layout_constraintBottom_toBottomOf="parent" >
+
+                <com.google.android.material.tabs.TabLayout
+                    android:layout_width="match_parent"
+                     android:id="@+id/tabLayout2"
+                    app:tabTextColor="@color/orange"
+                    app:tabSelectedTextColor="@color/blue"
+                    app:tabTextAppearance="@color/red"
+                    app:tabBackground="@color/red"
+                    android:layout_height="wrap_content">
+
+
+
+                </com.google.android.material.tabs.TabLayout>
+
+            </androidx.viewpager.widget.ViewPager>
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/partial_progressbar"
+            app:existence="@{viewModel.isContentLoading || viewModel.isFeeLoading}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

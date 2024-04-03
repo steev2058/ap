@@ -27,6 +27,7 @@ import com.apps2you.albaraka.viewmodels.transfer.BillsVM;
 import com.apps2you.albaraka.viewmodels.transfer.FavoriteAccountsViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.MyTransferViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.QrPaymentVM;
+import com.apps2you.albaraka.viewmodels.transfer.SEPViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.SYGSTransferViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.SadakaViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.ZakatViewModel;
@@ -139,6 +140,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ADSLViewModel.class)
     abstract ViewModel bindsADSLViewModel(ADSLViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SEPViewModel.class)
+    abstract ViewModel bindsSEPViewModel(SEPViewModel viewModel);
 
     @Binds
     @IntoMap

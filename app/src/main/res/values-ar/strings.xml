@@ -191,6 +191,7 @@
     <string name="valid_amount">الرجاء إدخال قيمة صحيحة</string>
     <string name="personalization">تخصيص</string>
     <string name="ADSL_payment">فواتير ADSL (مزودي خدمة الإنترنت)</string>
+    <string name="SEP_payment">تسديد فواتير الخدمات (SEP)</string>
     <string name="provider">مزود خدمة انترنت</string>
     <string name="city">المدينة</string>
     <string name="landline_number">رقم الهاتف الثابت</string>

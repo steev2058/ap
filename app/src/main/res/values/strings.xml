@@ -191,6 +191,7 @@
     <string name="valid_amount">Please enter a valid amount</string>
     <string name="personalization">Personalization</string>
     <string name="ADSL_payment">ADSL payment</string>
+    <string name="SEP_payment">SEP payment</string>
     <string name="provider">Provider</string>
     <string name="city">City</string>
     <string name="landline_number">Landline number</string>

@@ -188,6 +188,12 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".ui.sep.SEPActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".ui.transfer.payment.education.schools.SchoolsPaymentActivity"
             android:screenOrientation="portrait"
             android:taskAffinity=""
