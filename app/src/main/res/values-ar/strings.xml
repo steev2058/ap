@@ -339,8 +339,7 @@
     <string name="write_external_storage_permission">إذن الوصول للتخزين الخارجي</string>
     <string name="msg_write_external_storage_permission">يتطلب تطبيق البركة الوصول إلى وحدة التخزين الخارجية من أجل حفظ الملفات</string>
     <string name="cancel">الغاء</string>
-
     <string name="another_transfer_text_haram_fouad">تحويل أموال إلى مستفيد في شركات الحوالات </string>
-
+    <string name="merchant">الوكلاء</string>
     <string name="another_transfer_haram_fouad">التحويل إلى شركات الحوالات  </string>
 </resources>

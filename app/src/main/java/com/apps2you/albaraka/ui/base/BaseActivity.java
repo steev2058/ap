@@ -1,8 +1,10 @@
 package com.apps2you.albaraka.ui.base;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -21,6 +23,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NavUtils;
 import androidx.core.app.TaskStackBuilder;
 import androidx.databinding.DataBindingUtil;
@@ -64,6 +67,7 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import kotlin.Unit;
 
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
+import static androidx.core.app.ActivityCompat.requestPermissions;
 import static com.apps2you.albaraka.utils.cryptography.ConstantsKt.CIPHERTEXT_WRAPPER;
 import static com.apps2you.albaraka.utils.cryptography.ConstantsKt.SHARED_PREFS_FILENAME;
 
@@ -139,7 +143,16 @@ public abstract class BaseActivity<VB extends ViewDataBinding, VM extends BaseVi
         super.onCreate(savedInstanceState);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
 
+                requestPermissions(new String[] {Manifest.permission.POST_NOTIFICATIONS}, 1);
+
+            }
+            else {
+                // repeat the permission or open app details
+            }
+        }
         activityNavigator =
                 ActivityNavigation
                         .create(this)
