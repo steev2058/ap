@@ -23,6 +23,7 @@ import com.apps2you.albaraka.databinding.ActivityHomeBinding;
 import com.apps2you.albaraka.databinding.DialogLanguageBinding;
 import com.apps2you.albaraka.ui.PrivacyPolicyActivity;
 import com.apps2you.albaraka.ui.base.BaseActivity;
+import com.apps2you.albaraka.ui.locations.LocationsActivity;
 import com.apps2you.albaraka.ui.notifications.NotificationsActivity;
 import com.apps2you.albaraka.ui.registration.CryptPasswordCallback;
 import com.apps2you.albaraka.ui.registration.LoginActivity;
@@ -102,6 +103,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         });
 
         mViewDataBinding.iBtnNotifications.setOnClickListener(v -> startActivity(new Intent(this, NotificationsActivity.class)));
+
+        mViewDataBinding.iBtnLocations.setOnClickListener(v -> startActivity(new Intent(this, LocationsActivity.class)));
 
         mViewDataBinding.iBtnScan.setOnClickListener(v -> startActivity(new Intent(this, QrPaymentActivity.class)));
 

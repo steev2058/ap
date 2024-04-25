@@ -80,6 +80,25 @@
                             app:layout_constraintEnd_toEndOf="@id/iBtn_notifications"
                             app:layout_constraintTop_toTopOf="@id/iBtn_notifications" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="45dp"
+                        android:layout_toStartOf="@+id/iBtn_more">
+
+                        <ImageButton
+                            android:id="@+id/iBtn_locations"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_locations"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <ImageButton
                         android:id="@+id/iBtn_more"
