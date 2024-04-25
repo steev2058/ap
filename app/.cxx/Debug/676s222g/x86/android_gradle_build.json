@@ -1,0 +1,40 @@
+{
+  "stringTable": {},
+  "buildFiles": [
+    "D:\\mobile application new albaraka\\albaraka-android\\app\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\a.hosary\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+      "-C",
+      "D:\\mobile application new albaraka\\albaraka-android\\app\\.cxx\\Debug\\676s222g\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\a.hosary\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+    "-C",
+    "D:\\mobile application new albaraka\\albaraka-android\\app\\.cxx\\Debug\\676s222g\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "native-lib-Debug-x86": {
+      "buildCommandComponents": [
+        "C:\\Users\\a.hosary\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+        "-C",
+        "D:\\mobile application new albaraka\\albaraka-android\\app\\.cxx\\Debug\\676s222g\\x86",
+        "native-lib"
+      ],
+      "buildType": "debug",
+      "abi": "x86",
+      "artifactName": "native-lib",
+      "output": "D:\\mobile application new albaraka\\albaraka-android\\app\\build\\intermediates\\cxx\\Debug\\676s222g\\obj\\x86\\libnative-lib.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {},
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

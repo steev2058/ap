@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 
 import com.apps2you.albaraka.BR;
+import com.apps2you.albaraka.MyApplication;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.model.Branch;
 import com.apps2you.albaraka.databinding.ActivityLocationsBinding;
@@ -210,8 +211,10 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
 
                 getViewDataBinding().bottomSheet.iBtnPhone.setOnClickListener(v -> {
                     if (branch.isBranch() || branch.isMerchant()) { // not an ATM machine/POS
+                        MyApplication.skipQuit = true;
                         Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:" + branch.getPhoneNumber()));
+                        String phone = branch.getPhoneNumber();
+                        intent.setData(Uri.parse("tel:" + phone));
 
                         if (intent.resolveActivity(getPackageManager()) != null)
                             startActivity(intent);

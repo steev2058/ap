@@ -1,0 +1,2 @@
+ninja: Entering directory `D:\mobile application new albaraka\albaraka-android\app\.cxx\Debug\e1b5o1c4\arm64-v8a'
+ninja: no work to do.

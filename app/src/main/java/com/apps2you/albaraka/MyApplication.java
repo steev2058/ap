@@ -102,7 +102,7 @@ public class MyApplication extends Application implements HasAndroidInjector {
                     @Override
                     public void applicationWentToForeground() {
                         long currentUserInteraction = System.currentTimeMillis();
-                        if (isInBackground && isLoggedIn && !skipQuit && (currentUserInteraction -BaseActivity.lastUserInteraction) > INACTIVITY_THRESHOLD){
+                        if (isInBackground && isLoggedIn && !skipQuit ){
                             Bus.instance().publish(UnAuthorizedUserEvent.getInstance());
                         }
                         isInBackground = false;
