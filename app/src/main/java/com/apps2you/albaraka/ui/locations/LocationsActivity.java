@@ -235,6 +235,10 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
 
                 moveToLocation(branch);
             }
+            else{
+                BottomSheetBehavior<LinearLayout> sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
+                sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
             return false;
         });
     }

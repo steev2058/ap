@@ -13,6 +13,19 @@
         android:layout_height="match_parent"
         android:filterTouchesWhenObscured="true"
         >
+        <!-- SearchView for Google Maps -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:queryHint="Search for location..." />
+        </LinearLayout>
 
         <fragment
             android:id="@+id/map"
