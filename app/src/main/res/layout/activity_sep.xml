@@ -5,8 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:filterTouchesWhenObscured="true"
-        >
+        android:filterTouchesWhenObscured="true">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_sep"
@@ -15,5 +14,6 @@
             android:layout_height="match_parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_sep"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

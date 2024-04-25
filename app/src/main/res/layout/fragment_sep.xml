@@ -48,10 +48,10 @@
                 android:paddingStart="@dimen/padding_home"
                 android:paddingEnd="@dimen/padding_home"
                 android:layout_marginTop="20dp"
-                android:text="@string/home_recent_transactions"
+                android:text="الاسم : مصطفى جحه"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_account_spinner_silver"
+                android:background="@drawable/bg_edittext"
                 app:drawableStartCompat="@drawable/ic_albaraka_transfer"
                 app:drawableEndCompat="@drawable/ic_right_arrow" />
 
@@ -69,12 +69,7 @@
                 <com.google.android.material.tabs.TabLayout
                     android:layout_width="match_parent"
                      android:id="@+id/tabLayout2"
-                    app:tabTextColor="@color/orange"
-                    app:tabSelectedTextColor="@color/blue"
-                    app:tabTextAppearance="@color/red"
-                    app:tabBackground="@color/red"
                     android:layout_height="wrap_content">
-
 
 
                 </com.google.android.material.tabs.TabLayout>

@@ -18,41 +18,40 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
 
     @Override
     public void setUpView() {
-        viewPager = getViewDataBinding().getRoot().findViewById(R.id.view_pager);
-
-        tabLayout = getViewDataBinding().getRoot().findViewById(R.id.tabLayout2);
-        tabLayout.addTab(tabLayout.newTab().setText("Home"));
-        tabLayout.addTab(tabLayout.newTab().setText("About"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        viewPager = getViewDataBinding().getRoot().findViewById(R.id.view_pager);
-
-        // Get the FragmentManager from the parent FragmentActivity
         FragmentActivity activity = getActivity();
-        if (activity != null) {
-            TabsAdapter tabsAdapter = new TabsAdapter(activity.getSupportFragmentManager(), tabLayout.getTabCount());
-            viewPager.setAdapter(tabsAdapter);
-            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
-                    viewPager.setCurrentItem(tab.getPosition());
-                    tabLayout.setTabTextColors(getResources().getColor(R.color.orange), getResources().getColor(R.color.blue));
-                }
 
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
+        // Initialize views
+        viewPager = getViewDataBinding().getRoot().findViewById(R.id.view_pager);
+        tabLayout = getViewDataBinding().getRoot().findViewById(R.id.tabLayout2);
 
-                }
+        // Add tabs to the TabLayout
+        tabLayout.addTab(tabLayout.newTab().setText("الدفع الفوري"));
+        tabLayout.addTab(tabLayout.newTab().setText("الملف الشخصي"));
 
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-                }
-            });
-        }
+        // Set up ViewPager with TabsAdapter
+        TabsAdapter tabsAdapter = new TabsAdapter(activity.getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(tabsAdapter);
+
+        // Connect TabLayout and ViewPager
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+
+        // Set tab text colors
+        tabLayout.setTabTextColors(getResources().getColor(R.color.red), getResources().getColor(R.color.blue));
     }
-
-
-
 
     @Override
     public void fetchData() {
