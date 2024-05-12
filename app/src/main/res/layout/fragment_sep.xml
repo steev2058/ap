@@ -36,26 +36,68 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
 
-            <TextView
-                android:id="@+id/tv_label_recent"
+            <LinearLayout
+                android:id="@+id/card_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_home"
-                android:layout_marginEnd="@dimen/padding_home"
-                android:drawablePadding="@dimen/text_padding"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
-                android:paddingStart="@dimen/padding_home"
-                android:paddingEnd="@dimen/padding_home"
-                android:layout_marginTop="20dp"
-                android:text="الاسم : مصطفى جحه"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_edittext"
-                app:drawableStartCompat="@drawable/ic_albaraka_transfer"
-                app:drawableEndCompat="@drawable/ic_right_arrow" />
+                android:background="@drawable/item_drop_shadow_stack"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_home"
+                android:layout_marginTop="20dp">
 
-            <!-- Add a TabLayout -->
+                <ImageView
+                    android:id="@+id/image_center_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_albaraka_transfer"
+                    android:layout_gravity="center_vertical"/>
+                <!-- Icon on the left -->
+
+
+                <!-- Text container -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_first_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="الاسم : مصطفى جحه"
+                        android:textColor="@color/gray"/>
+
+                    <TextView
+                        android:id="@+id/text_second_row"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:text="رقم الموبايل :0957261491"
+                        android:textColor="@color/gray"/>
+
+                </LinearLayout>
+
+                <!-- Image on the right -->
+                <ImageView
+                    android:id="@+id/icon_sep"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
+                    android:src="@drawable/seplogor"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"/>
+                <ImageView
+                    android:id="@+id/icon_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_forward"
+
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"/>
+
+            </LinearLayout>
 
 
             <!-- Add a ViewPager to hold the tab content -->
@@ -64,19 +106,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_label_recent"
-                app:layout_constraintBottom_toBottomOf="parent" >
-
-                <com.google.android.material.tabs.TabLayout
-                    android:layout_width="match_parent"
-                     android:id="@+id/tabLayout2"
-                    android:layout_height="wrap_content">
-
-
-                </com.google.android.material.tabs.TabLayout>
-
-            </androidx.viewpager.widget.ViewPager>
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <!-- Add a TabLayout -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            app:tabIndicatorColor="@color/orange"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar" />
 
         <include
             android:id="@+id/progressBar"

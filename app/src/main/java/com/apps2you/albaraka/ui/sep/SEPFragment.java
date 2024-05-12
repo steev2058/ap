@@ -50,7 +50,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         });
 
         // Set tab text colors
-        tabLayout.setTabTextColors(getResources().getColor(R.color.red), getResources().getColor(R.color.blue));
+        tabLayout.setTabTextColors(getResources().getColor(R.color.gray), getResources().getColor(R.color.orange));
     }
 
     @Override

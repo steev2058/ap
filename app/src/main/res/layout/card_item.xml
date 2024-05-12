@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_radio_button"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/card_image"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:src="@drawable/ic_bank_transfer_circel"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true" />
+    <View
+        android:id="@+id/divider_contact_time"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="18dp"
+        android:background="@color/bright_gray"/>
+
+    <TextView
+        android:id="@+id/card_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Card Text"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+       android:gravity="center"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>
