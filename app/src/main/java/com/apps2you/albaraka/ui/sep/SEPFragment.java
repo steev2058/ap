@@ -15,7 +15,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
+    private TabsAdapter tabsAdapter;
     @Override
     public void setUpView() {
         FragmentActivity activity = getActivity();
@@ -26,7 +26,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
 
         // Add tabs to the TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("الدفع الفوري"));
-        tabLayout.addTab(tabLayout.newTab().setText("الملف الشخصي"));
+        tabLayout.addTab(tabLayout.newTab().setText("الفواتير الشخصية"));
 
         // Set up ViewPager with TabsAdapter
         TabsAdapter tabsAdapter = new TabsAdapter(activity.getSupportFragmentManager(), tabLayout.getTabCount());
@@ -55,9 +55,19 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
 
     @Override
     public void fetchData() {
+
         // You can implement fetching data if needed
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Refresh the tab content by reloading the adapter's data
+        if (tabsAdapter != null) {
+            tabsAdapter.notifyDataSetChanged();
+        }
+    }
     @Override
     public void onDetach() {
         super.onDetach();

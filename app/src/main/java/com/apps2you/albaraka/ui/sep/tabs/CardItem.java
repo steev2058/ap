@@ -5,9 +5,12 @@ public class CardItem {
     private String text;
     private String iconUrl;
 
+
+
     public CardItem(String text, String iconUrl) {
         this.text = text;
         this.iconUrl = iconUrl;
+
     }
 
     public String getText() {

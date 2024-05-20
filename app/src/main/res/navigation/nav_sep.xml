@@ -11,8 +11,8 @@
         android:label=""
         tools:layout="@layout/fragment_sep">
         <action
-            android:id="@+id/action_sepFragment_to_providersFragment"
-            app:destination="@id/providersFragment"
+            android:id="@+id/action_firstFragment_to_fragment_bill"
+            app:destination="@id/fragment_bill"
             app:enterAnim="@anim/slide_up"
             app:exitAnim="@anim/stationary"
             app:popEnterAnim="@anim/stationary"
@@ -20,9 +20,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/providersFragment"
-        android:name="com.apps2you.albaraka.ui.sep.SEPProvidersFragment"
-        android:label=""
-        tools:layout="@layout/fragment_item_selection" />
+        android:id="@+id/fragment_bill"
+        android:name="com.apps2you.albaraka.ui.sep.bill.BillFragment"
+        android:label="FragmentBill"
+        tools:layout="@layout/fragment_bill" />
 
 </navigation>

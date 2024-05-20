@@ -2,18 +2,18 @@ package com.apps2you.albaraka.ui.sep.tabs;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.R;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,14 +39,28 @@ public class FirstFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.first_tab, container, false);
         gridView = rootView.findViewById(R.id.grid_view);
         loader = rootView.findViewById(R.id.loader);
-
-
         loader.setVisibility(View.VISIBLE);
         gridView.setVisibility(View.INVISIBLE);
-
         // Execute AsyncTask to fetch data from the API
         new FetchCategoriesTask().execute();
 
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the clicked card item
+                CardItem clickedItem = (CardItem) parent.getItemAtPosition(position);
+
+                // Create a bundle to pass data to the fragment
+                Bundle bundle = new Bundle();
+                bundle.putString("iconUrl", clickedItem.getIconUrl());
+                bundle.putString("categName_ar", clickedItem.getText());
+                bundle.putString("categoryName", clickedItem.getText());
+
+                // Navigate to the fragment_bill.xml fragment
+                NavHostFragment.findNavController(FirstFragment.this)
+                        .navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
+            }
+        });
         return rootView;
     }
 
@@ -55,10 +69,11 @@ public class FirstFragment extends Fragment {
         @Override
         protected List<CardItem> doInBackground(Void... voids) {
             List<CardItem> cardItemList = new ArrayList<>();
+
             InputStream inputStream = null;
 
             try {
-                URL url = new URL("http://epaytest.albaraka.com.sy:4433/SEP/Customer/all");
+                URL url = new URL("http://epaytest.albaraka.com.sy:4433/SEP/Customer/all/");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
@@ -79,13 +94,15 @@ public class FirstFragment extends Fragment {
 
                 for (int i = 0; i < categories.length(); i++) {
                     JSONObject category = categories.getJSONObject(i);
-                    String categName_ar = category.getString("categName_ar");
-                    String iconUrl = category.getString("icon");
-                    // Load the image using Picasso library
-                    // Make sure to add Picasso dependency in your build.gradle file
-                    // implementation 'com.squareup.picasso:picasso:2.71828'
+                    String categName_ar = category.optString("categName_ar", "N/A");
+                    Log.d("CategoryName", "Category Name: " + categName_ar); // Log the category name
+                    String iconUrl = category.optString("icon", "N/A");
+
                     cardItemList.add(new CardItem(categName_ar, iconUrl.replace("..", "http://epaytest.albaraka.com.sy:4433")));
                 }
+
+
+
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             } finally {

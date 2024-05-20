@@ -192,6 +192,7 @@
     <string name="personalization">Personalization</string>
     <string name="ADSL_payment">ADSL payment</string>
     <string name="SEP_payment">SEP payment</string>
+    <string name="SEP_bill">Bill</string>
     <string name="provider">Provider</string>
     <string name="city">City</string>
     <string name="landline_number">Landline number</string>
@@ -200,6 +201,12 @@
     <string name="restaurants">Restaurants</string>
     <string name="bill_number">Bill Number</string>
     <string name="tips">Tips</string>
+    <string name="billing_no">رقم الفاتورة: %s</string>
+    <string name="due_amount">القيمة: %s</string>
+    <string name="fee_amount">العمولة: %s</string>
+    <string name="issue_date">تاريخ الإصدار: %s</string>
+    <string name="due_date">تاريخ استحقاق الدفع: %s</string>
+
     <string name="universities_payment">Universities payment</string>
     <string name="universities">Universities</string>
     <string name="std_name">Student\'s triple name</string>

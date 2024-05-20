@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_light">
+            <ProgressBar
+                android:id="@+id/loader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <Toolbar
+                android:layout_width="match_parent"
+                android:id="@+id/layout_toolbar"
+                android:layout_height="wrap_content"
+                android:contentInsetStart="0dp"
+                android:contentInsetEnd="0dp"
+                android:filterTouchesWhenObscured="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/padding_page_horizontal">
+
+                    <ImageButton
+                        android:id="@+id/back_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_arrow_back"
+                        android:padding="@dimen/margin_xxsmall"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/back_button"
+                        app:layout_constraintEnd_toStartOf="@id/place_holder"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/font_medium"
+                        android:gravity="center"
+                        android:text="@string/SEP_bill"
+                        tools:text="Title"/>
+
+                    <ImageButton
+                        android:id="@+id/place_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_arrow_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:visibility="invisible"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </Toolbar>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_toolbar"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/motion_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:paddingHorizontal="@dimen/padding_page_horizontal"
+                app:layoutDescription="@xml/scene_expandable_accounts_recycler"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+                <LinearLayout
+                    android:id="@+id/card_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_radio_button"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding_home"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:id="@+id/image_center_right"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginLeft="10dp"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_albaraka_transfer"
+                        android:layout_gravity="center_vertical"/>
+                    <!-- Icon on the left -->
+                    <View
+                        android:id="@+id/divider_contact_time"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/bright_gray"/>
+
+                    <!-- Text container -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/text_first_row"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:textSize="@dimen/_13sdp"
+                            android:layout_height="wrap_content"
+                            android:text="الاسم : مصطفى جحه"
+                            android:textColor="@color/gray"/>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_form"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/card_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <!-- Existing TextView and Spinner -->
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="اختر المفوتر"
+                        android:textColor="@color/gray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner_billers"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_edittext_selector"
+                        android:spinnerMode="dropdown"
+                        app:layout_constraintTop_toBottomOf="@+id/textView"
+                        tools:listitem="@layout/item_complaint_spinner" />
+
+                    <!-- Image view associated with spinner_billers -->
+                    <ImageView
+                        android:id="@+id/imageView_billers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/ic_arrow"
+                        app:layout_constraintBottom_toBottomOf="@id/spinner_billers"
+                        app:layout_constraintEnd_toEndOf="@id/spinner_billers"
+                        app:layout_constraintTop_toTopOf="@id/spinner_billers"
+                        app:tint="@color/gray" />
+
+                    <!-- New TextView and Spinner -->
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="اختر خدمة الفوترة"
+                        android:textColor="@color/gray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/spinner_billers" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner_billers_services"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_edittext_selector"
+                        android:spinnerMode="dropdown"
+                        app:layout_constraintTop_toBottomOf="@id/textView2"
+                        tools:listitem="@layout/item_complaint_spinner" />
+
+                    <!-- Image view associated with spinner_billers_services -->
+                    <ImageView
+                        android:id="@+id/imageView_billers_services"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/ic_arrow"
+                        app:layout_constraintBottom_toBottomOf="@id/spinner_billers_services"
+                        app:layout_constraintEnd_toEndOf="@id/spinner_billers_services"
+                        app:layout_constraintTop_toTopOf="@id/spinner_billers_services"
+                        app:tint="@color/gray" />
+
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/textView3"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text="رقم السيارة"-->
+    <!--                    android:textColor="@color/gray"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@id/spinner_billers_services" />-->
+                    <LinearLayout
+                        android:id="@+id/input_fields_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:orientation="vertical"
+                        android:layout_marginTop="0dp"
+                        app:layout_constraintTop_toBottomOf="@id/spinner_billers_services"/>
+
+    <!--                <com.apps2you.albaraka.utils.CustomTextInputLayout-->
+    <!--                    android:id="@+id/ti_amount"-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginTop="12dp"-->
+    <!--                    android:textColorHint="@color/gray"-->
+    <!--                    app:hintEnabled="false"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@id/input_fields_container">-->
+
+    <!--                    <com.google.android.material.textfield.TextInputEditText-->
+    <!--                        android:id="@+id/et_amount"-->
+    <!--                        style="@style/InputEt"-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:hint="@string/Amount"-->
+    <!--                        android:inputType="numberDecimal"-->
+    <!--                        android:textDirection="ltr"-->
+    <!--                        android:textSize="14sp" />-->
+    <!--                </com.apps2you.albaraka.utils.CustomTextInputLayout>-->
+
+                    <CheckBox
+                        android:id="@+id/checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="10dp"
+                        android:text="عرض جميع الفواتير (المدفوعة وغير المدفوعة)"
+                        app:layout_constraintStart_toStartOf="@id/input_fields_container"
+                        app:layout_constraintTop_toBottomOf="@id/input_fields_container" />
+
+
+                    <Button
+                        android:id="@+id/button_submit"
+                        style="@style/ButtonPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="استعلام"
+                        app:layout_constraintTop_toBottomOf="@+id/checkbox" />
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bills_card"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_form"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="20dp">
+
+                    <!-- Divider line -->
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <!-- TextView in the middle of the divider line -->
+                    <TextView
+                        android:id="@+id/text_first_row2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="الفواتير"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_13sdp"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <CheckBox
+                    android:id="@+id/checkbox_all_bills"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="تحديد جميع الفواتير"
+
+                    app:layout_constraintTop_toBottomOf="@id/bills_card"
+                    app:layout_constraintStart_toStartOf="@id/bills_card"
+                    android:textColor="@color/black" />
+
+
+
+                <LinearLayout
+                    android:id="@+id/cards_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/checkbox_all_bills"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/button_submit_pay_bills"
+                    style="@style/ButtonPrimary2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="دفع الفواتير المختارة"
+
+                    app:layout_constraintTop_toBottomOf="@+id/cards_container" />
+
+
+            </androidx.constraintlayout.motion.widget.MotionLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </layout>

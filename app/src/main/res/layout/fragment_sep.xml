@@ -66,16 +66,10 @@
                         android:id="@+id/text_first_row"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="الاسم : مصطفى جحه"
+                        android:layout_marginTop="20dp"
+                        android:text="الملف الشخصي"
                         android:textColor="@color/gray"/>
 
-                    <TextView
-                        android:id="@+id/text_second_row"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_height="wrap_content"
-                        android:text="رقم الموبايل :0957261491"
-                        android:textColor="@color/gray"/>
 
                 </LinearLayout>
 
@@ -93,7 +87,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_forward"
-
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="8dp"/>
 
