@@ -236,8 +236,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
                 moveToLocation(branch);
             }
             else{
-                BottomSheetBehavior<LinearLayout> sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
-                sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                hideBottomSheet();
             }
             return false;
         });
@@ -375,7 +374,11 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         }
 
         // zoom camera to the center of all the locations
-        if (data.size() > 0) {
+        if(type== Constants.TYPE_MERCHANT)
+        {
+            getMyLocation();
+        }
+        else if (data.size() > 0) {
             LatLngBounds bounds = builder.build();
 
             // set the size of map

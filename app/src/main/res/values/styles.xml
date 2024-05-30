@@ -49,6 +49,11 @@
     <style name="ButtonPrimary.Toggle" parent="ButtonPrimary">
         <item name="android:background">@drawable/selector_confirm_button</item>
     </style>
+    <style name="CustomShapeAppearanceOverlay" parent="">
+        <item name="cornerSize">50%</item> <!-- Adjust the value to change the corner radius -->
+        <item name="android:background">@drawable/ic_location</item> <!-- Define your custom background drawable here -->
+    </style>
+
 
 
     <style name="WhiteButton" parent="Widget.AppCompat.Button">
