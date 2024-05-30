@@ -1,6 +1,11 @@
 package com.apps2you.albaraka.ui.sep;
 
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.viewpager.widget.ViewPager;
 import com.apps2you.albaraka.BR;
@@ -12,10 +17,19 @@ import com.apps2you.albaraka.viewmodels.transfer.SEPViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> {
-
+    private SEPViewModel sepViewModel;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TabsAdapter tabsAdapter;
+
+
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        // Initialize SEPViewModel
+//        sepViewModel = new ViewModelProvider(this).get(SEPViewModel.class);
+//    }
+
     @Override
     public void setUpView() {
         FragmentActivity activity = getActivity();
@@ -73,6 +87,16 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         super.onDetach();
         mViewModel.stopContentLoading();
     }
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        if (sepViewModel != null) {
+//            sepViewModel.stopContentLoading();
+//        } else {
+//            Log.e("SEPFragment", "sepViewModel is null in onDetach");
+//        }
+//    }
+
 
     @Override
     protected ViewModelStoreOwner getViewModelOwner() {

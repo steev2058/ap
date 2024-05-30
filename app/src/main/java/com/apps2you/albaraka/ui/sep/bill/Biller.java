@@ -1,8 +1,9 @@
 package com.apps2you.albaraka.ui.sep.bill;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Biller {
+public class Biller implements Serializable {
     private String billerCode;
     private String billerName;
     private List<Service> services;

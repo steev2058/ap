@@ -193,6 +193,11 @@
             android:screenOrientation="portrait"
             android:taskAffinity=""
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.sep.bill.BillActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ui.transfer.payment.education.schools.SchoolsPaymentActivity"

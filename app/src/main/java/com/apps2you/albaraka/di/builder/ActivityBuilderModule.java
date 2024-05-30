@@ -29,6 +29,8 @@ import com.apps2you.albaraka.ui.quick_services.QuickServicesProvider;
 import com.apps2you.albaraka.ui.registration.LoginActivity;
 import com.apps2you.albaraka.ui.registration.LoginProvider;
 import com.apps2you.albaraka.ui.sep.SEPActivity;
+import com.apps2you.albaraka.ui.sep.bill.BillActivity;
+import com.apps2you.albaraka.ui.sep.bill.BillFragment;
 import com.apps2you.albaraka.ui.settings.SettingsActivity;
 import com.apps2you.albaraka.ui.settings.SettingsProvider;
 import com.apps2you.albaraka.ui.transactions.TransactionDetailsActivity;
@@ -125,6 +127,9 @@ public abstract class ActivityBuilderModule {
     abstract SEPActivity sepActivity();
 
     @ContributesAndroidInjector(modules = {TransferProvider.class})
+    abstract BillActivity billActivity();
+
+    @ContributesAndroidInjector(modules = {TransferProvider.class})
     abstract UniversitiesPaymentActivity universitiesPaymentActivity();
 
     @ContributesAndroidInjector(modules = {TransferProvider.class})
@@ -150,4 +155,5 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector(modules = {AtmCardsProvider.class})
     abstract AtmCardsActivity atmCardsActivity();
+
 }

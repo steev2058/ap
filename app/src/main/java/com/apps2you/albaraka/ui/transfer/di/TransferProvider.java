@@ -56,6 +56,8 @@ public abstract class TransferProvider {
     @ContributesAndroidInjector(modules = {TransferModule.class})
     abstract SEPFragment provideSEPFragment();
 
+
+
     @ContributesAndroidInjector(modules = {TransferModule.class})
     abstract CharitiesFragment provideCharitiesFragment();
 

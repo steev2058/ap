@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.R;
+import com.apps2you.albaraka.ui.sep.bill.Biller;
+import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
+import com.apps2you.albaraka.ui.sep.bill.Service;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +26,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -55,7 +59,7 @@ public class FirstFragment extends Fragment {
                 bundle.putString("iconUrl", clickedItem.getIconUrl());
                 bundle.putString("categName_ar", clickedItem.getText());
                 bundle.putString("categoryName", clickedItem.getText());
-
+                bundle.putSerializable("billers", (Serializable) clickedItem.getBillerList());
                 // Navigate to the fragment_bill.xml fragment
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
@@ -97,8 +101,8 @@ public class FirstFragment extends Fragment {
                     String categName_ar = category.optString("categName_ar", "N/A");
                     Log.d("CategoryName", "Category Name: " + categName_ar); // Log the category name
                     String iconUrl = category.optString("icon", "N/A");
-
-                    cardItemList.add(new CardItem(categName_ar, iconUrl.replace("..", "http://epaytest.albaraka.com.sy:4433")));
+                    List<Biller> billers = parseBillersJson(category.getJSONArray("billers"));
+                    cardItemList.add(new CardItem(categName_ar, iconUrl.replace("..", "http://epaytest.albaraka.com.sy:4433"),billers));
                 }
 
 
@@ -132,4 +136,51 @@ public class FirstFragment extends Fragment {
         }
 
     }
+
+
+    private List<Biller> parseBillersJson(JSONArray billersArray) throws JSONException {
+        List<Biller> billers = new ArrayList<>();
+//        JSONObject jsonObject = new JSONObject(jsonData);
+//       JSONArray billersArray = jsonObject.getJSONArray("billers");
+
+                for (int j = 0; j < billersArray.length(); j++) {
+                    JSONObject billerObj = billersArray.getJSONObject(j);
+
+                    // Parse biller details
+                    String billerName = billerObj.optString("billerName_ar");
+                    String billerCode = billerObj.optString("billerCode");
+
+                    // Parse services
+                    List<Service> services = new ArrayList<>();
+                    JSONArray servicesArray = billerObj.getJSONArray("services");
+
+                    for (int k = 0; k < servicesArray.length(); k++) {
+                        JSONObject serviceObj = servicesArray.getJSONObject(k);
+
+                        // Parse service details
+                        String serviceName = serviceObj.optString("serviceName_ar");
+                        String serviceId = serviceObj.optString("serviceId");
+
+                        // Parse billing numbers
+                        List<BillingNumber> billingNumbers = new ArrayList<>();
+                        JSONArray billingNumbersArray = serviceObj.getJSONArray("billingnumbers");
+                        for (int l = 0; l < billingNumbersArray.length(); l++) {
+                            JSONObject billingNumberObj = billingNumbersArray.getJSONObject(l);
+                            String arabicLabel = billingNumberObj.optString("ArabicLabel");
+                            String type = billingNumberObj.optString("Type");
+                            String texts = billingNumberObj.optString("Texts"); // Extract texts
+                            billingNumbers.add(new BillingNumber(arabicLabel, type, texts));
+                        }
+
+                        services.add(new Service(serviceId, serviceName, billingNumbers));
+                    }
+
+                    // Create Biller object and add to the list
+                    Biller biller = new Biller(billerCode, billerName, services);
+                    billers.add(biller);
+
+        }
+        return billers;
+    }
+
 }

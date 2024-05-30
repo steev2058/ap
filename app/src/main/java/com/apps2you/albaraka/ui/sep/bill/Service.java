@@ -5,9 +5,9 @@ import java.util.List;
 public class Service {
     private String serviceId;
     private String serviceName;
-    private List<BillFragment.BillingNumber> billingNumbers; // New field for billing numbers
+    private List<BillingNumber> billingNumbers; // New field for billing numbers
 
-    public Service(String serviceId, String serviceName, List<BillFragment.BillingNumber> billingNumbers) {
+    public Service(String serviceId, String serviceName, List<BillingNumber> billingNumbers) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.billingNumbers = billingNumbers;
@@ -21,7 +21,7 @@ public class Service {
         return serviceName;
     }
 
-    public List<BillFragment.BillingNumber> getBillingNumbers() {
+    public List<BillingNumber> getBillingNumbers() {
         return billingNumbers;
     }
 }

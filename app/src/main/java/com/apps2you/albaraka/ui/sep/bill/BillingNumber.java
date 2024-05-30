@@ -1,13 +1,14 @@
 package com.apps2you.albaraka.ui.sep.bill;
 
-
-public   class BillingNumber {
+public class BillingNumber {
     private String arabicLabel;
     private String type;
+    private String texts; // Added texts field
 
-    public BillingNumber(String arabicLabel, String type) {
+    public BillingNumber(String arabicLabel, String type, String texts) {
         this.arabicLabel = arabicLabel;
         this.type = type;
+        this.texts = texts;
     }
 
     public String getArabicLabel() {
@@ -16,5 +17,9 @@ public   class BillingNumber {
 
     public String getType() {
         return type;
+    }
+
+    public String getTexts() {
+        return texts;
     }
 }
