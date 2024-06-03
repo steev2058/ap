@@ -177,7 +177,12 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
 
         if (accountsRecyclerAdapter.getItemCount() > 0) {
             if (preSelectedAccountNumber == null && mViewModel.selectedAccount.getValue() == null && mViewModel.getLastSelectedAccountId() == null) {
-                onAccountClickListener.onClick(accountsRecyclerAdapter.getData().get(0), 0);
+                //onAccountClickListener.onClick(accountsRecyclerAdapter.getData().get(0), 0);
+                Account selectedAccount;
+                selectedAccount = accountsRecyclerAdapter.getData().get(0);
+                mViewModel.setSelectedAccount(null);
+                onAccountClickListener.onClick(selectedAccount, accountsRecyclerAdapter.getData().indexOf(selectedAccount));
+
             } else {
                 Stream<Account> selectedAccountStream = accountsRecyclerAdapter.getData().stream();
                 Account selectedAccount;

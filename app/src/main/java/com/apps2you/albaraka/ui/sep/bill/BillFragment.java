@@ -676,7 +676,8 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
                         new SendPostRequestTask2(billingNo, billNo, serviceType, billerCode, accountNumber).execute();
                     }
                 }
-            });
+            }
+            );
 
             if (cardsContainer.getVisibility() == View.VISIBLE) {
                 billsCard.setVisibility(View.VISIBLE);
@@ -701,8 +702,8 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
     }
 
     private String getAccountNumber() {
-        Account accountNumber=mViewModel.getSelectedToAccountId();
-        return accountNumber.toString();
+        Account selectedFromAccount = mViewModel.selectedAccount.getValue();
+        return selectedFromAccount.getNumber();
     }
 
 
