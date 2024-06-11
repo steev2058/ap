@@ -1,5 +1,6 @@
 package com.apps2you.albaraka.di.builder;
 
+import com.apps2you.albaraka.ui.sep.bill.BillDetailsFragment;
 import com.apps2you.albaraka.ui.sep.bill.BillFragment;
 
 import dagger.Module;
@@ -10,4 +11,6 @@ public abstract class FragmentBuilderModule {
 
     @ContributesAndroidInjector
     abstract BillFragment contributeBillFragment();
+    @ContributesAndroidInjector
+    abstract BillDetailsFragment contributeBillDetailsFragment();
 }

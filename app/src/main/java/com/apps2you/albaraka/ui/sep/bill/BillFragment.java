@@ -29,6 +29,7 @@ import com.apps2you.albaraka.BR;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.model.Account;
 import com.apps2you.albaraka.databinding.FragmentBillBinding;
+import com.apps2you.albaraka.ui.base.BaseFragment;
 import com.apps2you.albaraka.ui.base.adapter.OnItemClickListener;
 import com.apps2you.albaraka.ui.common.adapters.AccountsRecyclerAdapter;
 import com.apps2you.albaraka.ui.transfer.base.BaseTransferFragment;
@@ -51,25 +52,23 @@ import java.util.List;
 
 import dagger.android.support.AndroidSupportInjection;
 
-public class BillFragment extends BaseTransferFragment<FragmentBillBinding, BillViewModel> {
-    private AccountsRecyclerAdapter fromAccountsRecyclerAdapter;
+public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewModel> {
+
     private ImageView iconImageView;
     private TextView categNameTextView;
     private Spinner spinnerBillers;
     private Spinner spinnerBillersServices;
-
     private CheckBox checkbox;
     private Button buttonSubmit;
-    private ProgressBar loader;
-
-    // List to store billers and services
+    private static ProgressBar loader;
     private List<Biller> billersList;
     private String categoryName;
     private LinearLayout inputFieldsContainer;
     private CheckBox checkboxAllBills;
     private List<CheckBox> cardCheckboxes;
-
     private Button buttonSubmitPayBills;
+
+
     @Override
     public void onAttach(@NonNull Context context) {
         AndroidSupportInjection.inject(this);
@@ -95,10 +94,8 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
         inputFieldsContainer = rootView.findViewById(R.id.input_fields_container);
         ImageButton backButton = rootView.findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> NavHostFragment.findNavController(BillFragment.this).navigateUp());
-
         // Submit button click listener
         buttonSubmit.setOnClickListener(v -> handleSubmitButtonClick());
-
 
         // Initialize additional views
         iconImageView = rootView.findViewById(R.id.image_center_right);
@@ -136,26 +133,6 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
 
 
 
-    @Override
-    protected void onAccountSelected(Account account) {
-        super.onAccountSelected(account);
-
-        mViewDataBinding.motionLayout.transitionToStart();
-    }
-
-
-
-    @Override
-    public void refresh() {
-        mViewModel.setSelectedAccount(null);
-        mViewModel.fetchAccounts();
-        super.refresh();
-    }
-
-    @Override
-    protected RecyclerView provideAccountsRecycler() {
-        return mViewDataBinding.layoutExpandableFromAccountsRecycler.recyclerViewAccounts;
-    }
 
     @Override
     public int getBindingVariable() {
@@ -172,8 +149,15 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
         return BillViewModel.class;
     }
 
+    @Override
+    public void setUpView() {
 
+    }
 
+    @Override
+    public void fetchData() {
+
+    }
 
 
     private void populateBillersSpinner(List<Biller> billers) {
@@ -335,8 +319,11 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
             e.printStackTrace();
         }
 
-        // Send POST request to API URL
         new SendPostRequestTask().execute(postData.toString());
+
+
+
+
     }
 
     private String formatDateString(String date) {
@@ -349,83 +336,6 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
         }
     }
 
-
-    private void displayResponse2(JSONObject jsonObject) {
-        try {
-            JSONArray data = jsonObject.getJSONArray("data");
-            LinearLayout cardsContainer = requireView().findViewById(R.id.cards_container);
-            ConstraintLayout billsCard = requireView().findViewById(R.id.bills_card);
-            CheckBox checkboxAllBills = requireView().findViewById(R.id.checkbox_all_bills);
-            Button buttonSubmitPayBills = requireView().findViewById(R.id.button_submit_pay_bills);
-            // dd
-
-            cardsContainer.removeAllViews();
-
-            // Loop through each bill and create a card for each
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject bill = data.getJSONObject(i);
-
-                // Inflate the card layout
-                View cardView = LayoutInflater.from(requireContext()).inflate(R.layout.card_bill_item, cardsContainer, false);
-
-                // Extract data for the current bill
-                String billingNo = bill.getString("billingNo");
-                String dueAmount = bill.getString("dueAmount");
-                String feeAmount = bill.getString("feeAmount");
-                String issueDate = bill.getString("issueDate");
-                String dueDate = bill.getString("dueDate");
-
-
-                String formattedDueDate = formatDateString(dueDate);
-                String formattedIssueDate = formatDateString(issueDate);
-
-
-                // Find the views within the inflated layout
-                CheckBox cardCheckbox = cardView.findViewById(R.id.cardCheckbox);
-                // Find TextViews within the card
-                TextView billingNoTextView = cardView.findViewById(R.id.billingNoTextView);
-                TextView dueAmountTextView = cardView.findViewById(R.id.dueAmountTextView);
-                TextView feeAmountTextView = cardView.findViewById(R.id.feeAmountTextView);
-                TextView issueDateTextView = cardView.findViewById(R.id.issueDateTextView);
-                TextView dueDateTextView = cardView.findViewById(R.id.dueDateTextView);
-
-
-                // Set data to TextViews
-                billingNoTextView.setText(billingNo);
-                dueAmountTextView.setText(getString(R.string.due_amount, dueAmount));
-                feeAmountTextView.setText(getString(R.string.fee_amount, feeAmount));
-                issueDateTextView.setText(getString(R.string.issue_date, formattedIssueDate));
-                dueDateTextView.setText(getString(R.string.due_date, formattedDueDate));
-
-//                issueDateTextView.setText(getString(R.string.issue_date, issueDate));
-//                dueDateTextView.setText(getString(R.string.due_date, dueDate));
-
-
-
-                // Add the card to the container layout
-
-                cardCheckboxes.add(cardCheckbox);
-
-                cardsContainer.addView(cardView);
-
-
-            }
-            // Set visibility of bills_card, checkbox_all_bills, and button_submit_pay_bills based on cards_container visibility
-            if (cardsContainer.getVisibility() == View.VISIBLE) {
-                billsCard.setVisibility(View.VISIBLE);
-                checkboxAllBills.setVisibility(View.VISIBLE);
-                buttonSubmitPayBills.setVisibility(View.VISIBLE);
-            } else {
-                billsCard.setVisibility(View.GONE);
-                checkboxAllBills.setVisibility(View.GONE);
-                buttonSubmitPayBills.setVisibility(View.GONE);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(requireContext(), "Failed to parse JSON data", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
     private String getBillingNoFromInputFields(List<BillingNumber> billingNumbers) {
@@ -450,98 +360,98 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
         return billingNoBuilder.toString();
     }
 
-    private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder> {
+private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder> {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Show progress loader
-            loader.setVisibility(View.VISIBLE);
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        loader.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected StringBuilder doInBackground(String... params) {
+        String apiUrl = "http://epaytest.albaraka.com.sy:4433/SEP/Services_Interface/bank_bill_presentment2";
+        StringBuilder response = new StringBuilder();
+
+        try {
+            URL url = new URL(apiUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            OutputStream outputStream = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            writer.write(params[0]);
+            writer.flush();
+            writer.close();
+            outputStream.close();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder responseStrBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                responseStrBuilder.append(line);
+            }
+            reader.close();
+            response = new StringBuilder(responseStrBuilder.toString());
+            connection.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        @Override
-        protected StringBuilder doInBackground(String... params) {
-            String apiUrl = "http://epaytest.albaraka.com.sy:4433/SEP/Services_Interface/bank_bill_presentment2";
-            StringBuilder response = new StringBuilder();
+        return response;
+    }
 
+    @Override
+    protected void onPostExecute(StringBuilder responseData) {
+        super.onPostExecute(responseData);
+        loader.setVisibility(View.GONE);
+
+        // Convert StringBuilder to String
+        String jsonString = responseData.toString();
+
+        if (!jsonString.isEmpty()) {
             try {
-                URL url = new URL(apiUrl);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type", "application/json");
-                connection.setDoOutput(true);
+                JSONObject jsonObject = new JSONObject(jsonString);
 
-                OutputStream outputStream = connection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                writer.write(params[0]);
-                writer.flush();
-                writer.close();
-                outputStream.close();
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder responseStrBuilder = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                   // response.append(line);
-                    responseStrBuilder.append(line);
-                }
-                reader.close();
-                response = new StringBuilder(responseStrBuilder.toString());
-                connection.disconnect();
-            } catch (IOException e) {
+                Bundle bundle = new Bundle();
+                bundle.putString("responseData", jsonObject.toString());
+                bundle.putString("billerCode", jsonObject.getString("billerCode"));
+                NavHostFragment.findNavController(BillFragment.this)
+                        .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
+            } catch (JSONException e) {
                 e.printStackTrace();
+                Toast.makeText(requireContext(), "لا يوجد فواتير للدفع", Toast.LENGTH_SHORT).show();
             }
-
-            return response;
-        }
-
-        @Override
-        protected void onPostExecute(StringBuilder responseData) {
-            super.onPostExecute(responseData);
-            // Hide progress loader
-            loader.setVisibility(View.GONE);
-
-            // Convert StringBuilder to String
-            String jsonString = responseData.toString();
-
-            // Check if the JSON string is not empty
-            if (!jsonString.isEmpty()) {
-                try {
-                    // Create JSONObject from the JSON string
-                    JSONObject jsonObject = new JSONObject(jsonString);
-
-                    // Call displayResponse with the JSONObject
-
-                    requireView().findViewById(R.id.checkbox_all_bills).setVisibility(View.VISIBLE);
-                    requireView().findViewById(R.id.button_submit_pay_bills).setVisibility(View.VISIBLE);
-                    requireView().findViewById(R.id.bills_card).setVisibility(View.VISIBLE);
-                    displayResponse(jsonObject);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(requireContext(), "Failed to parse JSON data", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(requireContext(), "Failed to get response from server", Toast.LENGTH_SHORT).show();
-            }
+        } else {
+            Toast.makeText(requireContext(), "حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا", Toast.LENGTH_SHORT).show();
         }
 
     }
+}
 
 
     //for pay
-    private class SendPostRequestTask2 extends AsyncTask<String, Void, StringBuilder> {
+    class SendPostRequestTask2 extends AsyncTask<String, Void, StringBuilder> {
         private String billingNo;
         private String billNo;
         private String serviceType;
         private String billerCode;
         private String accountNumber;
 
-        public SendPostRequestTask2(String billingNo, String billNo, String serviceType, String billerCode, String accountNumber) {
+        private String dueAmount;
+
+        private String paidAmt;
+
+        public SendPostRequestTask2(String billingNo, String billNo, String serviceType, String billerCode, String accountNumber,String dueAmount,String paidAmt) {
             this.billingNo = billingNo;
             this.billNo = billNo;
             this.serviceType = serviceType;
             this.billerCode = billerCode;
             this.accountNumber = accountNumber;
+            this.dueAmount = dueAmount;
+            this.paidAmt = paidAmt;
         }
 
         @Override
@@ -566,11 +476,13 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
                 // Construct JSON payload
                 JSONObject postData = new JSONObject();
                 try {
-                    postData.put("billingNo", billingNo);
-                    postData.put("billNo", billNo);
-                    postData.put("serviceType", serviceType);
-                    postData.put("billerCode", billerCode);
+                    postData.put("BillerCode", billerCode);
+                    postData.put("BillingNo", billingNo);
+                    postData.put("BillNo", billNo);
+                    postData.put("ServiceType", serviceType);
                     postData.put("accountNumber", accountNumber);
+                    postData.put("BillAmount", dueAmount);
+                    postData.put("paidAmt", paidAmt);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -602,7 +514,10 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
         protected void onPostExecute(StringBuilder responseData) {
             super.onPostExecute(responseData);
             // Hide progress loader
+
             loader.setVisibility(View.GONE);
+
+            Toast.makeText(requireContext(), responseData.toString(), Toast.LENGTH_LONG).show();
 
             // Handle response data
             // Note: You can add further handling here if needed
@@ -631,7 +546,7 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
                 String feeAmount = bill.getString("feeAmount");
                 String issueDate = bill.getString("issueDate");
                 String dueDate = bill.getString("dueDate");
-
+                String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
                 String formattedDueDate = formatDateString(dueDate);
                 String formattedIssueDate = formatDateString(issueDate);
 
@@ -642,8 +557,8 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
                 TextView issueDateTextView = cardView.findViewById(R.id.issueDateTextView);
                 TextView dueDateTextView = cardView.findViewById(R.id.dueDateTextView);
 
-                billingNoTextView.setText( billingNo);
-                dueAmountTextView.setText(getString(R.string.due_amount, dueAmount));
+                billingNoTextView.setText(getString(R.string.billing_no, billingNo));
+                dueAmountTextView.setText( getString(R.string.due_amount,dueAmount));
                 feeAmountTextView.setText(getString(R.string.fee_amount, feeAmount));
                 issueDateTextView.setText(getString(R.string.issue_date, formattedIssueDate));
                 dueDateTextView.setText(getString(R.string.due_date, formattedDueDate));
@@ -659,8 +574,16 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
                     if (cardCheckbox.isChecked()) {
                         String billingNo = ((TextView) cardView.findViewById(R.id.billingNoTextView)).getText().toString();
                         String billNo = null;
+                        String dueAmount = ((TextView) cardView.findViewById(R.id.dueAmountTextView)).getText().toString();
+                        String feeAmount = ((TextView) cardView.findViewById(R.id.feeAmountTextView)).getText().toString();
+                        String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
+
+
                         try {
                             billNo = data.getJSONObject(i).getString("billNo");
+                            dueAmount = data.getJSONObject(i).getString("dueAmount");
+                         //   paidAmt = data.getJSONObject(i).getString("paidAmt");
+
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -673,7 +596,7 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
                         String billerCode = getSelectedBillerCode();
                         String accountNumber = getAccountNumber();
 
-                        new SendPostRequestTask2(billingNo, billNo, serviceType, billerCode, accountNumber).execute();
+                        new SendPostRequestTask2(billingNo, billNo, serviceType, billerCode, accountNumber,dueAmount,paidAmt).execute();
                     }
                 }
             }
@@ -691,7 +614,7 @@ public class BillFragment extends BaseTransferFragment<FragmentBillBinding, Bill
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(requireContext(), "Failed to parse JSON data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "لا يوجد فواتير للعرض", Toast.LENGTH_SHORT).show();
         }
     }
 

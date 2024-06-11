@@ -1,6 +1,8 @@
 package com.apps2you.albaraka.ui.sep.bill;
 
-public class BillingNumber {
+import java.io.Serializable;
+
+public class BillingNumber implements Serializable {
     private String arabicLabel;
     private String type;
     private String texts; // Added texts field

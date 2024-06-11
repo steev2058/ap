@@ -19,10 +19,28 @@
             app:popExitAnim="@anim/slide_down" />
     </fragment>
 
+
+
+
     <fragment
         android:id="@+id/fragment_bill"
         android:name="com.apps2you.albaraka.ui.sep.bill.BillFragment"
         android:label="FragmentBill"
-        tools:layout="@layout/fragment_bill" />
+        tools:layout="@layout/fragment_bill">
+        <action
+            android:id="@+id/action_fragment_bill_to_fragment_bill_details"
+            app:destination="@id/fragment_bill_details"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fragment_bill_details"
+        android:name="com.apps2you.albaraka.ui.sep.bill.BillDetailsFragment"
+        android:label="FragmentBillDetails"
+        tools:layout="@layout/fragment_bill_details" />
 
 </navigation>

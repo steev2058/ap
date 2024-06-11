@@ -1,8 +1,9 @@
 package com.apps2you.albaraka.ui.sep.bill;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Service {
+public class Service implements Serializable {
     private String serviceId;
     private String serviceName;
     private List<BillingNumber> billingNumbers; // New field for billing numbers
