@@ -23,7 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apps2you.albaraka.BR;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.model.Account;
+import com.apps2you.albaraka.data.model.City;
 import com.apps2you.albaraka.databinding.FragmentBillDetailsBinding;
+import com.apps2you.albaraka.ui.common.model.ADSLProviderUI;
+import com.apps2you.albaraka.ui.transfer.adsl.ADSLForm;
 import com.apps2you.albaraka.ui.transfer.base.BaseTransferFragment;
 import com.apps2you.albaraka.viewmodels.transfer.BillViewModel;
 
@@ -209,6 +212,19 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         }
     }
 
+    public void transfer(){
+
+
+        Account selectedAccount = mViewModel.selectedAccount.getValue();
+
+        if (selectedAccount == null) {
+            showToast(R.string.you_must_select_account);
+        }  else {
+
+
+            nextStep(getString(R.string.ADSL_payment));
+        }
+    }
 
 
 
@@ -299,11 +315,11 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 // Parse responseData to JSONObject
                 JSONObject responseJson = new JSONObject(responseData.toString());
                 String errorCode = responseJson.getString("error_code");
-
+               // String errorCode = responseJson.getString("ErrorDescription");
                 // Check the error_code and display corresponding message
                 if ("000".equals(errorCode)) {
                     Toast.makeText(requireContext(), "تم الدفع بنجاح", Toast.LENGTH_LONG).show();
-                } else if ("025".equals(errorCode)) {
+                } else if ("25".equals(errorCode)) {
                     Toast.makeText(requireContext(), "هناك خطأ", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(requireContext(), "Unknown error: " + errorCode, Toast.LENGTH_LONG).show();

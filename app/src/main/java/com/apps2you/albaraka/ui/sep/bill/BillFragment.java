@@ -410,14 +410,15 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
 
         // Convert StringBuilder to String
         String jsonString = responseData.toString();
-
+        String bc= getSelectedBillerCode().toString();
         if (!jsonString.isEmpty()) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-
                 Bundle bundle = new Bundle();
                 bundle.putString("responseData", jsonObject.toString());
-                bundle.putString("billerCode", jsonObject.getString("billerCode"));
+
+                bundle.putString("billerCode", bc.toString());
+
                 NavHostFragment.findNavController(BillFragment.this)
                         .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
             } catch (JSONException e) {
