@@ -1,6 +1,7 @@
 package com.apps2you.albaraka.ui.sep.bill;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -161,10 +162,11 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 TextView feeAmountTextView = cardView.findViewById(R.id.feeAmountTextView);
                 TextView issueDateTextView = cardView.findViewById(R.id.issueDateTextView);
                 TextView dueDateTextView = cardView.findViewById(R.id.dueDateTextView);
+                TextView statusTextView = cardView.findViewById(R.id.statusTextView);
 
-                billingNoTextView.setText( billingNo);
-                dueAmountTextView.setText( dueAmount);
-                feeAmountTextView.setText( feeAmount);
+                billingNoTextView.setText(billingNo);
+                dueAmountTextView.setText(dueAmount);
+                feeAmountTextView.setText(feeAmount);
                 issueDateTextView.setText(getString(R.string.issue_date, formattedIssueDate));
                 dueDateTextView.setText(getString(R.string.due_date, formattedDueDate));
 
@@ -174,8 +176,9 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
             buttonSubmitPayBills.setOnClickListener(v -> {
                 for (int i = 0; i < cardsContainer.getChildCount(); i++) {
                     View cardView = cardsContainer.getChildAt(i);
-
                     CheckBox cardCheckbox = cardView.findViewById(R.id.cardCheckbox);
+                    TextView statusTextView = cardView.findViewById(R.id.statusTextView);
+
                     if (cardCheckbox.isChecked()) {
                         String billingNo = ((TextView) cardView.findViewById(R.id.billingNoTextView)).getText().toString();
                         String billNo = null;
@@ -183,12 +186,9 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                         String feeAmount = ((TextView) cardView.findViewById(R.id.feeAmountTextView)).getText().toString();
                         String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
 
-
                         try {
                             billNo = data.getJSONObject(i).getString("billNo");
                             dueAmount = data.getJSONObject(i).getString("dueAmount");
-                            //   paidAmt = data.getJSONObject(i).getString("paidAmt");
-
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -198,13 +198,12 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
-                       // String billerCode = getSelectedBillerCode();
                         String accountNumber = getAccountNumber();
 
-                        new SendPostRequestTask2(billingNo, billNo, serviceType, billerCode, accountNumber,dueAmount,paidAmt).execute();
+                        new SendPostRequestTask2(billingNo, billNo, serviceType, billerCode, accountNumber, dueAmount, paidAmt, statusTextView).execute();
                     }
                 }
-            } );
+            });
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -234,12 +233,11 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         private String serviceType;
         private String billerCode;
         private String accountNumber;
-
         private String dueAmount;
-
         private String paidAmt;
+        private TextView statusTextView;
 
-        public SendPostRequestTask2(String billingNo, String billNo, String serviceType, String billerCode, String accountNumber,String dueAmount,String paidAmt) {
+        public SendPostRequestTask2(String billingNo, String billNo, String serviceType, String billerCode, String accountNumber, String dueAmount, String paidAmt, TextView statusTextView) {
             this.billingNo = billingNo;
             this.billNo = billNo;
             this.serviceType = serviceType;
@@ -247,12 +245,12 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
             this.accountNumber = accountNumber;
             this.dueAmount = dueAmount;
             this.paidAmt = paidAmt;
+            this.statusTextView = statusTextView;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Show progress loader
             loader.setVisibility(View.VISIBLE);
         }
 
@@ -268,7 +266,6 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setDoOutput(true);
 
-                // Construct JSON payload
                 JSONObject postData = new JSONObject();
                 try {
                     postData.put("BillerCode", billerCode);
@@ -308,30 +305,30 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         @Override
         protected void onPostExecute(StringBuilder responseData) {
             super.onPostExecute(responseData);
-            // Hide progress loader
             loader.setVisibility(View.GONE);
 
             try {
-                // Parse responseData to JSONObject
                 JSONObject responseJson = new JSONObject(responseData.toString());
-                String errorCode = responseJson.getString("error_code");
-               // String errorCode = responseJson.getString("ErrorDescription");
-                // Check the error_code and display corresponding message
+                String errorCode = responseJson.getString("ErrorCode");
+                String errorDescription = responseJson.getString("ErrorDescription");
+
                 if ("000".equals(errorCode)) {
                     Toast.makeText(requireContext(), "تم الدفع بنجاح", Toast.LENGTH_LONG).show();
-                } else if ("25".equals(errorCode)) {
-                    Toast.makeText(requireContext(), "هناك خطأ", Toast.LENGTH_LONG).show();
+                    statusTextView.setText("نجاح");
+                    statusTextView.setTextColor(Color.GREEN);
+                    statusTextView.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(requireContext(), "Unknown error: " + errorCode, Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "هناك خطأ: " + errorDescription, Toast.LENGTH_LONG).show();
+                    statusTextView.setText("فشل");
+                    statusTextView.setTextColor(Color.RED);
+                    statusTextView.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(requireContext(), "Error parsing response", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "هناك خطأ " , Toast.LENGTH_LONG).show();
+
             }
-
-
         }
-
     }
 
     private String getAccountNumber() {
