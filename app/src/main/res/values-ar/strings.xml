@@ -71,6 +71,7 @@
     <string name="home_menu_more">المزيد</string>
     <string name="home_menu_accounts">حساباتي</string>
     <string name="my_transactions">حركات الحساب</string>
+    <string name="sep_profile">الملف الشخصي</string>
     <string name="Name">الاسم</string>
     <string name="password_new">كلمة المرور الجديدة</string>
     <string name="password_confirmation">تأكيد كلمة المرور</string>

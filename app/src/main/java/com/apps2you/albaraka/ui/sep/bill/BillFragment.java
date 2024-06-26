@@ -403,6 +403,34 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
         return response;
     }
 
+//    @Override
+//    protected void onPostExecute(StringBuilder responseData) {
+//        super.onPostExecute(responseData);
+//        loader.setVisibility(View.GONE);
+//
+//        // Convert StringBuilder to String
+//        String jsonString = responseData.toString();
+//        String bc= getSelectedBillerCode().toString();
+//        if (!jsonString.isEmpty()) {
+//            try {
+//                JSONObject jsonObject = new JSONObject(jsonString);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("responseData", jsonObject.toString());
+//
+//                bundle.putString("billerCode", bc.toString());
+//
+//                NavHostFragment.findNavController(BillFragment.this)
+//                        .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//                Toast.makeText(requireContext(), "لا يوجد فواتير للدفع", Toast.LENGTH_SHORT).show();
+//            }
+//        } else {
+//            Toast.makeText(requireContext(), "حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا", Toast.LENGTH_SHORT).show();
+//        }
+//
+//    }
+
     @Override
     protected void onPostExecute(StringBuilder responseData) {
         super.onPostExecute(responseData);
@@ -410,17 +438,31 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
 
         // Convert StringBuilder to String
         String jsonString = responseData.toString();
-        String bc= getSelectedBillerCode().toString();
+        String bc = getSelectedBillerCode().toString();
+
         if (!jsonString.isEmpty()) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                Bundle bundle = new Bundle();
-                bundle.putString("responseData", jsonObject.toString());
+                String errorCode = jsonObject.optString("ErrorCode");
+                String errorDescription = jsonObject.optString("ErrorDescription");
 
-                bundle.putString("billerCode", bc.toString());
+                if ("102".equals(errorCode)) {
+                    // Display the toast message for ErrorCode 102
+                    Toast.makeText(requireContext(), "لا يوجد فواتير لعرضها", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Create a bundle and navigate to the next fragment
+                    Bundle bundle = new Bundle();
+                    bundle.putString("responseData", jsonObject.toString());
+                    bundle.putString("billerCode", bc);
 
-                NavHostFragment.findNavController(BillFragment.this)
-                        .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
+                    NavHostFragment.findNavController(BillFragment.this)
+                            .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
+
+                    // Display the error description if available
+                    if (!errorDescription.isEmpty()) {
+                        Toast.makeText(requireContext(), errorDescription, Toast.LENGTH_SHORT).show();
+                    }
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(requireContext(), "لا يوجد فواتير للدفع", Toast.LENGTH_SHORT).show();
@@ -428,8 +470,10 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
         } else {
             Toast.makeText(requireContext(), "حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا", Toast.LENGTH_SHORT).show();
         }
-
     }
+
+
+
 }
 
 

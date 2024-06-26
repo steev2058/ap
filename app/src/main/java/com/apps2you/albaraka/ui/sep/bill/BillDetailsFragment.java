@@ -142,9 +142,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
 
             for (int i = 0; i < data.length(); i++) {
                 JSONObject bill = data.getJSONObject(i);
-
                 View cardView = LayoutInflater.from(requireContext()).inflate(R.layout.card_bill_item, cardsContainer, false);
-
                 String billingNo = bill.getString("billingNo");
                 String billNo = bill.getString("billNo");
                 String serviceType = bill.getString("serviceType");
@@ -207,7 +205,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(requireContext(), "Error displaying bills", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "لا يوجد فواتير لعرضها", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -314,12 +312,13 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
 
                 if ("000".equals(errorCode)) {
                     Toast.makeText(requireContext(), "تم الدفع بنجاح", Toast.LENGTH_LONG).show();
-                    statusTextView.setText("نجاح");
-                    statusTextView.setTextColor(Color.GREEN);
+                    statusTextView.setText("تم دفع الفاتورة بنجاح");
+                    statusTextView.setTextColor(0xFF008200);
+
                     statusTextView.setVisibility(View.VISIBLE);
                 } else {
                     Toast.makeText(requireContext(), "هناك خطأ: " + errorDescription, Toast.LENGTH_LONG).show();
-                    statusTextView.setText("فشل");
+                    statusTextView.setText("فشلت العملية");
                     statusTextView.setTextColor(Color.RED);
                     statusTextView.setVisibility(View.VISIBLE);
                 }

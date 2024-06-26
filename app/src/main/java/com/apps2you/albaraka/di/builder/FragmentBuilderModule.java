@@ -2,6 +2,7 @@ package com.apps2you.albaraka.di.builder;
 
 import com.apps2you.albaraka.ui.sep.bill.BillDetailsFragment;
 import com.apps2you.albaraka.ui.sep.bill.BillFragment;
+import com.apps2you.albaraka.ui.sep.profile.UserSepProfileFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -13,4 +14,7 @@ public abstract class FragmentBuilderModule {
     abstract BillFragment contributeBillFragment();
     @ContributesAndroidInjector
     abstract BillDetailsFragment contributeBillDetailsFragment();
+
+    @ContributesAndroidInjector
+    abstract UserSepProfileFragment conUserSepProfileFragment();
 }

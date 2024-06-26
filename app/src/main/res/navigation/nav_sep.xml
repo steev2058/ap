@@ -17,6 +17,14 @@
             app:exitAnim="@anim/stationary"
             app:popEnterAnim="@anim/stationary"
             app:popExitAnim="@anim/slide_down" />
+
+        <action
+            android:id="@+id/action_firstFragment_to_fragment_sep_user"
+            app:destination="@id/fragment_sep_user"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
 
 
@@ -35,7 +43,13 @@
             app:popEnterAnim="@anim/stationary"
             app:popExitAnim="@anim/slide_down" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_sep_user"
+        android:name="com.apps2you.albaraka.ui.sep.profile.UserSepProfileFragment"
+        android:label="FragmentSepUser"
+        tools:layout="@layout/fragment_sep_user">
 
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_bill_details"

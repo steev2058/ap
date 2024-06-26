@@ -453,6 +453,14 @@ public abstract class BaseActivity<VB extends ViewDataBinding, VM extends BaseVi
         getSupportActionBar().setTitle(title);
     }
 
+    public void setToolbarTitle2(Toolbar toolbar, String title) {
+        toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleText);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        getSupportActionBar().setTitle(title);
+    }
+
     protected void onToolbarBackPressed() {
         Intent upIntent = NavUtils.getParentActivityIntent(this);
         if (upIntent != null && NavUtils.shouldUpRecreateTask(this, upIntent)) {

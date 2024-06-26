@@ -70,6 +70,7 @@
     <string name="mobile_number">Mobile number</string>
     <string name="home_menu_more">More</string>
     <string name="home_menu_accounts">My accounts</string>
+    <string name="sep_profile">Profile</string>
     <string name="my_transactions">My Transactions</string>
     <string name="Name">Name</string>
     <string name="password_new">New password</string>

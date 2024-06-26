@@ -18,6 +18,7 @@ import com.apps2you.albaraka.viewmodels.NotificationsViewModel;
 import com.apps2you.albaraka.viewmodels.PrivacyPolicyVM;
 import com.apps2you.albaraka.viewmodels.ProductsViewModel;
 import com.apps2you.albaraka.viewmodels.ProfitsCalculatorVM;
+import com.apps2you.albaraka.viewmodels.SharedViewModel;
 import com.apps2you.albaraka.viewmodels.TransactionViewModel;
 import com.apps2you.albaraka.viewmodels.TransactionsViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.ADSLViewModel;
@@ -212,6 +213,7 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AtmViewModel.class)
     abstract ViewModel bindsAtmViewModel(AtmViewModel viewModel);
+
 
 
 
