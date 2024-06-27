@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -32,39 +33,61 @@ public class UserSepProfileFragment extends Fragment {
     private final DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     private FragmentSepUserBinding mViewDataBinding;
     private SEPViewModel sepViewModel;
+    private FragmentSepUserBinding binding;
+
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        mViewDataBinding = FragmentSepUserBinding.inflate(inflater, container, false);
+//        return mViewDataBinding.getRoot();
+//    }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mViewDataBinding = FragmentSepUserBinding.inflate(inflater, container, false);
-        return mViewDataBinding.getRoot();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sep_user, container, false);
+        sepViewModel = new ViewModelProvider(requireActivity()).get(SEPViewModel.class);
+        if (getArguments() != null) {
+            String arName = getArguments().getString("arName");
+            String cif = getArguments().getString("cif");
+            String phone = getArguments().getString("phone");
+            String address = getArguments().getString("address");
+            String token = getArguments().getString("token");
+
+            sepViewModel.arName.setValue(arName);
+            sepViewModel.cif.setValue(cif);
+            sepViewModel.phone.setValue(phone);
+            sepViewModel.address.setValue(address);
+        }
+        binding.setViewModel(sepViewModel);
+        binding.setLifecycleOwner(this);
+        return binding.getRoot();
     }
+
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+//
+//        setUpView();
+//        listenToVariables();
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sepViewModel = new ViewModelProvider(this).get(SEPViewModel.class);
-        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-        setUpView();
-        listenToVariables();
+
     }
 
-    private void setUpView() {
-        mViewDataBinding.toolbar.setTitle(getString(R.string.sep_profile));
 
-        sharedViewModel.getUserData().observe(getViewLifecycleOwner(), new Observer<UserData>() {
-            @Override
-            public void onChanged(UserData userData) {
-                if (userData != null) {
-                    mViewDataBinding.arNameEditText.setText(userData.getArName());
-                    mViewDataBinding.addressEditText.setText(userData.getAddress());
-                    mViewDataBinding.phoneEditText.setText(userData.getPhone());
-                    mViewDataBinding.cifEditText.setText(userData.getCif());
-                }
-            }
-        });
-
-        selectToday();
-    }
+//    private void setUpView() {
+//        sharedViewModel.getUserData().observe(getViewLifecycleOwner(), userData -> {
+//            if (userData != null) {
+//                sepViewModel.updateUserData(userData);
+//            }
+//        });
+//
+//        selectToday();
+//    }
 
     private void selectToday() {
         Date todayDate = Calendar.getInstance().getTime();

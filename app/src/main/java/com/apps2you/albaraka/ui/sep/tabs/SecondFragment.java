@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.R;
+import com.apps2you.albaraka.ui.sep.SEPFragment;
 import com.apps2you.albaraka.ui.sep.bill.Biller;
 import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
 import com.apps2you.albaraka.ui.sep.bill.Service;
@@ -42,6 +43,11 @@ public class SecondFragment extends Fragment {
     private SharedViewModel sharedViewModel;
     private String token;
 
+    public SecondFragment(SharedViewModel sharedViewModel) {
+        this.sharedViewModel = sharedViewModel;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.second_tab, container, false);
@@ -53,7 +59,7 @@ public class SecondFragment extends Fragment {
         gridView.setVisibility(View.INVISIBLE);
 
         // Initialize ViewModel
-        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        //sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
         // Observe token
         sharedViewModel.getUserData().observe(getViewLifecycleOwner(), new Observer<UserData>() {
@@ -88,7 +94,7 @@ public class SecondFragment extends Fragment {
                 URL url = new URL("http://epaytest.albaraka.com.sy:4433/SEP/Customer/Bills");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-                connection.setRequestProperty("Authorization", "Bearer " + token); // Set the token in the header
+                connection.setRequestProperty("token", token); // Set the token in the header
                 connection.connect();
 
                 inputStream = connection.getInputStream();

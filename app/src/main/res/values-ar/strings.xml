@@ -194,6 +194,8 @@
     <string name="ADSL_payment">فواتير ADSL (مزودي خدمة الإنترنت)</string>
     <string name="SEP_payment">تسديد فواتير الخدمات (SEP)</string>
 
+    <string name="SEP_profile">الملف الشخصي (SEP)</string>
+
     <string name="SEP_bill">الاستعلام عن فاتورة</string>
     <string name="provider">مزود خدمة انترنت</string>
     <string name="city">المدينة</string>

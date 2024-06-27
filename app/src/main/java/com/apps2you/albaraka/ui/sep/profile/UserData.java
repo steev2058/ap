@@ -8,15 +8,11 @@ public class UserData {
     private String cif;
     private String token;
 
-    // Getters and Setters
 
-    public String getArName() {
-        return arName;
-    }
 
-    public String getToken() {
-        return token;
-    }
+
+
+
     public void setToken(String token) {
         this.token = token;
     }
@@ -24,28 +20,34 @@ public class UserData {
     public void setArName(String arName) {
         this.arName = arName;
     }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
+
+    public String getArName() {
+        return arName;
+    }
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getCif() {
-        return cif;
-    }
 
     public void setCif(String cif) {
         this.cif = cif;
+    }
+    public String getCif() {
+        return cif;
+    }
+    public String getToken() {
+        return token;
     }
 }

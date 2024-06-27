@@ -153,6 +153,7 @@ public abstract class ViewModelModule {
     @ViewModelKey(SEPViewModel.class)
     abstract ViewModel bindsSEPViewModel(SEPViewModel viewModel);
 
+
     @Binds
     @IntoMap
     @ViewModelKey(FavoriteAccountsViewModel.class)

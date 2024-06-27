@@ -44,6 +44,10 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
     private TabsAdapter tabsAdapter;
     private SharedViewModel sharedViewModel;
     private LinearLayout profileCard;
+
+    private UserData userData;
+
+
     public SEPFragment() {
         this.sharedViewModel =new SharedViewModel();
     }
@@ -71,8 +75,8 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         profileCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_firstFragment_to_fragment_sep_user);
+
+                navigateToUserProfile(userData);
             }
         });
 
@@ -87,7 +91,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         tabLayout.addTab(tabLayout.newTab().setText("الفواتير الشخصية"));
 
         // Set up ViewPager with TabsAdapter
-        TabsAdapter tabsAdapter = new TabsAdapter(activity.getSupportFragmentManager(), tabLayout.getTabCount());
+         tabsAdapter = new TabsAdapter(activity.getSupportFragmentManager(), tabLayout.getTabCount(),sharedViewModel);
         viewPager.setAdapter(tabsAdapter);
 
         // Connect TabLayout and ViewPager
@@ -143,7 +147,17 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
 //        }
 //    }
 
+    private void navigateToUserProfile(UserData userData) {
+        Bundle bundle = new Bundle();
+        bundle.putString("arName", userData.getArName());
+        bundle.putString("cif", userData.getCif());
+        bundle.putString("phone", userData.getPhone());
+        bundle.putString("address", userData.getAddress());
+        bundle.putString("token", userData.getToken());
 
+        NavController navController = Navigation.findNavController(requireView());
+        navController.navigate(R.id.action_firstFragment_to_fragment_sep_user, bundle);
+    }
     private class AssignTokenTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -181,23 +195,22 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
+
             try {
                 JSONObject responseObject = new JSONObject(result);
                 JSONObject data = responseObject.getJSONObject("data");
 
-                UserData userData = new UserData();
+                 userData = new UserData();
                 userData.setArName(data.getString("ArName"));
                 userData.setAddress(data.getString("Address"));
                 userData.setPhone(data.getString("Phone"));
                 userData.setCif(data.getString("cif"));
-                userData.setCif(data.getString("token"));
-                if (sharedViewModel != null) {
-                    sharedViewModel.setUserData(userData);
-                } else {
-                    Toast.makeText(requireContext(), "Error parsing ssssssss", Toast.LENGTH_LONG).show();
-                }
+                userData.setToken(data.getString("token"));
+                sharedViewModel.setUserData(userData);
+
+
                 Toast.makeText(requireContext(), "Data fetched successfully", Toast.LENGTH_LONG).show();
-            } catch (JSONException e) {
+            }  catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(requireContext(), "Error parsing response", Toast.LENGTH_LONG).show();
             }

@@ -4,11 +4,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.apps2you.albaraka.viewmodels.SharedViewModel;
+
 public class TabsAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-    public TabsAdapter(FragmentManager fm, int numOfTabs){
+    SharedViewModel sharedModel;
+    public TabsAdapter(FragmentManager fm, int numOfTabs,SharedViewModel sharedModel){
         super(fm);
         this.mNumOfTabs = numOfTabs;
+        this.sharedModel = sharedModel;
     }
     @Override
     public int getCount() {
@@ -20,9 +24,13 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new FirstFragment();
             case 1:
-                return new SecondFragment();
+                return new SecondFragment(sharedModel);
             default:
                 return null;
         }
+    }
+
+    public void setSharedModel(SharedViewModel sharedModel) {
+        this.sharedModel = sharedModel;
     }
 }

@@ -1,5 +1,6 @@
 package com.apps2you.albaraka.viewmodels.transfer;
 
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -15,6 +16,7 @@ import com.apps2you.albaraka.data.remote.repository.UserRepository;
 import com.apps2you.albaraka.ui.common.model.SEPProviderUI;
 import com.apps2you.albaraka.ui.common.model.mapper.SEPProviderUIMapper;
 import com.apps2you.albaraka.ui.sep.SEPForm;
+import com.apps2you.albaraka.ui.sep.profile.UserData;
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.viewmodels.transfer.base.BaseSelectionViewModel;
 import java.util.ArrayList;
@@ -25,6 +27,15 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 public class SEPViewModel extends BaseSelectionViewModel<SEPProviderUI> {
+
+
+    public final MutableLiveData<String> arName = new MutableLiveData<>();
+    public final MutableLiveData<String> cif = new MutableLiveData<>();
+    public final MutableLiveData<String> phone = new MutableLiveData<>();
+    public final MutableLiveData<String> address = new MutableLiveData<>();
+    // Update user data method (if required)
+
+
 
     public SEPForm sepForm = new SEPForm();
     protected final AppRepository appRepository;
@@ -40,9 +51,10 @@ public class SEPViewModel extends BaseSelectionViewModel<SEPProviderUI> {
                         SEPProviderUIMapper sepProviderUIMapper) {
         super(userRepository, transferRepository);
         this.sepProviderUIMapper = sepProviderUIMapper;
-        this.appRepository= appRepository;
+        this.appRepository = appRepository;
         fetchCities();
     }
+
 
     @Override
     public int getTransferTypeId() {

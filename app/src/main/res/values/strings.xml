@@ -193,6 +193,7 @@
     <string name="personalization">Personalization</string>
     <string name="ADSL_payment">ADSL payment</string>
     <string name="SEP_payment">SEP payment</string>
+    <string name="SEP_profile">Profile (SEP)</string>
     <string name="SEP_bill">Bill</string>
     <string name="provider">Provider</string>
     <string name="city">City</string>
