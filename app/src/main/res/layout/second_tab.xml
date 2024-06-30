@@ -14,7 +14,7 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="100dp"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/add_button"
         android:layout_toLeftOf="@+id/add_button"
@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/add_button"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -80,25 +80,15 @@
             android:text="مياه"
             android:background="@drawable/bg_radio_button" />
     </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_marginTop="310dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/bg_radio_button"
-            android:padding="20dp">
             <GridView
                 android:id="@+id/grid_view"
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="185dp"
-                android:numColumns="2"
+                android:layout_marginTop="205dp"
+                android:numColumns="1"
+                android:verticalSpacing="8dp"
+                android:horizontalSpacing="8dp"
                 android:scrollbars="none"
                 android:visibility="invisible" />
-
-        </RelativeLayout>
-
 
 </RelativeLayout>

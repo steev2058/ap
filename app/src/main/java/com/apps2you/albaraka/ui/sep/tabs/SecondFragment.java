@@ -21,6 +21,7 @@ import com.apps2you.albaraka.ui.sep.bill.Biller;
 import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
 import com.apps2you.albaraka.ui.sep.bill.Service;
 import com.apps2you.albaraka.ui.sep.profile.UserData;
+import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.viewmodels.SharedViewModel;
 
 import org.json.JSONArray;
@@ -58,16 +59,11 @@ public class SecondFragment extends Fragment {
         loader.setVisibility(View.VISIBLE);
         gridView.setVisibility(View.INVISIBLE);
 
-        // Initialize ViewModel
-        //sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-
-        // Observe token
         sharedViewModel.getUserData().observe(getViewLifecycleOwner(), new Observer<UserData>() {
             @Override
             public void onChanged(UserData userData) {
                 if (userData != null) {
                     token = userData.getToken();
-                    // Execute AsyncTask to fetch data from the API
                     new FetchProfileBillsTask().execute();
                 }
             }
@@ -79,7 +75,6 @@ public class SecondFragment extends Fragment {
                 // Handle item click
             }
         });
-
         return rootView;
     }
 
@@ -104,7 +99,6 @@ public class SecondFragment extends Fragment {
                 while ((line = reader.readLine()) != null) {
                     stringBuilder.append(line);
                 }
-
                 String json = stringBuilder.toString();
                 JSONObject jsonObject = new JSONObject(json);
                 JSONObject data = jsonObject.getJSONObject("data");
@@ -114,8 +108,11 @@ public class SecondFragment extends Fragment {
                     JSONObject bill = bills.getJSONObject(i);
                     String billerNameAr = bill.optString("billerName_ar", "N/A");
                     String billLabel = bill.optString("billLabel", "N/A");
-
-                    cardItemList.add(new CardItemProfile(billerNameAr, billLabel));
+                    String serviceNameAr = bill.optString("serviceName_ar", "N/A");
+                    String billingNo = bill.optString("BillingNo", "N/A");
+                    String iconUrl = bill.optString("logoName", "N/A");
+                    int isDeleted = bill.optInt("is_deleted", 1);
+                    cardItemList.add(new CardItemProfile(billerNameAr, billLabel,serviceNameAr, billingNo, iconUrl.replace("..", Constants.BASE_URL_SEP), isDeleted));
                 }
 
             } catch (IOException | JSONException e) {
@@ -132,18 +129,16 @@ public class SecondFragment extends Fragment {
 
             return cardItemList;
         }
-
         @Override
         protected void onPostExecute(List<CardItemProfile> cardItemList) {
             super.onPostExecute(cardItemList);
-
             // Hide loader
             loader.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
-
             // Set up the adapter for the GridView
             adapter = new CardAdapterTwo(getContext(), cardItemList);
             gridView.setAdapter(adapter);
+            Log.d("SecondFragment", "Adapter set with " + cardItemList.size() + " items");
         }
     }
 }

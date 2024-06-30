@@ -17,6 +17,7 @@ import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.ui.sep.bill.Biller;
 import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
 import com.apps2you.albaraka.ui.sep.bill.Service;
+import com.apps2you.albaraka.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -102,7 +103,7 @@ public class FirstFragment extends Fragment {
                     Log.d("CategoryName", "Category Name: " + categName_ar); // Log the category name
                     String iconUrl = category.optString("icon", "N/A");
                     List<Biller> billers = parseBillersJson(category.getJSONArray("billers"));
-                    cardItemList.add(new CardItem(categName_ar, iconUrl.replace("..", "http://epaytest.albaraka.com.sy:4433"),billers));
+                    cardItemList.add(new CardItem(categName_ar, iconUrl.replace("..", Constants.BASE_URL_SEP),billers));
                 }
 
 
