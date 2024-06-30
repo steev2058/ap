@@ -7,3 +7,5 @@
 3	439	709487834	../../../../build/intermediates/cxx/Debug/255l2x5p/obj/armeabi-v7a/libnative-lib.so	27dce423bee8fc7a
 0	1749	737304235	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	1b3898e89989eff7
 1749	2591	737304236	../../../../build/intermediates/cxx/Debug/255l2x5p/obj/armeabi-v7a/libnative-lib.so	a8003e744f536db7
+8	5439	741451256	build.ninja	f4418eff7f3770d8
+1	21	0	clean	8e26b64f42325620

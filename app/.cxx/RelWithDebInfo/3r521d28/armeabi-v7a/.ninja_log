@@ -14,3 +14,5 @@
 1332	1865	733916015	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/armeabi-v7a/libnative-lib.so	d193d1e018b23531
 1	1190	734954476	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	174fd557c0189089
 1191	1790	734954477	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/armeabi-v7a/libnative-lib.so	d193d1e018b23531
+12	442	741451259	build.ninja	ccc7c52c706e6ba6
+0	70	0	clean	8e26b64f42325620
