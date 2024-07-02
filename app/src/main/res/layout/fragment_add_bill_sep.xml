@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.transfer.ADSLViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/Add_SEP_bill}" />
+
+
+            <ScrollView
+                android:id="@+id/layout_form"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            style="@style/InputEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="0dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/iv_logo"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:padding="@dimen/margin_small"
+                                android:src="@{viewModel.selectedItemLiveData.imageURL}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:placeHolder="@{@drawable/ic_wifi_gray}"
+                                tools:src="@drawable/ic_wifi_gray" />
+
+                            <TextView
+                                android:id="@+id/button_pick_provider"
+                                style="@style/InputEt"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/margin_small"
+                                android:paddingStart="0dp"
+                                android:text="@{viewModel.selectedItemLiveData == null ? @string/provider : viewModel.selectedItemLiveData.name}"
+                                android:textColor="@color/gray"
+                                app:drawableEndCompat="@drawable/ic_arrow_black"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/iv_logo"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cityLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_edittext"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <ImageView
+                                android:id="@+id/ic_city"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:src="@drawable/ic_city"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/cities_spinner"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:background="@android:color/transparent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/ic_city"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:src="@drawable/ic_arrow_black"
+                                app:layout_constraintBottom_toBottomOf="@id/cities_spinner"
+                                app:layout_constraintEnd_toEndOf="@id/cities_spinner"
+                                app:layout_constraintTop_toTopOf="@id/cities_spinner" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <EditText
+                            android:id="@+id/et_amount"
+                            style="@style/InputEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_amount"
+                            android:drawablePadding="@dimen/margin_small"
+                            android:hint="@string/Amount"
+                            android:inputType="numberDecimal"
+                            android:textDirection="ltr"
+                            android:text="@={viewModel.adslForm.amount}"
+                            android:textColor="@color/gray" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <EditText
+                            android:id="@+id/et_phone"
+                            style="@style/InputEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_phone_call"
+                            android:drawablePadding="@dimen/margin_small"
+                            android:hint="@string/landline_number"
+                            android:inputType="phone"
+                            android:text="@={viewModel.adslForm.phoneNumber}"
+                            android:textColor="@color/gray" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_medium" />
+
+                        <EditText
+                            android:id="@+id/et_reason"
+                            style="@style/InputEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_reason"
+                            android:drawablePadding="@dimen/margin_small"
+                            android:hint="@string/note"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:text="@={viewModel.adslForm.reason}"
+                            android:textColor="@color/gray" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <Button
+                        android:id="@+id/button_submit"
+                        style="@style/ButtonPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:text="@string/submit"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/container"
+                        app:layout_constraintVertical_bias="1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/partial_progressbar"
+            app:existence="@{viewModel.isContentLoading || viewModel.isFeeLoading}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

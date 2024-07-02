@@ -66,6 +66,8 @@
     <string name="Logging_in_to_access_password">تسجيل الدخول للوصول إلى كلمة المرور</string>
     <string name="login">تسجيل الدخول</string>
     <string name="logout_title">تسجيل الخروج</string>
+    <string name="delete_title">حذف الفاتورة</string>
+    <string name="bill_search_title">استعلام عن فاتورة</string>
     <string name="mini_statement">كشف حساب</string>
     <string name="mobile_number">رقم الهاتف المحمول</string>
     <string name="home_menu_more">المزيد</string>
@@ -159,6 +161,8 @@
     <string name="favorite_account">حساب مفضل</string>
     <string name="delete_account_title">حذف حساب مفضل</string>
     <string name="delete_account_msg">هل أنت متأكد من رغبتك في حذف هذا الحساب؟</string>
+    <string name="delete_sep_msg">هل أنت متأكد من رغبتك في حذف هذه الفاتورة؟</string>
+    <string name="search_sep_msg">هل أنت متأكد من الاستعلام عن هذه الفاتورة؟</string>
     <string name="add_account">إضافة هذا الحساب للمفضلة</string>
     <string name="CIF">رقم الحساب</string>
     <string name="GSM">رقم الموبايل</string>
@@ -197,6 +201,7 @@
     <string name="SEP_profile">الملف الشخصي (SEP)</string>
 
     <string name="SEP_bill">الاستعلام عن فاتورة</string>
+    <string name="Add_SEP_bill">إضافة فاتورة</string>
     <string name="provider">مزود خدمة انترنت</string>
     <string name="city">المدينة</string>
     <string name="landline_number">رقم الهاتف الثابت</string>

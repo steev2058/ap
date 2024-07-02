@@ -33,6 +33,7 @@ import com.apps2you.albaraka.ui.base.BaseFragment;
 import com.apps2you.albaraka.ui.base.adapter.OnItemClickListener;
 import com.apps2you.albaraka.ui.common.adapters.AccountsRecyclerAdapter;
 import com.apps2you.albaraka.ui.transfer.base.BaseTransferFragment;
+import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.viewmodels.transfer.BillViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.Picasso;
@@ -208,6 +209,57 @@ public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewMode
         });
     }
 
+    public void displaySearchResponse(JSONObject response) {
+        try {
+            JSONArray data = response.getJSONArray("data");
+            LinearLayout cardsContainer = requireView().findViewById(R.id.cards_container);
+            ConstraintLayout billsCard = requireView().findViewById(R.id.bills_card);
+            CheckBox checkboxAllBills = requireView().findViewById(R.id.checkbox_all_bills);
+            Button buttonSubmitPayBills = requireView().findViewById(R.id.button_submit_pay_bills);
+
+            cardsContainer.removeAllViews();
+
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject bill = data.getJSONObject(i);
+
+                View cardView = LayoutInflater.from(requireContext()).inflate(R.layout.card_bill_item, cardsContainer, false);
+
+                String billingNo = bill.getString("billingNo");
+                String billNo = bill.getString("billNo");
+                String serviceType = bill.getString("serviceType");
+                String dueAmount = bill.getString("dueAmount");
+                String feeAmount = bill.getString("feeAmount");
+                String issueDate = bill.getString("issueDate");
+                String dueDate = bill.getString("dueDate");
+                String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
+                String formattedDueDate = formatDateString(dueDate);
+                String formattedIssueDate = formatDateString(issueDate);
+
+                CheckBox cardCheckbox = cardView.findViewById(R.id.cardCheckbox);
+                TextView billingNoTextView = cardView.findViewById(R.id.billingNoTextView);
+                TextView dueAmountTextView = cardView.findViewById(R.id.dueAmountTextView);
+                TextView feeAmountTextView = cardView.findViewById(R.id.feeAmountTextView);
+                TextView issueDateTextView = cardView.findViewById(R.id.issueDateTextView);
+                TextView dueDateTextView = cardView.findViewById(R.id.dueDateTextView);
+
+                billingNoTextView.setText(getString(R.string.billing_no, billingNo));
+                dueAmountTextView.setText(getString(R.string.due_amount, dueAmount));
+                feeAmountTextView.setText(getString(R.string.fee_amount, feeAmount));
+                issueDateTextView.setText(getString(R.string.issue_date, formattedIssueDate));
+                dueDateTextView.setText(getString(R.string.due_date, formattedDueDate));
+
+                cardCheckboxes.add(cardCheckbox);
+                cardsContainer.addView(cardView);
+            }
+
+            buttonSubmitPayBills.setVisibility(View.VISIBLE);
+            checkboxAllBills.setVisibility(View.VISIBLE);
+            billsCard.setVisibility(View.VISIBLE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(requireContext(), "Failed to parse response", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void createInputFields(List<BillingNumber> billingNumbers) {
         // Clear previous input fields
@@ -370,7 +422,7 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
 
     @Override
     protected StringBuilder doInBackground(String... params) {
-        String apiUrl = "http://epaytest.albaraka.com.sy:4433/SEP/Services_Interface/bank_bill_presentment2";
+        String apiUrl = Constants.BASE_URL_SEP+"/Services_Interface/bank_bill_presentment2";
         StringBuilder response = new StringBuilder();
 
         try {
@@ -402,34 +454,6 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
 
         return response;
     }
-
-//    @Override
-//    protected void onPostExecute(StringBuilder responseData) {
-//        super.onPostExecute(responseData);
-//        loader.setVisibility(View.GONE);
-//
-//        // Convert StringBuilder to String
-//        String jsonString = responseData.toString();
-//        String bc= getSelectedBillerCode().toString();
-//        if (!jsonString.isEmpty()) {
-//            try {
-//                JSONObject jsonObject = new JSONObject(jsonString);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("responseData", jsonObject.toString());
-//
-//                bundle.putString("billerCode", bc.toString());
-//
-//                NavHostFragment.findNavController(BillFragment.this)
-//                        .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//                Toast.makeText(requireContext(), "لا يوجد فواتير للدفع", Toast.LENGTH_SHORT).show();
-//            }
-//        } else {
-//            Toast.makeText(requireContext(), "حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا", Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
 
     @Override
     protected void onPostExecute(StringBuilder responseData) {
@@ -508,7 +532,7 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
 
         @Override
         protected StringBuilder doInBackground(String... params) {
-            String apiUrl = "http://epaytest.albaraka.com.sy:4433/SEP/Services_Interface/bank_bill_Payment2";
+            String apiUrl = Constants.BASE_URL_SEP+"/Services_Interface/bank_bill_Payment2";
             StringBuilder response = new StringBuilder();
 
             try {

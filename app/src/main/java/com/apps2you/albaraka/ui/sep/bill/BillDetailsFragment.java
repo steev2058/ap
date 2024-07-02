@@ -29,6 +29,7 @@ import com.apps2you.albaraka.databinding.FragmentBillDetailsBinding;
 import com.apps2you.albaraka.ui.common.model.ADSLProviderUI;
 import com.apps2you.albaraka.ui.transfer.adsl.ADSLForm;
 import com.apps2you.albaraka.ui.transfer.base.BaseTransferFragment;
+import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.viewmodels.transfer.BillViewModel;
 
 import org.json.JSONArray;
@@ -254,7 +255,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
 
         @Override
         protected StringBuilder doInBackground(String... params) {
-            String apiUrl = "http://epaytest.albaraka.com.sy:4433/SEP/Services_Interface/bank_bill_Payment2";
+            String apiUrl = Constants.BASE_URL_SEP+"/Services_Interface/bank_bill_Payment2";
             StringBuilder response = new StringBuilder();
 
             try {

@@ -86,7 +86,7 @@ public class SecondFragment extends Fragment {
             InputStream inputStream = null;
 
             try {
-                URL url = new URL("http://epaytest.albaraka.com.sy:4433/SEP/Customer/Bills");
+                URL url = new URL(Constants.BASE_URL_SEP+"/Customer/Bills");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("token", token); // Set the token in the header
@@ -112,7 +112,8 @@ public class SecondFragment extends Fragment {
                     String billingNo = bill.optString("BillingNo", "N/A");
                     String iconUrl = bill.optString("logoName", "N/A");
                     int isDeleted = bill.optInt("is_deleted", 1);
-                    cardItemList.add(new CardItemProfile(billerNameAr, billLabel,serviceNameAr, billingNo, iconUrl.replace("..", Constants.BASE_URL_SEP), isDeleted));
+                    String id = bill.optString("id", "N/A");
+                    cardItemList.add(new CardItemProfile(billerNameAr, billLabel,serviceNameAr, billingNo, iconUrl.replace("..", Constants.BASE_URL_SEP_ICON), isDeleted,id));
                 }
 
             } catch (IOException | JSONException e) {
@@ -132,13 +133,14 @@ public class SecondFragment extends Fragment {
         @Override
         protected void onPostExecute(List<CardItemProfile> cardItemList) {
             super.onPostExecute(cardItemList);
-            // Hide loader
             loader.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
-            // Set up the adapter for the GridView
-            adapter = new CardAdapterTwo(getContext(), cardItemList);
+
+            adapter = new CardAdapterTwo(getActivity(), cardItemList, token);
             gridView.setAdapter(adapter);
-            Log.d("SecondFragment", "Adapter set with " + cardItemList.size() + " items");
         }
+
+
     }
-}
+    }
+

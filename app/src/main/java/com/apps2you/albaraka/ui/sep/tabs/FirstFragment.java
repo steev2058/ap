@@ -78,7 +78,7 @@ public class FirstFragment extends Fragment {
             InputStream inputStream = null;
 
             try {
-                URL url = new URL("http://epaytest.albaraka.com.sy:4433/SEP/Customer/all/");
+                URL url = new URL(Constants.BASE_URL_SEP+"/Customer/all/");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
@@ -103,7 +103,7 @@ public class FirstFragment extends Fragment {
                     Log.d("CategoryName", "Category Name: " + categName_ar); // Log the category name
                     String iconUrl = category.optString("icon", "N/A");
                     List<Biller> billers = parseBillersJson(category.getJSONArray("billers"));
-                    cardItemList.add(new CardItem(categName_ar, iconUrl.replace("..", Constants.BASE_URL_SEP),billers));
+                    cardItemList.add(new CardItem(categName_ar, iconUrl.replace("..", Constants.BASE_URL_SEP_ICON),billers));
                 }
 
 

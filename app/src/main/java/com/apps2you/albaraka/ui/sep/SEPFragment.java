@@ -24,6 +24,7 @@ import com.apps2you.albaraka.databinding.FragmentSepBinding;
 import com.apps2you.albaraka.ui.base.BaseFragment;
 import com.apps2you.albaraka.ui.sep.profile.UserData;
 import com.apps2you.albaraka.ui.sep.tabs.TabsAdapter;
+import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.viewmodels.SharedViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.SEPViewModel;
 import com.google.android.material.tabs.TabLayout;
@@ -162,7 +163,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         @Override
         protected String doInBackground(String... params) {
             String token = params[0];
-            String apiUrl = "http://epaytest.albaraka.com.sy:4433/SEP/Users/assignToken?token=" + token;
+            String apiUrl = Constants.BASE_URL_SEP+"/Users/assignToken?token=" + token;
 
             try {
                 URL url = new URL(apiUrl);
