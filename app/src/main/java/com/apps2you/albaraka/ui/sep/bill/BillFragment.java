@@ -209,57 +209,7 @@ public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewMode
         });
     }
 
-    public void displaySearchResponse(JSONObject response) {
-        try {
-            JSONArray data = response.getJSONArray("data");
-            LinearLayout cardsContainer = requireView().findViewById(R.id.cards_container);
-            ConstraintLayout billsCard = requireView().findViewById(R.id.bills_card);
-            CheckBox checkboxAllBills = requireView().findViewById(R.id.checkbox_all_bills);
-            Button buttonSubmitPayBills = requireView().findViewById(R.id.button_submit_pay_bills);
 
-            cardsContainer.removeAllViews();
-
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject bill = data.getJSONObject(i);
-
-                View cardView = LayoutInflater.from(requireContext()).inflate(R.layout.card_bill_item, cardsContainer, false);
-
-                String billingNo = bill.getString("billingNo");
-                String billNo = bill.getString("billNo");
-                String serviceType = bill.getString("serviceType");
-                String dueAmount = bill.getString("dueAmount");
-                String feeAmount = bill.getString("feeAmount");
-                String issueDate = bill.getString("issueDate");
-                String dueDate = bill.getString("dueDate");
-                String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
-                String formattedDueDate = formatDateString(dueDate);
-                String formattedIssueDate = formatDateString(issueDate);
-
-                CheckBox cardCheckbox = cardView.findViewById(R.id.cardCheckbox);
-                TextView billingNoTextView = cardView.findViewById(R.id.billingNoTextView);
-                TextView dueAmountTextView = cardView.findViewById(R.id.dueAmountTextView);
-                TextView feeAmountTextView = cardView.findViewById(R.id.feeAmountTextView);
-                TextView issueDateTextView = cardView.findViewById(R.id.issueDateTextView);
-                TextView dueDateTextView = cardView.findViewById(R.id.dueDateTextView);
-
-                billingNoTextView.setText(getString(R.string.billing_no, billingNo));
-                dueAmountTextView.setText(getString(R.string.due_amount, dueAmount));
-                feeAmountTextView.setText(getString(R.string.fee_amount, feeAmount));
-                issueDateTextView.setText(getString(R.string.issue_date, formattedIssueDate));
-                dueDateTextView.setText(getString(R.string.due_date, formattedDueDate));
-
-                cardCheckboxes.add(cardCheckbox);
-                cardsContainer.addView(cardView);
-            }
-
-            buttonSubmitPayBills.setVisibility(View.VISIBLE);
-            checkboxAllBills.setVisibility(View.VISIBLE);
-            billsCard.setVisibility(View.VISIBLE);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(requireContext(), "Failed to parse response", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void createInputFields(List<BillingNumber> billingNumbers) {
         // Clear previous input fields

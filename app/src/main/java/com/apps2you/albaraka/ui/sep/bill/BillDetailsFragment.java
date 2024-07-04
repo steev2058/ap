@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,6 +64,8 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
     private Button buttonSubmitPayBills;
     private JSONObject jsonObject;
     private List<Biller> billersList;
+    private BillViewModel viewModel;
+    private TextView textViewResponse;
     @Override
     public void onAttach(@NonNull Context context) {
         AndroidSupportInjection.inject(this);
@@ -74,6 +77,9 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mViewDataBinding = FragmentBillDetailsBinding.inflate(inflater, container, false);
         View rootView = mViewDataBinding.getRoot();
+        viewModel = new ViewModelProvider(this).get(BillViewModel.class);
+        mViewDataBinding.setViewModel(viewModel);
+        mViewDataBinding.setLifecycleOwner(this);
         billersList = (List<Biller>)getArguments().getSerializable("billers");
         cardsContainer = rootView.findViewById(R.id.cards_container);
         checkboxAllBills = rootView.findViewById(R.id.checkbox_all_bills);
@@ -97,6 +103,9 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         // Handle the case when responseData is null
         Toast.makeText(requireContext(), "Response data is null", Toast.LENGTH_SHORT).show();
     }
+
+
+
 
         checkboxAllBills.setOnCheckedChangeListener((buttonView, isChecked) -> {
             for (CheckBox checkBox : cardCheckboxes) {
@@ -330,6 +339,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
             }
         }
     }
+
 
     private String getAccountNumber() {
         Account selectedFromAccount = mViewModel.selectedAccount.getValue();

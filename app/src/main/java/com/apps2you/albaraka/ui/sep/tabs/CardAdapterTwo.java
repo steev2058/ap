@@ -2,6 +2,7 @@ package com.apps2you.albaraka.ui.sep.tabs;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.R;
+import com.apps2you.albaraka.ui.sep.bill.BillDetailsFragment;
 import com.apps2you.albaraka.ui.sep.bill.BillFragment;
 import com.apps2you.albaraka.ui.sep.profile.UserData;
 import com.apps2you.albaraka.utils.Constants;
@@ -170,7 +173,6 @@ public class CardAdapterTwo extends BaseAdapter {
             }
             return null;
         }
-
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -189,13 +191,16 @@ public class CardAdapterTwo extends BaseAdapter {
     }
 
     private void handleSearchResponse(JSONObject response) {
-        // Assuming you're using an instance of BillFragment to display the response
+        // Create a bundle to pass the response data
+        Bundle bundle = new Bundle();
+        bundle.putString("responseData", response.toString());
+        // Assuming mContext is an instance of Activity
         FragmentActivity activity = (FragmentActivity) mContext;
-        BillFragment fragment = (BillFragment) activity.getSupportFragmentManager().findFragmentById(R.id.action_fragment_bill_to_fragment_bill_details);
-        if (fragment != null) {
-            fragment.displaySearchResponse(response);
-        }
+
+        NavHostFragment.findNavController(activity.getSupportFragmentManager().findFragmentById(R.id.nav_sep))
+                .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
     }
+
 
     private void showConfirmDeleteDialog(final String id, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -214,14 +219,12 @@ public class CardAdapterTwo extends BaseAdapter {
                 alertDialog.dismiss();
             }
         });
-
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
             }
         });
-
         alertDialog.show();
     }
 

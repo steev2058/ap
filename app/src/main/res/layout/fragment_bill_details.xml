@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -11,6 +12,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_bill_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/background_light">
@@ -100,7 +102,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="تحديد جميع الفواتير"
-
                         app:layout_constraintTop_toBottomOf="@id/bills_card"
                         app:layout_constraintStart_toStartOf="@id/bills_card"
                         android:textColor="@color/black" />
@@ -115,6 +116,7 @@
                         android:orientation="vertical"
                         android:padding="16dp">
                     </LinearLayout>
+
 
                     <Button
                         android:id="@+id/button_submit_pay_bills"

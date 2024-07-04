@@ -11,10 +11,17 @@ import com.apps2you.albaraka.ui.transfer.accountsTransfer.myTransfer.MyTransferF
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.viewmodels.transfer.base.TransferViewModel;
 
+import org.json.JSONObject;
+
 import javax.inject.Inject;
 
 public class BillViewModel extends TransferViewModel {
+    private MutableLiveData<JSONObject> data = new MutableLiveData<>();
 
+
+    public LiveData<JSONObject> getData() {
+        return data;
+    }
     public MyTransferForm myTransferForm = new MyTransferForm();
 
     private String lastSelectedToAccountId;
