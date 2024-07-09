@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -34,13 +35,14 @@ import java.util.List;
 public class CardAdapterTwo extends BaseAdapter {
     private Context mContext;
     private List<CardItemProfile> mCardItemList;
-
+    private Fragment mFragment;
     private String token;
 
-    public CardAdapterTwo(Context context, List<CardItemProfile> cardItemList, String token) {
+    public CardAdapterTwo(Context context, List<CardItemProfile> cardItemList, String token,Fragment fragment) {
         mContext = context;
         mCardItemList = cardItemList;
         this.token = token;
+        mFragment = fragment;
     }
 
     @Override
@@ -108,7 +110,7 @@ public class CardAdapterTwo extends BaseAdapter {
         holder.buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showConfirmSearchDialog(item.getId(), position);
+                showConfirmSearchDialog(item.getId(), position,item.getBillerCode());
             }
         });
 
@@ -117,7 +119,7 @@ public class CardAdapterTwo extends BaseAdapter {
         return convertView;
     }
 
-    private void showConfirmSearchDialog(final String id, final int position) {
+    private void showConfirmSearchDialog(final String id, final int position,String billerCode) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         View dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_confirm_sep_search, null);
         builder.setView(dialogView);
@@ -131,7 +133,7 @@ public class CardAdapterTwo extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                new SearchBillTask().execute(id);
+                new SearchBillTask().execute(id,billerCode);
                 alertDialog.dismiss();
             }
         });
@@ -147,9 +149,11 @@ public class CardAdapterTwo extends BaseAdapter {
     }
 
     private class SearchBillTask extends AsyncTask<String, Void, String> {
+        String billerCode;
         @Override
         protected String doInBackground(String... params) {
             String id = params[0];
+            billerCode= params[1];
             try {
                 URL url = new URL(Constants.BASE_URL_SEP + "/Services_Interface/bank_bill_presentment?id=" + id);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -179,7 +183,7 @@ public class CardAdapterTwo extends BaseAdapter {
             if (result != null) {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    handleSearchResponse(jsonObject);
+                    handleSearchResponse(jsonObject,billerCode);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(mContext, "Failed to parse response", Toast.LENGTH_SHORT).show();
@@ -190,15 +194,12 @@ public class CardAdapterTwo extends BaseAdapter {
         }
     }
 
-    private void handleSearchResponse(JSONObject response) {
-        // Create a bundle to pass the response data
+    private void handleSearchResponse(JSONObject response,String billerCode) {
         Bundle bundle = new Bundle();
         bundle.putString("responseData", response.toString());
-        // Assuming mContext is an instance of Activity
-        FragmentActivity activity = (FragmentActivity) mContext;
-
-        NavHostFragment.findNavController(activity.getSupportFragmentManager().findFragmentById(R.id.nav_sep))
-                .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
+        bundle.putString("billerCode", billerCode);
+        NavHostFragment.findNavController(mFragment)
+                .navigate(R.id.action_firstFragment_to_fragment_sep_details_profile, bundle);
     }
 
 

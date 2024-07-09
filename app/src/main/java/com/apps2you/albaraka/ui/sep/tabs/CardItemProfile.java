@@ -10,7 +10,11 @@ public class CardItemProfile {
     private String iconUrl;
     private int isDeleted;
 
-    public CardItemProfile(String title, String description,String serviceNameAr, String billingNo, String iconUrl, int isDeleted,String id)  {
+    private String billerCode;
+
+
+
+    public CardItemProfile(String title, String description, String serviceNameAr, String billingNo, String iconUrl, int isDeleted, String id, String billerCode)  {
         this.title = title;
         this.description = description;
         this.serviceNameAr = serviceNameAr;
@@ -18,6 +22,7 @@ public class CardItemProfile {
         this.iconUrl = iconUrl;
         this.isDeleted = isDeleted;
         this.id = id;
+        this.billerCode = billerCode;
     }
 
     public String getTitle() {
@@ -46,5 +51,12 @@ public class CardItemProfile {
 
     public int getIsDeleted() {
         return isDeleted;
+    }
+    public String getBillerCode() {
+        return billerCode;
+    }
+
+    public void setBillerCode(String billerCode) {
+        this.billerCode = billerCode;
     }
 }

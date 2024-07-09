@@ -111,9 +111,10 @@ public class SecondFragment extends Fragment {
                     String serviceNameAr = bill.optString("serviceName_ar", "N/A");
                     String billingNo = bill.optString("BillingNo", "N/A");
                     String iconUrl = bill.optString("logoName", "N/A");
+                    String billerCode = bill.optString("billerCode", "N/A");
                     int isDeleted = bill.optInt("is_deleted", 1);
                     String id = bill.optString("id", "N/A");
-                    cardItemList.add(new CardItemProfile(billerNameAr, billLabel,serviceNameAr, billingNo, iconUrl.replace("..", Constants.BASE_URL_SEP_ICON), isDeleted,id));
+                    cardItemList.add(new CardItemProfile(billerNameAr, billLabel,serviceNameAr, billingNo, iconUrl.replace("..", Constants.BASE_URL_SEP_ICON), isDeleted,id,billerCode));
                 }
 
             } catch (IOException | JSONException e) {
@@ -136,7 +137,7 @@ public class SecondFragment extends Fragment {
             loader.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
 
-            adapter = new CardAdapterTwo(getActivity(), cardItemList, token);
+            adapter = new CardAdapterTwo(getActivity(), cardItemList, token,SecondFragment.this);
             gridView.setAdapter(adapter);
         }
 

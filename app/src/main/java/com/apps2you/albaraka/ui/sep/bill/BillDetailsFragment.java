@@ -77,9 +77,9 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mViewDataBinding = FragmentBillDetailsBinding.inflate(inflater, container, false);
         View rootView = mViewDataBinding.getRoot();
-        viewModel = new ViewModelProvider(this).get(BillViewModel.class);
-        mViewDataBinding.setViewModel(viewModel);
-        mViewDataBinding.setLifecycleOwner(this);
+//        viewModel = new ViewModelProvider(this).get(BillViewModel.class);
+//        mViewDataBinding.setViewModel(viewModel);
+//        mViewDataBinding.setLifecycleOwner(this);
         billersList = (List<Biller>)getArguments().getSerializable("billers");
         cardsContainer = rootView.findViewById(R.id.cards_container);
         checkboxAllBills = rootView.findViewById(R.id.checkbox_all_bills);
