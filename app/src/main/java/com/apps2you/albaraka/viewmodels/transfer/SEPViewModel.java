@@ -33,6 +33,7 @@ public class SEPViewModel extends BaseSelectionViewModel<SEPProviderUI> {
     public final MutableLiveData<String> cif = new MutableLiveData<>();
     public final MutableLiveData<String> phone = new MutableLiveData<>();
     public final MutableLiveData<String> address = new MutableLiveData<>();
+    public final MutableLiveData<String> token = new MutableLiveData<>();
     // Update user data method (if required)
 
 

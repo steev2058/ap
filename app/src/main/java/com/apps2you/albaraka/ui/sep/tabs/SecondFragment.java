@@ -136,7 +136,6 @@ public class SecondFragment extends Fragment {
             super.onPostExecute(cardItemList);
             loader.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
-
             adapter = new CardAdapterTwo(getActivity(), cardItemList, token,SecondFragment.this);
             gridView.setAdapter(adapter);
         }
