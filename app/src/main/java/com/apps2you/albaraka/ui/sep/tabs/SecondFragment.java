@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -58,6 +60,12 @@ public class SecondFragment extends Fragment {
 
         loader.setVisibility(View.VISIBLE);
         gridView.setVisibility(View.INVISIBLE);
+        Button addButton = rootView.findViewById(R.id.add_button);
+        addButton.setOnClickListener(v -> {
+            AddPaymentDialogFragment dialogFragment = new AddPaymentDialogFragment();
+            FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
+            dialogFragment.show(ft, "add_payment_dialog");
+        });
 
         sharedViewModel.getUserData().observe(getViewLifecycleOwner(), new Observer<UserData>() {
             @Override

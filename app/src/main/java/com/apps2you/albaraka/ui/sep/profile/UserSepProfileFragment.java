@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.preference.UserUtils;
 import com.apps2you.albaraka.databinding.FragmentSepUserBinding;
+import com.apps2you.albaraka.ui.sep.tabs.AddPaymentDialogFragment;
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.utils.RangeValidator;
 import com.apps2you.albaraka.viewmodels.SharedViewModel;
@@ -77,6 +80,13 @@ public class UserSepProfileFragment extends Fragment {
         // Assuming paymentsList is already defined and populated
         paymentsAdapter = new PaymentsAdapter(new ArrayList<>());
         recyclerViewPayments.setAdapter(paymentsAdapter);
+
+//        Button addButton = rootView.findViewById(R.id.add_button);
+//        addButton.setOnClickListener(v -> {
+//            AddPaymentDialogFragment dialogFragment = new AddPaymentDialogFragment();
+//            FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
+//            dialogFragment.show(ft, "add_payment_dialog");
+//        });
         if (getArguments() != null) {
             String arName = getArguments().getString("arName");
             String cif = getArguments().getString("cif");
