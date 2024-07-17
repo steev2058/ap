@@ -32,6 +32,7 @@ import com.apps2you.albaraka.ui.common.model.ADSLProviderUI;
 import com.apps2you.albaraka.ui.transfer.adsl.ADSLForm;
 import com.apps2you.albaraka.ui.transfer.base.BaseTransferFragment;
 import com.apps2you.albaraka.utils.Constants;
+import com.apps2you.albaraka.viewmodels.SharedViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.BillViewModel;
 
 import org.json.JSONArray;
@@ -55,13 +56,14 @@ import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import dagger.android.support.AndroidSupportInjection;
-
+import com.apps2you.albaraka.ui.sep.SEPFragment;
 public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetailsBinding, BillViewModel> {
 
     private LinearLayout cardsContainer;
     private String billerCode; // Add this field
     private CheckBox checkboxAllBills;
-
+    private SharedViewModel sharedViewModel;
+    private String token;
     private List<CheckBox> cardCheckboxes;
     private Button buttonSubmitPayBills;
     private JSONObject jsonObject;
@@ -69,6 +71,11 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
     private BillViewModel viewModel;
     private TextView textViewResponse;
     private SweetAlertDialog progressDialog;
+
+    public BillDetailsFragment() {
+       this.sharedViewModel = new SharedViewModel();
+    }
+
     @Override
     public void onAttach(@NonNull Context context) {
         AndroidSupportInjection.inject(this);
@@ -92,7 +99,11 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         ImageButton backButton = rootView.findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> NavHostFragment.findNavController(BillDetailsFragment.this).navigateUp());
 
-
+        SEPFragment.sharedViewModel.getUserData().observe(getViewLifecycleOwner(), userData -> {
+            if (userData != null) {
+                token = userData.getToken();
+            }
+        });
         progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
         progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
@@ -129,6 +140,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
 
         return rootView;
     }
+
 
     @Override
     public void refresh() {
@@ -295,6 +307,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Authorization", "Bearer " + token);
                 connection.setDoOutput(true);
 
                 JSONObject postData = new JSONObject();

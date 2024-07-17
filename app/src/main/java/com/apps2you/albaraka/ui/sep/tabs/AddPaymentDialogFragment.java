@@ -201,6 +201,7 @@ public class AddPaymentDialogFragment extends DialogFragment {
 
     private void populateCategoriesSpinner(List<Category> categories) {
         List<String> categoryNames = new ArrayList<>();
+        categoryNames.add("اختر فئة");
         for (Category category : categories) {
             categoryNames.add(category.getCategName());
         }
@@ -212,9 +213,14 @@ public class AddPaymentDialogFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Fetch billers for the selected category
-                Category selectedCategory = categoriesList.get(position);
-                billersList = selectedCategory.getBillers();
-                populateBillersSpinner(billersList);
+                if(position != 0)
+
+                {
+                    Category selectedCategory = categoriesList.get(position-1);
+                    billersList = selectedCategory.getBillers();
+                    populateBillersSpinner(billersList);
+                }
+
             }
 
             @Override
@@ -226,9 +232,11 @@ public class AddPaymentDialogFragment extends DialogFragment {
 
     private void populateBillersSpinner(List<Biller> billers) {
         List<String> billerNames = new ArrayList<>();
+        billerNames.add(" اختر مفوتر");
         for (Biller biller : billers) {
             billerNames.add(biller.getBillerName());
         }
+
         ArrayAdapter<String> billersAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, billerNames);
         billersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBillers.setAdapter(billersAdapter);
@@ -237,8 +245,12 @@ public class AddPaymentDialogFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Fetch services for the selected biller
-                selectedBiller = billersList.get(position);
+                if(position != 0)
+
+                {
+                selectedBiller = billersList.get(position - 1);
                 populateServicesSpinner(selectedBiller.getServices());
+            }
             }
 
             @Override
@@ -250,6 +262,7 @@ public class AddPaymentDialogFragment extends DialogFragment {
 
     private void populateServicesSpinner(List<Service> services) {
         List<String> serviceNames = new ArrayList<>();
+        serviceNames.add("اختر خدمة الفوترة");
         for (Service service : services) {
             serviceNames.add(service.getServiceName());
         }
@@ -261,9 +274,12 @@ public class AddPaymentDialogFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Fetch billing numbers for the selected service
-                selectedService = services.get(position);
+                if(position != 0)
+
+                {
+                selectedService = services.get(position - 1);
                 createInputFields(selectedService.getBillingNumbers());
-            }
+            }}
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

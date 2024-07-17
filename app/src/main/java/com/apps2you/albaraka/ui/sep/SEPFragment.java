@@ -43,7 +43,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TabsAdapter tabsAdapter;
-    private SharedViewModel sharedViewModel;
+    public static SharedViewModel sharedViewModel;
     private LinearLayout profileCard;
 
     private UserData userData;
