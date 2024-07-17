@@ -9,12 +9,12 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -45,6 +45,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class AddPaymentDialogFragment extends DialogFragment {
 
     private LinearLayout inputFieldsContainer;
@@ -59,7 +61,8 @@ public class AddPaymentDialogFragment extends DialogFragment {
     private Biller selectedBiller;
     private String billLabel;
     private List<BillingNumber> selectedBillingNumbers = new ArrayList<>();
-    private ProgressBar progressBar;
+
+    private SweetAlertDialog progressDialog;
 
     @Nullable
     @Override
@@ -71,7 +74,12 @@ public class AddPaymentDialogFragment extends DialogFragment {
         spinnerBillersServices = view.findViewById(R.id.spinner_billers_services_add);
         EditText billLabelEditText = view.findViewById(R.id.billLabel);
         Button buttonAddToFile = view.findViewById(R.id.button_submit);
-        progressBar = view.findViewById(R.id.progressBar);
+
+        progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
+        progressDialog.setContentText(getString(R.string.loading));
+        progressDialog.setCancelable(false);
         buttonAddToFile.setOnClickListener(v -> {
             billLabel = billLabelEditText.getText().toString();
             new AddCustomerProfileTask().execute();
@@ -93,6 +101,12 @@ public class AddPaymentDialogFragment extends DialogFragment {
     public AddPaymentDialogFragment(SharedViewModel sharedViewModel) {
         this.sharedViewModel = sharedViewModel;
     }
+    protected void showProgress() {
+        progressDialog.show();
+    }
+    protected void hideProgress() {
+        progressDialog.dismiss();
+    }
 
 
     @Override
@@ -108,7 +122,7 @@ public class AddPaymentDialogFragment extends DialogFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
+            showProgress();
         }
         @Override
         protected List<Category> doInBackground(String... urls) {
@@ -178,7 +192,8 @@ public class AddPaymentDialogFragment extends DialogFragment {
 
         @Override
         protected void onPostExecute(List<Category> categories) {
-            progressBar.setVisibility(View.GONE);
+            hideProgress();
+
             categoriesList = categories;
             populateCategoriesSpinner(categoriesList);
         }
@@ -262,7 +277,7 @@ public class AddPaymentDialogFragment extends DialogFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
+            showProgress();
         }
         @Override
         protected Boolean doInBackground(Void... voids) {
@@ -306,16 +321,16 @@ public class AddPaymentDialogFragment extends DialogFragment {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
-            progressBar.setVisibility(View.GONE);
+            hideProgress();
             if (success) {
-
+                dismiss();
                 Toast.makeText(getContext(), "تم إضافة الفاتورة بنجاح", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getContext(), "فشل عملية إضافة الفاتورة", Toast.LENGTH_SHORT).show();
             }
         }
 
-        }
+    }
 
 
 

@@ -28,31 +28,78 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
                 android:text="اختر الفاتورة للدفع"/>
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="7dp"
+                android:background="@color/gray_line_view"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-            <TextView
-                android:id="@+id/billingNoTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="16sp"
-                android:textColor="@android:color/black"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/dueAmountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
+                <TextView
+                    android:id="@+id/billingNoTextViewح"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="اسم الفاتورة : "
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"/>
 
-                android:textSize="16sp"
-                android:textColor="@android:color/holo_green_dark"/>
+                <TextView
+                    android:id="@+id/billingNoTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/feeAmountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="16sp"
-                android:textColor="@android:color/holo_green_dark"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/dueAmountTextViewp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="القيمة  : "
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:id="@+id/dueAmountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:textColor="@android:color/holo_green_dark"/>
+            </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/feeAmountTextViewp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="العمولة : "
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
+    <TextView
+        android:id="@+id/feeAmountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_green_dark"/>
+</LinearLayout>
+
 
             <TextView
                 android:id="@+id/issueDateTextView"

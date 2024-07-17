@@ -330,12 +330,12 @@
 
 
 
-        <include
-            android:id="@+id/progressBar"
-            layout="@layout/partial_progressbar"
-            app:layout_constraintTop_toBottomOf="@id/iBtn_submit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+<!--        <include-->
+<!--            android:id="@+id/progressBar"-->
+<!--            layout="@layout/partial_progressbar"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/iBtn_submit"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent" />-->
         <!-- RecyclerView for displaying payments -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_payments"

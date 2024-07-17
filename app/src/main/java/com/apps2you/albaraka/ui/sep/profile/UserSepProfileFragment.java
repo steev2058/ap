@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -49,6 +50,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Call;
@@ -60,7 +62,7 @@ public class UserSepProfileFragment extends Fragment {
     private String fromDate, toDate;
 
     private final DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-
+    private SweetAlertDialog progressDialog;
     private SEPViewModel sepViewModel;
     private FragmentSepUserBinding binding;
     private RecyclerView recyclerViewPayments;
@@ -72,6 +74,14 @@ public class UserSepProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sep_user, container, false);
         sepViewModel = new ViewModelProvider(requireActivity()).get(SEPViewModel.class);
+
+        progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+         progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
+        progressDialog.setContentText(getString(R.string.loading));
+        progressDialog.setCancelable(false);
+
+        setBackButtonAction(binding.getRoot());
         selectToday();
         View rootView = binding.getRoot();
         recyclerViewPayments = rootView.findViewById(R.id.recycler_view_payments);
@@ -114,9 +124,21 @@ public class UserSepProfileFragment extends Fragment {
         listenToVariables();
 
     }
-
-
-
+    protected void showProgress() {
+        progressDialog.show();
+    }
+    protected void hideProgress() {
+        progressDialog.dismiss();
+    }
+    protected void onBackPressed() {
+        requireActivity().onBackPressed();
+    }
+    private void setBackButtonAction(View view) {
+        try {
+            view.findViewById(R.id.back_button).setOnClickListener(v -> onBackPressed());
+        } catch (Exception ignored) {
+        }
+    }
 
     private void selectToday() {
         Date todayDate = Calendar.getInstance().getTime();
@@ -216,7 +238,7 @@ public class UserSepProfileFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            binding.progressBar.setVisibility(View.VISIBLE);
+            showProgress();
         }
         @Override
         protected String doInBackground(Void... params) {
@@ -252,7 +274,7 @@ public class UserSepProfileFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            binding.progressBar.setVisibility(View.GONE);
+            hideProgress();
 
             try {
                 JSONObject jsonObject = new JSONObject(result);
@@ -333,7 +355,7 @@ public class UserSepProfileFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            binding.progressBar.setVisibility(View.VISIBLE);
+            showProgress();
         }
 
         @Override
@@ -372,7 +394,7 @@ public class UserSepProfileFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            binding.progressBar.setVisibility(View.GONE);
+           hideProgress();
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONObject dataObject = jsonObject.getJSONObject("data");

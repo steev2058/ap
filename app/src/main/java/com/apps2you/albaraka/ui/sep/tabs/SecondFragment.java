@@ -43,6 +43,7 @@ public class SecondFragment extends Fragment {
     private GridView gridView;
     private CardAdapterTwo adapter;
     private ProgressBar loader;
+
     private SharedViewModel sharedViewModel;
     private String token;
 

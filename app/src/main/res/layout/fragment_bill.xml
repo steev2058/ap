@@ -283,7 +283,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:text="دفع الفواتير المختارة"
-android:visibility="gone"
+                            android:visibility="gone"
                             app:layout_constraintTop_toBottomOf="@+id/cards_container" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -292,9 +292,6 @@ android:visibility="gone"
             </ScrollView>
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
-        <include
-            android:id="@+id/loader"
-            layout="@layout/partial_progressbar"
-            app:existence="@{viewModel.isContentLoading || viewModel.isFeeLoading}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

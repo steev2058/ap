@@ -120,7 +120,7 @@
 
                     <Button
                         android:id="@+id/button_submit_pay_bills"
-                        style="@style/ButtonPrimary2"
+                        style="@style/ButtonPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -133,9 +133,6 @@
             </ScrollView>
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
-        <include
-            android:id="@+id/progressBar"
-            layout="@layout/partial_progressbar"
-            app:existence="@{viewModel.isContentLoading || viewModel.isFeeLoading}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -52,6 +53,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import dagger.android.support.AndroidSupportInjection;
 
 public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetailsBinding, BillViewModel> {
@@ -59,13 +61,14 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
     private LinearLayout cardsContainer;
     private String billerCode; // Add this field
     private CheckBox checkboxAllBills;
-    private static ProgressBar loader;
+
     private List<CheckBox> cardCheckboxes;
     private Button buttonSubmitPayBills;
     private JSONObject jsonObject;
     private List<Biller> billersList;
     private BillViewModel viewModel;
     private TextView textViewResponse;
+    private SweetAlertDialog progressDialog;
     @Override
     public void onAttach(@NonNull Context context) {
         AndroidSupportInjection.inject(this);
@@ -85,9 +88,18 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         checkboxAllBills = rootView.findViewById(R.id.checkbox_all_bills);
         buttonSubmitPayBills = rootView.findViewById(R.id.button_submit_pay_bills);
         cardCheckboxes = new ArrayList<>();
-        loader = rootView.findViewById(R.id.progressBar);
+
         ImageButton backButton = rootView.findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> NavHostFragment.findNavController(BillDetailsFragment.this).navigateUp());
+
+
+        progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
+        progressDialog.setContentText(getString(R.string.loading));
+        progressDialog.setCancelable(false);
+
+
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -124,6 +136,13 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         mViewModel.fetchAccounts();
         super.refresh();
     }
+    protected void showProgress() {
+        progressDialog.show();
+    }
+    protected void hideProgress() {
+        progressDialog.dismiss();
+    }
+
 
     @Override
     protected RecyclerView provideAccountsRecycler() {
@@ -177,6 +196,10 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 feeAmountTextView.setText(feeAmount);
                 issueDateTextView.setText(getString(R.string.issue_date, formattedIssueDate));
                 dueDateTextView.setText(getString(R.string.due_date, formattedDueDate));
+                statusTextView.setText("فاتورة جديدة");
+                statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
+                statusTextView.setBackgroundResource(R.drawable.rounded_background_orange);
+                statusTextView.setVisibility(View.VISIBLE);
 
                 cardCheckboxes.add(cardCheckbox);
                 cardsContainer.addView(cardView);
@@ -259,7 +282,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loader.setVisibility(View.VISIBLE);
+            showProgress();
         }
 
         @Override
@@ -313,7 +336,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         @Override
         protected void onPostExecute(StringBuilder responseData) {
             super.onPostExecute(responseData);
-            loader.setVisibility(View.GONE);
+            hideProgress();
 
             try {
                 JSONObject responseJson = new JSONObject(responseData.toString());
@@ -323,13 +346,14 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 if ("000".equals(errorCode)) {
                     Toast.makeText(requireContext(), "تم الدفع بنجاح", Toast.LENGTH_LONG).show();
                     statusTextView.setText("تم دفع الفاتورة بنجاح");
-                    statusTextView.setTextColor(0xFF008200);
-
+                    statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
+                    statusTextView.setBackgroundResource(R.drawable.rounded_background_g);
                     statusTextView.setVisibility(View.VISIBLE);
                 } else {
                     Toast.makeText(requireContext(), "هناك خطأ: " + errorDescription, Toast.LENGTH_LONG).show();
                     statusTextView.setText("فشلت العملية");
-                    statusTextView.setTextColor(Color.RED);
+                    statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
+                    statusTextView.setBackgroundResource(R.drawable.rounded_background_red);
                     statusTextView.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
@@ -348,7 +372,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
     private String formatDateString(String dateString) {
         // Example format: yyyy-MM-dd
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
             Date date = inputFormat.parse(dateString);
             return outputFormat.format(date);

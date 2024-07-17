@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,6 +52,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import dagger.android.support.AndroidSupportInjection;
 
 public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewModel> {
@@ -61,14 +63,14 @@ public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewMode
     private Spinner spinnerBillersServices;
     private CheckBox checkbox;
     private Button buttonSubmit;
-    private static ProgressBar loader;
+
     private List<Biller> billersList;
     private String categoryName;
     private LinearLayout inputFieldsContainer;
     private CheckBox checkboxAllBills;
     private List<CheckBox> cardCheckboxes;
     private Button buttonSubmitPayBills;
-
+    private SweetAlertDialog progressDialog;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -87,7 +89,12 @@ public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewMode
         billersList = (List<Biller>)getArguments().getSerializable("billers");
 
 
-        loader = rootView.findViewById(R.id.loader);
+        progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
+        progressDialog.setContentText(getString(R.string.loading));
+        progressDialog.setCancelable(false);
+
         spinnerBillers = rootView.findViewById(R.id.spinner_billers);
         spinnerBillersServices = rootView.findViewById(R.id.spinner_billers_services);
         checkbox = rootView.findViewById(R.id.checkbox);
@@ -365,13 +372,19 @@ public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewMode
 
         return billingNoBuilder.toString();
     }
+    protected void showProgress() {
+        progressDialog.show();
+    }
+    protected void hideProgress() {
+        progressDialog.dismiss();
+    }
 
 private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder> {
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loader.setVisibility(View.VISIBLE);
+        showProgress();
     }
 
     @Override
@@ -412,22 +425,22 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
     @Override
     protected void onPostExecute(StringBuilder responseData) {
         super.onPostExecute(responseData);
-        loader.setVisibility(View.GONE);
+        hideProgress();
 
         // Convert StringBuilder to String
         String jsonString = responseData.toString();
         String bc = getSelectedBillerCode().toString();
 
         if (!jsonString.isEmpty()) {
+
+
             try {
+
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String errorCode = jsonObject.optString("ErrorCode");
                 String errorDescription = jsonObject.optString("ErrorDescription");
 
-                if ("102".equals(errorCode)) {
-                    // Display the toast message for ErrorCode 102
-                    Toast.makeText(requireContext(), "لا يوجد فواتير لعرضها", Toast.LENGTH_SHORT).show();
-                } else {
+                if ("000".equals(errorCode)) {
                     // Create a bundle and navigate to the next fragment
                     Bundle bundle = new Bundle();
                     bundle.putString("responseData", jsonObject.toString());
@@ -436,10 +449,14 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
                     NavHostFragment.findNavController(BillFragment.this)
                             .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
 
+
+                } else {
+                    Toast.makeText(requireContext(), "لا يوجد فواتير لعرضها", Toast.LENGTH_SHORT).show();
                     // Display the error description if available
                     if (!errorDescription.isEmpty()) {
                         Toast.makeText(requireContext(), errorDescription, Toast.LENGTH_SHORT).show();
                     }
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -481,7 +498,7 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
         protected void onPreExecute() {
             super.onPreExecute();
             // Show progress loader
-            loader.setVisibility(View.VISIBLE);
+            showProgress();
         }
 
         @Override
@@ -538,7 +555,7 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
             super.onPostExecute(responseData);
             // Hide progress loader
 
-            loader.setVisibility(View.GONE);
+            hideProgress();
 
             Toast.makeText(requireContext(), responseData.toString(), Toast.LENGTH_LONG).show();
 
