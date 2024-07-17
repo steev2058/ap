@@ -62,7 +62,7 @@ public class SecondFragment extends Fragment {
         gridView.setVisibility(View.INVISIBLE);
         Button addButton = rootView.findViewById(R.id.add_button);
         addButton.setOnClickListener(v -> {
-            AddPaymentDialogFragment dialogFragment = new AddPaymentDialogFragment();
+            AddPaymentDialogFragment dialogFragment = new AddPaymentDialogFragment(sharedViewModel);
             FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
             dialogFragment.show(ft, "add_payment_dialog");
         });

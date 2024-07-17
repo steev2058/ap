@@ -83,7 +83,7 @@ public class UserSepProfileFragment extends Fragment {
 
 //        Button addButton = rootView.findViewById(R.id.add_button);
 //        addButton.setOnClickListener(v -> {
-//            AddPaymentDialogFragment dialogFragment = new AddPaymentDialogFragment();
+//            AddPaymentDialogFragment dialogFragment = new AddPaymentDialogFragment(sharedViewModel);
 //            FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
 //            dialogFragment.show(ft, "add_payment_dialog");
 //        });

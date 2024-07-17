@@ -24,4 +24,8 @@ public class BillingNumber implements Serializable {
     public String getTexts() {
         return texts;
     }
+
+    public void setArabicLabel(String arabicLabel) {
+        this.arabicLabel = arabicLabel;
+    }
 }

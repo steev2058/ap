@@ -259,18 +259,23 @@ public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewMode
                 // Add TextInputLayout to the container layout
                 inputFieldsContainer.addView(spinnerTextInputLayout);
             } else if (billingNumber.getType().equals("TEXT")) {
+                TextView arabicLabelTextView = new TextView(requireContext());
+                arabicLabelTextView.setText(billingNumber.getArabicLabel());
+                arabicLabelTextView.setTextColor(getResources().getColor(R.color.gray)); // Set text color
+                arabicLabelTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.font_medium)); // Set text size
+                arabicLabelTextView.setPadding(0, 10, 0, 8); // Set padding
+
+                // Add ArabicLabel TextView to the container layout
+                inputFieldsContainer.addView(arabicLabelTextView);
+
                 // Create a text input (EditText)
                 EditText editText = new EditText(requireContext());
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         getResources().getDimensionPixelSize(R.dimen._30sdp) // Set specific height
                 );
-                editText.setLayoutParams(new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                );
-                editText.setHint(billingNumber.getArabicLabel());
+                editText.setLayoutParams(layoutParams);
+                //   editText.setHint(billingNumber.getArabicLabel());
                 editText.setPadding(25, 25, 25, 25); // Set padding
                 editText.setTextColor(getResources().getColor(R.color.dark_gray)); // Set text color
                 editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.font_small)); // Set text size
@@ -287,7 +292,6 @@ public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewMode
                 textInputLayout.setBoxBackgroundColor(getResources().getColor(R.color.gray)); // Set background color
                 textInputLayout.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_OUTLINE); // Set border mode
                 textInputLayout.addView(editText);
-
                 // Add TextInputLayout to the container layout
                 inputFieldsContainer.addView(textInputLayout);
             }
