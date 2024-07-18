@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/sepFragment"
         android:name="com.apps2you.albaraka.ui.sep.SEPFragment"
-        android:label=""
+        android:label="SEP Fragment"
         tools:layout="@layout/fragment_sep">
         <action
             android:id="@+id/action_firstFragment_to_fragment_bill"
