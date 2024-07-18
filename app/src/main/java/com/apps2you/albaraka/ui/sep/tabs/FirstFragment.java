@@ -11,6 +11,8 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.R;
@@ -62,8 +64,10 @@ public class FirstFragment extends Fragment {
                 bundle.putString("categoryName", clickedItem.getText());
                 bundle.putSerializable("billers", (Serializable) clickedItem.getBillerList());
                 // Navigate to the fragment_bill.xml fragment
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
+//                NavHostFragment.findNavController(FirstFragment.this)
+//                        .navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragment_sep);
+                navController.navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
             }
         });
         return rootView;
