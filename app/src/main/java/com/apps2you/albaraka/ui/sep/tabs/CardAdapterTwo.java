@@ -31,29 +31,45 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 public class CardAdapterTwo extends BaseAdapter {
     private Context mContext;
     private List<CardItemProfile> mCardItemList;
+    private List<CardItemProfile> originalList;
+    private List<CardItemProfile> filteredList;
     private Fragment mFragment;
     private String token;
 
     public CardAdapterTwo(Context context, List<CardItemProfile> cardItemList, String token,Fragment fragment) {
         mContext = context;
         mCardItemList = cardItemList;
+        this.originalList = new ArrayList<>(cardItemList);
+        this.filteredList = new ArrayList<>(cardItemList);
         this.token = token;
         mFragment = fragment;
     }
 
-    @Override
-    public int getCount() {
-        return mCardItemList.size();
-    }
+//    @Override
+//    public int getCount() {
+//        return mCardItemList.size();
+//    }
 
     @Override
-    public Object getItem(int position) {
-        return mCardItemList.get(position);
+    public int getCount() {
+        // Display filtered list only if it's not empty, otherwise display original list
+        return filteredList.isEmpty() ? originalList.size() : filteredList.size();
     }
+
+//    @Override
+//    public Object getItem(int position) {
+//        return mCardItemList.get(position);
+//    }
+    @Override
+    public Object getItem(int position) {
+        // Return item from filtered list if not empty, otherwise return from original list
+        return filteredList.isEmpty() ? originalList.get(position) : filteredList.get(position);
+}
 
     @Override
     public long getItemId(int position) {
@@ -81,7 +97,8 @@ public class CardAdapterTwo extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        CardItemProfile item = mCardItemList.get(position);
+       // CardItemProfile item = mCardItemList.get(position);
+        CardItemProfile item = filteredList.isEmpty() ? originalList.get(position) : filteredList.get(position);
         holder.title.setText(item.getTitle());
         holder.description.setText(item.getDescription());
         holder.serviceName.setText(item.getServiceNameAr());
@@ -118,6 +135,21 @@ public class CardAdapterTwo extends BaseAdapter {
         // Set image and button listeners here if needed
         return convertView;
     }
+
+    public void filter(String query) {
+        filteredList.clear();
+        if (query.isEmpty()) {
+            filteredList.addAll(originalList);
+        } else {
+            for (CardItemProfile item : originalList) {
+                if (item.getDescription().toLowerCase().contains(query.toLowerCase()) || item.getDescription().contains(query)) {
+                    filteredList.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 
     private void showConfirmSearchDialog(final String id, final int position,String billerCode) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);

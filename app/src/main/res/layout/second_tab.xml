@@ -23,8 +23,7 @@
         android:hint="البحث"
         android:padding="8dp"
         android:background="@drawable/bg_radio_button"
-        android:gravity="end"
-        android:textDirection="ltr" />
+        android:textDirection="rtl" />
 
     <Button
         android:id="@+id/add_button"

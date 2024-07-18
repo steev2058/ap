@@ -2,12 +2,15 @@ package com.apps2you.albaraka.ui.sep.tabs;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 
@@ -43,7 +46,7 @@ public class SecondFragment extends Fragment {
     private GridView gridView;
     private CardAdapterTwo adapter;
     private ProgressBar loader;
-
+    private EditText searchBar;
     private SharedViewModel sharedViewModel;
     private String token;
 
@@ -58,7 +61,7 @@ public class SecondFragment extends Fragment {
 
         gridView = rootView.findViewById(R.id.grid_view);
         loader = rootView.findViewById(R.id.loader);
-
+        searchBar = rootView.findViewById(R.id.search_bar);
         loader.setVisibility(View.VISIBLE);
         gridView.setVisibility(View.INVISIBLE);
         Button addButton = rootView.findViewById(R.id.add_button);
@@ -82,6 +85,24 @@ public class SecondFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Handle item click
+            }
+        });
+
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (adapter != null) {
+                    adapter.filter(s.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
         return rootView;

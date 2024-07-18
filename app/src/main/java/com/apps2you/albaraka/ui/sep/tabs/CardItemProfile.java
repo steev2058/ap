@@ -6,9 +6,16 @@ public class CardItemProfile {
     private String id;
     private String description;
     private String serviceNameAr;
+
+
+
+    private String serviceNameEn;
     private String billingNo;
     private String iconUrl;
     private int isDeleted;
+
+    private String billLabelAr;
+    private String billLabel;
 
     private String billerCode;
 
@@ -23,6 +30,13 @@ public class CardItemProfile {
         this.isDeleted = isDeleted;
         this.id = id;
         this.billerCode = billerCode;
+    }
+    public String getServiceNameEn() {
+        return serviceNameEn;
+    }
+
+    public String getBillLabelAr() {
+        return billLabelAr;
     }
 
     public String getTitle() {
@@ -52,6 +66,10 @@ public class CardItemProfile {
     public int getIsDeleted() {
         return isDeleted;
     }
+    public String getBillLabel() {
+        return billLabel;
+    }
+
     public String getBillerCode() {
         return billerCode;
     }

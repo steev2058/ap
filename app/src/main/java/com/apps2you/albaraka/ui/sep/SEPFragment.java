@@ -63,6 +63,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
 
     @Override
     public void setUpView() {
+        refresh();
         FragmentActivity activity = getActivity();
         User user = UserUtils.getInstance(MyApplication.getAppContext()).getUser();
         String token = user.getBillsPaymentToken();
