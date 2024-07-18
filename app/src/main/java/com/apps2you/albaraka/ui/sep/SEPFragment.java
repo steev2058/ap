@@ -77,8 +77,11 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         profileCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                navigateToUserProfile(userData);
+                if (userData != null) {
+                    navigateToUserProfile(userData);
+                } else {
+                    Toast.makeText(requireContext(), "User data not available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -196,25 +199,24 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            if (isAdded()) {
+                try {
+                    JSONObject responseObject = new JSONObject(result);
+                    JSONObject data = responseObject.getJSONObject("data");
 
+                    userData = new UserData();
+                    userData.setArName(data.getString("ArName"));
+                    userData.setAddress(data.getString("Address"));
+                    userData.setPhone(data.getString("Phone"));
+                    userData.setCif(data.getString("cif"));
+                    userData.setToken(data.getString("token"));
+                    sharedViewModel.setUserData(userData);
 
-            try {
-                JSONObject responseObject = new JSONObject(result);
-                JSONObject data = responseObject.getJSONObject("data");
-
-                 userData = new UserData();
-                userData.setArName(data.getString("ArName"));
-                userData.setAddress(data.getString("Address"));
-                userData.setPhone(data.getString("Phone"));
-                userData.setCif(data.getString("cif"));
-                userData.setToken(data.getString("token"));
-                sharedViewModel.setUserData(userData);
-
-
-                Toast.makeText(requireContext(), "Data fetched successfully", Toast.LENGTH_LONG).show();
-            }  catch (JSONException e) {
-                e.printStackTrace();
-                Toast.makeText(requireContext(), "Error parsing response", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Data fetched successfully", Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(requireContext(), "Error parsing response", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }

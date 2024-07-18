@@ -66,7 +66,11 @@ public class FirstFragment extends Fragment {
                 // Navigate to the fragment_bill.xml fragment
 //                NavHostFragment.findNavController(FirstFragment.this)
 //                        .navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
-                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragment_sep);
+
+//                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragment_sep);
+//                navController.navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
+
+                NavController navController = Navigation.findNavController(requireView());
                 navController.navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
             }
         });
