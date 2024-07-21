@@ -16,6 +16,7 @@
     import androidx.appcompat.app.AlertDialog;
     import androidx.fragment.app.Fragment;
     import androidx.fragment.app.FragmentActivity;
+    import androidx.fragment.app.FragmentTransaction;
     import androidx.navigation.fragment.NavHostFragment;
 
     import com.apps2you.albaraka.R;
@@ -23,6 +24,7 @@
     import com.apps2you.albaraka.ui.sep.bill.BillFragment;
     import com.apps2you.albaraka.ui.sep.profile.UserData;
     import com.apps2you.albaraka.utils.Constants;
+    import com.apps2you.albaraka.viewmodels.SharedViewModel;
     import com.squareup.picasso.Picasso;
 
     import org.json.JSONException;
@@ -44,14 +46,15 @@
         private List<CardItemProfile> filteredList;
         private Fragment mFragment;
         private String token;
-
+        private SharedViewModel sharedViewModel;
         private SweetAlertDialog progressDialog;
 
-        public CardAdapterTwo(Context context, List<CardItemProfile> cardItemList, String token,Fragment fragment) {
+        public CardAdapterTwo(Context context, List<CardItemProfile> cardItemList, String token,Fragment fragment,SharedViewModel sharedViewModel) {
             mContext = context;
             mCardItemList = cardItemList;
             this.originalList = new ArrayList<>(cardItemList);
             this.filteredList = new ArrayList<>(cardItemList);
+            this.sharedViewModel = sharedViewModel;
             this.token = token;
             mFragment = fragment;
 
@@ -105,6 +108,7 @@
                 holder.image = convertView.findViewById(R.id.left_image);
                 holder.buttonDelete = convertView.findViewById(R.id.btn_delete);
                 holder.buttonSearch = convertView.findViewById(R.id.btn_search);
+                holder.buttonEdit = convertView.findViewById(R.id.btn_edit);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -134,6 +138,17 @@
                     showConfirmDeleteDialog(item.getId(), position);
                 }
             });
+
+            // Set edit button listener
+            holder.buttonEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AutoPaySepBills dialogFragment = new AutoPaySepBills(sharedViewModel,item.getDescription(),item.getId());
+                    FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+                    dialogFragment.show(ft, "Edit_payment_dialog");
+                }
+            });
+
 
             // Set search button listener
             holder.buttonSearch.setOnClickListener(new View.OnClickListener() {
@@ -324,6 +339,7 @@
             ImageView image;
             Button buttonSearch;
             Button buttonDelete;
+            Button buttonEdit;
         }
         protected void showProgress() {
             progressDialog.show();

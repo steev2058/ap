@@ -42,9 +42,9 @@
             android:background="@color/white"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:drawableStart="@drawable/peaper"
+            android:drawableStart="@drawable/ic_edit_modal"
             android:textColor="@color/gray"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_18sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -84,28 +84,65 @@
             android:text=""
             android:textColor="@color/gray" />
 
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_auto_pay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"
+            android:text="تفعيل الدفع التلقائي للفاتورة"
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_auto_pay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/billLabel"
+            app:thumbTint="@color/white"
+            app:trackTint="@color/switch_auto_pay_color" />
+        <View
+            android:id="@+id/divider_notification"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:background="@color/bright_gray"
+            app:layout_constraintTop_toBottomOf="@id/switch_auto_pay" />
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="اختر حساب التسديد الافتراضي"
             android:textColor="@color/gray"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/billLabel" />
-        <EditText
-            android:id="@+id/pick_account"
-            style="@style/InputEt"
+            app:layout_constraintTop_toBottomOf="@id/switch_auto_pay" />
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_accounts"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_edittext_selector"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            android:visibility="gone"
+            tools:listitem="@layout/item_complaint_spinner" />
+
+        <!-- Image view associated with spinner_catigories_add -->
+        <ImageView
+            android:id="@+id/imageView_catigories"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/margin_small"
-            android:inputType="text"
-            android:hint=""
-            android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@id/textView2"
-            android:text=""
-            android:textColor="@color/gray" />
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/spinner_accounts"
+            app:layout_constraintEnd_toEndOf="@id/spinner_accounts"
+            app:layout_constraintTop_toTopOf="@id/spinner_accounts"
+            android:visibility="gone"
+            app:tint="@color/gray" />
 
         <TextView
             android:id="@+id/textView3"
@@ -114,8 +151,9 @@
             android:text="الحد الأعلى للدفع التلقائي"
             android:textColor="@color/gray"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pick_account" />
+            app:layout_constraintTop_toBottomOf="@id/spinner_accounts" />
         <EditText
             android:id="@+id/max_amount"
             style="@style/InputEt"
@@ -129,6 +167,7 @@
             android:maxLines="1"
             app:layout_constraintTop_toBottomOf="@id/textView3"
             android:text=""
+            android:visibility="gone"
             android:textColor="@color/gray" />
 
 
@@ -137,6 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="وقت التحقق"
+            android:visibility="gone"
             android:textColor="@color/gray"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -151,28 +191,13 @@
             android:drawablePadding="@dimen/margin_small"
             android:inputType="text"
             android:hint=""
+            android:visibility="gone"
             android:maxLines="1"
             app:layout_constraintTop_toBottomOf="@id/textView4"
             android:text=""
             android:textColor="@color/gray" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_auto_pay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:drawablePadding="10dp"
-            android:padding="12dp"
-            android:layout_marginBottom="10dp"
-            android:text="الدفع التلقائي للفاتورة"
-            android:textAlignment="viewStart"
-            android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_my_transfer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pick_time"
-            app:thumbTint="@color/white"
-            app:trackTint="@color/switch_auto_pay_color" />
+
 
 
 
@@ -185,7 +210,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="تحديث البيانات"
-            app:layout_constraintTop_toBottomOf="@+id/switch_auto_pay" />
+            app:layout_constraintTop_toBottomOf="@+id/pick_time" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

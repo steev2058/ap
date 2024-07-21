@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="180dp"
     android:padding="8dp"
     android:background="@drawable/bg_radio_button"
     android:layout_margin="8dp">
+
 
     <ImageView
         android:id="@+id/left_image"
@@ -16,13 +16,20 @@
         android:adjustViewBounds="true"
         android:src="@drawable/ic_albaraka_transfer"
         android:layout_gravity="center_vertical"/>
+    <View
+        android:id="@+id/divider_contact_time23"
+        android:layout_width="380dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/bright_gray"/>
 
     <!-- Divider -->
     <View
         android:id="@+id/divider_contact_time"
         android:layout_width="1dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/left_image"
         android:layout_marginStart="15dp"
@@ -110,11 +117,14 @@
             android:textSize="12sp" />
     </LinearLayout>
 
+
     <LinearLayout
+        android:id="@+id/button_row"
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="100dp"
-        android:layout_height="140dp">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <Button
             android:id="@+id/btn_search"
@@ -122,11 +132,9 @@
             android:layout_width="90dp"
             android:layout_height="39dp"
             android:paddingStart="6dp"
-            android:layout_marginTop="100dp"
             android:textSize="12sp"
             android:text="استعلام"
             android:paddingEnd="12dp"
-            android:layout_alignParentEnd="true"
             android:drawableEnd="@drawable/ic_search_24"
             android:textColor="@color/white"/>
 
@@ -138,24 +146,21 @@
             android:id="@+id/divider_contact_time2"
             android:layout_width="1dp"
             android:layout_height="25dp"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="10dp"
             android:background="@color/bright_gray"/>
+
         <Button
             android:id="@+id/btn_edit"
-            style="@style/ButtonPrimary"
+            style="@style/ButtonPrimary2"
             android:layout_width="90dp"
             android:layout_height="39dp"
             android:paddingStart="11dp"
             android:paddingEnd="12dp"
-            android:layout_marginTop="100dp"
             android:textSize="12sp"
             android:text="تعديل"
-
-            android:layout_alignParentEnd="true"
             android:drawableEnd="@drawable/ic_edit_w"
             android:textColor="@color/white"/>
-
 
         <Space
             android:layout_width="@dimen/margin_medium"
@@ -165,7 +170,7 @@
             android:id="@+id/divider_contact_time3"
             android:layout_width="1dp"
             android:layout_height="25dp"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="10dp"
             android:background="@color/bright_gray"/>
 
@@ -176,13 +181,10 @@
             android:layout_height="39dp"
             android:paddingStart="11dp"
             android:paddingEnd="12dp"
-            android:layout_marginTop="100dp"
             android:textSize="12sp"
             android:text="حذف"
-            android:layout_alignParentEnd="true"
             android:drawableEnd="@drawable/ic_delete"
             android:textColor="@color/red"/>
-
     </LinearLayout>
 
 </RelativeLayout>
