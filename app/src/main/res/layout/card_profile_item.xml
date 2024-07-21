@@ -6,168 +6,173 @@
     android:background="@drawable/bg_radio_button"
     android:layout_margin="8dp">
 
-        <ImageView
-            android:id="@+id/left_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="0dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:src="@drawable/ic_albaraka_transfer"
-            android:layout_gravity="center_vertical"/>
+    <ImageView
+        android:id="@+id/left_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="0dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_albaraka_transfer"
+        android:layout_gravity="center_vertical"/>
 
-        <!-- Divider -->
-        <View
-            android:id="@+id/divider_contact_time"
-            android:layout_width="1dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@id/left_image"
-            android:layout_marginStart="15dp"
-            android:background="@color/bright_gray"/>
+    <!-- Divider -->
+    <View
+        android:id="@+id/divider_contact_time"
+        android:layout_width="1dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@id/left_image"
+        android:layout_marginStart="15dp"
+        android:background="@color/bright_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/divider_contact_time"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp">
+
+        <TextView
+            android:id="@+id/card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/divider_contact_time"
-            android:orientation="vertical"
-            android:layout_marginStart="8dp">
-
+            android:layout_height="match_parent">
             <TextView
-                android:id="@+id/card_title"
+                android:id="@+id/card_descriptionp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Title"
+                android:text="اسم الفاتورة : "
+                android:textSize="12sp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/card_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/card_service_namep"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:text="الخدمة : "
                 android:textSize="14sp"
-                android:textStyle="bold" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/card_descriptionp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="اسم الفاتورة : "
-                    android:textSize="12sp"
-                    android:layout_marginTop="5dp"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:id="@+id/card_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_marginTop="5dp"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/card_service_namep"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="wrap_content"
-                    android:text="الخدمة : "
-                    android:textSize="14sp"
-                    />
-                <TextView
-                    android:id="@+id/card_service_name"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    />
-            </LinearLayout>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/card_billing_nop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="رقم الفاتورة : "
-        android:textSize="12sp" />
-    <TextView
-        android:id="@+id/card_billing_no"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="12sp" />
-
-</LinearLayout>
-
-
+                />
             <TextView
-                android:id="@+id/card_status"
+                android:id="@+id/card_service_name"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/card_billing_nop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status"
-                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:text="رقم الفاتورة : "
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/card_billing_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:textSize="12sp" />
         </LinearLayout>
-<!--    <Button-->
-<!--        android:id="@+id/btn_delete"-->
-<!--        style="@style/ButtonPrimary3"-->
-<!--        android:layout_width="36dp"-->
-<!--        android:layout_height="39dp"-->
-<!--        android:paddingStart="11dp"-->
-<!--        android:layout_marginTop="35dp"-->
-<!--        android:textSize="12sp"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:drawableStart="@drawable/ic_delete"-->
-<!--        android:textColor="@color/red"/>-->
-<!--        <Button-->
-<!--            android:id="@+id/btn_search"-->
-<!--            style="@style/ButtonPrimary"-->
-<!--            android:layout_width="260dp"-->
-<!--            android:layout_height="39dp"-->
-<!--            android:paddingStart="6dp"-->
-<!--            android:layout_marginTop="125dp"-->
-<!--            android:textSize="12sp"-->
-<!--            android:text="استعلام"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:drawableStart="@drawable/ic_search_24"-->
-<!--            android:textColor="@color/white"/>-->
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_marginTop="20dp"
-    android:layout_marginRight="100dp"
-    android:layout_height="140dp">
+        <TextView
+            android:id="@+id/card_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:visibility="gone"
+            android:textSize="12sp" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_search"
-                style="@style/ButtonPrimary"
-                android:layout_width="100dp"
-                android:layout_height="39dp"
-                android:paddingStart="6dp"
-                android:layout_marginTop="100dp"
-                android:textSize="12sp"
-                android:text="استعلام"
-                android:paddingEnd="12dp"
-                android:layout_alignParentEnd="true"
-                android:drawableEnd="@drawable/ic_search_24"
-                android:textColor="@color/white"/>
-    <Space
-        android:layout_width="@dimen/margin_medium"
-        android:layout_height="wrap_content" />
-    <View
-        android:id="@+id/divider_contact_time2"
-        android:layout_width="1dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="10dp"
-        android:background="@color/bright_gray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="100dp"
+        android:layout_height="140dp">
+
+        <Button
+            android:id="@+id/btn_search"
+            style="@style/ButtonPrimary"
+            android:layout_width="90dp"
+            android:layout_height="39dp"
+            android:paddingStart="6dp"
+            android:layout_marginTop="100dp"
+            android:textSize="12sp"
+            android:text="استعلام"
+            android:paddingEnd="12dp"
+            android:layout_alignParentEnd="true"
+            android:drawableEnd="@drawable/ic_search_24"
+            android:textColor="@color/white"/>
+
+        <Space
+            android:layout_width="@dimen/margin_medium"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/divider_contact_time2"
+            android:layout_width="1dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/bright_gray"/>
+        <Button
+            android:id="@+id/btn_edit"
+            style="@style/ButtonPrimary"
+            android:layout_width="90dp"
+            android:layout_height="39dp"
+            android:paddingStart="11dp"
+            android:paddingEnd="12dp"
+            android:layout_marginTop="100dp"
+            android:textSize="12sp"
+            android:text="تعديل"
+
+            android:layout_alignParentEnd="true"
+            android:drawableEnd="@drawable/ic_edit_w"
+            android:textColor="@color/white"/>
+
+
+        <Space
+            android:layout_width="@dimen/margin_medium"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/divider_contact_time3"
+            android:layout_width="1dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/bright_gray"/>
+
         <Button
             android:id="@+id/btn_delete"
             style="@style/ButtonPrimary3"
-            android:layout_width="100dp"
+            android:layout_width="90dp"
             android:layout_height="39dp"
             android:paddingStart="11dp"
             android:paddingEnd="12dp"
@@ -177,9 +182,7 @@
             android:layout_alignParentEnd="true"
             android:drawableEnd="@drawable/ic_delete"
             android:textColor="@color/red"/>
-</LinearLayout>
 
+    </LinearLayout>
 
-    </RelativeLayout>
-
-
+</RelativeLayout>
