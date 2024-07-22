@@ -14,14 +14,20 @@ public class CardItemProfile {
     private String iconUrl;
     private int isDeleted;
 
+    private int auto_pay;
+
     private String billLabelAr;
     private String billLabel;
 
     private String billerCode;
 
+    private String default_account;
+    private int max_amount;
 
 
-    public CardItemProfile(String title, String description, String serviceNameAr, String billingNo, String iconUrl, int isDeleted, String id, String billerCode)  {
+
+
+    public CardItemProfile(String title, String description, String serviceNameAr, String billingNo, String iconUrl, int isDeleted, String id, String billerCode, int auto_pay, String default_account,int max_amount)  {
         this.title = title;
         this.description = description;
         this.serviceNameAr = serviceNameAr;
@@ -30,6 +36,9 @@ public class CardItemProfile {
         this.isDeleted = isDeleted;
         this.id = id;
         this.billerCode = billerCode;
+        this.auto_pay = auto_pay;
+        this.default_account = default_account;
+        this.max_amount = max_amount;
     }
     public String getServiceNameEn() {
         return serviceNameEn;
@@ -76,5 +85,17 @@ public class CardItemProfile {
 
     public void setBillerCode(String billerCode) {
         this.billerCode = billerCode;
+    }
+
+    public int getAuto_pay() {
+        return auto_pay;
+    }
+
+    public String getDefault_account() {
+        return default_account;
+    }
+
+    public int getMax_amount() {
+        return max_amount;
     }
 }

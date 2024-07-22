@@ -120,13 +120,14 @@
             holder.serviceName.setText(item.getServiceNameAr());
             Picasso.get().load(item.getIconUrl()).into(holder.image);
             holder.billingNo.setText(item.getBillingNo());
-        //    holder.status.setText(item.getIsDeleted() == 0 ? "مفعلة" : "غير مفعلة");
-            if (item.getIsDeleted() == 0) {
-                holder.status.setText("مفعلة");
+           holder.status.setText(item.getAuto_pay() == 1 ?  "الدفع التلقائي مفعل": "الدفع التلقائي غير مفعل");
+            if (item.getAuto_pay() == 1) {
+                holder.status.setText("الدفع التلقائي مفعل");
                 holder.status.setTextColor(mContext.getResources().getColor(android.R.color.white));
                 holder.status.setBackgroundResource(R.drawable.rounded_background_g);
             } else {
-                holder.status.setText("غير مفعلة");
+                holder.status.setText("الدفع التلقائي غير مفعل");
+                holder.status.setVisibility(View.GONE);
                 holder.status.setTextColor(mContext.getResources().getColor(android.R.color.white));
                 holder.status.setBackgroundResource(R.drawable.rounded_background_red);
             }
@@ -143,7 +144,7 @@
             holder.buttonEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AutoPaySepBills dialogFragment = AutoPaySepBills.newInstance(sharedViewModel, item.getDescription(), item.getId());
+                    AutoPaySepBills dialogFragment = new AutoPaySepBills(sharedViewModel, item.getDescription(),item.getId(),item.getAuto_pay(),item.getMax_amount(),item.getDefault_account());
                     FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
                     dialogFragment.show(ft, "Edit_payment_dialog");
                 }
@@ -337,6 +338,8 @@
             TextView serviceName;
             TextView billingNo;
             TextView status;
+
+
             ImageView image;
             Button buttonSearch;
             Button buttonDelete;

@@ -143,8 +143,13 @@ public class SecondFragment extends Fragment {
                     String iconUrl = bill.optString("logoName", "N/A");
                     String billerCode = bill.optString("billerCode", "N/A");
                     int isDeleted = bill.optInt("is_deleted", 1);
+
                     String id = bill.optString("id", "N/A");
-                    cardItemList.add(new CardItemProfile(billerNameAr, billLabel,serviceNameAr, billingNo, iconUrl.replace("..", Constants.BASE_URL_SEP_ICON), isDeleted,id,billerCode));
+                    int isAutoPay = bill.optInt("auto_pay", 1);
+                    int max_amount = Integer.parseInt(bill.optString("max_amount", "N/A"));
+                    String default_account = bill.optString("default_account", "N/A");
+
+                    cardItemList.add(new CardItemProfile(billerNameAr, billLabel,serviceNameAr, billingNo, iconUrl.replace("..", Constants.BASE_URL_SEP_ICON), isDeleted,id,billerCode,isAutoPay,default_account,max_amount));
                 }
 
             } catch (IOException | JSONException e) {

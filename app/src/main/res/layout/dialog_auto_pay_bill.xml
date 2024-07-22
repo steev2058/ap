@@ -160,9 +160,10 @@
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textDirection="ltr"
             android:drawableStart="@drawable/ic_hashtag"
             android:drawablePadding="@dimen/margin_small"
-            android:inputType="text"
             android:hint="مثال : 10,000 SP"
             android:maxLines="1"
             app:layout_constraintTop_toBottomOf="@id/textView3"
@@ -175,27 +176,28 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="وقت التحقق"
-            android:visibility="gone"
+            android:text="* سيتم التحقق من صدور الفواتير بشكل أسبوعي"
+            android:visibility="visible"
             android:textColor="@color/gray"
+            android:textSize="@dimen/_10sdp"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/max_amount" />
-        <EditText
-            android:id="@+id/pick_time"
-            style="@style/InputEt"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_time_sep"
-            android:drawablePadding="@dimen/margin_small"
-            android:inputType="text"
-            android:hint=""
-            android:visibility="gone"
-            android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@id/textView4"
-            android:text=""
-            android:textColor="@color/gray" />
+<!--        <EditText-->
+<!--            android:id="@+id/pick_time"-->
+<!--            style="@style/InputEt"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:drawableStart="@drawable/ic_time_sep"-->
+<!--            android:drawablePadding="@dimen/margin_small"-->
+<!--            android:inputType="text"-->
+<!--            android:hint=""-->
+<!--            android:visibility="gone"-->
+<!--            android:maxLines="1"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/textView4"-->
+<!--            android:text=""-->
+<!--            android:textColor="@color/gray" />-->
 
 
 
@@ -210,7 +212,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="تحديث البيانات"
-            app:layout_constraintTop_toBottomOf="@+id/pick_time" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

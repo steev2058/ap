@@ -20,7 +20,7 @@
         android:id="@+id/divider_contact_time23"
         android:layout_width="380dp"
         android:layout_height="1dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="120dp"
         android:layout_marginBottom="0dp"
         android:background="@color/bright_gray"/>
 
@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Status"
-            android:visibility="gone"
+            android:layout_marginTop="5dp"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -124,6 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
+
         android:gravity="center">
 
         <Button

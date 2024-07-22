@@ -451,7 +451,11 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
 
 
                 } else {
-                    Toast.makeText(requireContext(), "لا يوجد فواتير لعرضها", Toast.LENGTH_SHORT).show();
+                    new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("خطأ")
+                            .setContentText("لا يوجد فواتير لعرضها")
+                            .show();
+
                     // Display the error description if available
                     if (!errorDescription.isEmpty()) {
                         Toast.makeText(requireContext(), errorDescription, Toast.LENGTH_SHORT).show();
@@ -460,7 +464,12 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(requireContext(), "لا يوجد فواتير للدفع", Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("النتيجة")
+                        .setContentText("لا يوجد فواتير للدفع")
+                        .show();
+
+
             }
         } else {
             Toast.makeText(requireContext(), "حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا", Toast.LENGTH_SHORT).show();

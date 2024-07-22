@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_bar"
         android:layout_marginTop="8dp"
+        android:visibility="gone"
         android:orientation="horizontal"
         android:gravity="center">
 
@@ -83,7 +84,7 @@
                 android:id="@+id/grid_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="205dp"
+                android:layout_marginTop="165dp"
                 android:numColumns="1"
                 android:verticalSpacing="8dp"
                 android:horizontalSpacing="8dp"

@@ -4,6 +4,7 @@
     import android.app.TimePickerDialog;
     import android.os.AsyncTask;
     import android.os.Bundle;
+    import android.util.Log;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
@@ -26,6 +27,7 @@
     import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
     import com.apps2you.albaraka.ui.sep.bill.Service;
     import com.apps2you.albaraka.utils.Constants;
+    import com.apps2you.albaraka.utils.NumberTextWatcher;
     import com.apps2you.albaraka.viewmodels.SharedViewModel;
 
     import org.json.JSONArray;
@@ -44,7 +46,7 @@
 
     public class AutoPaySepBills extends DialogFragment{
         private Spinner spinnerAccounts;
-        private EditText pickTimeEditText;
+      //  private EditText pickTimeEditText;
 
         private List<String> accountList = new ArrayList<>();
         private List<Category> categoriesList = new ArrayList<>();
@@ -56,15 +58,21 @@
         private Biller selectedBiller;
         private String billLabel;
         private String id;
+
+        private String defaultAccount;
+        private int autoPay;
+        private int maxA;
+
+//        private String id;
         private List<BillingNumber> selectedBillingNumbers = new ArrayList<>();
 
         private SweetAlertDialog progressDialog;
 
         private EditText billLabelEditText;
 
-        private static final String ARG_BILL_LABEL = "bill_label";
-        private static final String ARG_ID = "id";
-        private EditText idEditText;
+//        private static final String ARG_BILL_LABEL = "bill_label";
+//        private static final String ARG_ID = "id";
+//        private EditText idEditText;
         // Define the views to hide/show
         private View dividerNotification;
         private TextView textView2;
@@ -74,22 +82,22 @@
         private TextView textView4;
         private EditText maxAmount;
 
-        public static AutoPaySepBills newInstance(SharedViewModel sharedViewModel, String billLabel, String id) {
-            AutoPaySepBills fragment = new AutoPaySepBills(sharedViewModel,billLabel,id);
-            Bundle args = new Bundle();
-            args.putString(ARG_BILL_LABEL, billLabel);
-            args.putString(ARG_ID, id);
-            fragment.setArguments(args);
-            return fragment;
-        }
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            if (getArguments() != null) {
-                billLabel = getArguments().getString(ARG_BILL_LABEL);
-                id = getArguments().getString(ARG_ID);
-            }
-        }
+//        public static AutoPaySepBills newInstance(SharedViewModel sharedViewModel, String billLabel, String id) {
+//            AutoPaySepBills fragment = new AutoPaySepBills(sharedViewModel,billLabel,id);
+//            Bundle args = new Bundle();
+//            args.putString(ARG_BILL_LABEL, billLabel);
+//            args.putString(ARG_ID, id);
+//            fragment.setArguments(args);
+//            return fragment;
+//        }
+//        @Override
+//        public void onCreate(@Nullable Bundle savedInstanceState) {
+//            super.onCreate(savedInstanceState);
+//            if (getArguments() != null) {
+//                billLabel = getArguments().getString(ARG_BILL_LABEL);
+//                id = getArguments().getString(ARG_ID);
+//            }
+//        }
         @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -98,8 +106,8 @@
             spinnerAccounts = view.findViewById(R.id.spinner_accounts);
             Button buttonAddToFile = view.findViewById(R.id.button_submit);
             billLabelEditText = view.findViewById(R.id.billLabel);
-            pickTimeEditText = view.findViewById(R.id.pick_time);
-
+       //     pickTimeEditText = view.findViewById(R.id.pick_time);
+            maxAmount = view.findViewById(R.id.max_amount);
 
 
 
@@ -110,11 +118,11 @@
             imageViewCatigories = view.findViewById(R.id.imageView_catigories);
             textView3 = view.findViewById(R.id.textView3);
             textView4 = view.findViewById(R.id.textView4);
-            maxAmount = view.findViewById(R.id.max_amount);
+
 
 
             billLabelEditText.setText(billLabel);
-
+            maxAmount.setText(String.valueOf(maxA));
             progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
             progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
             progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
@@ -122,17 +130,19 @@
             progressDialog.setCancelable(false);
 
 
-            pickTimeEditText.setOnClickListener(v -> showTimePickerDialog());
+         //   pickTimeEditText.setOnClickListener(v -> showTimePickerDialog());
 
             sharedViewModel.getUserData().observe(getViewLifecycleOwner(), userData -> {
                 if (userData != null) {
                     token = userData.getToken();
-                    new FetchAccountsTask().execute();
+
                 }
             });
             // Set OnCheckedChangeListener for the switch
             SwitchCompat switchAutoPay = view.findViewById(R.id.switch_auto_pay);
+            switchAutoPay.setChecked(autoPay == 1);
             switchAutoPay.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                new FetchAccountsTask().execute();
                 if (isChecked) {
                     dividerNotification.setVisibility(View.VISIBLE);
                     textView2.setVisibility(View.VISIBLE);
@@ -141,7 +151,7 @@
                     textView3.setVisibility(View.VISIBLE);
                     textView4.setVisibility(View.VISIBLE);
                     maxAmount.setVisibility(View.VISIBLE);
-                    pickTimeEditText.setVisibility(View.VISIBLE);
+                   // pickTimeEditText.setVisibility(View.VISIBLE);
                 } else {
                     dividerNotification.setVisibility(View.GONE);
                     textView2.setVisibility(View.GONE);
@@ -150,27 +160,29 @@
                     textView3.setVisibility(View.GONE);
                     textView4.setVisibility(View.GONE);
                     maxAmount.setVisibility(View.GONE);
-                    pickTimeEditText.setVisibility(View.GONE);
+                   // pickTimeEditText.setVisibility(View.GONE);
                 }
             });
+            maxAmount.addTextChangedListener(new NumberTextWatcher(maxAmount));
             buttonAddToFile.setOnClickListener(v -> {
                 new SendAutoPayDataTask().execute();
+
             });
 
             return view;
         }
 
-        private void showTimePickerDialog() {
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-
-            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), (TimePicker view, int hourOfDay, int selectedMinute) -> {
-                pickTimeEditText.setText(String.format("%02d:%02d", hourOfDay, selectedMinute));
-            }, hour, minute, true);
-
-            timePickerDialog.show();
-        }
+//        private void showTimePickerDialog() {
+//            Calendar calendar = Calendar.getInstance();
+//            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//            int minute = calendar.get(Calendar.MINUTE);
+//
+//            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), (TimePicker view, int hourOfDay, int selectedMinute) -> {
+//                pickTimeEditText.setText(String.format("%02d:%02d", hourOfDay, selectedMinute));
+//            }, hour, minute, true);
+//
+//            timePickerDialog.show();
+//        }
         private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
 
             @Override
@@ -200,14 +212,21 @@
                         in.close();
 
                         JSONObject jsonResponse = new JSONObject(response.toString());
-                        JSONArray accountsArray = jsonResponse.getJSONArray("data");
-                        for (int i = 0; i < accountsArray.length(); i++) {
-                            JSONObject accountObject = accountsArray.getJSONObject(i);
-                            String accountName = accountObject.getString("BRIEFos_gl_name_arab");
-                            String accountReference = accountObject.getString("os_add_reference");
-                            String accountDisplay = "" + accountReference + " "+accountName ;
+                        int errorCode = jsonResponse.getInt("ErrorCode");
+                        if (errorCode == 200) {
+                            JSONArray accountsArray = jsonResponse.getJSONArray("data");
+                            for (int i = 0; i < accountsArray.length(); i++) {
+                                JSONObject accountObject = accountsArray.getJSONObject(i);
+                                String accountNameArabic = accountObject.getString("BRIEFos_gl_name_arab");
+                                String accountNameEnglish = accountObject.getString("BRIEF_gl_name_eng");
+                                String accountReference = accountObject.optString("os_add_reference", "");
+                                String accountDisplay = accountReference.isEmpty() ? accountNameArabic : accountReference + " " + accountNameArabic;
 
-                            accounts.add(accountDisplay);
+                                accounts.add(accountDisplay);
+                            }
+                        } else {
+                            // Handle error scenario
+                            // You can add a message or log the error as needed
                         }
                     }
                 } catch (Exception e) {
@@ -224,18 +243,33 @@
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, accountList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerAccounts.setAdapter(adapter);
+
+                // Set the default account
+                if (defaultAccount != null && !defaultAccount.isEmpty()) {
+                    for (int i = 0; i < accountList.size(); i++) {
+                        if (accountList.get(i).startsWith(defaultAccount)) {
+                            spinnerAccounts.setSelection(i);
+                            break;
+                        }
+                    }
             }
         }
+        }
 
-        public AutoPaySepBills(SharedViewModel sharedViewModel, String billLabel,String id) {
+
+        public AutoPaySepBills(SharedViewModel sharedViewModel, String billLabel,String id, int autoPay, int maxAmount, String defaultAccount) {
             this.sharedViewModel = sharedViewModel;
             this.billLabel = billLabel;
             this.id = id;
+            this.autoPay = autoPay;
+            this.maxA = maxAmount;
+            this.defaultAccount = defaultAccount;
 
         }
 
         private class SendAutoPayDataTask extends AsyncTask<Void, Void, Boolean> {
-            private String maxAmount;
+            private int maxAmount;
+            private String billLabelR;
             private String pickTime;
             private boolean autoPay;
             private String defaultAccount;
@@ -245,11 +279,15 @@
                 super.onPreExecute();
                 showProgress();
 
+
                 // Collect data from UI
-                maxAmount = ((EditText) getView().findViewById(R.id.max_amount)).getText().toString();
-                pickTime = ((EditText) getView().findViewById(R.id.pick_time)).getText().toString() + ":00";
+                maxAmount = Integer.parseInt(((EditText) getView().findViewById(R.id.max_amount)).getText().toString());
+                billLabelR = ((EditText) getView().findViewById(R.id.billLabel)).getText().toString();
+               // pickTime = ((EditText) getView().findViewById(R.id.pick_time)).getText().toString() + ":00";
                 autoPay = ((SwitchCompat) getView().findViewById(R.id.switch_auto_pay)).isChecked();
                 defaultAccount = ((Spinner) getView().findViewById(R.id.spinner_accounts)).getSelectedItem().toString().split(" ")[0];
+
+
             }
 
             @Override
@@ -264,11 +302,10 @@
 
                     JSONObject jsonRequest = new JSONObject();
                     jsonRequest.put("id", id);
-                    jsonRequest.put("autoPay", autoPay);
-                    jsonRequest.put("defaultAccount", defaultAccount);
-                    jsonRequest.put("maxAmount", maxAmount);
-                    jsonRequest.put("pickTime", pickTime);
-                    jsonRequest.put("billLabel", billLabel);
+                    jsonRequest.put("auto_pay", autoPay ? 1 : 0);
+                    jsonRequest.put("default_account", defaultAccount);
+                    jsonRequest.put("max_amount", maxAmount);
+                    jsonRequest.put("billLabel", billLabelR);
 
                     try (OutputStream os = connection.getOutputStream()) {
                         byte[] input = jsonRequest.toString().getBytes("utf-8");
@@ -276,6 +313,7 @@
                     }
 
                     int responseCode = connection.getResponseCode();
+                    String responsemsg = connection.getResponseMessage();
                     return responseCode == HttpURLConnection.HTTP_OK;
                 } catch (Exception e) {
                     e.printStackTrace();
