@@ -143,11 +143,12 @@
             holder.buttonEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AutoPaySepBills dialogFragment = new AutoPaySepBills(sharedViewModel,item.getDescription(),item.getId());
+                    AutoPaySepBills dialogFragment = AutoPaySepBills.newInstance(sharedViewModel, item.getDescription(), item.getId());
                     FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
                     dialogFragment.show(ft, "Edit_payment_dialog");
                 }
             });
+
 
 
             // Set search button listener

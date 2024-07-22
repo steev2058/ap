@@ -62,6 +62,8 @@
 
         private EditText billLabelEditText;
 
+        private static final String ARG_BILL_LABEL = "bill_label";
+        private static final String ARG_ID = "id";
         private EditText idEditText;
         // Define the views to hide/show
         private View dividerNotification;
@@ -69,8 +71,25 @@
 
         private ImageView imageViewCatigories;
         private TextView textView3;
+        private TextView textView4;
         private EditText maxAmount;
 
+        public static AutoPaySepBills newInstance(SharedViewModel sharedViewModel, String billLabel, String id) {
+            AutoPaySepBills fragment = new AutoPaySepBills(sharedViewModel,billLabel,id);
+            Bundle args = new Bundle();
+            args.putString(ARG_BILL_LABEL, billLabel);
+            args.putString(ARG_ID, id);
+            fragment.setArguments(args);
+            return fragment;
+        }
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            if (getArguments() != null) {
+                billLabel = getArguments().getString(ARG_BILL_LABEL);
+                id = getArguments().getString(ARG_ID);
+            }
+        }
         @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,17 +102,19 @@
 
 
 
+
             // Initialize the views
             dividerNotification = view.findViewById(R.id.divider_notification);
             textView2 = view.findViewById(R.id.textView2);
 
             imageViewCatigories = view.findViewById(R.id.imageView_catigories);
             textView3 = view.findViewById(R.id.textView3);
+            textView4 = view.findViewById(R.id.textView4);
             maxAmount = view.findViewById(R.id.max_amount);
 
 
             billLabelEditText.setText(billLabel);
-            idEditText.setText(id);
+
             progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
             progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
             progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
@@ -118,6 +139,7 @@
                     spinnerAccounts.setVisibility(View.VISIBLE);
                     imageViewCatigories.setVisibility(View.VISIBLE);
                     textView3.setVisibility(View.VISIBLE);
+                    textView4.setVisibility(View.VISIBLE);
                     maxAmount.setVisibility(View.VISIBLE);
                     pickTimeEditText.setVisibility(View.VISIBLE);
                 } else {
@@ -126,6 +148,7 @@
                     spinnerAccounts.setVisibility(View.GONE);
                     imageViewCatigories.setVisibility(View.GONE);
                     textView3.setVisibility(View.GONE);
+                    textView4.setVisibility(View.GONE);
                     maxAmount.setVisibility(View.GONE);
                     pickTimeEditText.setVisibility(View.GONE);
                 }
@@ -240,12 +263,12 @@
                     connection.setDoOutput(true);
 
                     JSONObject jsonRequest = new JSONObject();
-                    jsonRequest.put("id", idEditText.getText().toString());
-                    jsonRequest.put("billLabel", billLabelEditText.getText().toString());
-                    jsonRequest.put("max_amount", maxAmount);
-                    jsonRequest.put("time_to_check", pickTime);
-                    jsonRequest.put("auto_pay", autoPay ? "1" : "0");
-                    jsonRequest.put("default_account", defaultAccount);
+                    jsonRequest.put("id", id);
+                    jsonRequest.put("autoPay", autoPay);
+                    jsonRequest.put("defaultAccount", defaultAccount);
+                    jsonRequest.put("maxAmount", maxAmount);
+                    jsonRequest.put("pickTime", pickTime);
+                    jsonRequest.put("billLabel", billLabel);
 
                     try (OutputStream os = connection.getOutputStream()) {
                         byte[] input = jsonRequest.toString().getBytes("utf-8");
