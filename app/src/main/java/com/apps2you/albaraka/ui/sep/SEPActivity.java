@@ -48,14 +48,14 @@ public class SEPActivity extends BaseActivity<ActivitySepBinding, SEPViewModel> 
 
     @Override
     public void onBackPressed() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_sep, new SEPFragment());
-        transaction.commit();
-//        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_sep);
-//        NavController navController = navHostFragment.getNavController();
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.fragment_sep, new SEPFragment());
+//        transaction.commit();
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_sep);
+        NavController navController = navHostFragment.getNavController();
 
         // Check if there's anything to pop from the back stack
-        if (!transaction.isEmpty() ) {
+        if (!navController.popBackStack()) {
             super.onBackPressed(); // Call super to handle default back press behavior
         }
     }
