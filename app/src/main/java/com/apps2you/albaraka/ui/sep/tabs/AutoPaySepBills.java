@@ -135,14 +135,14 @@
             sharedViewModel.getUserData().observe(getViewLifecycleOwner(), userData -> {
                 if (userData != null) {
                     token = userData.getToken();
-
+                    new FetchAccountsTask().execute();
                 }
             });
             // Set OnCheckedChangeListener for the switch
             SwitchCompat switchAutoPay = view.findViewById(R.id.switch_auto_pay);
             switchAutoPay.setChecked(autoPay == 1);
             switchAutoPay.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                new FetchAccountsTask().execute();
+
                 if (isChecked) {
                     dividerNotification.setVisibility(View.VISIBLE);
                     textView2.setVisibility(View.VISIBLE);

@@ -48,6 +48,9 @@ public class SEPActivity extends BaseActivity<ActivitySepBinding, SEPViewModel> 
 
     @Override
     public void onBackPressed() {
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.fragment_sep, new SEPFragment());
+//        transaction.commit();
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_sep);
         NavController navController = navHostFragment.getNavController();
 

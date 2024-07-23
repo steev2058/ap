@@ -124,11 +124,15 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
             }
         } else {
         // Handle the case when responseData is null
-        Toast.makeText(requireContext(), "Response data is null", Toast.LENGTH_SHORT).show();
+            new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Error")
+                    .setContentText("خطأ في الخادم,يرجى المحاولة لاحقا")
+                    .show();
+
     }
 
 
-
+        setBackButtonAction(mViewDataBinding.getRoot());
 
         checkboxAllBills.setOnCheckedChangeListener((buttonView, isChecked) -> {
             for (CheckBox checkBox : cardCheckboxes) {
@@ -212,7 +216,34 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                 statusTextView.setBackgroundResource(R.drawable.rounded_background_orange);
                 statusTextView.setVisibility(View.VISIBLE);
-
+                cardCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    if (!isChecked) {
+                        checkboxAllBills.setOnCheckedChangeListener(null);
+                        checkboxAllBills.setChecked(false);
+                        checkboxAllBills.setOnCheckedChangeListener((buttonView1, isChecked1) -> {
+                            for (CheckBox checkBox : cardCheckboxes) {
+                                checkBox.setChecked(isChecked1);
+                            }
+                        });
+                    } else {
+                        boolean allChecked = true;
+                        for (CheckBox checkBox : cardCheckboxes) {
+                            if (!checkBox.isChecked()) {
+                                allChecked = false;
+                                break;
+                            }
+                        }
+                        if (allChecked) {
+                            checkboxAllBills.setOnCheckedChangeListener(null);
+                            checkboxAllBills.setChecked(true);
+                            checkboxAllBills.setOnCheckedChangeListener((buttonView1, isChecked1) -> {
+                                for (CheckBox checkBox : cardCheckboxes) {
+                                    checkBox.setChecked(isChecked1);
+                                }
+                            });
+                        }
+                    }
+                });
                 cardCheckboxes.add(cardCheckbox);
                 cardsContainer.addView(cardView);
             }
@@ -250,7 +281,11 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(requireContext(), "لا يوجد فواتير لعرضها", Toast.LENGTH_SHORT).show();
+            new SweetAlertDialog(getContext(), SweetAlertDialog.NORMAL_TYPE)
+                    .setTitleText("استعلام")
+                    .setContentText("لا يوجد فواتير لعرضها")
+                    .show();
+
         }
     }
 
@@ -268,6 +303,15 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         }
     }
 
+    protected void onBackPressed() {
+        requireActivity().onBackPressed();
+    }
+    private void setBackButtonAction(View view) {
+        try {
+            view.findViewById(R.id.back_button).setOnClickListener(v -> onBackPressed());
+        } catch (Exception ignored) {
+        }
+    }
 
 
     class SendPostRequestTask2 extends AsyncTask<String, Void, StringBuilder> {
@@ -357,13 +401,20 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 String errorDescription = responseJson.getString("ErrorDescription");
 
                 if ("000".equals(errorCode)) {
-                    Toast.makeText(requireContext(), "تم الدفع بنجاح", Toast.LENGTH_LONG).show();
+                    new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Success")
+                            .setContentText("تم الدفع بنجاح")
+                            .show();
+
                     statusTextView.setText("تم دفع الفاتورة بنجاح");
                     statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                     statusTextView.setBackgroundResource(R.drawable.rounded_background_g);
                     statusTextView.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(requireContext(), "هناك خطأ: " + errorDescription, Toast.LENGTH_LONG).show();
+                    new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Error")
+                            .setContentText("هناك خطأ: " + errorDescription)
+                            .show();
                     statusTextView.setText("فشلت العملية");
                     statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                     statusTextView.setBackgroundResource(R.drawable.rounded_background_red);
@@ -371,7 +422,11 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(requireContext(), "هناك خطأ " , Toast.LENGTH_LONG).show();
+                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("خطأ")
+                        .setContentText("يرجى المحاولة مرة أخرى")
+                        .show();
+
 
             }
         }
@@ -383,9 +438,10 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         return selectedFromAccount.getNumber();
     }
     private String formatDateString(String dateString) {
-        // Example format: yyyy-MM-dd
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        // Example input format: yyyyMMddHHmm
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
+        // Desired output format: yyyy-MM-dd
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         try {
             Date date = inputFormat.parse(dateString);
             return outputFormat.format(date);
@@ -394,5 +450,6 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
             return dateString;
         }
     }
+
 }
 

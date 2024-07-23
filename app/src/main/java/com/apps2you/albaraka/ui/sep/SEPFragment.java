@@ -160,8 +160,9 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         bundle.putString("address", userData.getAddress());
         bundle.putString("token", userData.getToken());
 
-        NavController navController = Navigation.findNavController(requireView());
-        navController.navigate(R.id.action_firstFragment_to_fragment_sep_user, bundle);
+        navController.navigate(SEPFragmentDirections.actionFirstFragmentToFragmentSepUser() );
+//        NavController navController = Navigation.findNavController(requireView());
+//        navController.navigate(R.id.action_firstFragment_to_fragment_sep_user, bundle);
     }
     private class AssignTokenTask extends AsyncTask<String, Void, String> {
         @Override
@@ -212,10 +213,10 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
                     userData.setToken(data.getString("token"));
                     sharedViewModel.setUserData(userData);
 
-                    Toast.makeText(requireContext(), "Data fetched successfully", Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(requireContext(), "Data fetched successfully", Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(requireContext(), "Error parsing response", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "الخادم خارج الخدمة", Toast.LENGTH_LONG).show();
                 }
             }
         }

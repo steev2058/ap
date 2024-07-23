@@ -1,6 +1,7 @@
     package com.apps2you.albaraka.ui.sep.tabs;
 
     import android.content.Context;
+    import android.graphics.Color;
     import android.os.AsyncTask;
     import android.os.Bundle;
     import android.view.LayoutInflater;
@@ -50,7 +51,7 @@
         private SweetAlertDialog progressDialog;
 
         public CardAdapterTwo(Context context, List<CardItemProfile> cardItemList, String token,Fragment fragment,SharedViewModel sharedViewModel) {
-            mContext = context;
+            this.mContext = context;
             mCardItemList = cardItemList;
             this.originalList = new ArrayList<>(cardItemList);
             this.filteredList = new ArrayList<>(cardItemList);
@@ -249,6 +250,7 @@
                         handleSearchResponse(jsonObject,billerCode);
                     } catch (JSONException e) {
                         e.printStackTrace();
+
                         Toast.makeText(mContext, "Failed to parse response", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -322,8 +324,16 @@
                 if (success) {
                     mCardItemList.remove(position);
                     notifyDataSetChanged();
+//                    new SweetAlertDialog(mContext, SweetAlertDialog.SUCCESS_TYPE)
+//                            .setTitleText("Success")
+//                            .setContentText("تم حذف الفاتورة بنجاح")
+//                            .show();
                     Toast.makeText(mContext, "تم حذف الفاتورة بنجاح", Toast.LENGTH_SHORT).show();
                 } else {
+//                    new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
+//                            .setTitleText("Error")
+//                            .setContentText("فشل عملية حذف الفاتورة")
+//                            .show();
                     Toast.makeText(mContext, "فشل عملية حذف الفاتورة", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -345,11 +355,26 @@
             Button buttonDelete;
             Button buttonEdit;
         }
-        protected void showProgress() {
+        private void showProgress() {
+            if (progressDialog == null) {
+                progressDialog = new SweetAlertDialog(mContext, SweetAlertDialog.PROGRESS_TYPE);
+                progressDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                progressDialog.setTitleText("Loading");
+                progressDialog.setCancelable(false);
+            }
             progressDialog.show();
         }
 
-        protected void hideProgress() {
-            progressDialog.dismiss();
+        private void hideProgress() {
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
         }
+//        protected void showProgress() {
+//            progressDialog.show();
+//        }
+//
+//        protected void hideProgress() {
+//            progressDialog.dismiss();
+//        }
     }

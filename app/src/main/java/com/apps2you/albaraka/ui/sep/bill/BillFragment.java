@@ -117,7 +117,7 @@ public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewMode
             }
         });
 
-
+        setBackButtonAction(mViewDataBinding.getRoot());
         // Retrieve data passed from FirstFragment
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -453,26 +453,26 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
                 } else {
                     new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("خطأ")
-                            .setContentText("لا يوجد فواتير لعرضها")
+                            .setContentText(errorDescription+ "رقم الفوترة غير موجود أو هناك خطأ برقم الفوترة ")
                             .show();
 
-                    // Display the error description if available
-                    if (!errorDescription.isEmpty()) {
-                        Toast.makeText(requireContext(), errorDescription, Toast.LENGTH_SHORT).show();
-                    }
 
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("النتيجة")
+                new SweetAlertDialog(getContext(), SweetAlertDialog.NORMAL_TYPE)
+                        .setTitleText("نتيجة الاستعلام")
                         .setContentText("لا يوجد فواتير للدفع")
                         .show();
 
 
             }
         } else {
-            Toast.makeText(requireContext(), "حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا", Toast.LENGTH_SHORT).show();
+            new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("خطأ")
+                    .setContentText("حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا")
+                    .show();
+
         }
     }
 
@@ -566,10 +566,8 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
 
             hideProgress();
 
-            Toast.makeText(requireContext(), responseData.toString(), Toast.LENGTH_LONG).show();
+        //    Toast.makeText(requireContext(), responseData.toString(), Toast.LENGTH_LONG).show();
 
-            // Handle response data
-            // Note: You can add further handling here if needed
         }
     }
 
@@ -663,7 +661,7 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(requireContext(), "لا يوجد فواتير للعرض", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(requireContext(), "لا يوجد فواتير للعرض", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -679,6 +677,15 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
     }
 
 
+    protected void onBackPressed() {
+        requireActivity().onBackPressed();
+    }
+    private void setBackButtonAction(View view) {
+        try {
+            view.findViewById(R.id.back_button).setOnClickListener(v -> onBackPressed());
+        } catch (Exception ignored) {
+        }
+    }
 
 
 }

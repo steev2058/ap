@@ -11,14 +11,17 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.R;
+import com.apps2you.albaraka.ui.sep.SEPFragmentDirections;
 import com.apps2you.albaraka.ui.sep.bill.Biller;
 import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
 import com.apps2you.albaraka.ui.sep.bill.Service;
+import com.apps2you.albaraka.ui.transfer.adsl.ADSLFragmentDirections;
 import com.apps2you.albaraka.utils.Constants;
 
 import org.json.JSONArray;
@@ -41,6 +44,7 @@ public class FirstFragment extends Fragment {
     private CardAdapter adapter;
     private ProgressBar loader;
 
+    private NavController navController;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.first_tab, container, false);
@@ -48,35 +52,80 @@ public class FirstFragment extends Fragment {
         loader = rootView.findViewById(R.id.loader);
         loader.setVisibility(View.VISIBLE);
         gridView.setVisibility(View.INVISIBLE);
+       // navController = NavHostFragment.findNavController(this);
         // Execute AsyncTask to fetch data from the API
         new FetchCategoriesTask().execute();
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Get the clicked card item
-                CardItem clickedItem = (CardItem) parent.getItemAtPosition(position);
-
-                // Create a bundle to pass data to the fragment
-                Bundle bundle = new Bundle();
-                bundle.putString("iconUrl", clickedItem.getIconUrl());
-                bundle.putString("categName_ar", clickedItem.getText());
-                bundle.putString("categoryName", clickedItem.getText());
-                bundle.putSerializable("billers", (Serializable) clickedItem.getBillerList());
-                // Navigate to the fragment_bill.xml fragment
-//                NavHostFragment.findNavController(FirstFragment.this)
-//                        .navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
-
-//                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragment_sep);
-//                navController.navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
-
-                NavController navController = Navigation.findNavController(requireView());
-                navController.navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
-            }
-        });
+//        if (navController != null) {  gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                // Get the clicked card item
+//                CardItem clickedItem = (CardItem) parent.getItemAtPosition(position);
+//
+//                // Create a bundle to pass data to the fragment
+//                Bundle bundle = new Bundle();
+//                bundle.putString("iconUrl", clickedItem.getIconUrl());
+//                bundle.putString("categName_ar", clickedItem.getText());
+//                bundle.putString("categoryName", clickedItem.getText());
+//                bundle.putSerializable("billers", (Serializable) clickedItem.getBillerList());
+//
+//                navController.navigate(SEPFragmentDirections.actionFirstFragmentToFragmentBill() );
+//
+//                // Navigate to the fragment_bill.xml fragment
+////                NavHostFragment.findNavController(FirstFragment.this)
+////                        .navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
+//
+//               // NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
+//
+////                NavHostFragment.findNavController(FirstFragment.this)
+////                   .navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
+//
+////                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_bill);
+////                navController.navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
+//            }
+//        });}
+//        else {
+//            Log.e("FirstFragment", "NavController is null");
+//        }
         return rootView;
     }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        // Setup NavController
+        navController = NavHostFragment.findNavController(this);
+
+        // Ensure NavController is not null before using it
+        if (navController != null) {
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // Get the clicked card item
+                    CardItem clickedItem = (CardItem) parent.getItemAtPosition(position);
+
+                    // Create a bundle to pass data to the fragment
+                    Bundle bundle = new Bundle();
+                    bundle.putString("iconUrl", clickedItem.getIconUrl());
+                    bundle.putString("categName_ar", clickedItem.getText());
+                    bundle.putString("categoryName", clickedItem.getText());
+                    bundle.putSerializable("billers", (Serializable) clickedItem.getBillerList());
+
+                 //   navController.navigate(SEPFragmentDirections.actionFirstFragmentToFragmentBill());
+
+                    // Alternative way to navigate with bundle
+                     NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_firstFragment_to_fragment_bill, bundle);
+                }
+            });
+        } else {
+            Log.e("FirstFragment", "NavController is null");
+            refreshFragment();
+        }
+    }
+    private void refreshFragment() {
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+    }
     private class FetchCategoriesTask extends AsyncTask<Void, Void, List<CardItem>> {
 
         @Override

@@ -340,9 +340,17 @@ public class AddPaymentDialogFragment extends DialogFragment {
             hideProgress();
             if (success) {
                 dismiss();
-                Toast.makeText(getContext(), "تم إضافة الفاتورة بنجاح", Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Success")
+                        .setContentText("تم إضافة الفاتورة بنجاح")
+                        .show();
+
             } else {
-                Toast.makeText(getContext(), "فشل عملية إضافة الفاتورة", Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Error")
+                        .setContentText("فشل عملية إضافة الفاتورة")
+                        .show();
+
             }
         }
 
