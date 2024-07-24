@@ -54,11 +54,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:fillViewport="true"
+                android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_expandable_accounts_recycler">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:id="@+id/ddd"
                     android:layout_marginBottom="10dp"
                     android:layout_height="wrap_content">
 
@@ -119,6 +121,7 @@
                     </LinearLayout>
 
 
+
                     <Button
                         android:id="@+id/button_submit_pay_bills"
                         style="@style/ButtonPrimary"
@@ -129,12 +132,13 @@
                         android:text="دفع الفواتير المختارة"
                         app:layout_constraintTop_toBottomOf="@+id/cards_container" />
 
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </ScrollView>
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

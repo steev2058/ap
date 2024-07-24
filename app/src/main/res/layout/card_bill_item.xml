@@ -46,7 +46,7 @@
                     android:id="@+id/billingNoTextViewح"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="اسم الفاتورة : "
+                    android:text="اسم الفاتورة:"
                     android:textSize="16sp"
                     android:textColor="@android:color/black"/>
 
@@ -79,6 +79,15 @@
                     android:text=""
                     android:textSize="16sp"
                     android:textColor="@android:color/holo_green_dark"/>
+
+                <TextView
+                    android:id="@+id/dueAmountTextViewp3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" ل.س "
+                    android:textSize="16sp"
+
+                    android:textColor="@android:color/holo_green_dark"/>
             </LinearLayout>
 
 <LinearLayout
@@ -98,6 +107,14 @@
         android:text=""
         android:textSize="16sp"
         android:textColor="@android:color/holo_green_dark"/>
+    <TextView
+        android:id="@+id/feeAmountTextViewp3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" ل.س "
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_green_dark"
+       />
 </LinearLayout>
 
 

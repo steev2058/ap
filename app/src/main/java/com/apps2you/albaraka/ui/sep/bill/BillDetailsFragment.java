@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -248,36 +249,65 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 cardsContainer.addView(cardView);
             }
             buttonSubmitPayBills.setOnClickListener(v -> {
+                List<JSONObject> selectedBills = new ArrayList<>();
+                double totalCost = 0.0;
+
                 for (int i = 0; i < cardsContainer.getChildCount(); i++) {
                     View cardView = cardsContainer.getChildAt(i);
                     CheckBox cardCheckbox = cardView.findViewById(R.id.cardCheckbox);
-                    TextView statusTextView = cardView.findViewById(R.id.statusTextView);
 
                     if (cardCheckbox.isChecked()) {
-                        String billingNo = ((TextView) cardView.findViewById(R.id.billingNoTextView)).getText().toString();
-                        String billNo = null;
-                        String dueAmount = ((TextView) cardView.findViewById(R.id.dueAmountTextView)).getText().toString();
-                        String feeAmount = ((TextView) cardView.findViewById(R.id.feeAmountTextView)).getText().toString();
-                        String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
-
                         try {
-                            billNo = data.getJSONObject(i).getString("billNo");
-                            dueAmount = data.getJSONObject(i).getString("dueAmount");
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                        String serviceType = null;
-                        try {
-                            serviceType = data.getJSONObject(i).getString("serviceType");
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                        String accountNumber = getAccountNumber();
+                            JSONObject bill = data.getJSONObject(i);
+                            selectedBills.add(bill);
 
-                        new SendPostRequestTask2(billingNo, billNo, serviceType, billerCode, accountNumber, dueAmount, paidAmt, statusTextView).execute();
+                            double dueAmount = bill.getDouble("dueAmount");
+                            double feeAmount = bill.getDouble("feeAmount");
+                            totalCost += (dueAmount + feeAmount);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
+
+                if (!selectedBills.isEmpty()) {
+                    showConfirmationDialog(selectedBills, totalCost);
+                } else {
+                    Toast.makeText(getContext(), "Please select at least one bill.", Toast.LENGTH_SHORT).show();
+                }
             });
+
+//            buttonSubmitPayBills.setOnClickListener(v -> {
+//                for (int i = 0; i < cardsContainer.getChildCount(); i++) {
+//                    View cardView = cardsContainer.getChildAt(i);
+//                    CheckBox cardCheckbox = cardView.findViewById(R.id.cardCheckbox);
+//                    TextView statusTextView = cardView.findViewById(R.id.statusTextView);
+//
+//                    if (cardCheckbox.isChecked()) {
+//                        String billingNo = ((TextView) cardView.findViewById(R.id.billingNoTextView)).getText().toString();
+//                        String billNo = null;
+//                        String dueAmount = ((TextView) cardView.findViewById(R.id.dueAmountTextView)).getText().toString();
+//                        String feeAmount = ((TextView) cardView.findViewById(R.id.feeAmountTextView)).getText().toString();
+//                        String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
+//
+//                        try {
+//                            billNo = data.getJSONObject(i).getString("billNo");
+//                            dueAmount = data.getJSONObject(i).getString("dueAmount");
+//                        } catch (JSONException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        String serviceType = null;
+//                        try {
+//                            serviceType = data.getJSONObject(i).getString("serviceType");
+//                        } catch (JSONException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        String accountNumber = getAccountNumber();
+//
+//                        new SendPostRequestTask2(billingNo, billNo, serviceType, billerCode, accountNumber, dueAmount, paidAmt, statusTextView).execute();
+//                    }
+//                }
+//            });
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -288,6 +318,66 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
 
         }
     }
+    private void showConfirmationDialog(List<JSONObject> selectedBills, double totalCost) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_confirm_sep_payment, null);
+        builder.setView(dialogView);
+
+        LinearLayout billDetailsContainer = dialogView.findViewById(R.id.bill_details_container);
+        TextView totalCostTextView = dialogView.findViewById(R.id.total_cost_text_view);
+        totalCostTextView.setText(String.format(Locale.getDefault(), "%.2f", totalCost));
+
+        for (JSONObject bill : selectedBills) {
+            View billDetailView = inflater.inflate(R.layout.layout_key_value_item_sep, billDetailsContainer, false);
+            TextView keyTextView = billDetailView.findViewById(R.id.key);
+            TextView valueTextView = billDetailView.findViewById(R.id.value);
+
+            try {
+                double dueAmount = bill.getDouble("dueAmount");
+                double feeAmount = bill.getDouble("feeAmount");
+                double totalAmount = dueAmount + feeAmount;
+
+                keyTextView.setText(getString(R.string.due_amount));
+                valueTextView.setText(String.format(Locale.getDefault(), "%.2f", totalAmount));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            billDetailsContainer.addView(billDetailView);
+        }
+
+        AlertDialog dialog = builder.create();
+
+        dialogView.findViewById(R.id.button_cancel).setOnClickListener(v -> dialog.dismiss());
+
+        dialogView.findViewById(R.id.button_confirm).setOnClickListener(v -> {
+            dialog.dismiss();
+            handlePayBills(selectedBills);
+        });
+
+        dialog.show();
+    }
+    private void handlePayBills(List<JSONObject> selectedBills) {
+        for (JSONObject bill : selectedBills) {
+            try {
+                String billingNo = bill.getString("billingNo");
+                String billNo = bill.getString("billNo");
+                String serviceType = bill.getString("serviceType");
+                String dueAmount = bill.getString("dueAmount");
+                String feeAmount = bill.getString("feeAmount");
+                String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
+                String accountNumber = getAccountNumber();
+
+                TextView statusTextView = new TextView(getContext()); // Placeholder, find the actual view in your layout
+
+                new SendPostRequestTask2(billingNo, billNo, serviceType, billerCode, accountNumber, dueAmount, paidAmt, statusTextView).execute();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public void transfer(){
 

@@ -20,6 +20,7 @@ import com.apps2you.albaraka.MyApplication;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.model.User;
 import com.apps2you.albaraka.data.preference.UserUtils;
+import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
 import com.apps2you.albaraka.databinding.FragmentSepBinding;
 import com.apps2you.albaraka.ui.base.BaseFragment;
 import com.apps2you.albaraka.ui.sep.profile.UserData;
@@ -37,6 +38,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> {
     private SEPViewModel sepViewModel;
@@ -80,7 +85,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
                 if (userData != null) {
                     navigateToUserProfile(userData);
                 } else {
-                    Toast.makeText(requireContext(), "User data not available", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "لا يوجد بيانات للمستخدم لعرضها ,خطأ في الخادم", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -164,7 +169,58 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
 //        NavController navController = Navigation.findNavController(requireView());
 //        navController.navigate(R.id.action_firstFragment_to_fragment_sep_user, bundle);
     }
+
+
     private class AssignTokenTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String token = params[0];
+            String apiUrl = Constants.BASE_URL_SEP + "/Users/assignToken?token=" + token;
+            //NetworkBoundResource.skipTrustedCertificateCheck();
+            OkHttpClient client =  NetworkBoundResource.provideOkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful()) {
+                    return response.body().string();
+                } else {
+                    return "Error: " + response.code();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.getMessage();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if (isAdded()) {
+                try {
+                    JSONObject responseObject = new JSONObject(result);
+                    JSONObject data = responseObject.getJSONObject("data");
+
+                    userData = new UserData();
+                    userData.setArName(data.getString("ArName"));
+                    userData.setAddress(data.getString("Address"));
+                    userData.setPhone(data.getString("Phone"));
+                    userData.setCif(data.getString("cif"));
+                    userData.setToken(data.getString("token"));
+                    sharedViewModel.setUserData(userData);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(requireContext(), "الخادم خارج الخدمة", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private class AssignTokenTask2 extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             String token = params[0];

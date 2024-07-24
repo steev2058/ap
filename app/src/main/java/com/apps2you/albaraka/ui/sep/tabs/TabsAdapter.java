@@ -22,7 +22,7 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position){
         switch (position){
             case 0:
-                return new FirstFragment();
+                return new FirstFragment(sharedModel);
             case 1:
                 return new SecondFragment(sharedModel);
             default:

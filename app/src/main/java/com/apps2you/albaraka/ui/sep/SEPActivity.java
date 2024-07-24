@@ -1,5 +1,7 @@
 package com.apps2you.albaraka.ui.sep;
 
+import android.content.Intent;
+
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -45,18 +47,15 @@ public class SEPActivity extends BaseActivity<ActivitySepBinding, SEPViewModel> 
 
     }
 
-
     @Override
     public void onBackPressed() {
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.fragment_sep, new SEPFragment());
-//        transaction.commit();
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_sep);
-        NavController navController = navHostFragment.getNavController();
+        // Retrieve the NavHostFragment and its NavController
+        Intent intent = new Intent(this, SEPActivity.class);
+        startActivity(intent);
 
-        // Check if there's anything to pop from the back stack
-        if (!navController.popBackStack()) {
-            super.onBackPressed(); // Call super to handle default back press behavior
-        }
+
+        super.onBackPressed();
     }
+
+
 }
