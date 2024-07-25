@@ -451,9 +451,9 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
 
 
                 } else {
-                    new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("خطأ")
-                            .setContentText(errorDescription+ "رقم الفوترة غير موجود أو هناك خطأ برقم الفوترة ")
+                    new SweetAlertDialog(getContext(), SweetAlertDialog.NORMAL_TYPE)
+                            .setTitleText("نتيجة الاستعلام")
+                            .setContentText(errorDescription)
                             .show();
 
 

@@ -25,14 +25,19 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps2you.albaraka.BR;
+import com.apps2you.albaraka.MyApplication;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.model.Account;
 import com.apps2you.albaraka.data.model.City;
+import com.apps2you.albaraka.data.model.User;
+import com.apps2you.albaraka.data.preference.UserUtils;
 import com.apps2you.albaraka.databinding.FragmentBillDetailsBinding;
+import com.apps2you.albaraka.ui.common.dialogs.ConfirmPinDialog;
 import com.apps2you.albaraka.ui.common.model.ADSLProviderUI;
 import com.apps2you.albaraka.ui.transfer.adsl.ADSLForm;
 import com.apps2you.albaraka.ui.transfer.base.BaseTransferFragment;
 import com.apps2you.albaraka.utils.Constants;
+import com.apps2you.albaraka.viewmodels.ConfirmPinViewModel;
 import com.apps2you.albaraka.viewmodels.SharedViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.BillViewModel;
 
@@ -88,6 +93,10 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mViewDataBinding = FragmentBillDetailsBinding.inflate(inflater, container, false);
         View rootView = mViewDataBinding.getRoot();
+
+
+
+
 //        viewModel = new ViewModelProvider(this).get(BillViewModel.class);
 //        mViewDataBinding.setViewModel(viewModel);
 //        mViewDataBinding.setLifecycleOwner(this);
@@ -145,6 +154,27 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
 
         return rootView;
     }
+    private String getUserPinCode() {
+        User user = UserUtils.getInstance(MyApplication.getAppContext()).getUser();
+        return user.getPin_code();
+    }
+    private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
+        ConfirmPinDialog.show(getParentFragmentManager(), pinCode -> {
+            ConfirmPinViewModel viewModel = new ViewModelProvider(this).get(ConfirmPinViewModel.class);
+            viewModel.pinCode.setValue(pinCode);
+            viewModel.checkPinStatus.observe(getViewLifecycleOwner(), isPinValid -> {
+                if (Boolean.TRUE.equals(isPinValid)) {
+                    handlePayBills(selectedBills);
+                } else {
+                    Toast.makeText(getContext(), "Invalid PIN. Please try again.", Toast.LENGTH_SHORT).show();
+                    showPinConfirmationDialog(selectedBills);
+                }
+            });
+            viewModel.check();
+        });
+
+    }
+
 
 
     @Override
@@ -271,7 +301,8 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 }
 
                 if (!selectedBills.isEmpty()) {
-                    showConfirmationDialog(selectedBills, totalCost);
+                   showConfirmationDialog(selectedBills, totalCost);
+
                 } else {
                     Toast.makeText(getContext(), "Please select at least one bill.", Toast.LENGTH_SHORT).show();
                 }
@@ -353,7 +384,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
 
         dialogView.findViewById(R.id.button_confirm).setOnClickListener(v -> {
             dialog.dismiss();
-            handlePayBills(selectedBills);
+            showPinConfirmationDialog(selectedBills);
         });
 
         dialog.show();
@@ -387,14 +418,14 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         if (selectedAccount == null) {
             showToast(R.string.you_must_select_account);
         }  else {
-
-
             nextStep(getString(R.string.ADSL_payment));
         }
     }
 
     protected void onBackPressed() {
+
         requireActivity().onBackPressed();
+
     }
     private void setBackButtonAction(View view) {
         try {

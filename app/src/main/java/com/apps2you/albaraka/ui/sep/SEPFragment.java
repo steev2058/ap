@@ -165,9 +165,9 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         bundle.putString("address", userData.getAddress());
         bundle.putString("token", userData.getToken());
 
-        navController.navigate(SEPFragmentDirections.actionFirstFragmentToFragmentSepUser() );
-//        NavController navController = Navigation.findNavController(requireView());
-//        navController.navigate(R.id.action_firstFragment_to_fragment_sep_user, bundle);
+      //  navController.navigate(SEPFragmentDirections.actionFirstFragmentToFragmentSepUser());
+        NavController navController = Navigation.findNavController(requireView());
+        navController.navigate(R.id.action_firstFragment_to_fragment_sep_user, bundle);
     }
 
 

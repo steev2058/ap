@@ -321,11 +321,7 @@ public class UserSepProfileFragment extends Fragment {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("خطأ")
-                        .setContentText("خطأ في تحميل المفوترين")
-                        .show();
-
+                Toast.makeText(requireContext(), "Error parsing response", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -414,12 +410,7 @@ public class UserSepProfileFragment extends Fragment {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("خطأ")
-                        .setContentText("خطأ في تحميل الفواتير")
-                        .show();
-
-
+                Toast.makeText(requireContext(), "Error parsing response", Toast.LENGTH_LONG).show();
             }
         }
     }

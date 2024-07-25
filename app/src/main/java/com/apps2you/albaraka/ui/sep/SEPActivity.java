@@ -46,13 +46,16 @@ public class SEPActivity extends BaseActivity<ActivitySepBinding, SEPViewModel> 
     public void listenToVariables() {
 
     }
+    public void refreshActivity() {
+        Intent intent = new Intent(this, SEPActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
+        finish();
+    }
 
     @Override
     public void onBackPressed() {
-        // Retrieve the NavHostFragment and its NavController
-        Intent intent = new Intent(this, SEPActivity.class);
-        startActivity(intent);
-
 
         super.onBackPressed();
     }

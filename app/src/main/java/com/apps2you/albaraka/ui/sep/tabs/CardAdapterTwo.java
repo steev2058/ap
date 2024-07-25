@@ -51,6 +51,9 @@
         private SweetAlertDialog progressDialog;
 
         public CardAdapterTwo(Context context, List<CardItemProfile> cardItemList, String token,Fragment fragment,SharedViewModel sharedViewModel) {
+            if (context == null) {
+                throw new IllegalArgumentException("Context cannot be null");
+            }
             this.mContext = context;
             mCardItemList = cardItemList;
             this.originalList = new ArrayList<>(cardItemList);
@@ -244,17 +247,34 @@
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 hideProgress();
-                if (result != null) {
+                if (result != null && !result.isEmpty()) {
                     try {
                         JSONObject jsonObject = new JSONObject(result);
-                        handleSearchResponse(jsonObject,billerCode);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        String errorCode = jsonObject.optString("ErrorCode");
+                        String errorDescription = jsonObject.optString("ErrorDescription");
 
-                        Toast.makeText(mContext, "Failed to parse response", Toast.LENGTH_SHORT).show();
+                        if ("000".equals(errorCode)) {
+
+                            handleSearchResponse(jsonObject,billerCode);
+                        } else {
+                            new SweetAlertDialog(mContext, SweetAlertDialog.NORMAL_TYPE)
+                                    .setTitleText("نتيجة الاستعلام")
+                                    .setContentText(errorDescription)
+                                    .show();
+                        }
+
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                        new SweetAlertDialog(mContext, SweetAlertDialog.NORMAL_TYPE)
+                                .setTitleText("نتيجة الاستعلام")
+                                .setContentText("لا يوجد فواتير للدفع")
+                                .show();
                     }
                 } else {
-                    Toast.makeText(mContext, "Search failed", Toast.LENGTH_SHORT).show();
+                    new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("خطأ")
+                            .setContentText("حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا")
+                            .show();
                 }
             }
         }
