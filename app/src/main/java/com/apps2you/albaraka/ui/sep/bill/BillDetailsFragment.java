@@ -154,25 +154,118 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
 
         return rootView;
     }
-    private String getUserPinCode() {
-        User user = UserUtils.getInstance(MyApplication.getAppContext()).getUser();
-        return user.getPin_code();
-    }
-    private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
-        ConfirmPinDialog.show(getParentFragmentManager(), pinCode -> {
-            ConfirmPinViewModel viewModel = new ViewModelProvider(this).get(ConfirmPinViewModel.class);
-            viewModel.pinCode.setValue(pinCode);
-            viewModel.checkPinStatus.observe(getViewLifecycleOwner(), isPinValid -> {
-                if (Boolean.TRUE.equals(isPinValid)) {
-                    handlePayBills(selectedBills);
-                } else {
-                    Toast.makeText(getContext(), "Invalid PIN. Please try again.", Toast.LENGTH_SHORT).show();
-                    showPinConfirmationDialog(selectedBills);
-                }
-            });
-            viewModel.check();
-        });
+//    private String getUserPinCode() {
+//        User user = UserUtils.getInstance(MyApplication.getAppContext()).getUser();
+//        return user.getPin_code();
+//    }
+//    private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
+//
+//        ConfirmPinDialog.show(getParentFragmentManager(), pinCode -> {
+//
+//            ConfirmPinViewModel viewModel = new ViewModelProvider(this).get(ConfirmPinViewModel.class);
+//
+//
+//            viewModel.pinCode.setValue(pinCode);
+//            viewModel.checkPinStatus.observe(getViewLifecycleOwner(), isPinValid -> {
+//                if (Boolean.TRUE.equals(isPinValid)) {
+//                    handlePayBills(selectedBills);
+//                } else {
+//                    Toast.makeText(getContext(), "Invalid PIN. Please try again.", Toast.LENGTH_SHORT).show();
+//                    showPinConfirmationDialog(selectedBills);
+//                }
+//            });
+//            viewModel.check2();
+//        });
+//
+//    }
+private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
+    ConfirmPinDialog.show(getParentFragmentManager(), pinCode -> {
+        verifyPinAndProceed(pinCode, selectedBills);
+    });
+}
 
+    private void verifyPinAndProceed(String pinCode, List<JSONObject> selectedBills) {
+    new VerifyPinTask(pinCode, selectedBills).execute();
+}
+
+    private class VerifyPinTask extends AsyncTask<Void, Void, Boolean> {
+        private String pinCode;
+        private List<JSONObject> selectedBills;
+        private String errorMessage;
+
+        public VerifyPinTask(String pinCode, List<JSONObject> selectedBills) {
+            this.pinCode = pinCode;
+            this.selectedBills = selectedBills;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showProgress();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            String apiUrl = Constants.BASE_URL_SEP+"/Customer/checkPIN";
+            try {
+                URL url = new URL(apiUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Authorization", "Bearer " + token);
+                connection.setDoOutput(true);
+
+                JSONObject postData = new JSONObject();
+                postData.put("pin", pinCode);
+
+                OutputStream outputStream = connection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                writer.write(postData.toString());
+                writer.flush();
+                writer.close();
+                outputStream.close();
+
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+                    reader.close();
+
+                    JSONObject responseJson = new JSONObject(response.toString());
+                    boolean success = responseJson.getBoolean("data");
+                    if (!success) {
+                        errorMessage = responseJson.getString("ErrorDescription");
+                    }
+                    return success;
+                } else {
+                    errorMessage = "Server error. Please try again.";
+                    return false;
+                }
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+                errorMessage = "Network error. Please try again.";
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            hideProgress();
+            if (success) {
+                handlePayBills(selectedBills);
+            } else {
+                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Error")
+                        .setContentText(errorMessage)
+                        .show();
+                showPinConfirmationDialog(selectedBills); // Show dialog again to retry
+            }
+        }
     }
 
 
@@ -285,6 +378,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 for (int i = 0; i < cardsContainer.getChildCount(); i++) {
                     View cardView = cardsContainer.getChildAt(i);
                     CheckBox cardCheckbox = cardView.findViewById(R.id.cardCheckbox);
+                    TextView statusTextView = cardView.findViewById(R.id.statusTextView);
 
                     if (cardCheckbox.isChecked()) {
                         try {
@@ -400,7 +494,9 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
                 String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
                 String accountNumber = getAccountNumber();
 
-                TextView statusTextView = new TextView(getContext()); // Placeholder, find the actual view in your layout
+                int position = selectedBills.indexOf(bill);
+                View cardView = cardsContainer.getChildAt(position);
+                TextView statusTextView = cardView.findViewById(R.id.statusTextView);
 
                 new SendPostRequestTask2(billingNo, billNo, serviceType, billerCode, accountNumber, dueAmount, paidAmt, statusTextView).execute();
             } catch (JSONException e) {

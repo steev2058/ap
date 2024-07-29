@@ -65,21 +65,30 @@ public class SecondFragment extends Fragment {
         loader.setVisibility(View.VISIBLE);
         gridView.setVisibility(View.INVISIBLE);
         Button addButton = rootView.findViewById(R.id.add_button);
+
+        sharedViewModel.getRefreshData().observe(getViewLifecycleOwner(), refresh -> {
+            if (refresh) {
+                loadData();
+                sharedViewModel.setRefreshData(false); // Reset the flag
+            }
+        });
+
+        loadData();
         addButton.setOnClickListener(v -> {
             AddPaymentDialogFragment dialogFragment = new AddPaymentDialogFragment(sharedViewModel);
             FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
             dialogFragment.show(ft, "add_payment_dialog");
         });
 
-        sharedViewModel.getUserData().observe(getViewLifecycleOwner(), new Observer<UserData>() {
-            @Override
-            public void onChanged(UserData userData) {
-                if (userData != null) {
-                    token = userData.getToken();
-                    new FetchProfileBillsTask().execute();
-                }
-            }
-        });
+//        sharedViewModel.getUserData().observe(getViewLifecycleOwner(), new Observer<UserData>() {
+//            @Override
+//            public void onChanged(UserData userData) {
+//                if (userData != null) {
+//                    token = userData.getToken();
+//                    new FetchProfileBillsTask().execute();
+//                }
+//            }
+//        });
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -107,7 +116,17 @@ public class SecondFragment extends Fragment {
         });
         return rootView;
     }
+    private void loadData() {
+        loader.setVisibility(View.VISIBLE);
+        gridView.setVisibility(View.INVISIBLE);
 
+        sharedViewModel.getUserData().observe(getViewLifecycleOwner(), userData -> {
+            if (userData != null) {
+                token = userData.getToken();
+                new FetchProfileBillsTask().execute();
+            }
+        });
+    }
     private class FetchProfileBillsTask extends AsyncTask<Void, Void, List<CardItemProfile>> {
 
         @Override

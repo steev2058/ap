@@ -65,10 +65,28 @@ public class FirstFragment extends Fragment {
                 new FetchCategoriesTask().execute();
             }
         });
+        sharedViewModel.getRefreshData().observe(getViewLifecycleOwner(), refresh -> {
+            if (refresh) {
+                loadData();
+                sharedViewModel.setRefreshData(false); // Reset the flag
+            }
+        });
+
+        loadData();
 
         return rootView;
     }
+    private void loadData() {
+        loader.setVisibility(View.VISIBLE);
+        gridView.setVisibility(View.INVISIBLE);
 
+        sharedViewModel.getUserData().observe(getViewLifecycleOwner(), userData -> {
+            if (userData != null) {
+                token = userData.getToken();
+                new FetchCategoriesTask().execute();
+            }
+        });
+    }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

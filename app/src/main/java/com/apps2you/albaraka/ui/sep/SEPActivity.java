@@ -4,15 +4,18 @@ import android.content.Intent;
 
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.BR;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.databinding.ActivitySepBinding;
 import com.apps2you.albaraka.ui.base.BaseActivity;
+import com.apps2you.albaraka.viewmodels.SharedViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.SEPViewModel;
 
 public class SEPActivity extends BaseActivity<ActivitySepBinding, SEPViewModel> {
+    private SharedViewModel sharedViewModel;
     @Override
     public int getBindingVariable() {
         return BR.viewModel;
@@ -46,19 +49,13 @@ public class SEPActivity extends BaseActivity<ActivitySepBinding, SEPViewModel> 
     public void listenToVariables() {
 
     }
-    public void refreshActivity() {
-        Intent intent = new Intent(this, SEPActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-
-        finish();
-    }
 
     @Override
     public void onBackPressed() {
 
         super.onBackPressed();
     }
+
 
 
 }

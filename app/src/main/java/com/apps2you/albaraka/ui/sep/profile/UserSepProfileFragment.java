@@ -88,7 +88,7 @@ public class UserSepProfileFragment extends Fragment {
         recyclerViewPayments.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // Assuming paymentsList is already defined and populated
-        paymentsAdapter = new PaymentsAdapter(new ArrayList<>());
+        paymentsAdapter = new PaymentsAdapter(requireContext(),new ArrayList<>());
         recyclerViewPayments.setAdapter(paymentsAdapter);
 
 //        Button addButton = rootView.findViewById(R.id.add_button);
@@ -230,7 +230,7 @@ public class UserSepProfileFragment extends Fragment {
         // Implement your showToast method here
     }
     private void displayPayments(List<JSONObject> payments) {
-        paymentsAdapter = new PaymentsAdapter(payments);
+        paymentsAdapter = new PaymentsAdapter(requireContext(),payments);
         recyclerViewPayments.setAdapter(paymentsAdapter);
         paymentsAdapter.notifyDataSetChanged();
     }
@@ -321,7 +321,7 @@ public class UserSepProfileFragment extends Fragment {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(requireContext(), "Error parsing response", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "الخادم خارج الخدمة", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -410,7 +410,7 @@ public class UserSepProfileFragment extends Fragment {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(requireContext(), "Error parsing response", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "الخادم خارج الخدمة", Toast.LENGTH_LONG).show();
             }
         }
     }

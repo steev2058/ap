@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
@@ -69,7 +70,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
     @Override
     public void setUpView() {
         refresh();
-        FragmentActivity activity = getActivity();
+        FragmentManager activity = getChildFragmentManager();
         User user = UserUtils.getInstance(MyApplication.getAppContext()).getUser();
         String token = user.getBillsPaymentToken();
 
@@ -101,7 +102,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         tabLayout.addTab(tabLayout.newTab().setText("الفواتير الشخصية"));
 
         // Set up ViewPager with TabsAdapter
-         tabsAdapter = new TabsAdapter(activity.getSupportFragmentManager(), tabLayout.getTabCount(),sharedViewModel);
+         tabsAdapter = new TabsAdapter(activity, tabLayout.getTabCount(),sharedViewModel);
         viewPager.setAdapter(tabsAdapter);
 
         // Connect TabLayout and ViewPager
@@ -168,6 +169,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
       //  navController.navigate(SEPFragmentDirections.actionFirstFragmentToFragmentSepUser());
         NavController navController = Navigation.findNavController(requireView());
         navController.navigate(R.id.action_firstFragment_to_fragment_sep_user, bundle);
+
     }
 
 

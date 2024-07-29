@@ -240,7 +240,7 @@
                 super.onPostExecute(accounts);
                 hideProgress();
                 accountList = accounts;
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, accountList);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, accountList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerAccounts.setAdapter(adapter);
 

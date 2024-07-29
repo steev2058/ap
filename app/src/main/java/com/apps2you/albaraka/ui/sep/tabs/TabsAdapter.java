@@ -2,6 +2,7 @@ package com.apps2you.albaraka.ui.sep.tabs;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.apps2you.albaraka.viewmodels.SharedViewModel;
