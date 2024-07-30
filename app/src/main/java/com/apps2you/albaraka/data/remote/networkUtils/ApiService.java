@@ -14,6 +14,7 @@ import com.apps2you.albaraka.data.model.FavoriteAccount;
 import com.apps2you.albaraka.data.model.FinancingResult;
 import com.apps2you.albaraka.data.model.FinancingType;
 import com.apps2you.albaraka.data.model.HfTransferType;
+import com.apps2you.albaraka.data.model.MobForm;
 import com.apps2you.albaraka.data.model.NotificationContent;
 import com.apps2you.albaraka.data.model.Operator;
 import com.apps2you.albaraka.data.model.Partner;
@@ -22,6 +23,7 @@ import com.apps2you.albaraka.data.model.ProductCategory;
 import com.apps2you.albaraka.data.model.ProfitsResult;
 import com.apps2you.albaraka.data.model.QrCode;
 import com.apps2you.albaraka.data.model.QuickService;
+import com.apps2you.albaraka.data.model.ResetPassForm;
 import com.apps2you.albaraka.data.model.Title;
 import com.apps2you.albaraka.data.model.Transaction;
 import com.apps2you.albaraka.data.model.TransferData;
@@ -144,6 +146,26 @@ public interface ApiService {
                                           @Field("branch_id") @Nullable Integer branch_id,
                                           @Field("complaint_date") String complaint_date,
                                           @Field("message") String message);
+
+
+    @GET("complaint_titles")
+    Call<MyResponse<ArrayList<Title>>> getMobFormTitles();
+
+    @FormUrlEncoded
+    @POST("saveMobileData")
+    Call<MyResponse<MobForm>> mobForm(@Field("national_id") String national_id,
+                                        @Field("cif_id") String cif_id,
+                                        @Field("mobile_id") String mobile_id,
+                                        @Field("reset_password") String reset_password,
+                                        @Field("reset_pin") @Nullable Integer reset_pin);
+
+
+    @FormUrlEncoded
+    @POST("reset_client")
+    Call<MyResponse<String>> resetPassForm(@Field("national_id") String national_id,
+                                            @Field("cif") String cif_id,
+                                            @Field("otp") String otp,
+                                            @Field("reset_password") @Nullable String reset_password,@Field("reset_pin") @Nullable String reset_pin);
 
     @GET("get_notifications")
     Call<MyResponse<ArrayList<NotificationContent>>> getNotifications();

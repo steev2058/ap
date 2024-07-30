@@ -1,4 +1,5 @@
 # ninja log v5
+<<<<<<< HEAD
 1	897	727783106	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
 899	1117	727783107	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
 1	33	0	clean	e8e56a750ac41363
@@ -27,3 +28,7 @@
 686	1626	731159988	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
 0	925	735738634	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
 926	1313	735738635	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
+=======
+1	584	732446784	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	8645accf2f895945
+586	803	732446784	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/arm64-v8a/libnative-lib.so	197274f09693b92e
+>>>>>>> origin/mustafa_mobileFormRequest

@@ -110,7 +110,25 @@
             android:taskAffinity="" />
 
         <activity
+            android:name=".ui.settings.SettingsActivityTwo"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:taskAffinity="" />
+
+        <activity
             android:name=".ui.complaints.ComplaintActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.mobForm.MobFormActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.reset_pass_form.ResetPassFormActivity"
             android:screenOrientation="portrait"
             android:taskAffinity=""
             android:windowSoftInputMode="adjustResize" />
@@ -232,7 +250,27 @@
             android:name=".ui.atmCard.AtmCardsActivity"
             android:screenOrientation="portrait"
             android:taskAffinity="" />
+        <activity
+            android:name=".ui.kyc.KycActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
 
+        <activity
+            android:name=".ui.kyc.fragments.ScannerActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".ui.kyc.fragments.finishActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".ui.kyc.fragments.OtpScreen"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
         <service
             android:name=".BarakaFirebaseMessagingService"
             android:exported="false">

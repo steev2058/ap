@@ -65,7 +65,10 @@ class AtmCardsFragment : AtmBaseFragment<FragmentAtmCardsBinding>(), AtmCardAdap
             popupMenu.menu.findItem(R.id.option_status).title = getString(R.string.card_opposition)
         else
             popupMenu.menu.findItem(R.id.option_status).title = getString(R.string.card_opposition_withdrawal)
-
+        if(item.isGold() || item.isRed() || item.isSilver() || item.isBlack())
+        {
+            popupMenu.menu.findItem(R.id.option_limit).setVisible(false)
+        }
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.option_resend -> resendPinCode(item)

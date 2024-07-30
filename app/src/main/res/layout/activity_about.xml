@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="2dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,7 +51,7 @@
 
                 <ImageButton
                     android:id="@+id/facebook_ib"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -65,7 +65,7 @@
 
                 <ImageButton
                     android:id="@+id/website_ib"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -80,7 +80,7 @@
 
                 <ImageButton
                     android:id="@+id/linkedin_ib"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_shadow_white"
@@ -93,7 +93,7 @@
                     android:padding="10dp"/>
                 <ImageButton
                     android:id="@+id/insta_ib"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_shadow_white"
@@ -106,7 +106,7 @@
                     android:padding="10dp"/>
                 <ImageButton
                     android:id="@+id/telegram_ib"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_shadow_white"

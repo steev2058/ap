@@ -2,6 +2,7 @@ package com.apps2you.albaraka.ui.settings;
 
 import android.os.Build;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
@@ -52,7 +53,13 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding, Logi
                 break;
         }
 
+
+
+
     }
+    // Method to navigate to reset pin fragment
+
+
 
     public void updateBiometryPassword() {
         String newCIF = UserUtils.getInstance(this).getCIFNumber();

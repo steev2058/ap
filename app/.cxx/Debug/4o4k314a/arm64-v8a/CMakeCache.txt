@@ -204,8 +204,13 @@ CMAKE_SYSTEM_NAME:UNINITIALIZED=Android
 //No help, variable specified on the command line.
 CMAKE_SYSTEM_VERSION:UNINITIALIZED=21
 
+<<<<<<< HEAD
 //No help, variable specified on the command line.
 CMAKE_TOOLCHAIN_FILE:UNINITIALIZED=C:\Users\M.Joha\AppData\Local\Android\Sdk\ndk\24.0.8215888\build\cmake\android.toolchain.cmake
+=======
+//The CMake toolchain file
+CMAKE_TOOLCHAIN_FILE:FILEPATH=C:/Users/M.Joha/AppData/Local/Android/Sdk/ndk/24.0.8215888/build/cmake/android.toolchain.cmake
+>>>>>>> origin/mustafa_mobileFormRequest
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console

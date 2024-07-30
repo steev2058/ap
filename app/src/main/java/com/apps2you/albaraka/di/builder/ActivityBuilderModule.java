@@ -17,7 +17,11 @@ import com.apps2you.albaraka.ui.exchange.ExchangeProvider;
 import com.apps2you.albaraka.ui.home.GuestHomeActivity;
 import com.apps2you.albaraka.ui.home.HomeActivity;
 import com.apps2you.albaraka.ui.home.HomeProvider;
+import com.apps2you.albaraka.ui.kyc.KycActivity;
+import com.apps2you.albaraka.ui.kyc.KycProvider;
 import com.apps2you.albaraka.ui.locations.LocationsActivity;
+import com.apps2you.albaraka.ui.mobForm.MobFormActivity;
+import com.apps2you.albaraka.ui.mobForm.MobFormProvider;
 import com.apps2you.albaraka.ui.notifications.NotificationsActivity;
 import com.apps2you.albaraka.ui.notifications.NotificationsProvider;
 import com.apps2you.albaraka.ui.products.ProductDetailsActivity;
@@ -28,7 +32,10 @@ import com.apps2you.albaraka.ui.quick_services.PersonalizeQuickServicesActivity;
 import com.apps2you.albaraka.ui.quick_services.QuickServicesProvider;
 import com.apps2you.albaraka.ui.registration.LoginActivity;
 import com.apps2you.albaraka.ui.registration.LoginProvider;
+import com.apps2you.albaraka.ui.reset_pass_form.ResetPassFormActivity;
+import com.apps2you.albaraka.ui.reset_pass_form.ResetPassFormProvider;
 import com.apps2you.albaraka.ui.settings.SettingsActivity;
+import com.apps2you.albaraka.ui.settings.SettingsActivityTwo;
 import com.apps2you.albaraka.ui.settings.SettingsProvider;
 import com.apps2you.albaraka.ui.transactions.TransactionDetailsActivity;
 import com.apps2you.albaraka.ui.transactions.TransactionsActivity;
@@ -87,12 +94,23 @@ public abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(modules = {ComplaintProvider.class})
     abstract ComplaintActivity complaintActivity();
 
+    @ContributesAndroidInjector(modules = {KycProvider.class})
+    abstract KycActivity kycActivity();
+    @ContributesAndroidInjector(modules = {MobFormProvider.class})
+    abstract MobFormActivity mobFormActivity();
+
+
+    @ContributesAndroidInjector(modules = {ResetPassFormProvider.class})
+    abstract ResetPassFormActivity resetPassFormActivity();
     @ContributesAndroidInjector(modules = {TransactionsProvider.class})
     abstract TransactionDetailsActivity transactionDetailsActivity();
 
 
     @ContributesAndroidInjector(modules = {SettingsProvider.class})
     abstract SettingsActivity settingsActivity();
+
+    @ContributesAndroidInjector(modules = {SettingsProvider.class})
+    abstract SettingsActivityTwo settingsActivityTwo();
 
     @ContributesAndroidInjector(modules = {NotificationsProvider.class})
     abstract NotificationsActivity notificationsActivity();

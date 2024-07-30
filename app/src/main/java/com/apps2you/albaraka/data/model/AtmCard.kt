@@ -12,4 +12,11 @@ class AtmCard(@SerializedName("caR_CHLD_NAME") val name: String = "",
               @SerializedName("is_active") val isActive: Boolean
 ) {
     fun isMale(): Boolean = gender == Constants.GENDER_MALE
+
+    fun isBlack() : Boolean = cardNumber.startsWith("97602130") ||cardNumber.startsWith("97602134")
+    fun isRed() : Boolean = cardNumber.startsWith("97602131")
+    fun isSilver() : Boolean = cardNumber.startsWith("97602132")
+    fun isGold() : Boolean = cardNumber.startsWith("97602133")
+
+
 }

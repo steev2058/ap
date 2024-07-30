@@ -16,3 +16,6 @@
 489	734	734954478	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/arm64-v8a/libnative-lib.so	3f32da456b4ec3a8
 8	469	741451259	build.ninja	3de70b877426a642
 0	24	0	clean	8e26b64f42325620
+1	158	741617849	build.ninja	3de70b877426a642
+3	532	741617850	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	f60baae6f417a015
+532	779	741617850	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/arm64-v8a/libnative-lib.so	3f32da456b4ec3a8

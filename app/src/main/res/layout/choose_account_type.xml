@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    android:layout_marginBottom="80dp">
+
+    <TextView
+        android:id="@+id/textViewChooseAccountType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="اختر نوع الحساب من فضلك"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="180dp"/>
+
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true">
+
+        <!-- RadioButton 1 -->
+        <RadioButton
+            android:id="@+id/btn_profits"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:background="@drawable/selector_calculator"
+            android:button="@null"
+            android:drawableTop="@drawable/def2account"
+            android:drawablePadding="8dp"
+            android:padding="28dp"
+            android:text="@string/normal_account"
+            android:textAlignment="center"
+            android:textColor="@color/radio_button_color" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radio2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:paddingTop="350dp">
+
+        <!-- RadioButton 2 -->
+        <RadioButton
+            android:id="@+id/btn_financing"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_calculator"
+            android:button="@null"
+            android:drawableTop="@drawable/telabi"
+            android:drawablePadding="8dp"
+            android:padding="28dp"
+            android:text="@string/student_account"
+            android:textAlignment="center"
+            android:textColor="@color/radio_button_color" />
+    </RadioGroup>
+</RelativeLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="item"
             type="com.apps2you.albaraka.data.model.AtmCard" />
@@ -25,11 +25,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                android:src="@{item.male ? @drawable/bg_atm_male : @drawable/bg_atm_female}"
+                android:src="@{item.isBlack ? @drawable/atm_back_card :(item.isRed ? @drawable/atm_red_card :(item.isSilver ? @drawable/atm_silver_card :(item.isGold ? @drawable/atm_gold_card : (item.male ? @drawable/bg_atm_male : @drawable/bg_atm_female))))}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:0.6"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/bg_atm_male" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -123,6 +124,7 @@
                     <ImageView
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="@dimen/_30sdp"
+                        android:visibility="@{item.isRed || item.isBlack || item.isSilver || item.isGold? View.GONE : View.VISIBLE}"
                         android:src="@{item.male ? @drawable/ic_albaraka_e_logo : @drawable/img_logo_white}"
                         tools:src="@drawable/ic_albaraka_e_logo"
                         app:layout_constraintBottom_toTopOf="@id/iBtn_more"

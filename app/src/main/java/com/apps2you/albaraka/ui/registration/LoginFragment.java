@@ -23,6 +23,11 @@ import com.apps2you.albaraka.data.preference.UserUtils;
 import com.apps2you.albaraka.databinding.FragmentLoginBinding;
 import com.apps2you.albaraka.ui.base.BaseFragment;
 import com.apps2you.albaraka.ui.home.GuestHomeActivity;
+import com.apps2you.albaraka.ui.kyc.KycActivity;
+import com.apps2you.albaraka.ui.mobForm.MobFormActivity;
+import com.apps2you.albaraka.ui.reset_pass_form.ResetPassFormActivity;
+import com.apps2you.albaraka.ui.settings.SettingsActivity;
+import com.apps2you.albaraka.ui.settings.SettingsActivityTwo;
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.utils.CustomTextWatcher;
 import com.apps2you.albaraka.utils.cryptography.ConstantsKt;
@@ -90,9 +95,10 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
             }
         });
 
-        mViewDataBinding.applicationSubscriptionRequest.setOnClickListener(view -> {
+        mViewDataBinding.btnAccount.setOnClickListener(view -> {
             try {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://albaraka.com.sy/KYC/"));
+                //kyc
+                Intent intent = new Intent(requireContext(), KycActivity.class);
                 startActivity(intent);
             }catch (Exception e) {
                 // Handle other exceptions
@@ -100,15 +106,27 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
             }
         });
 
-        mViewDataBinding.requestToOpenAnAccount.setOnClickListener(view -> {
+        mViewDataBinding.btnApplication.setOnClickListener(view -> {
             try {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://albaraka.com.sy/AlBarakaForms/mobileForm"));
+                Intent intent = new Intent(requireContext(), MobFormActivity.class);
                 startActivity(intent);
             }catch (Exception e) {
                 // Handle other exceptions
                 showToast("Error occurred");
             }
         });
+
+        mViewDataBinding.btnChangeP.setOnClickListener(view -> {
+            try {
+                Intent intent = new Intent(requireContext(), ResetPassFormActivity.class);
+                startActivity(intent);
+            }catch (Exception e) {
+                // Handle other exceptions
+                showToast("Error occurred");
+            }
+        });
+
+
 
         mViewDataBinding.ivFingerPrint.setOnClickListener(v -> {
             if (TextUtils.isEmpty(getViewModel().getUser().getCif_number())) {
@@ -281,11 +299,13 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
 
     private void setSkipVisibility(boolean isVisible) {
         if (isVisible) {
-            mViewDataBinding.requestToOpenAnAccount.setVisibility(View.VISIBLE);
-            mViewDataBinding.applicationSubscriptionRequest.setVisibility(View.VISIBLE);
+            mViewDataBinding.btnAccount.setVisibility(View.VISIBLE);
+            mViewDataBinding.btnApplication.setVisibility(View.VISIBLE);
+            mViewDataBinding.btnChangeP.setVisibility(View.VISIBLE);
         } else {
-            mViewDataBinding.applicationSubscriptionRequest.setVisibility(View.GONE);
-            mViewDataBinding.requestToOpenAnAccount.setVisibility(View.GONE);
+            mViewDataBinding.btnApplication.setVisibility(View.GONE);
+            mViewDataBinding.btnChangeP.setVisibility(View.GONE);
+            mViewDataBinding.btnAccount.setVisibility(View.GONE);
         }
     }
 }

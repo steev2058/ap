@@ -12,12 +12,15 @@ import com.apps2you.albaraka.viewmodels.DepositCalculatorVM;
 import com.apps2you.albaraka.viewmodels.ExchangeViewModel;
 import com.apps2you.albaraka.viewmodels.FinancingCalculatorVM;
 import com.apps2you.albaraka.viewmodels.HomeViewModel;
+import com.apps2you.albaraka.viewmodels.KycViewModel;
 import com.apps2you.albaraka.viewmodels.LocationsVM;
 import com.apps2you.albaraka.viewmodels.LoginViewModel;
+import com.apps2you.albaraka.viewmodels.MobFormViewModel;
 import com.apps2you.albaraka.viewmodels.NotificationsViewModel;
 import com.apps2you.albaraka.viewmodels.PrivacyPolicyVM;
 import com.apps2you.albaraka.viewmodels.ProductsViewModel;
 import com.apps2you.albaraka.viewmodels.ProfitsCalculatorVM;
+import com.apps2you.albaraka.viewmodels.ResetPassFormViewModel;
 import com.apps2you.albaraka.viewmodels.TransactionViewModel;
 import com.apps2you.albaraka.viewmodels.TransactionsViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.ADSLViewModel;
@@ -171,6 +174,23 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MobilePaymentViewModel.class)
     abstract ViewModel bindsMobilePaymentViewModel(MobilePaymentViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MobFormViewModel.class)
+    abstract ViewModel bindsMobFormViewModel(MobFormViewModel viewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ResetPassFormViewModel.class)
+    abstract ViewModel bindsResetPassFormViewModel(ResetPassFormViewModel viewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(KycViewModel.class)
+    abstract ViewModel bindsKycViewModel(KycViewModel viewModel);
 
     @Binds
     @IntoMap

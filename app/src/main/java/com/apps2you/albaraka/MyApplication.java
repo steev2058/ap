@@ -6,6 +6,7 @@ import android.app.Service;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.apps2you.albaraka.data.preference.UserUtils;
+//import com.apps2you.albaraka.di.component.DaggerAppComponent;
 import com.apps2you.albaraka.di.component.DaggerAppComponent;
 import com.apps2you.albaraka.ui.base.BaseActivity;
 import com.apps2you.albaraka.ui.common.busEvent.UnAuthorizedUserEvent;

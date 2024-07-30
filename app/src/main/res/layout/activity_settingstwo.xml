@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.LoginViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:filterTouchesWhenObscured="true"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="0dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_15ssp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp">
+
+            <!-- Add your RadioButton views here -->
+
+            <!-- Example RadioButton 2 -->
+            <RadioButton
+                android:id="@+id/btn_changePin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:checked="true"
+                android:lines="2"
+                android:background="@drawable/selector_calculator"
+                android:button="@null"
+                android:drawableTop="@drawable/ic_change_pin"
+                android:drawablePadding="8dp"
+                android:padding="8dp"
+                android:text="تغيير رمز التحقق"
+                android:textAlignment="center"
+                android:textColor="@color/radio_button_color" />
+
+            <!-- Example RadioButton 1 -->
+            <RadioButton
+                android:id="@+id/btn_changePassword"
+                android:layout_width="0dp"
+                android:lines="2"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/selector_calculator"
+                android:button="@null"
+                android:drawableTop="@drawable/ic_change_password"
+                android:drawablePadding="8dp"
+                android:padding="8dp"
+                android:text="تغيير كلمة السر"
+                android:textAlignment="center"
+                android:textColor="@color/radio_button_color" />
+
+        </RadioGroup>
+        <fragment
+            android:id="@+id/fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_settings" />
+    </LinearLayout>
+</layout>

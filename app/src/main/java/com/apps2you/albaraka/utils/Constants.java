@@ -16,7 +16,7 @@ public class Constants {
             GENDER_MALE = "male",
             GENDER_FEMALE = "female";
 
-    // test link 50471 12345q
+    // test link
    //public static String BASE_URL = "Dapz/9upWXEoKkswz0bIqOPt34RWfWu9HRrfhk3MB6TH+AgrU1sFMg1PEzU9sF8XMUBHfhT43/VrfcDwh7e5j4JTc99bn1yQMAh3o4YZ6BjCxoITog==";
 
     // live link

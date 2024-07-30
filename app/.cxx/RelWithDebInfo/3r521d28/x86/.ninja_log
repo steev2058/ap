@@ -16,3 +16,6 @@
 497	730	734954478	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/x86/libnative-lib.so	dab48783b7423fd2
 17	488	741451260	build.ninja	249007d26eed080b
 0	42	0	clean	8e26b64f42325620
+1	259	741617851	build.ninja	249007d26eed080b
+3	571	741617852	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	e3b0767223916fc0
+571	784	741617852	../../../../build/intermediates/cxx/RelWithDebInfo/3r521d28/obj/x86/libnative-lib.so	dab48783b7423fd2

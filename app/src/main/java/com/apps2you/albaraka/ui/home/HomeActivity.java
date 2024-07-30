@@ -28,6 +28,7 @@ import com.apps2you.albaraka.ui.notifications.NotificationsActivity;
 import com.apps2you.albaraka.ui.registration.CryptPasswordCallback;
 import com.apps2you.albaraka.ui.registration.LoginActivity;
 import com.apps2you.albaraka.ui.settings.SettingsActivity;
+import com.apps2you.albaraka.ui.settings.SettingsActivityTwo;
 import com.apps2you.albaraka.ui.transactions.TransactionDetailsActivity;
 import com.apps2you.albaraka.ui.transfer.qrPayment.QrPaymentActivity;
 import com.apps2you.albaraka.utils.Constants;
@@ -133,6 +134,18 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             startActivity(intent);
         });
 
+        mViewDataBinding.bottomSheet.tvChangePin.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, SettingsActivityTwo.class);
+            intent.putExtra("navigation_type", Constants.NAVIGATION_FROM_SETTINGS_TO_RESET_PIN);
+            startActivity(intent);
+        });
+
+        mViewDataBinding.bottomSheet.tvChangePass.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, SettingsActivityTwo.class);
+            intent.putExtra("navigation_type", Constants.NAVIGATION_FROM_SETTINGS_TO_RESET_PASS);
+            startActivity(intent);
+        });
+
         //notification setup
         NotificationContent notification;
         if ((notification = (NotificationContent) getIntent()
@@ -169,7 +182,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+          //  dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         }
 
         DialogLanguageBinding dialogDataBinding = DialogLanguageBinding.inflate(LayoutInflater.from(this),
