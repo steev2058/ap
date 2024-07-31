@@ -8,6 +8,8 @@ import com.apps2you.albaraka.ui.account.AccountActivity;
 import com.apps2you.albaraka.ui.account.AccountProvider;
 import com.apps2you.albaraka.ui.atmCard.AtmCardsActivity;
 import com.apps2you.albaraka.ui.atmCard.AtmCardsProvider;
+import com.apps2you.albaraka.ui.atmForm.ATMFormActivity;
+import com.apps2you.albaraka.ui.atmForm.ATMFormProvider;
 import com.apps2you.albaraka.ui.calculator.CalculatorActivity;
 import com.apps2you.albaraka.ui.calculator.CalculatorProvider;
 import com.apps2you.albaraka.ui.complaints.ComplaintActivity;
@@ -99,7 +101,8 @@ public abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(modules = {MobFormProvider.class})
     abstract MobFormActivity mobFormActivity();
 
-
+    @ContributesAndroidInjector(modules = {ATMFormProvider.class})
+    abstract ATMFormActivity atmFormActivity();
     @ContributesAndroidInjector(modules = {ResetPassFormProvider.class})
     abstract ResetPassFormActivity resetPassFormActivity();
     @ContributesAndroidInjector(modules = {TransactionsProvider.class})

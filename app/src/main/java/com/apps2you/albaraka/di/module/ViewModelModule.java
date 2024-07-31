@@ -3,6 +3,7 @@ package com.apps2you.albaraka.di.module;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.apps2you.albaraka.viewmodels.ATMFormViewModel;
 import com.apps2you.albaraka.viewmodels.AboutViewModel;
 import com.apps2you.albaraka.viewmodels.AccountVM;
 import com.apps2you.albaraka.viewmodels.AtmViewModel;
@@ -179,6 +180,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MobFormViewModel.class)
     abstract ViewModel bindsMobFormViewModel(MobFormViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ATMFormViewModel.class)
+    abstract ViewModel bindsATMFormViewModel(ATMFormViewModel viewModel);
 
 
     @Binds

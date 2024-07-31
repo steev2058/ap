@@ -1,7 +1,0 @@
-ninja: Entering directory `C:\Users\M.Joha\Desktop\BBarka\albaraka-android\app\.cxx\Debug\4o4k314a\x86_64'
-<<<<<<< HEAD
-ninja: no work to do.
-=======
-[1/2] Building CXX object CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o
-[2/2] Linking CXX shared library ..\..\..\..\build\intermediates\cxx\Debug\4o4k314a\obj\x86_64\libnative-lib.so
->>>>>>> origin/mustafa_mobileFormRequest

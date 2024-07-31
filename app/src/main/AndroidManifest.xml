@@ -128,6 +128,12 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".ui.atmForm.ATMFormActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".ui.reset_pass_form.ResetPassFormActivity"
             android:screenOrientation="portrait"
             android:taskAffinity=""

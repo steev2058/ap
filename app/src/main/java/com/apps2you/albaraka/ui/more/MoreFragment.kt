@@ -6,6 +6,7 @@ import com.apps2you.albaraka.BR
 import com.apps2you.albaraka.R
 import com.apps2you.albaraka.databinding.FragmentMoreBinding
 import com.apps2you.albaraka.ui.about.AboutActivity
+import com.apps2you.albaraka.ui.atmForm.ATMFormActivity
 import com.apps2you.albaraka.ui.base.BaseFragment
 import com.apps2you.albaraka.ui.calculator.CalculatorActivity
 import com.apps2you.albaraka.ui.complaints.ComplaintActivity
@@ -40,7 +41,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding, HomeViewModel>() {
         viewDataBinding.tvServices.setOnClickListener { startActivity(Intent(context, ServicesActivity::class.java)) }
         viewDataBinding.tvCalculator.setOnClickListener { startActivity(Intent(context, CalculatorActivity::class.java)) }
         viewDataBinding.tvFinancing.setOnClickListener { openLink(Constants.LINK_FINANCING) }
-        viewDataBinding.tvAtm.setOnClickListener { openLink(Constants.LINK_ORDER_ATM) }
+        viewDataBinding.tvAtm.setOnClickListener { startActivity(Intent(context, ATMFormActivity::class.java)) }
     }
 
     override fun fetchData() {

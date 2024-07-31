@@ -67,7 +67,7 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
     }
 
     override fun setUpView() {
-       // mViewDataBinding.etTelephoneNumber.addTextChangedListener(CustomTextWatcher(mViewDataBinding.tiTelephoneNumber))
+
         mViewDataBinding.btnSend.setOnClickListener {
             mViewDataBinding.layout.requestFocus()
             sendMobForm()
@@ -322,9 +322,5 @@ class MobFormFragment : BaseFragment<FragmentMobformBinding, MobFormViewModel>()
             }
 
         }
-
-
-
-
 
 }
