@@ -24,7 +24,7 @@ public class Constants {
     public static String BASE_URL_SEP = "http://epaytest.albaraka.com.sy:4433/SEP";
     public static String BASE_URL_SEP_ICON = "http://epaytest.albaraka.com.sy:4433";
 
-//
+
 //    public static String BASE_URL_SEP = "https://epay.albaraka.com.sy/SEP";
 //    public static String BASE_URL_SEP_ICON = "https://epay.albaraka.com.sy";
 

@@ -63,7 +63,7 @@
             mFragment = fragment;
 
             progressDialog = new SweetAlertDialog(mContext, SweetAlertDialog.PROGRESS_TYPE);
-            progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+          //  progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
             progressDialog.getProgressHelper().setBarColor(mContext.getResources().getColor(R.color.colorAccent));
             progressDialog.setContentText(mContext.getString(R.string.loading));
             progressDialog.setCancelable(false);
@@ -129,11 +129,13 @@
                 holder.status.setText("الدفع التلقائي مفعل");
                 holder.status.setTextColor(mContext.getResources().getColor(android.R.color.white));
                 holder.status.setBackgroundResource(R.drawable.rounded_background_g);
+                holder.status.setVisibility(View.VISIBLE);
             } else {
                 holder.status.setText("الدفع التلقائي غير مفعل");
                 holder.status.setVisibility(View.GONE);
                 holder.status.setTextColor(mContext.getResources().getColor(android.R.color.white));
                 holder.status.setBackgroundResource(R.drawable.rounded_background_red);
+              //  holder.status.setVisibility(View.VISIBLE);
             }
 
             // Set delete button listener

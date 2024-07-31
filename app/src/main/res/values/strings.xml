@@ -210,6 +210,7 @@
     <string name="tips">Tips</string>
     <string name="billing_no">رقم الفاتورة: %s</string>
     <string name="due_amount">القيمة: %s</string>
+    <string name="due_amount2">القيمة: </string>
     <string name="fee_amount">العمولة: %s</string>
     <string name="issue_date">تاريخ الإصدار: %s</string>
     <string name="due_date">تاريخ استحقاق الدفع: %s</string>

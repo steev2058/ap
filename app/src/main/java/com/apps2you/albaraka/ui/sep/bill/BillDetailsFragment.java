@@ -115,7 +115,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
             }
         });
         progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
-        progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        //progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
         progressDialog.setContentText(getString(R.string.loading));
         progressDialog.setCancelable(false);
@@ -451,7 +451,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
 
         LinearLayout billDetailsContainer = dialogView.findViewById(R.id.bill_details_container);
         TextView totalCostTextView = dialogView.findViewById(R.id.total_cost_text_view);
-        totalCostTextView.setText(String.format(Locale.getDefault(), "%.2f", totalCost));
+        totalCostTextView.setText(String.format(Locale.ENGLISH,  "%.2f ل.س", totalCost));
 
         for (JSONObject bill : selectedBills) {
             View billDetailView = inflater.inflate(R.layout.layout_key_value_item_sep, billDetailsContainer, false);
@@ -463,8 +463,8 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 double feeAmount = bill.getDouble("feeAmount");
                 double totalAmount = dueAmount + feeAmount;
 
-                keyTextView.setText(getString(R.string.due_amount));
-                valueTextView.setText(String.format(Locale.getDefault(), "%.2f", totalAmount));
+                keyTextView.setText(getString(R.string.due_amount2));
+                valueTextView.setText(String.format(Locale.ENGLISH, "%.2f ل.س", totalAmount));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

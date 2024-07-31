@@ -67,7 +67,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="الملف الشخصي"
+                        android:text="المدفوعات الشخصية"
                         android:textColor="@color/gray"/>
 
 

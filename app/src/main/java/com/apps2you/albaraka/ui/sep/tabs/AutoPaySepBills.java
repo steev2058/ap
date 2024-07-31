@@ -124,7 +124,7 @@
             billLabelEditText.setText(billLabel);
             maxAmount.setText(String.valueOf(maxA));
             progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
-            progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+           // progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
             progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
             progressDialog.setContentText(getString(R.string.loading));
             progressDialog.setCancelable(false);
@@ -328,13 +328,14 @@
 
                 if (success) {
                     new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
-                            .setTitleText("Success")
-                            .setContentText("AutoPay data sent successfully")
+                            .setTitleText("نجاح العملية")
+                            .setContentText("تم تحديث البيانات بنجاح")
                             .show();
+
                 } else {
                     new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Error")
-                            .setContentText("Failed to send AutoPay data")
+                            .setTitleText("خطأ في العملية")
+                            .setContentText("فشل تحديث البيانات")
                             .show();
                 }
             }
