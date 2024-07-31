@@ -344,25 +344,28 @@
                 super.onPostExecute(success);
                 hideProgress();
                 if (success) {
+                    if (position >= 0 && position < mCardItemList.size()) {
                     mCardItemList.remove(position);
                     notifyDataSetChanged();
-//                    new SweetAlertDialog(mContext, SweetAlertDialog.SUCCESS_TYPE)
-//                            .setTitleText("Success")
-//                            .setContentText("تم حذف الفاتورة بنجاح")
-//                            .show();
+                    new SweetAlertDialog(mFragment.requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Success")
+                            .setContentText("تم حذف الفاتورة بنجاح")
+                            .show();
                     Toast.makeText(mContext, "تم حذف الفاتورة بنجاح", Toast.LENGTH_SHORT).show();
                 } else {
-//                    new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
-//                            .setTitleText("Error")
-//                            .setContentText("فشل عملية حذف الفاتورة")
-//                            .show();
+                    new SweetAlertDialog(mFragment.requireContext(), SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Error")
+                            .setContentText("فشل عملية حذف الفاتورة")
+                            .show();
                     Toast.makeText(mContext, "فشل عملية حذف الفاتورة", Toast.LENGTH_SHORT).show();
                 }
-            }
+            }else {
+                    Toast.makeText(mContext, "فشل عملية حذف الفاتورة", Toast.LENGTH_SHORT).show();
+                }
 
 
 
-        }
+        }}
 
         private static class ViewHolder {
             TextView title;

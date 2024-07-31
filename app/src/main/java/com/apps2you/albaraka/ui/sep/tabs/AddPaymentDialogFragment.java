@@ -200,6 +200,9 @@ public class AddPaymentDialogFragment extends DialogFragment {
     }
 
     private void populateCategoriesSpinner(List<Category> categories) {
+        if (!isAdded()) {
+            return;  // Exit if the fragment is not attached
+        }
         List<String> categoryNames = new ArrayList<>();
         categoryNames.add("اختر فئة");
         for (Category category : categories) {

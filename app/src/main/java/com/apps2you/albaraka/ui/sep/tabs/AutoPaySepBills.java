@@ -332,6 +332,7 @@
                             .setContentText("تم تحديث البيانات بنجاح")
                             .show();
 
+                    dismiss();
                 } else {
                     new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("خطأ في العملية")

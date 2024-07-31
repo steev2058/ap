@@ -7,8 +7,17 @@ import androidx.lifecycle.ViewModel;
 
 import com.apps2you.albaraka.ui.base.BaseViewModel;
 import com.apps2you.albaraka.ui.sep.profile.UserData;
+import com.apps2you.albaraka.ui.sep.tabs.CardItemProfile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SharedViewModel extends BaseViewModel {
+
+    private final MutableLiveData<List<CardItemProfile>> cardItemList = new MutableLiveData<>(new ArrayList<>());
+    public LiveData<List<CardItemProfile>> getCardItemList() {
+        return cardItemList;
+    }
 
     private final MutableLiveData<UserData> userData = new MutableLiveData<>();
     private MutableLiveData<Boolean> refreshData = new MutableLiveData<>(false);
