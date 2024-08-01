@@ -1,25 +1,13 @@
 package com.apps2you.albaraka.ui.atmForm.fragments
 
-import android.graphics.Color
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
-import android.view.LayoutInflater
-import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebView
 import android.widget.CheckBox
-import android.widget.ProgressBar
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.apps2you.albaraka.BR
+import com.apps2you.albaraka.MyApplication
 import com.apps2you.albaraka.R
+import com.apps2you.albaraka.data.model.User
+import com.apps2you.albaraka.data.preference.UserUtils
 import com.apps2you.albaraka.databinding.FragmentAtmformBinding
 import com.apps2you.albaraka.ui.base.BaseFragment
 import com.apps2you.albaraka.viewmodels.ATMFormViewModel
@@ -35,7 +23,7 @@ import java.util.Random
 
 class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>() {
     var responseWaiting: Boolean = false
-
+    private var user: User? = null
     lateinit var checkbox1: CheckBox
     lateinit var checkbox2: CheckBox
     lateinit var checkbox3: CheckBox
@@ -44,6 +32,7 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
     private lateinit var progressDialog: SweetAlertDialog
     override fun createViewModel() {
         mViewModel = ViewModelProvider(mActivity).get(ATMFormViewModel::class.java)
+        user = UserUtils(MyApplication.getAppContext()).user
         progressDialog = SweetAlertDialog(requireContext(), SweetAlertDialog.PROGRESS_TYPE)
             .setTitleText("جارٍ معالجة الطلب...")
     }
@@ -51,6 +40,12 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
     override fun getBindingVariable(): Int {
         return BR.viewModel
     }
+    fun getUser(): User? {
+        return user
+    }
+
+
+
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_atmform
@@ -198,67 +193,6 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
     }
 
 
-//    private fun setupAgreementCheckbox(){
-//        val checkBox = mViewDataBinding.agreementCheckbox2
-//        val spannableString = SpannableString("افوض البنك بخصم مبلغ 8,000 ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف الاشتراك بخدمة البركة موبايل و أوافق على الشروط والأحكام")
-//        // Define a ForegroundColorSpan to color the text in blue
-//        val blueColor = ContextCompat.getColor(requireContext(), R.color.blue) // Replace with your blue color resource
-//        val blueText = "الشروط والأحكام"
-//        val blueColorSpan = ForegroundColorSpan(blueColor)
-//        // Find the starting index of the blue text
-//        val startIndex = spannableString.indexOf(blueText)
-//        // Apply the color span to the specific part of the text
-//        spannableString.setSpan(blueColorSpan, startIndex, startIndex + blueText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-//        // Set the styled text to the CheckBox
-//        checkBox.text = spannableString
-//        // Define the clickable span for "الشروط والأحكام"
-//        val clickableSpan = object : ClickableSpan() {
-//            override fun onClick(widget: View) {
-//                val builder = AlertDialog.Builder(requireContext(), R.style.RoundedDialog)
-//                val inflater = LayoutInflater.from(context)
-//                val dialogView = inflater.inflate(R.layout.conditions_modal, null)
-//                builder.setView(dialogView)
-//
-//                val url = "https://albaraka.com.sy/AlBarakaForms/conditions"
-//                val webView: WebView = dialogView.findViewById(R.id.webView)
-//                val loader: ProgressBar = dialogView.findViewById(R.id.loader)
-//
-//                webView.webChromeClient = object : WebChromeClient() {
-//                    override fun onProgressChanged(view: WebView?, newProgress: Int) {
-//                        if (newProgress < 100) {
-//                            loader.visibility = View.VISIBLE
-//                        } else {
-//                            loader.visibility = View.GONE
-//                        }
-//                    }
-//                }
-//
-//                webView.loadUrl(url)
-//
-//                builder.setNegativeButton("إغلاق") { dialog, which ->
-//                    dialog.dismiss()
-//                }
-//
-//                val alertDialog = builder.create()
-//                alertDialog.show()
-//            }
-//
-//            // Add this method to make the text appear as a link
-//            override fun updateDrawState(ds: TextPaint) {
-//                super.updateDrawState(ds)
-//                ds.isUnderlineText = true // Underline the text
-//                ds.color = blueColor // Set the text color to blue
-//            }
-//        }
-//        // Set the clickable span only for the part you want to be clickable
-//        spannableString.setSpan(clickableSpan, startIndex, startIndex + blueText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-//        // Apply the formatted text to the CheckBox
-//        checkBox.text = spannableString
-//        // Make the CheckBox text appear as a link
-//        checkBox.movementMethod = LinkMovementMethod.getInstance()
-//        checkBox.highlightColor = Color.TRANSPARENT // Set the highlight color to transparent to remove the background color
-//
-//    }
 
 
 
@@ -268,10 +202,10 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
 
     private fun sendATMForm() {
         progressDialog.show()
-        mobileFormRequest()
+       atmFormRequest()
     }
 
-    private fun mobileFormRequest() {
+    private fun atmFormRequest() {
 
 
         GlobalScope.launch {
@@ -281,9 +215,9 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
 
                 val requestBody = MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("national_id", mViewDataBinding?.etNationalNumber?.text.toString())
-                    .addFormDataPart("cif_id", mViewDataBinding?.etCifNumber?.text.toString())
-                    .addFormDataPart("mobile_id",  mViewDataBinding?.etMobileNumber?.text.toString())
+                    .addFormDataPart("national_id", user?.phone ?: "")
+                    .addFormDataPart("cif_id", user?.cif_number ?: "")
+                    .addFormDataPart("mobile_id", user?.phone ?: "")
                     .addFormDataPart("skip_captcha", "true")
 
                 val request = Request.Builder()
