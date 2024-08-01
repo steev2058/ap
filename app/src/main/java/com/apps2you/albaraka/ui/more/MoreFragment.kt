@@ -10,6 +10,7 @@ import com.apps2you.albaraka.ui.base.BaseFragment
 import com.apps2you.albaraka.ui.calculator.CalculatorActivity
 import com.apps2you.albaraka.ui.complaints.ComplaintActivity
 import com.apps2you.albaraka.ui.exchange.ExchangeActivity
+import com.apps2you.albaraka.ui.financeForm.FinanceFormActivity
 import com.apps2you.albaraka.ui.kyc.KycActivity
 import com.apps2you.albaraka.ui.locations.LocationsActivity
 import com.apps2you.albaraka.ui.products.ServicesActivity
@@ -39,7 +40,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding, HomeViewModel>() {
         viewDataBinding.tvComplaints.setOnClickListener { startActivity(Intent(context, ComplaintActivity::class.java)) }
         viewDataBinding.tvServices.setOnClickListener { startActivity(Intent(context, ServicesActivity::class.java)) }
         viewDataBinding.tvCalculator.setOnClickListener { startActivity(Intent(context, CalculatorActivity::class.java)) }
-        viewDataBinding.tvFinancing.setOnClickListener { openLink(Constants.LINK_FINANCING) }
+        viewDataBinding.tvFinancing.setOnClickListener { startActivity(Intent(context, FinanceFormActivity::class.java))  }
         viewDataBinding.tvAtm.setOnClickListener { openLink(Constants.LINK_ORDER_ATM) }
     }
 

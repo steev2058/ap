@@ -10,6 +10,7 @@ import com.apps2you.albaraka.viewmodels.ComplaintViewModel;
 import com.apps2you.albaraka.viewmodels.ConfirmPinViewModel;
 import com.apps2you.albaraka.viewmodels.DepositCalculatorVM;
 import com.apps2you.albaraka.viewmodels.ExchangeViewModel;
+import com.apps2you.albaraka.viewmodels.FinanceFormViewModel;
 import com.apps2you.albaraka.viewmodels.FinancingCalculatorVM;
 import com.apps2you.albaraka.viewmodels.HomeViewModel;
 import com.apps2you.albaraka.viewmodels.KycViewModel;
@@ -191,6 +192,12 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(KycViewModel.class)
     abstract ViewModel bindsKycViewModel(KycViewModel viewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FinanceFormViewModel.class)
+    abstract ViewModel bindsFiViewModel(FinanceFormViewModel viewModel);
 
     @Binds
     @IntoMap

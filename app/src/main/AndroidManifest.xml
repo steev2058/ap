@@ -257,6 +257,12 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity
+            android:name=".ui.financeForm.FinanceFormActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
             android:name=".ui.kyc.fragments.ScannerActivity"
             android:screenOrientation="portrait"
             android:taskAffinity=""
