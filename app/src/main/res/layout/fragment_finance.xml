@@ -79,7 +79,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <!--Personal information-->
-
+<!--                    android:visibility="visible"-->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/personal_details"
                         android:layout_width="0dp"
@@ -179,79 +179,7 @@
 
 
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:id="@+id/info_two"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layout_constraintTop_toBottomOf="@+id/info_one">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/mos"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColorHint="@color/gray"
-                                app:hintEnabled="false"
-                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/moss"
-                                    style="@style/InputEt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/mother_name"
-                                    android:inputType="textPersonName"
-                                    android:text=""
-                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
-                                    android:textAlignment="viewStart"
-                                    android:textSize="14sp" />
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/mos2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColorHint="@color/gray"
-                                app:hintEnabled="false"
-                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/mos22"
-                                    style="@style/InputEt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/mother_last_name"
-                                    android:inputType="textPersonName"
-                                    android:text=""
-                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
-                                    android:textAlignment="viewStart"
-                                    android:textSize="14sp" />
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/mos3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColorHint="@color/gray"
-                                app:hintEnabled="false"
-                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/mos33"
-                                    style="@style/InputEt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/place_of_birth"
-                                    android:inputType="textPersonName"
-                                    android:text=""
-                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
-                                    android:textAlignment="viewStart"
-                                    android:textSize="14sp" />
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </LinearLayout>
 
 
                         <Spinner
@@ -263,7 +191,34 @@
                             android:layout_marginTop="@dimen/_10sdp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/info_two" />
+                            app:layout_constraintTop_toBottomOf="@+id/info_one" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/gender_spinner"
+                            app:layout_constraintEnd_toEndOf="@id/gender_spinner"
+                            app:layout_constraintTop_toTopOf="@id/gender_spinner" />
+
+                        <Spinner
+                            android:id="@+id/gender_spinner_service_military"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/gender_spinner" />
+                        <ImageView
+                            android:id="@+id/gender_spinner_service_militaryimg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/gender_spinner_service_military"
+                            app:layout_constraintEnd_toEndOf="@id/gender_spinner_service_military"
+                            app:layout_constraintTop_toTopOf="@id/gender_spinner_service_military" />
 
 
                         <Spinner
@@ -275,14 +230,63 @@
                             android:layout_marginTop="@dimen/_10sdp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/gender_spinner" />
+                            app:layout_constraintTop_toBottomOf="@+id/gender_spinner_service_military" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/gender2_spinner"
+                            app:layout_constraintEnd_toEndOf="@id/gender2_spinner"
+                            app:layout_constraintTop_toTopOf="@id/gender2_spinner" />
+                        <Spinner
+                            android:id="@+id/type_id_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:hint="Select Gender"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/gender2_spinner"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/type_id_spinner"
+                            app:layout_constraintEnd_toEndOf="@id/type_id_spinner"
+                            app:layout_constraintTop_toTopOf="@id/type_id_spinner" />
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/national_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintTop_toBottomOf="@id/type_id_spinner">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/national_numberr"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/national_number"
+                                android:inputType="number"
+                                android:digits="0123456789"
+                                android:maxLines="1"
+                                android:maxLength="11"
+                                android:text=""
+                                android:textAlignment="viewStart"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/linear_layout"
-                            app:layout_constraintTop_toBottomOf="@+id/gender2_spinner"
+                            app:layout_constraintTop_toBottomOf="@+id/national_number"
                             android:gravity="center">
 
                             <!-- TextView for Date Info -->
@@ -317,7 +321,7 @@
 
                     <!-- ConstraintLayout for Step 2 -->
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/Confirm_Personalty"
+                        android:id="@+id/Communication_info"
                         android:layout_width="0dp"
                         android:layout_height="330dp"
                         android:visibility="gone"
@@ -328,107 +332,92 @@
 
 
                         <TextView
-                            android:id="@+id/national_id_text"
+                            android:id="@+id/Communication_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="8dp"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:text="@string/step_two_title"
-
+                            android:text="@string/step_two_title2"
                             android:textStyle="bold"
-                            app:drawableStartCompat="@drawable/ic_personal"
+                            app:drawableStartCompat="@drawable/ic_user_icon"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <!-- Spinner for gender -->
-                        <Spinner
-                            android:id="@+id/type_id_spinner"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            style="@style/InputEt"
-                            android:hint="Select Gender"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/national_id_text"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-
-                        <LinearLayout
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/ti_Address_info"
                             android:layout_width="match_parent"
-                            android:id="@+id/stp2area"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginTop="10dp"
-                            app:layout_constraintTop_toBottomOf="@+id/type_id_spinner">
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintTop_toBottomOf="@id/Communication_text">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/national_number"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_Address_info"
+                                style="@style/InputEt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColorHint="@color/gray"
-                                app:hintEnabled="false"
-                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+                                android:hint="@string/address"
+                                android:inputType="textPersonName"
+                                android:text=""
+                                android:textAlignment="viewStart"
+                                android:textSize="14sp"
+                                android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/national_numberr"
-                                    style="@style/InputEt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/national_number"
-                                    android:inputType="number"
-                                    android:digits="0123456789"
-                                    android:maxLines="1"
-                                    android:maxLength="11"
-                                    android:text=""
-                                    android:textAlignment="viewStart"
-                                    android:textSize="14sp" />
-                            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/mobnum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintTop_toBottomOf="@id/ti_Address_info">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/national_place"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/mobnumm"
+                                style="@style/InputEt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColorHint="@color/gray"
-                                app:hintEnabled="false"
-                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+                                android:hint="@string/mobile_number"
+                                android:inputType="number"
+                                android:digits="0123456789"
+                                android:maxLines="1"
+                                android:maxLength="10"
+                                android:text="09"
+                                android:textAlignment="viewStart"
+                                android:textSize="14sp"
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/national_placec"
-                                    style="@style/InputEt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/place_of_issue"
-                                    android:inputType="text"
-                                    android:text=""
-                                    android:digits="١٢٣٤٥٦٧٨٩٠ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
-                                    android:textAlignment="viewStart"
-                                    android:textSize="14sp" />
-                            </com.google.android.material.textfield.TextInputLayout>
+                                android:imeOptions="actionNext">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/kayedw"
+
+                            </com.google.android.material.textfield.TextInputEditText>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/ti_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintTop_toBottomOf="@id/mobnum">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_email"
+                                style="@style/InputEt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColorHint="@color/gray"
-                                app:hintEnabled="false"
-                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+                                android:hint="@string/email"
+                                android:inputType="textEmailAddress"
+                                android:text=""
+                                android:textAlignment="viewStart"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/kayed"
-                                    style="@style/InputEt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/alqayd"
-                                    android:inputType="textPersonName"
-                                    android:text=""
-                                    android:digits="١٢٣٤٥٦٧٨٩٠ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
-                                    android:textAlignment="viewStart"
-                                    android:textSize="14sp" />
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </LinearLayout>
+
 
 
 
@@ -440,79 +429,160 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/Contact_And_Job"
                         android:layout_width="0dp"
-                        android:layout_height="330dp"
+                        android:layout_height="wrap_content"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/step_view">
 
+                        <TextView
+                            android:id="@+id/tv_contactandedu_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="8dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/txt_normal2"
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/ic_user_icon"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <Spinner
+                            android:id="@+id/job_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_contactandedu_info" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/job_spinner"
+                            app:layout_constraintEnd_toEndOf="@id/job_spinner"
+                            app:layout_constraintTop_toTopOf="@id/job_spinner" />
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:id="@+id/stp3area"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
+                            app:layout_constraintTop_toBottomOf="@+id/job_spinner" >
 
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:layout_marginTop="10dp">
-                            <TextView
-                                android:id="@+id/tv_contactandedu_info"
+
+
+
+
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
+                                android:id="@+id/info_two_job"
+                                android:layout_marginTop="@dimen/_2sdp"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="8dp"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/txt_student"
-                                android:textStyle="bold"
-                                app:drawableStartCompat="@drawable/ic_user_icon"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:orientation="vertical"
+                              >
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/name_of_company"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:textColorHint="@color/gray"
+                                    app:layout_constraintTop_toBottomOf="@id/jobb"
+                                    app:hintEnabled="false">
 
-                            <TextView
-                                android:id="@+id/tv_contactandjob_info"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="8dp"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/txt_normal"
-                                android:textStyle="bold"
-                                app:drawableStartCompat="@drawable/ic_user_icon"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/name_of_company2"
+                                        style="@style/InputEt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="@string/job_company_name"
+                                        android:inputType="textPersonName"
+                                        android:text=""
+                                        android:digits="١٢٣٤٥٦٧٨٩٠ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                        android:textAlignment="viewStart"
+                                        android:textSize="14sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/job_description"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:textColorHint="@color/gray"
+                                    app:hintEnabled="false"
+                                    app:layout_constraintTop_toBottomOf="@id/name_of_company">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/job_description2"
+                                        style="@style/InputEt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="@string/job_desc"
+                                        android:inputType="textPersonName"
+                                        android:text=""
+                                        android:digits="١٢٣٤٥٦٧٨٩٠ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                        android:textAlignment="viewStart"
+                                        android:textSize="14sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                            </LinearLayout>
 
 
 
-                            <!--                            <Spinner-->
-                            <!--                                android:id="@+id/governorate_spinner"-->
-                            <!--                                android:layout_width="match_parent"-->
-                            <!--                                android:layout_height="wrap_content"-->
-                            <!--                                style="@style/InputEt"-->
-                            <!--                                android:layout_marginTop="8dp"-->
-                            <!--                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info" />-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                            <!-- Spinner for الجامعة -->
-                            <Spinner
-                                android:id="@+id/university_spinner"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/InputEt"
-                                android:layout_marginTop="8dp"
-                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info" />
-
-                            <!-- Spinner for الكلية -->
-                            <Spinner
-                                android:id="@+id/college_spinner"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/InputEt"
-                                android:layout_marginTop="8dp"
-                                app:layout_constraintTop_toBottomOf="@id/university_spinner" />
 
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/addr"
+                                android:id="@+id/ti_date"
+                                android:layout_width="310dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginEnd="8dp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintEnd_toStartOf="@id/iBtn_date"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/info_two_job">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_date"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:hint="@string/date_of_incident"
+                                    android:inputType="none"
+                                    android:text="dssss"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <ImageButton
+                                android:id="@+id/iBtn_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_rounded_gray"
+                                android:paddingStart="20dp"
+                                android:paddingEnd="20dp"
+                                android:layout_marginTop="15dp"
+                                app:layout_constraintBottom_toBottomOf="@id/ti_date"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/ti_date"
+
+                                app:srcCompat="@drawable/ic_calendar_white"
+                                />
+                        </LinearLayout>
+
+
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/more_job_info"
                                 android:layout_width="match_parent"
                                 android:layout_marginTop="8dp"
                                 android:layout_height="wrap_content"
@@ -521,11 +591,11 @@
                                 app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/addrr"
+                                    android:id="@+id/more_job_info2"
                                     style="@style/InputEt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint="@string/address"
+                                    android:hint="@string/more_job_info_txt"
                                     android:inputType="textPersonName"
                                     android:text=""
                                     android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
@@ -534,55 +604,28 @@
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/mobnum"
+                                android:id="@+id/address_job_info_in_details"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
+                                android:layout_height="wrap_content"
                                 android:textColorHint="@color/gray"
                                 app:hintEnabled="false"
-                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
+                                app:layout_constraintTop_toBottomOf="@id/more_job_info">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/mobnumm"
+                                    android:id="@+id/address_job_info_in_details2"
                                     style="@style/InputEt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint="@string/phone_number_kyc"
-                                    android:inputType="number"
-                                    android:digits="0123456789"
-                                    android:maxLines="1"
-                                    android:maxLength="10"
-                                    android:text="09"
-                                    android:textAlignment="viewStart"
-                                    android:textSize="14sp"
-
-                                    android:imeOptions="actionNext">
-
-
-                                </com.google.android.material.textfield.TextInputEditText>
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/jobb"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColorHint="@color/gray"
-                                app:hintEnabled="false"
-                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/job"
-                                    style="@style/InputEt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/job_kyc"
+                                    android:hint="@string/more_job_info_txt2"
                                     android:inputType="textPersonName"
                                     android:text=""
-                                    android:digits="١٢٣٤٥٦٧٨٩٠ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
                                     android:textAlignment="viewStart"
                                     android:textSize="14sp" />
                             </com.google.android.material.textfield.TextInputLayout>
+
+
 
                         </LinearLayout>
 
@@ -596,7 +639,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/Attachments"
                         android:layout_width="0dp"
-                        android:layout_height="530dp"
+                        android:layout_height="wrap_content"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -609,144 +652,302 @@
                             android:drawablePadding="8dp"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:text="@string/FATCA"
+                            android:text="@string/FATCA2"
                             app:layout_constraintTop_toTopOf="parent"
                             android:textAlignment="viewStart"
                             android:textStyle="bold"
                             app:drawableStartCompat="@drawable/file_icon"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/basic_salary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintTop_toBottomOf="@id/qanon">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/basic_salary2"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/basic_salary"
+                                android:inputType="number"
+                                android:digits="0123456789"
+                                android:maxLines="1"
+                                android:maxLength="10"
+                                android:textAlignment="viewStart"
+                                android:textSize="14sp"
+
+                                android:imeOptions="actionNext">
+
+
+                            </com.google.android.material.textfield.TextInputEditText>
+                        </com.google.android.material.textfield.TextInputLayout>
                         <Spinner
-                            android:id="@+id/qanon_spinner"
+                            android:id="@+id/is_there_income_spinner"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             style="@style/InputEt"
-                            android:hint="Select Gender"
                             android:layout_marginTop="@dimen/_10sdp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/qanon"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-                        <TextView
-                            android:id="@+id/tv_personal_indfo"
-                            android:layout_width="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/basic_salary" />
+                        <ImageView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="8dp"
-                            android:layout_marginTop="10dp"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
-                            android:text="@string/download_attachments"
-
-                            app:layout_constraintTop_toBottomOf="@+id/qanon_spinner"
-                            android:textAlignment="viewStart"
-                            android:textStyle="bold"
-                            app:drawableStartCompat="@drawable/upload_icon"/>
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/is_there_income_spinner"
+                            app:layout_constraintEnd_toEndOf="@id/is_there_income_spinner"
+                            app:layout_constraintTop_toTopOf="@id/is_there_income_spinner" />
                         <LinearLayout
+                            android:id="@+id/income_spinner_field"
                             android:layout_width="match_parent"
-                            android:id="@+id/uploads"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_personal_indfo"
-                            android:orientation="horizontal">
+                            android:orientation="vertical"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/is_there_income_spinner">
 
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/additional_income_details"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">
 
-
-                            <!-- First Image View with Label -->
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:layout_height="120dp"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:id="@+id/image_upload_view1"
-                                    android:layout_width="100dp"
-                                    android:layout_height="85dp"
-                                    android:layout_marginTop="12dp"
-                                    android:src="@drawable/c"
-                                    android:tag="@id/image_upload_view_tag"
-                                    android:scaleType="fitCenter" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/additional_income_details2"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/personal_image" />
+                                    android:hint="@string/additional_income_details_txt"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp"
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    />
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                            </LinearLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/additional_salary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/qanon">
 
-                            <!-- Second Image View with Label -->
-                            <LinearLayout
-                                android:layout_width="15dp"
-                                android:layout_weight="1"
-                                android:layout_height="120dp"
-                                android:orientation="vertical"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:id="@+id/image_upload_view2"
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:src="@drawable/b"
-                                    android:tag="@id/image_upload_view_tag"
-                                    android:scaleType="fitCenter" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/additional_salary2"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/id_back_side" />
-                            </LinearLayout>
+                                    android:hint="@string/additional_salary_txt"
+                                    android:inputType="number"
+                                    android:digits="0123456789"
+                                    android:maxLines="1"
+                                    android:maxLength="10"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp"
 
-                            <!-- Third Image View with Label -->
-                            <LinearLayout
-                                android:layout_width="10dp"
-                                android:layout_weight="1"
-                                android:layout_height="120dp"
-                                android:orientation="vertical"
-                                android:gravity="center">
+                                    android:imeOptions="actionNext">
 
-                                <ImageView
-                                    android:id="@+id/image_upload_view3"
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:src="@drawable/a"
 
-                                    android:tag="@id/image_upload_view_tag"
-                                    android:scaleType="fitCenter" />
+                                </com.google.android.material.textfield.TextInputEditText>
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+                        <Spinner
+                            android:id="@+id/is_there_another_engagments"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/income_spinner_field" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/is_there_another_engagments"
+                            app:layout_constraintEnd_toEndOf="@id/is_there_another_engagments"
+                            app:layout_constraintTop_toTopOf="@id/is_there_another_engagments" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/engagments_spinner_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/is_there_another_engagments">
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/engagement_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/is_there_another_engagments">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/engagement_value2"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/id_front_side" />
-                            </LinearLayout>
+                                    android:hint="@string/engagment_value_txt"
+                                    android:inputType="number"
+                                    android:digits="0123456789"
+                                    android:maxLines="1"
+                                    android:maxLength="10"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp"
+
+                                    android:imeOptions="actionNext">
+
+
+                                </com.google.android.material.textfield.TextInputEditText>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/monthly_payment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/is_there_another_engagments">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/monthly_payment2"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/monthly_pay"
+                                    android:inputType="number"
+                                    android:digits="0123456789"
+                                    android:maxLines="1"
+                                    android:maxLength="10"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp"
+
+                                    android:imeOptions="actionNext">
+
+
+                                </com.google.android.material.textfield.TextInputEditText>
+                            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/bank_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/engagement_value">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/bank_name2"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/bank_name"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp"
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+
+                        <Spinner
+                            android:id="@+id/is_there_another_engagments_not_bank"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/engagments_spinner_field" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/is_there_another_engagments_not_bank"
+                            app:layout_constraintEnd_toEndOf="@id/is_there_another_engagments_not_bank"
+                            app:layout_constraintTop_toTopOf="@id/is_there_another_engagments_not_bank" />
+
+                        <LinearLayout
+                            android:id="@+id/engagments_not_bank_spinner_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/is_there_another_engagments_not_bank">
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/engagement_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/is_there_another_engagments_not_bank">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/engagement_name2"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/eng_name"
+                                    android:inputType="textPersonName"
+                                    android:text=""
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp"
+                                    android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                    />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/monthly_payment_nb"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:textColorHint="@color/gray"
+                                app:hintEnabled="false"
+                                app:layout_constraintTop_toBottomOf="@id/is_there_another_engagments">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/monthly_payment_nb2"
+                                    style="@style/InputEt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/monthly_pay"
+                                    android:inputType="number"
+                                    android:digits="0123456789"
+                                    android:maxLines="1"
+                                    android:maxLength="10"
+                                    android:textAlignment="viewStart"
+                                    android:textSize="14sp"
+
+                                    android:imeOptions="actionNext">
+
+
+                                </com.google.android.material.textfield.TextInputEditText>
+                            </com.google.android.material.textfield.TextInputLayout>
 
 
                         </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:id="@+id/image_upload_view4"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            app:layout_constraintTop_toBottomOf="@+id/uploads"
-                            android:orientation="horizontal">
-                            <LinearLayout
-                                android:layout_width="10dp"
-                                android:layout_weight="1"
-                                android:layout_height="120dp"
-                                android:orientation="vertical"
-                                android:gravity="start">
-                                <ImageView
-                                    android:id="@+id/image_upload_view5"
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:src="@drawable/a"
-                                    android:tag="@id/image_upload_view_tag"
-                                    android:scaleType="fitCenter" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:layout_constraintTop_toBottomOf="@+id/image_upload_view5"
-                                    android:text="@string/university_card" />
-                            </LinearLayout>
-                        </LinearLayout>
 
                         <!-- YOUR_VIEWS for Step 4 -->
 
@@ -763,177 +964,213 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/step_view">
 
-                        <!-- Checkbox for Agreement -->
-                        <!--                        <CheckBox-->
-                        <!--                            android:id="@+id/agreement_checkbox"-->
-                        <!--                            android:layout_width="wrap_content"-->
-                        <!--                            android:layout_marginTop="@dimen/_10sdp"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:checked="true"-->
-                        <!--                            android:text="@string/issuing_card"-->
-                        <!--                            app:layout_constraintTop_toTopOf="parent"-->
-                        <!--                            app:layout_constraintStart_toStartOf="parent" />-->
+                        <TextView
+                            android:id="@+id/required_finance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="8dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/FATCA3"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:textAlignment="viewStart"
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/file_icon"/>
+                        <!-- Spinner for branch_spinner_id -->
+                            <Spinner
+                                android:id="@+id/choseFinanceType"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:hint="Select Gender"
+                            app:layout_constraintBottom_toTopOf="@+id/idea_explain"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/required_finance"
+                            android:layout_marginTop="16dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/choseFinanceType"
+                            app:layout_constraintEnd_toEndOf="@id/choseFinanceType"
+                            app:layout_constraintTop_toTopOf="@id/choseFinanceType" />
 
 
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/idea_explain"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintTop_toBottomOf="@id/choseFinanceType">
 
-                        <!--                        <LinearLayout-->
-                        <!--                            android:layout_width="match_parent"-->
-                        <!--                            android:id="@+id/stp5area"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:orientation="vertical"-->
-                        <!--                            android:layout_marginTop="10dp"-->
-                        <!--                            app:layout_constraintTop_toBottomOf="@+id/agreement_checkbox">-->
-
-                        <!--                            <com.google.android.material.textfield.TextInputLayout-->
-                        <!--                                android:id="@+id/fnameen"-->
-                        <!--                                android:layout_width="match_parent"-->
-                        <!--                                android:layout_height="wrap_content"-->
-                        <!--                                android:textColorHint="@color/gray"-->
-                        <!--                                app:hintEnabled="false"-->
-                        <!--                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">-->
-
-                        <!--                                <com.google.android.material.textfield.TextInputEditText-->
-                        <!--                                    android:id="@+id/fnameenn"-->
-                        <!--                                    style="@style/InputEt"-->
-                        <!--                                    android:layout_width="match_parent"-->
-                        <!--                                    android:layout_height="wrap_content"-->
-                        <!--                                    android:hint="@string/first_name_en"-->
-
-                        <!--                                    android:text=""-->
-                        <!--                                    android:inputType="textPersonName|textCapCharacters"-->
-                        <!--                                    android:textAlignment="viewStart"-->
-                        <!--                                    android:textSize="14sp" />-->
-                        <!--                            </com.google.android.material.textfield.TextInputLayout>-->
-
-                        <!--                            <com.google.android.material.textfield.TextInputLayout-->
-                        <!--                                android:id="@+id/father_nameen"-->
-                        <!--                                android:layout_width="match_parent"-->
-                        <!--                                android:layout_height="wrap_content"-->
-                        <!--                                android:layout_marginTop="8dp"-->
-                        <!--                                android:textColorHint="@color/gray"-->
-                        <!--                                app:hintEnabled="false"-->
-                        <!--                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">-->
-
-                        <!--                                <com.google.android.material.textfield.TextInputEditText-->
-                        <!--                                    android:id="@+id/fathernameen_n"-->
-                        <!--                                    style="@style/InputEt"-->
-                        <!--                                    android:layout_width="match_parent"-->
-                        <!--                                    android:layout_height="wrap_content"-->
-                        <!--                                    android:hint="@string/father_name_en"-->
-
-                        <!--                                    android:text=""-->
-                        <!--                                    android:inputType="textPersonName|textCapCharacters"-->
-                        <!--                                    android:textAlignment="viewStart"-->
-                        <!--                                    android:textSize="14sp" />-->
-                        <!--                            </com.google.android.material.textfield.TextInputLayout>-->
-
-                        <!--                            <com.google.android.material.textfield.TextInputLayout-->
-                        <!--                                android:id="@+id/last_nameen"-->
-                        <!--                                android:layout_width="match_parent"-->
-                        <!--                                android:layout_height="wrap_content"-->
-                        <!--                                android:layout_marginTop="8dp"-->
-                        <!--                                android:textColorHint="@color/gray"-->
-                        <!--                                app:hintEnabled="false"-->
-                        <!--                                app:layout_constraintTop_toBottomOf="@id/tv_personal_info">-->
-
-                        <!--                                <com.google.android.material.textfield.TextInputEditText-->
-                        <!--                                    android:id="@+id/last_nameenn"-->
-                        <!--                                    style="@style/InputEt"-->
-                        <!--                                    android:layout_width="match_parent"-->
-                        <!--                                    android:layout_height="wrap_content"-->
-                        <!--                                    android:hint="@string/last_name_en"-->
-
-                        <!--                                    android:text=""-->
-                        <!--                                    android:inputType="textPersonName|textCapCharacters"-->
-                        <!--                                    android:textAlignment="viewStart"-->
-                        <!--                                    android:textSize="14sp" />-->
-                        <!--                            </com.google.android.material.textfield.TextInputLayout>-->
-                        <!--                        </LinearLayout>-->
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/idea_explain2"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/idea_ex"
+                                android:inputType="textPersonName"
+                                android:text=""
+                                android:maxLines="10"
+                                android:textAlignment="viewStart"
+                                android:textSize="14sp"
+                                android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
 
 
-                        <!-- Spinner for gender -->
-                        <!--                        <Spinner-->
-                        <!--                            android:id="@+id/country_spinner"-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            style="@style/InputEt"-->
-                        <!--                            android:hint="Select Gender"-->
-                        <!--                            android:layout_marginTop="@dimen/_10sdp"-->
-                        <!--                            app:layout_constraintStart_toStartOf="parent"-->
-                        <!--                            app:layout_constraintTop_toBottomOf="@+id/stp5area"-->
-                        <!--                            app:layout_constraintEnd_toEndOf="parent"/>-->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/total_amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintTop_toBottomOf="@id/idea_explain">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/total_amount2"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/Total2"
+                                android:inputType="number"
+                                android:digits="0123456789"
+                                android:maxLines="1"
+                                android:maxLength="10"
+                                android:textAlignment="viewStart"
+                                android:textSize="14sp"
+                                android:imeOptions="actionNext">
+
+                            </com.google.android.material.textfield.TextInputEditText>
+                        </com.google.android.material.textfield.TextInputLayout>
 
 
-                        <!--                        <LinearLayout-->
-                        <!--                            android:id="@+id/card_issuance_fee_layout"-->
-                        <!--                            android:layout_width="wrap_content"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:orientation="horizontal"-->
-                        <!--                            android:layout_marginTop="8dp"-->
-                        <!--                            app:layout_constraintStart_toStartOf="parent"-->
-                        <!--                            app:layout_constraintTop_toBottomOf="@+id/country_spinner">-->
-                        <!--                            &lt;!&ndash; Red Star Icon &ndash;&gt;-->
-                        <!--                            <TextView-->
-                        <!--                                android:layout_width="wrap_content"-->
-                        <!--                                android:layout_height="wrap_content"-->
-                        <!--                                android:text="*"-->
-                        <!--                                android:textSize="18sp"-->
-                        <!--                                android:textColor="#FF0000"-->
-                        <!--                                android:layout_gravity="center_vertical" />-->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/first_payment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintTop_toBottomOf="@id/total_amount">
 
-                        <!--                            <TextView-->
-                        <!--                                android:id="@+id/card_issuance_fee_label"-->
-                        <!--                                android:layout_width="wrap_content"-->
-                        <!--                                android:layout_height="wrap_content"-->
-                        <!--                                android:text="@string/commission_card_kyc"-->
-                        <!--                                android:textAlignment="viewStart"-->
-                        <!--                                android:textSize="16sp" />-->
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/first_payment2"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/Total3"
+                                android:inputType="number"
+                                android:digits="0123456789"
+                                android:maxLines="1"
+                                android:maxLength="10"
+                                android:textAlignment="viewStart"
+                                android:textSize="14sp"
+                                android:imeOptions="actionNext">
 
-
-
-                        <!--                        </LinearLayout>-->
-                        <!--                        <LinearLayout-->
-                        <!--                            android:id="@+id/card_issuance_fee_layout2"-->
-                        <!--                            android:layout_width="wrap_content"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:orientation="horizontal"-->
-                        <!--                            android:layout_marginTop="34dp"-->
-                        <!--                            app:layout_constraintStart_toStartOf="parent"-->
-                        <!--                            app:layout_constraintTop_toBottomOf="@+id/country_spinner">-->
-                        <!--                            &lt;!&ndash; Red Star Icon &ndash;&gt;-->
-                        <!--                            <TextView-->
-                        <!--                                android:layout_width="wrap_content"-->
-                        <!--                                android:layout_height="wrap_content"-->
-                        <!--                                android:text="*"-->
-                        <!--                                android:textSize="18sp"-->
-                        <!--                                android:textColor="#FF0000"-->
-                        <!--                                android:layout_gravity="center_vertical" />-->
-                        <!--                            <TextView-->
-                        <!--                                android:id="@+id/card_issuance_fee_label2"-->
-                        <!--                                android:layout_width="wrap_content"-->
-                        <!--                                android:layout_height="wrap_content"-->
-                        <!--                                android:text="@string/payed_card_kyc"-->
-                        <!--                                android:textAlignment="viewStart"-->
-                        <!--                                android:textSize="16sp" />-->
+                            </com.google.android.material.textfield.TextInputEditText>
+                        </com.google.android.material.textfield.TextInputLayout>
 
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/amount_finance_required"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintTop_toBottomOf="@id/first_payment">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/amount_finance_required2"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/Total4"
+                                android:inputType="number"
+                                android:digits="0123456789"
+                                android:maxLines="1"
+                                android:maxLength="10"
+                                android:textAlignment="viewStart"
+                                android:textSize="14sp"
+                                android:imeOptions="actionNext">
+
+                            </com.google.android.material.textfield.TextInputEditText>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Spinner
+                            android:id="@+id/insuranse_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:hint="Select Gender"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/amount_finance_required"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginTop="8dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/insuranse_spinner"
+                            app:layout_constraintEnd_toEndOf="@id/insuranse_spinner"
+                            app:layout_constraintTop_toTopOf="@id/insuranse_spinner" />
+
+                        <Spinner
+                            android:id="@+id/no_years_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/InputEt"
+                            android:hint="Select Gender"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/insuranse_spinner"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginTop="8dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/no_years_spinner"
+                            app:layout_constraintEnd_toEndOf="@id/no_years_spinner"
+                            app:layout_constraintTop_toTopOf="@id/no_years_spinner" />
 
 
-                        <!--                        </LinearLayout>-->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/almost_monthly_downpayment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintTop_toBottomOf="@id/no_years_spinner">
 
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/almost_monthly_downpayment2"
+                                style="@style/InputEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/Total5"
+                                android:inputType="number"
+                                android:digits="0123456789"
+                                android:maxLines="1"
+                                android:maxLength="10"
+                                android:textAlignment="viewStart"
+                                android:textSize="14sp"
+                                android:imeOptions="actionNext">
 
-
-                        <!-- Checkbox for Agreement 1 -->
-                        <!--                        <CheckBox-->
-                        <!--                            android:id="@+id/agreement_checkbox1"-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:text="@string/auth_term_1"-->
-                        <!--                            android:layout_marginTop="10dp"-->
-                        <!--                            app:layout_constraintStart_toStartOf="parent"-->
-                        <!--                            app:layout_constraintTop_toBottomOf="@+id/card_issuance_fee_layout2"-->
-                        <!--                            app:layout_constraintEnd_toEndOf="parent" />-->
+                            </com.google.android.material.textfield.TextInputEditText>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <!-- Spinner for branch_spinner_id -->
                         <Spinner
@@ -944,9 +1181,18 @@
                             android:hint="Select Gender"
                             app:layout_constraintBottom_toTopOf="@+id/agreement_checkbox2"
                             app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/almost_monthly_downpayment"
                             app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginTop="8dp" />
 
-                            android:layout_marginTop="16dp" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:src="@drawable/ic_arrow_black"
+                            app:layout_constraintBottom_toBottomOf="@id/branch_spinner_id"
+                            app:layout_constraintEnd_toEndOf="@id/branch_spinner_id"
+                            app:layout_constraintTop_toTopOf="@id/branch_spinner_id" />
 
                         <!-- Checkbox for Agreement 2 -->
 
@@ -961,60 +1207,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="16dp" />
 
-                        <!-- CAPTCHA Layout -->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
 
-                            app:layout_constraintTop_toBottomOf="@+id/agreement_checkbox2">
-
-                            <LinearLayout
-                                android:id="@+id/captc"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-
-                                android:layout_marginRight="70dp"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="16dp">
-
-                                <TextView
-                                    android:id="@+id/captchaTextView"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/background_image"
-                                    android:textSize="15sp"
-                                    android:textColor="@color/white"
-                                    android:textStyle="bold"
-                                    android:textAlignment="center"
-                                    android:letterSpacing="0.5"
-                                    android:text=""
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:layout_marginEnd="8dp" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/refresh_icon"
-                                    android:contentDescription="Refresh"
-                                    android:id="@+id/refreshButton"
-                                    android:clickable="true"
-                                    android:focusable="true" />
-                            </LinearLayout>
-
-
-                            <EditText
-                                android:id="@+id/captchaInput"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/InputEt"
-                                android:textAlignment="center"
-                                android:hint="@string/enter_numbers_here"
-                                android:layout_centerHorizontal="true"
-                                android:layout_below="@id/captc"
-                                android:layout_marginTop="16dp" />
-                        </RelativeLayout>
                         <!-- YOUR_VIEWS for Step 5 -->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

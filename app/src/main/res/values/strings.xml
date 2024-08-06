@@ -57,6 +57,9 @@
     <string name="Exchange">Exchange</string>
     <string name="guest_rate">Exchange rate</string>
     <string name="first_name">First Name</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="eng_name">Engagement Type</string>
+    <string name="additional_income_details_txt">Additional income details </string>
     <string name="first_nameHF">Beneficiary First Name</string>
     <string name="seconde_nameHF">Beneficiary Father Name</string>
     <string name="last_nameHF">Beneficiary Last Name</string>
@@ -75,6 +78,10 @@
     <string name="logout_title">Logout</string>
     <string name="mini_statement">Account Statement</string>
     <string name="mobile_number">Mobile number</string>
+    <string name="basic_salary">Net monthly income</string>
+    <string name="additional_salary_txt">Additional income value</string>
+    <string name="engagment_value_txt">Engagement value</string>
+    <string name="monthly_pay">Monthly Payment</string>
     <string name="mobile_number_moform">Mobile number</string>
     <string name="mobile_number_resetform">The mobile number submitted in the banking system - *********09</string>
     <string name="home_menu_more">More</string>
@@ -130,6 +137,10 @@
     <string name="To">To</string>
     <string name="to_account">To %1$s</string>
     <string name="Total">Total</string>
+    <string name="Total2">Total Price</string>
+    <string name="Total3">Downpayment</string>
+    <string name="Total4">Amount of Financing required</string>
+    <string name="Total5">Approximate monthly installment</string>
     <string name="Touch_ID">Touch ID</string>
     <string name="transfer">Transfer</string>
     <string name="Transfer_details">Transfer details</string>
@@ -378,12 +389,18 @@
     <string name="place_of_birth">Place of birth</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="step_two_title">Identity proof document data</string>
+    <string name="step_two_title2">Communication</string>
     <string name="national_number">National Number</string>
     <string name="place_of_issue">Place of issue (secretariat)</string>
 
     <string name="alqayd">Restriction</string>
     <string name="address">Address</string>
+    <string name="more_job_info_txt">More Job Info</string>
+    <string name="more_job_info_txt2">Job Address in Details</string>
     <string name="job_kyc">Occupation</string>
+    <string name="idea_ex">Project details (project type, data to be funded, whether there is previous experience, ...)</string>
+    <string name="job_desc">Job Description</string>
+    <string name="job_company_name">Company Name</string>
     <string name="first_name_en">First name in English</string>
     <string name="commission_card_kyc">Card issuance commission: 40,000 SYP</string>
     <string name="payed_card_kyc">You pay when you receive the card.</string>
@@ -401,10 +418,13 @@
     <string name="university_card">University Card</string>
     <string name="download_attachments">Click to download the required attachments</string>
     <string name="FATCA">Foreign Account Tax Compliance Act (FATCA)</string>
+    <string name="FATCA2">Basic Salary and Obligations</string>
+    <string name="FATCA3">Informations of financing required</string>
     <string name="phone_number_kyc">Mobile number</string>
 
     <string name="txt_student">بيانات الاتصال المسبق (طالب جامعي) </string>
     <string name="txt_normal">بيانات الاتصال القضائي </string>
+    <string name="txt_normal2">Job Details </string>
     <string name="btn_previous">السابق</string>
     <string name="btn_next">التالي</string>
     <string name="mobile_form_error">Please enter your mobile number</string>

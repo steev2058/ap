@@ -54,6 +54,9 @@
     <string name="Exchange">تحويل</string>
     <string name="guest_rate">سعر الصرف</string>
     <string name="first_name">الاسم</string>
+    <string name="bank_name">اسم البنك</string>
+    <string name="eng_name">نوع الالتزام</string>
+    <string name="additional_income_details_txt">تفاصيل الدخل الإضافي</string>
     <string name="first_nameHF">الاسم الأول للمستفيد</string>
     <string name="seconde_nameHF">اسم الأب للمستفيد</string>
     <string name="last_nameHF">كنية المستفيد</string>
@@ -74,6 +77,10 @@
     <string name="logout_title">تسجيل الخروج</string>
     <string name="mini_statement">كشف حساب</string>
     <string name="mobile_number">رقم الهاتف المحمول</string>
+    <string name="basic_salary">صافي الدخل الشهري</string>
+    <string name="additional_salary_txt">قيمة الدخل الإضافي</string>
+    <string name="engagment_value_txt">قيمة الالتزام</string>
+    <string name="monthly_pay">القسط الشهري</string>
     <string name="mobile_number_moform">رقم الموبايل - *********09</string>
     <string name="mobile_number_resetform">رقم الموبايل المثبت على النظام البنكي - *********09</string>
     <string name="home_menu_more">المزيد</string>
@@ -128,6 +135,10 @@
     <string name="To">إلى</string>
     <string name="to_account">إلى %1$s</string>
     <string name="Total">الإجمالي</string>
+    <string name="Total2">الثمن الإجمالي</string>
+    <string name="Total3">الدفعة المقدمة</string>
+    <string name="Total4">مبلغ التمويل المطلوب</string>
+    <string name="Total5">القسط الشهري التقريبي</string>
     <string name="Touch_ID">البصمة</string>
     <string name="transfer">تحويل</string>
     <string name="Transfer_details">تفاصيل التحويل</string>
@@ -374,12 +385,18 @@
     <string name="place_of_birth">مكان الولادة</string>
     <string name="date_of_birth">تاريخ الميلاد</string>
     <string name="step_two_title">بيانات وثيقة إثبات الشخصية</string>
+    <string name="step_two_title2">بيانات الاتصال</string>
     <string name="national_number">الرقم الوطني</string>
     <string name="place_of_issue">مكان الإصدار(الأمانة)</string>
 
     <string name="alqayd">القيد</string>
     <string name="address">العنوان</string>
+    <string name="more_job_info_txt">تفاصيل إضافية عن العمل</string>
+    <string name="more_job_info_txt2">عنوان العمل بالتفصيل</string>
     <string name="job_kyc">المهنة</string>
+    <string name="idea_ex">تفاصيل عن المشروع (نوع المشروع، البيانات المطلوب تمويلها ، هل يوجد خبرة سابقة ، ...)</string>
+    <string name="job_desc">المنصب الوظيفي</string>
+    <string name="job_company_name">اسم الشركة/المعمل</string>
     <string name="first_name_en">الاسم الأول باللغة الانكليزية</string>
     <string name="commission_card_kyc"> عمولة اصدار البطاقة: 40,000 ل.س</string>
     <string name="payed_card_kyc"> تدفع عند استلام البطاقة.</string>
@@ -395,9 +412,12 @@
     <string name="university_card">البطاقة الجامعية</string>
     <string name="download_attachments">اضغط لتحميل المرفقات المطلوبة</string>
     <string name="FATCA">قانون الامتثال الضريبي للحسابات الخارجية (FATCA)</string>
+    <string name="FATCA2">بيانات الدخل الثابت والالتزامات</string>
+    <string name="FATCA3">معلومات التمويل المطلوب</string>
     <string name="phone_number_kyc">رقم الموبايل</string>
     <string name="txt_student">بيانات الاتصال والتعليم (طالب جامعي) </string>
     <string name="txt_normal">بيانات الاتصال والعمل  </string>
+    <string name="txt_normal2">بيانات العمل  </string>
     <string name="btn_previous">السابق</string>
     <string name="btn_next">التالي</string>
     <string name="mobile_form_error">الرجاء إدخال رقم الموبايل</string>
@@ -406,10 +426,10 @@
     <string name="national_form_error">الرجاء إدخال الرقم الوطني أو رقم جواز السفر</string>
     <array name="details">
         <item>البيانات الشخصية</item>
-        <item> إثبات الشخصية</item>
-        <item>الاتصال والعمل</item>
-        <item>المرفقات</item>
-        <item>البطاقة</item>
+        <item>الاتصال</item>
+        <item>العمل</item>
+        <item>الدخل والالتزامات</item>
+        <item>التمويل المطلوب</item>
     </array>
     <string name="more_kyc">فتح حساب إلكتروني</string>
     <string name="more_application">اشتراك بتطبيق البركة</string>
