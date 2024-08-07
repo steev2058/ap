@@ -48,6 +48,7 @@
     <string name="Date">Date</string>
     <string name="pdf_date">Date %1$s</string>
     <string name="date_of_incident">Date of incident</string>
+    <string name="date_of_job">Date of Job</string>
     <string name="transfer_Description">Reason</string>
     <string name="details_of_the_complaints_or_suggestion">Details of the complaints or suggestion</string>
     <string name="biometric_confirmation">Do you want to enable your phone\'s biometric authentication?</string>

@@ -63,6 +63,7 @@ import com.google.zxing.MultiFormatReader
 import com.google.zxing.NotFoundException
 import com.google.zxing.RGBLuminanceSource
 import com.google.zxing.common.HybridBinarizer
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -87,15 +88,18 @@ import java.net.URL
 import java.net.URLEncoder
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.EnumMap
 import java.util.Locale
 import java.util.Random
 import java.util.regex.Pattern
 
-class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormViewModel>()   {
+class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormViewModel>() , DatePickerDialog.OnDateSetListener  {
+
     data class FinanceType(val id: String, val type: String, val maxYear: Int)
     // Fetch data from the API asynchronously
+    private lateinit var etDate: TextInputEditText
     private inner class FetchFinanceTypesDataTask : AsyncTask<String, Void, List<FinanceType>>() {
         override fun doInBackground(vararg params: String?): List<FinanceType> {
             val urlString = params[0] ?: return emptyList()
@@ -135,14 +139,55 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         mViewDataBinding.choseFinanceType.adapter = adapter
 
+        val ideaExplainLayout = mViewDataBinding.ideaExplain
+        val noYearsSpinnerImg = mViewDataBinding.noYearsSpinnerImg
+        val noYearsSpinner = mViewDataBinding.noYearsSpinner
+        val almostMonthlyDownpayment = mViewDataBinding.almostMonthlyDownpayment
+        val firstPayment = mViewDataBinding.firstPayment
+
         mViewDataBinding.choseFinanceType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 if (position > 0) { // Ignore the default option
                     val selectedFinanceType = financeTypes[position - 1]
                     setupNoYearsSpinner(selectedFinanceType.maxYear)
+
+                    // Check if the selected finance type requires showing or hiding specific elements
+                    val hideElements = selectedFinanceType.type in listOf(
+                        "RED-e البلاتينية",
+                        "RED-e الذهبية",
+                        "RED-e الفضية",
+                        "RED-e الكلاسيكية"
+                    )
+
+                    if (hideElements) {
+                        noYearsSpinnerImg.visibility = View.GONE
+                        noYearsSpinner.visibility = View.GONE
+                        almostMonthlyDownpayment.visibility = View.GONE
+                        ideaExplainLayout.visibility = View.GONE
+                        firstPayment.visibility = View.GONE
+                    } else {
+                        noYearsSpinnerImg.visibility = View.VISIBLE
+                        noYearsSpinner.visibility = View.VISIBLE
+                        almostMonthlyDownpayment.visibility = View.VISIBLE
+                        // Add your condition for showing ideaExplainLayout here if necessary
+                        firstPayment.visibility = View.VISIBLE
+
+                        // Check if the selected finance type requires showing the ideaExplainLayout
+                        if (selectedFinanceType.type == "تمويل المشاريع الصغيرة ") {
+                            ideaExplainLayout.visibility = View.VISIBLE
+                        } else {
+                            ideaExplainLayout.visibility = View.GONE
+                        }
+                    }
                 } else {
                     // Reset the noYearsSpinner if the default option is selected
                     setupNoYearsSpinner(0)
+                    // Hide all specific elements if the default option is selected
+                    noYearsSpinnerImg.visibility = View.GONE
+                    noYearsSpinner.visibility = View.GONE
+                    almostMonthlyDownpayment.visibility = View.GONE
+                    ideaExplainLayout.visibility = View.GONE
+                    firstPayment.visibility = View.GONE
                 }
             }
 
@@ -150,6 +195,9 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                 // Do nothing
             }
         }
+
+
+
     }
 
     // Set up the no years spinner
@@ -178,6 +226,8 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
     private fun setupStepView(){
 
 
+      etDate = mViewDataBinding.etDate
+
         mViewDataBinding.stepView.done(false)
         mViewDataBinding.button.setOnClickListener {
             when (position) {
@@ -203,7 +253,8 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                 }
             }
         }
-
+        mViewDataBinding.iBtnDate.setOnClickListener { openDatePicker() }
+        mViewDataBinding.etDate.setOnClickListener { openDatePicker() }
         mViewDataBinding.previousButton.setOnClickListener {
             when (position) {
                 0 -> {
@@ -228,6 +279,40 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
 
 
+    private fun openDatePicker() {
+        val now = Calendar.getInstance()
+        val okTitle = getString(R.string.action_ok)
+        val cancelTitle = getString(R.string.prompt_info_cancel)
+
+        val datePickerDialog = DatePickerDialog.newInstance(this,
+            now.get(Calendar.YEAR),
+            now.get(Calendar.MONTH),
+            now.get(Calendar.DAY_OF_MONTH)
+        ).apply {
+            version = DatePickerDialog.Version.VERSION_2
+            setOkColor(ContextCompat.getColor(baseActivity, R.color.colorAccent))
+            setCancelColor(ContextCompat.getColor(baseActivity, R.color.colorAccent))
+            setOkText(okTitle)
+            setCancelText(cancelTitle)
+        }
+
+        datePickerDialog.show(mActivity.supportFragmentManager, DatePickerDialog::class.simpleName)
+    }
+
+    override fun onDateSet(view: DatePickerDialog?, year: Int, month: Int, dayOfMonth: Int) {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, dayOfMonth)
+
+
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val formattedDate = sdf.format(calendar.time)
+
+        // Set the formatted date in the TextInputEditText
+        etDate.setText(formattedDate)
+
+
+    }
 
 
 
@@ -392,12 +477,15 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                 }
 
 
-
-                val selectedmilitary_servic = mViewDataBinding.genderSpinnerServiceMilitary.selectedItem.toString()
-                if (selectedmilitary_servic == "الخدمة العسكرية") {
-                    showToast("يرجى تحديد الخدمة العسكرية")
-                    return false
+                // Validate the military service spinner if visible
+                if (mViewDataBinding.genderSpinnerServiceMilitary.visibility != View.GONE && mViewDataBinding.genderSpinnerServiceMilitary.visibility != View.GONE) {
+                    val selectedMilitaryService = mViewDataBinding.genderSpinnerServiceMilitary.selectedItem.toString()
+                    if (selectedMilitaryService == "الخدمة العسكرية") {
+                        showToast("يرجى تحديد الخدمة العسكرية")
+                        return false
+                    }
                 }
+
 
                 val selectedNationality = mViewDataBinding.gender2Spinner.selectedItem.toString()
                 if (selectedNationality == "اختر الجنسية") {
@@ -441,12 +529,12 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                         mViewDataBinding.mobnumm.error = null
                     }
 
-//                if (email.isEmpty()) {
-//                    mViewDataBinding.etEmail.error = "يرجى إدخال الايميل"
-//                    return false
-//                } else {
-//                    mViewDataBinding.etEmail.error = null
-//                }
+                if (email.isEmpty()) {
+                    mViewDataBinding.etEmail.error = "يرجى إدخال الايميل"
+                    return false
+                } else {
+                    mViewDataBinding.etEmail.error = null
+                }
                 if (!validateEmail()) {
                     return false
                 }
@@ -454,28 +542,34 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
             }
             2 -> {
                 val selectedJob = mViewDataBinding.jobSpinner.selectedItem.toString()
-                if (selectedJob == "اختر العمل الحالي") {
+                if (selectedJob == "العمل الحالي") {
                     showToast("يرجى تحديد العمل الحالي")
                     return false
                 }
+                // Validate the nameOfCompany2 and jobDescription2 if they are visible
+                if (mViewDataBinding.infoTwoJob.visibility != View.GONE ) {
+                    val nameCompany = mViewDataBinding.nameOfCompany2.text.toString().trim()
+                    val jobDescription = mViewDataBinding.jobDescription2.text.toString().trim()
+
+                    // Check if the fields are visible and then validate them
+
+                        if (nameCompany.isEmpty()) {
+                            mViewDataBinding.nameOfCompany2.error = "يرجى إدخال اسم الشركة/المعمل"
+                            return false
+                        } else {
+                            mViewDataBinding.nameOfCompany2.error = null
+                        }
 
 
-                val nameCompany = mViewDataBinding.nameOfCompany2.text.toString().trim()
-                if (nameCompany.isEmpty()) {
-                    mViewDataBinding.nameOfCompany2.error = "يرجى إدخال اسم الشركة/المعمل"
-                    return false
-                } else {
-                    mViewDataBinding.nameOfCompany2.error = null
+
+                        if (jobDescription.isEmpty()) {
+                            mViewDataBinding.jobDescription2.error = "يرجى إدخال المنصب الوظيفي"
+                            return false
+                        } else {
+                            mViewDataBinding.jobDescription2.error = null
+                        }
+
                 }
-
-                val jobDescription = mViewDataBinding.jobDescription2.text.toString().trim()
-                if (jobDescription.isEmpty()) {
-                    mViewDataBinding.jobDescription2.error = "يرجى إدخال المنصب الوظيفي"
-                    return false
-                } else {
-                    mViewDataBinding.jobDescription2.error = null
-                }
-
 
                 val dateJob = mViewDataBinding.etDate.text.toString().trim()
                 if (dateJob.isEmpty()) {
@@ -512,30 +606,44 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                     mViewDataBinding.basicSalary2.error = null
                 }
 
-                // Validate additional income details if income spinner is selected
-                val additionalIncome = mViewDataBinding.isThereIncomeSpinner.selectedItem.toString()
-                if (additionalIncome == "نعم") {
+
+                val selectedEngagements = mViewDataBinding.isThereAnotherEngagments.selectedItem.toString()
+                if (selectedEngagements == "هل يوجد لديكم التزامات قائمة لدى البنوك العاملة في سورية") {
+                    showToast("يرجى تحديد الالتزامات القائمة لدى البنوك العاملة في سورية")
+                    return false
+                }
+
+                val selectedEngagementsNotBank = mViewDataBinding.isThereAnotherEngagmentsNotBank.selectedItem.toString()
+                if (selectedEngagementsNotBank == "هل يوجد لديكم التزامات اُخرى (إيجار منزل ، أقساط غير مصرفية)") {
+                    showToast("يرجى تحديد الالتزامات الاُخرى (إيجار منزل ، أقساط غير مصرفية)")
+                    return false
+                }
+
+
+                if (mViewDataBinding.incomeSpinnerField.visibility != View.GONE ) {
                     val additionalIncomeDetails = mViewDataBinding.additionalIncomeDetails2.text.toString().trim()
+                    val additionalSalary = mViewDataBinding.additionalSalary2.text.toString().trim()
+
                     if (additionalIncomeDetails.isEmpty()) {
                         mViewDataBinding.additionalIncomeDetails2.error = "يرجى إدخال تفاصيل الدخل الإضافي"
                         return false
                     } else {
                         mViewDataBinding.additionalIncomeDetails2.error = null
                     }
+
+
+                    if (additionalSalary.isEmpty()) {
+                        mViewDataBinding.additionalSalary2.error = "يرجى إدخال الراتب الإضافي"
+                        return false
+                    } else {
+                        mViewDataBinding.additionalSalary2.error = null
+                    }
+
                 }
 
-                // Validate additional salary
-                val additionalSalary = mViewDataBinding.additionalSalary2.text.toString().trim()
-                if (additionalSalary.isEmpty()) {
-                    mViewDataBinding.additionalSalary2.error = "يرجى إدخال الراتب الإضافي"
-                    return false
-                } else {
-                    mViewDataBinding.additionalSalary2.error = null
-                }
 
-                // Validate engagements spinner and details
-                val engagements = mViewDataBinding.isThereAnotherEngagments.selectedItem.toString()
-                if (engagements == "نعم") {
+                if (mViewDataBinding.engagmentsSpinnerField.visibility != View.GONE ) {
+
                     val engagementValue = mViewDataBinding.engagementValue2.text.toString().trim()
                     if (engagementValue.isEmpty()) {
                         mViewDataBinding.engagementValue2.error = "يرجى إدخال قيمة الالتزام"
@@ -561,9 +669,11 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                     }
                 }
 
+
                 // Validate non-bank engagements spinner and details
-                val nonBankEngagements = mViewDataBinding.isThereAnotherEngagmentsNotBank.selectedItem.toString()
-                if (nonBankEngagements == "نعم") {
+
+                if (mViewDataBinding.engagmentsNotBankSpinnerField.visibility != View.GONE ) {
+
                     val engagementName = mViewDataBinding.engagementName2.text.toString().trim()
                     if (engagementName.isEmpty()) {
                         mViewDataBinding.engagementName2.error = "يرجى إدخال اسم الالتزام"
@@ -627,6 +737,10 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         val typeidSpinner = mViewDataBinding.typeIdSpinner
         val serviceMilitarySpinner = mViewDataBinding.genderSpinnerServiceMilitary
         val serviceMilitarySpinnerimg = mViewDataBinding.genderSpinnerServiceMilitaryimg
+        val infoTwoJobLayout = mViewDataBinding.infoTwoJob
+        val incomeSpinnerFieldLayout = mViewDataBinding.incomeSpinnerField
+        val engagmentsSpinnerFieldLayout = mViewDataBinding.engagmentsSpinnerField
+        val engagmentsNotBankSpinnerFieldLayout = mViewDataBinding.engagmentsNotBankSpinnerField
         val branchSpinner = mViewDataBinding.branchSpinnerId
         val genderSpinner2 = mViewDataBinding.gender2Spinner
 
@@ -657,7 +771,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         val isThereIncomeOptions = arrayOf("هل يوجد دخل إضافي","نعم", "لا")
         val isThereAnotherEngagementsOptions = arrayOf("هل يوجد لديكم التزامات قائمة لدى البنوك العاملة في سورية","نعم", "لا")
         val isThereAnotherEngagementsNotBankOptions = arrayOf("هل يوجد لديكم التزامات اُخرى (إيجار منزل ، أقساط غير مصرفية)","نعم", "لا")
-        val jobOptions = arrayOf("العمل الحالي","نقابي","تاجر / صناعي", "موظف ","غير ذلك")
+        val jobOptions = arrayOf("العمل الحالي","نقابي","تاجر / صناعي", "موظف","غير ذلك")
         val typeidOptions = arrayOf("اختر نوع الوثيقة","بطاقة شخصية", "هوية عسكرية")
         val genderOptions = arrayOf("اختر الجنس","ذكر", "أنثى")
         val nationalityOptions = arrayOf("اختر الجنسية","سوري", "فلسطيني","غير ذلك")
@@ -708,7 +822,68 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         adapter6.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         branchSpinner.adapter = adapter6
 
+        // Set up the spinner listener
 
+        isThereAnotherEngagementsNotBankSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedIsThereEngagementsNotBank = parent.getItemAtPosition(position).toString()
+
+                if (selectedIsThereEngagementsNotBank == "نعم") {
+                    engagmentsNotBankSpinnerFieldLayout.visibility = View.VISIBLE
+                } else {
+                    engagmentsNotBankSpinnerFieldLayout.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
+        isThereAnotherEngagementsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedIsThereEngagements = parent.getItemAtPosition(position).toString()
+
+                if (selectedIsThereEngagements == "نعم") {
+                    engagmentsSpinnerFieldLayout.visibility = View.VISIBLE
+                } else {
+                    engagmentsSpinnerFieldLayout.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
+        isThereIncomeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedIsThereIncome = parent.getItemAtPosition(position).toString()
+
+                if (selectedIsThereIncome == "نعم") {
+                    incomeSpinnerFieldLayout.visibility = View.VISIBLE
+                } else {
+                    incomeSpinnerFieldLayout.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
+        // Set up the spinner listener
+        jobSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedJob = parent.getItemAtPosition(position).toString()
+                if (selectedJob == "موظف") {
+                    infoTwoJobLayout.visibility = View.VISIBLE
+                } else {
+                    infoTwoJobLayout.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
         // Set up listener for genderSpinner
         genderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
@@ -750,47 +925,69 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
 
     // Conditions
-    private fun setupAgreementCheckbox(){
+
+    private fun setupAgreementCheckbox() {
         val checkBox = mViewDataBinding.agreementCheckbox2
-        val spannableString = SpannableString("أوافق على الشروط والأحكام الخاصة بفتح الحساب لدى بنك البركة")
+        val spannableString = SpannableString("أوافق على الشروط والأحكام الخاصة بطلبات التمويل لدى بنك البركة\nللإطلاع على الوثائق الممطلوبة يرجى الضغط على الوثائق المطلوبة")
+
         // Define a ForegroundColorSpan to color the text in blue
-        val blueColor = ContextCompat.getColor(requireContext(), R.color.blue) // Replace with your blue color resource
-        val blueText = "الشروط والأحكام"
+        val blueColor = ContextCompat.getColor(requireContext(), R.color.blue)
+        val blueText = "الوثائق المطلوبة"
         val blueColorSpan = ForegroundColorSpan(blueColor)
+
         // Find the starting index of the blue text
         val startIndex = spannableString.indexOf(blueText)
+
         // Apply the color span to the specific part of the text
         spannableString.setSpan(blueColorSpan, startIndex, startIndex + blueText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        // Set the styled text to the CheckBox
-        checkBox.text = spannableString
-        // Define the clickable span for "الشروط والأحكام"
+
+        // Define the clickable span for "الوثائق المطلوبة"
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                val builder = AlertDialog.Builder(requireContext(), R.style.RoundedDialog)
-                val inflater = LayoutInflater.from(context)
-                val dialogView = inflater.inflate(R.layout.conditions_modal, null)
-                builder.setView(dialogView)
+                // Show required documents based on selected options
+                val selectedJob = mViewDataBinding.jobSpinner.selectedItem.toString()
+                val selectedInsurance = mViewDataBinding.insuranseSpinner.selectedItem.toString()
 
-                val url = "https://albaraka.com.sy/KYC/conditions"
-                val webView: WebView = dialogView.findViewById(R.id.webView)
-                val loader: ProgressBar = dialogView.findViewById(R.id.loader)
+                val documents = when (selectedJob) {
+                    "موظف" -> "بيان دخل يوضح فيه المنصب الوظيفي وتاريخ التعيين وقيمة الدخل الإجمالي + كشف حساب التوطين (إن وجد)"
+                    "تاجر / صناعي" -> "سجل تجاري مصدق حديثاً + بيانات مالية لمدة 3 سنوات + ثبوتية عقار العمل (ما يثبت التملك أو عقد إيجار)"
+                    "نقابي" -> "براءة ذمة من النقابة + قائمة بالإيرادات والنفقات لمدة 3 سنوات + ثبوتية عقار العمل (ما يثبت التملك أو عقد إيجار)"
+                    else -> ""
+                }
 
-                webView.webChromeClient = object : WebChromeClient() {
-                    override fun onProgressChanged(view: WebView?, newProgress: Int) {
-                        if (newProgress < 100) {
-                            loader.visibility = View.VISIBLE
-                        } else {
-                            loader.visibility = View.GONE
-                        }
+                val insuranceDocuments = when (selectedInsurance) {
+                    "كفالة شخصية" -> "الأوراق المطلوبة للكفيل: إثبات دخل (بحسب طبيعة العمل)"
+                    "كفالة شركة" -> "الأوراق المطلوبة للشركة: بيانات دخل + وثائق شخصية للمفوض بالتوقيع عن الشركة"
+                    "توطين" -> "هذا الخيار للموظفين الموطنين لرواتبهم الشهرية في بنك البركة"
+
+                    "رهن عقاري" -> """الأوراق المطلوبة لاعتماد الضمان العقاري: إخراج قيد عقاري بتاريخ حديث + بيان مساحة + مخطط افرازي
+
+                        على أن تتوفر في العقار المقدم كضمان الشروط التالية:
+                        
+                        1. أن تكون تبعية العقار للسجل الدائم (الطابو الأخضر) أو السجل المؤقت أو مؤسسة الإسكان العسكرية أو المدنية أو تجمع مشروع دمر.
+                        2. أن تكون صحيفة العقار خالية من الإشارات المؤثرة (حجز، رهن، دعوى ...)
+                        3. أن يتم الرهن على كامل العقار (كامل 2,400 سهم)
+                        4. تخمين العقار من مخمن / مخمنين عقاري معتمد وأن تكون نسبة تغطية العقار بالقيمة التخمينية لا تقل عن 150 % لمبلغ التمويل"""
+                                            "رهن سيارة خاصة" -> """الأوراق المطلوبة لاعتماد ضمان السيارة: كشف إطلاع بتاريخ حديث 
+                        على أن تتوفر في السيارة المقدمة كضمان الشروط التالية:
+                        1. أن تكون السيارة ذات لوحة خاصة وليس عامة
+                        2. أن لا تقل سنة صنع السيارة عن العام 2009
+                        3. أن يتم تقييم السيارة من خبير فني معتمد وأن تكون نسبة تغطية السيارة بالقيمة التقديرية لا تقل عن 200% لمبلغ التمويل
+                        4. أن تكون السيارة بحالة فنية جيدة
+                        5. أن يتم تأمين السيارة لدى شركة تأمين تكافلي تأمين شامل لأول سنتين وباقي السنوات تأمين هلاك كلي وأن يكون بنك البركة سورية المستفيد الأول من بوليصة التأمين"""
+
+                    "رهن سيارة خاصة" -> "الأوراق المطلوبة لاعتماد ضمان السيارة: كشف إطلاع بتاريخ حديث \nعلى أن تتوفر في السيارة المقدمة كضمان الشروط التالية:\n1. أن تكون السيارة ذات لوحة خاصة وليس عامة\n2. أن لا تقل سنة صنع السيارة عن العام 2009\n3. أن يتم تقييم السيارة من خبير فني معتمد وأن تكون نسبة تغطية السيارة بالقيمة التقديرية لا تقل عن 200% لمبلغ التمويل\n4. أن تكون السيارة بحالة فنية جيدة\n5. أن يتم تأمين السيارة لدى شركة تأمين تكافلي تأمين شامل لأول سنتين وباقي السنوات تأمين هلاك كلي وأن يكون بنك البركة سورية المستفيد الأول من بوليصة التأمين"
+                    else -> ""
+                }
+
+                val dialogMessage = "$documents\n$insuranceDocuments"
+                AlertDialog.Builder(requireContext())
+                    .setTitle("الوثائق المطلوبة")
+                    .setMessage(dialogMessage)
+                    .setNegativeButton("إغلاق") { dialog, _ ->
+                        dialog.dismiss()
                     }
-                }
-
-                webView.loadUrl(url)
-                builder.setNegativeButton("إغلاق") { dialog, which ->
-                    dialog.dismiss()
-                }
-                val alertDialog = builder.create()
-                alertDialog.show()
+                    .show()
             }
 
             // Add this method to make the text appear as a link
@@ -800,16 +997,17 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                 ds.color = blueColor // Set the text color to blue
             }
         }
+
         // Set the clickable span only for the part you want to be clickable
         spannableString.setSpan(clickableSpan, startIndex, startIndex + blueText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
         // Apply the formatted text to the CheckBox
         checkBox.text = spannableString
+
         // Make the CheckBox text appear as a link
         checkBox.movementMethod = LinkMovementMethod.getInstance()
         checkBox.highlightColor = Color.TRANSPARENT // Set the highlight color to transparent to remove the background color
-
     }
-
 
 
 
