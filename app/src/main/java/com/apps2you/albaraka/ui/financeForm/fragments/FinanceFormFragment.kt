@@ -1,98 +1,52 @@
 package com.apps2you.albaraka.ui.financeForm.fragments
 
-import android.Manifest
 import android.app.AlertDialog
-import android.content.ContentResolver
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.AsyncTask
-import android.provider.MediaStore
+import android.os.Handler
 import android.text.Editable
 import android.text.InputFilter
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.util.Patterns
-import android.view.LayoutInflater
 import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebView
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.DatePicker
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.Spinner
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.apps2you.albaraka.BR
-import com.apps2you.albaraka.MyApplication
 import com.apps2you.albaraka.R
 import com.apps2you.albaraka.databinding.FragmentFinanceBinding
 import com.apps2you.albaraka.ui.base.BaseFragment
-import com.apps2you.albaraka.ui.financeForm.CompressImageTask
-import com.apps2you.albaraka.ui.kyc.fragments.ResultActivity
-import com.apps2you.albaraka.ui.kyc.fragments.ScannerActivity
 import com.apps2you.albaraka.ui.kyc.fragments.finishActivity
 import com.apps2you.albaraka.viewmodels.FinanceFormViewModel
-import com.bumptech.glide.Glide
-import com.chaos.view.PinView
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.messaging.Constants
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.BinaryBitmap
-import com.google.zxing.DecodeHintType
-import com.google.zxing.MultiFormatReader
-import com.google.zxing.NotFoundException
-import com.google.zxing.RGBLuminanceSource
-import com.google.zxing.common.HybridBinarizer
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import me.dm7.barcodescanner.zxing.ZXingScannerView
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody.Companion.asRequestBody
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStreamReader
-import java.io.UnsupportedEncodingException
 import java.net.HttpURLConnection
 import java.net.URL
-import java.net.URLEncoder
-import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.EnumMap
 import java.util.Locale
-import java.util.Random
 import java.util.regex.Pattern
 
 class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormViewModel>() , DatePickerDialog.OnDateSetListener  {
@@ -100,6 +54,214 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
     data class FinanceType(val id: String, val type: String, val maxYear: Int)
     // Fetch data from the API asynchronously
     private lateinit var etDate: TextInputEditText
+
+
+    private var prec = 0.0
+    private var max_year = 0
+    private var selected_year = 0
+    private var req_credit = 0.0
+    private var min_year = 0
+    private var monthly_ins = 0.0
+    private var isshow = false
+
+    override fun setUpView() {
+
+        val urlString = "https://albaraka.com.sy/AlBarakaForms/ApiController/credit_types"
+        FetchFinanceTypesDataTask().execute(urlString)
+        // Set up spinners
+        setupSpinners()
+
+        // Set up agreement checkbox
+        setupAgreementCheckbox()
+
+        // Set up step view
+        setupStepView()
+        datePicker =mViewDataBinding.datePicker2;
+
+        etDate = mViewDataBinding.etDate
+        mViewDataBinding.firstPayment2.setOnClickListener {
+            showPaidAlert()
+        }
+        setupTextWatchers()
+        mViewDataBinding.etFirstName.addTextChangedListener(textWatcher)
+        mViewDataBinding.etFirstNamde.addTextChangedListener(textWatcher)
+        mViewDataBinding.etFirstNamde2.addTextChangedListener(textWatcher)
+
+        val etFirstName = view?.findViewById<TextInputEditText>(R.id.et_first_name)
+        val et_firstnamde = view?.findViewById<TextInputEditText>(R.id.et_first_namde)
+        val et_firstnamde2 = view?.findViewById<TextInputEditText>(R.id.et_first_namde2)
+        val moss = view?.findViewById<TextInputEditText>(R.id.moss)
+        val mos22 = view?.findViewById<TextInputEditText>(R.id.mos22)
+        val mos33 = view?.findViewById<TextInputEditText>(R.id.mos33)
+        val national_placec = view?.findViewById<TextInputEditText>(R.id.national_placec)
+        val kayed = view?.findViewById<TextInputEditText>(R.id.kayed)
+        val addrr = view?.findViewById<TextInputEditText>(R.id.addrr)
+        val job = view?.findViewById<TextInputEditText>(R.id.job)
+
+        val arabicInputFilter = InputFilter { source, start, end, dest, dstart, dend ->
+            for (i in start until end) {
+                if (!isArabic(source[i].toString())) {
+                    Toast.makeText(requireContext(), "يرجى الكتابة باللغة العربية", Toast.LENGTH_SHORT).show()
+                    return@InputFilter ""
+                }
+            }
+            null
+        }
+        if (etFirstName != null) {
+            etFirstName.filters = arrayOf(arabicInputFilter)
+        }
+        if (et_firstnamde != null) {
+            et_firstnamde.filters = arrayOf(arabicInputFilter)
+        }
+        if (et_firstnamde2 != null) {
+            et_firstnamde2.filters = arrayOf(arabicInputFilter)
+        }
+        if (moss != null) {
+            moss.filters = arrayOf(arabicInputFilter)
+        }
+        if (mos22 != null) {
+            mos22.filters = arrayOf(arabicInputFilter)
+        }
+        if (mos33 != null) {
+            mos33.filters = arrayOf(arabicInputFilter)
+        }
+        if (national_placec != null) {
+            national_placec.filters = arrayOf(arabicInputFilter)
+        }
+        if (kayed != null) {
+            kayed.filters = arrayOf(arabicInputFilter)
+        }
+        if (addrr != null) {
+            addrr.filters = arrayOf(arabicInputFilter)
+        }
+        if (job != null) {
+            job.filters = arrayOf(arabicInputFilter)
+        }
+
+
+    }
+
+
+    private fun showPaidAlert() {
+        val paidMoney: String = mViewDataBinding.firstPayment2.text.toString()
+        if (TextUtils.isEmpty(paidMoney) && !isshow) {
+            AlertDialog.Builder(context)
+                .setMessage("بنسبة 40% كحد أدنى من الثمن الإجمالي للعقارات وبنسبة 25% كحد أدنى لبقية المنتجات ويعفى الموطن للراتب لدى بنك البركة من الدفعة المقدمة")
+                .setPositiveButton("OK", null)
+                .show()
+            isshow = true
+            Handler().postDelayed({ isshow = false }, 180000)
+        }
+        mViewDataBinding.firstPayment2.requestFocus()
+    }
+
+    private fun calcCreditMoney() {
+        val totalMoneyStr: String =
+            mViewDataBinding.totalAmount2.text.toString().replace(",", "")
+        val paidMoneyStr: String =
+            mViewDataBinding.firstPayment2.text.toString().replace(",", "")
+        if (!TextUtils.isEmpty(totalMoneyStr) && !TextUtils.isEmpty(paidMoneyStr)) {
+            val total = totalMoneyStr.toDouble()
+            val paid = paidMoneyStr.toDouble()
+            if (paid > total) {
+                AlertDialog.Builder(context)
+                    .setMessage("إن الدفعة المقدمة أكبر من الثمن الإجمالي")
+                    .setPositiveButton("OK", null)
+                    .show()
+                return
+            }
+            req_credit = total - paid
+            mViewDataBinding.amountFinanceRequired2.setText(
+                NumberFormat.getNumberInstance().format(req_credit)
+            )
+            calcPartial()
+        }
+    }
+
+
+    private fun setupTextWatchers() {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Do nothing
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                calcCreditMoney()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Do nothing
+            }
+        }
+
+        mViewDataBinding.basicSalary2.addTextChangedListener(textWatcher)
+        mViewDataBinding.additionalSalary2.addTextChangedListener(textWatcher)
+        mViewDataBinding.totalAmount2.addTextChangedListener(textWatcher)
+        mViewDataBinding.firstPayment2.addTextChangedListener(textWatcher)
+    }
+
+    private fun calcPercent(): Double {
+        val netSalary =
+            parseDouble(mViewDataBinding.basicSalary2.text.toString().replace(",", ""))
+        val monthlyInstallment = parseDouble(
+            mViewDataBinding.almostMonthlyDownpayment2.text.toString().replace(",", "")
+        )
+        val monthlyCom =
+            parseDouble(mViewDataBinding.monthlyPayment2.text.toString().replace(",", ""))
+        val monthlyOtherCom = parseDouble(
+            mViewDataBinding.monthlyPaymentNb2.text.toString().replace(",", "")
+        )
+        val additionalSalary = parseDouble(
+            mViewDataBinding.additionalSalary2.text.toString().replace(",", "")
+        )
+        monthly_ins =
+            (monthlyInstallment + monthlyCom + monthlyOtherCom) / (netSalary + additionalSalary) * 100
+        return monthly_ins
+    }
+
+    private fun calcPartial() {
+        mViewDataBinding.agreementCheckbox2.setChecked(false)
+        if (selected_year > 0) {
+            val partial = (req_credit + req_credit * prec * selected_year) / (selected_year * 12)
+            mViewDataBinding.almostMonthlyDownpayment2.setText(
+                NumberFormat.getNumberInstance().format(partial)
+            )
+            calcPercent()
+            if (monthly_ins > 40) {
+                AlertDialog.Builder(context)
+                    .setMessage("لقد تم تجاوز النسبة المسموح بها ، يرجى تخفيض المبلغ الإجمالي أو زيادة مبلغ الدفعة المقدمة")
+                    .setPositiveButton("OK", null)
+                    .show()
+            }
+        }
+    }
+
+
+
+
+
+    private fun setupAlertIfExceedsPercentage() {
+        if (monthly_ins > 40) {
+            AlertDialog.Builder(context)
+                .setMessage("لايمكن اتمام الطلب لان القسط الشهري اكبر من 40% من الدخل الشهري")
+                .setPositiveButton("OK", null)
+                .show()
+        }
+    }
+
+
+
+    private fun parseDouble(value: String): Double {
+        return if (TextUtils.isEmpty(value)) {
+            0.0
+        } else try {
+            value.toDouble()
+        } catch (e: NumberFormatException) {
+            0.0
+        }
+    }
+
+
     private inner class FetchFinanceTypesDataTask : AsyncTask<String, Void, List<FinanceType>>() {
         override fun doInBackground(vararg params: String?): List<FinanceType> {
             val urlString = params[0] ?: return emptyList()
@@ -211,7 +373,19 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, years)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         mViewDataBinding.noYearsSpinner.adapter = adapter
+
+        mViewDataBinding.noYearsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+                selected_year = position // Adjust if needed, e.g., `position + 1`
+                calcPartial()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
     }
+
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_finance
@@ -226,7 +400,6 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
     private fun setupStepView(){
 
 
-      etDate = mViewDataBinding.etDate
 
         mViewDataBinding.stepView.done(false)
         mViewDataBinding.button.setOnClickListener {
@@ -277,7 +450,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
     }
 
 
-
+    private var minYear: Int = 0
 
     private fun openDatePicker() {
         val now = Calendar.getInstance()
@@ -290,11 +463,13 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
             now.get(Calendar.DAY_OF_MONTH)
         ).apply {
             version = DatePickerDialog.Version.VERSION_2
-            setOkColor(ContextCompat.getColor(baseActivity, R.color.colorAccent))
-            setCancelColor(ContextCompat.getColor(baseActivity, R.color.colorAccent))
+            setOkColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
+            setCancelColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
             setOkText(okTitle)
             setCancelText(cancelTitle)
         }
+
+
 
         datePickerDialog.show(mActivity.supportFragmentManager, DatePickerDialog::class.simpleName)
     }
@@ -303,17 +478,20 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         val calendar = Calendar.getInstance()
         calendar.set(year, month, dayOfMonth)
 
-
-
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
         val formattedDate = sdf.format(calendar.time)
 
         // Set the formatted date in the TextInputEditText
-        etDate.setText(formattedDate)
+        mViewDataBinding.etDate.setText(formattedDate)
 
-
+        // Calculate the age difference in milliseconds
+        val start = Calendar.getInstance()
+        start.set(year, month, dayOfMonth)
+        val ageDifMs = Calendar.getInstance().timeInMillis - start.timeInMillis
+        val ageDate = Calendar.getInstance()
+        ageDate.timeInMillis = ageDifMs
+        minYear = Math.abs(ageDate.get(Calendar.YEAR) - 1970)
     }
-
 
 
     private inner class MaskWatcher(private val mask: String) : TextWatcher {
@@ -928,7 +1106,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
     private fun setupAgreementCheckbox() {
         val checkBox = mViewDataBinding.agreementCheckbox2
-        val spannableString = SpannableString("أوافق على الشروط والأحكام الخاصة بطلبات التمويل لدى بنك البركة\nللإطلاع على الوثائق الممطلوبة يرجى الضغط على الوثائق المطلوبة")
+        val spannableString = SpannableString("أوافق على الشروط والأحكام الخاصة بطلبات التمويل لدى بنك البركة للإطلاع على الوثائق الممطلوبة يرجى الضغط على الوثائق المطلوبة")
 
         // Define a ForegroundColorSpan to color the text in blue
         val blueColor = ContextCompat.getColor(requireContext(), R.color.blue)
@@ -949,34 +1127,33 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                 val selectedInsurance = mViewDataBinding.insuranseSpinner.selectedItem.toString()
 
                 val documents = when (selectedJob) {
-                    "موظف" -> "بيان دخل يوضح فيه المنصب الوظيفي وتاريخ التعيين وقيمة الدخل الإجمالي + كشف حساب التوطين (إن وجد)"
-                    "تاجر / صناعي" -> "سجل تجاري مصدق حديثاً + بيانات مالية لمدة 3 سنوات + ثبوتية عقار العمل (ما يثبت التملك أو عقد إيجار)"
-                    "نقابي" -> "براءة ذمة من النقابة + قائمة بالإيرادات والنفقات لمدة 3 سنوات + ثبوتية عقار العمل (ما يثبت التملك أو عقد إيجار)"
+                    "موظف" -> "*بيان دخل يوضح فيه المنصب الوظيفي وتاريخ التعيين وقيمة الدخل الإجمالي + كشف حساب التوطين (إن وجد)"
+                    "تاجر / صناعي" -> "*سجل تجاري مصدق حديثاً + بيانات مالية لمدة 3 سنوات + ثبوتية عقار العمل (ما يثبت التملك أو عقد إيجار)"
+                    "نقابي" -> "*براءة ذمة من النقابة + قائمة بالإيرادات والنفقات لمدة 3 سنوات + ثبوتية عقار العمل (ما يثبت التملك أو عقد إيجار)"
                     else -> ""
                 }
 
                 val insuranceDocuments = when (selectedInsurance) {
-                    "كفالة شخصية" -> "الأوراق المطلوبة للكفيل: إثبات دخل (بحسب طبيعة العمل)"
-                    "كفالة شركة" -> "الأوراق المطلوبة للشركة: بيانات دخل + وثائق شخصية للمفوض بالتوقيع عن الشركة"
-                    "توطين" -> "هذا الخيار للموظفين الموطنين لرواتبهم الشهرية في بنك البركة"
+"كفالة شخصية" -> "*الأوراق المطلوبة للكفيل: إثبات دخل (بحسب طبيعة العمل)"
+"كفالة شركة" -> "*الأوراق المطلوبة للشركة: بيانات دخل + وثائق شخصية للمفوض بالتوقيع عن الشركة"
+"توطين" -> "*هذا الخيار للموظفين الموطنين لرواتبهم الشهرية في بنك البركة"
 
-                    "رهن عقاري" -> """الأوراق المطلوبة لاعتماد الضمان العقاري: إخراج قيد عقاري بتاريخ حديث + بيان مساحة + مخطط افرازي
+"رهن عقاري" -> """*الأوراق المطلوبة لاعتماد الضمان العقاري: إخراج قيد عقاري بتاريخ حديث + بيان مساحة + مخطط افرازي
 
-                        على أن تتوفر في العقار المقدم كضمان الشروط التالية:
-                        
-                        1. أن تكون تبعية العقار للسجل الدائم (الطابو الأخضر) أو السجل المؤقت أو مؤسسة الإسكان العسكرية أو المدنية أو تجمع مشروع دمر.
-                        2. أن تكون صحيفة العقار خالية من الإشارات المؤثرة (حجز، رهن، دعوى ...)
-                        3. أن يتم الرهن على كامل العقار (كامل 2,400 سهم)
-                        4. تخمين العقار من مخمن / مخمنين عقاري معتمد وأن تكون نسبة تغطية العقار بالقيمة التخمينية لا تقل عن 150 % لمبلغ التمويل"""
-                                            "رهن سيارة خاصة" -> """الأوراق المطلوبة لاعتماد ضمان السيارة: كشف إطلاع بتاريخ حديث 
-                        على أن تتوفر في السيارة المقدمة كضمان الشروط التالية:
-                        1. أن تكون السيارة ذات لوحة خاصة وليس عامة
-                        2. أن لا تقل سنة صنع السيارة عن العام 2009
-                        3. أن يتم تقييم السيارة من خبير فني معتمد وأن تكون نسبة تغطية السيارة بالقيمة التقديرية لا تقل عن 200% لمبلغ التمويل
-                        4. أن تكون السيارة بحالة فنية جيدة
-                        5. أن يتم تأمين السيارة لدى شركة تأمين تكافلي تأمين شامل لأول سنتين وباقي السنوات تأمين هلاك كلي وأن يكون بنك البركة سورية المستفيد الأول من بوليصة التأمين"""
-
-                    "رهن سيارة خاصة" -> "الأوراق المطلوبة لاعتماد ضمان السيارة: كشف إطلاع بتاريخ حديث \nعلى أن تتوفر في السيارة المقدمة كضمان الشروط التالية:\n1. أن تكون السيارة ذات لوحة خاصة وليس عامة\n2. أن لا تقل سنة صنع السيارة عن العام 2009\n3. أن يتم تقييم السيارة من خبير فني معتمد وأن تكون نسبة تغطية السيارة بالقيمة التقديرية لا تقل عن 200% لمبلغ التمويل\n4. أن تكون السيارة بحالة فنية جيدة\n5. أن يتم تأمين السيارة لدى شركة تأمين تكافلي تأمين شامل لأول سنتين وباقي السنوات تأمين هلاك كلي وأن يكون بنك البركة سورية المستفيد الأول من بوليصة التأمين"
+ على أن تتوفر في العقار المقدم كضمان الشروط التالية:
+  
+1. أن تكون تبعية العقار للسجل الدائم (الطابو الأخضر) أو السجل المؤقت أو مؤسسة الإسكان العسكرية أو المدنية أو تجمع مشروع دمر.
+2. أن تكون صحيفة العقار خالية من الإشارات المؤثرة (حجز، رهن، دعوى ...)
+3. أن يتم الرهن على كامل العقار (كامل 2,400 سهم)
+ 4. تخمين العقار من مخمن / مخمنين عقاري معتمد وأن تكون نسبة تغطية العقار بالقيمة التخمينية لا تقل عن 150 % لمبلغ التمويل"""
+"رهن سيارة خاصة" -> """الأوراق المطلوبة لاعتماد ضمان السيارة: كشف إطلاع بتاريخ حديث 
+على أن تتوفر في السيارة المقدمة كضمان الشروط التالية:
+1. أن تكون السيارة ذات لوحة خاصة وليس عامة
+2. أن لا تقل سنة صنع السيارة عن العام 2009
+3. أن يتم تقييم السيارة من خبير فني معتمد وأن تكون نسبة تغطية السيارة بالقيمة التقديرية لا تقل عن 200% لمبلغ التمويل
+4. أن تكون السيارة بحالة فنية جيدة
+5. أن يتم تأمين السيارة لدى شركة تأمين تكافلي تأمين شامل لأول سنتين وباقي السنوات تأمين هلاك كلي وأن يكون بنك البركة سورية المستفيد الأول من بوليصة التأمين"""
+                    "رهن سيارة خاصة" -> "*الأوراق المطلوبة لاعتماد ضمان السيارة: كشف إطلاع بتاريخ حديث \nعلى أن تتوفر في السيارة المقدمة كضمان الشروط التالية:\n1. أن تكون السيارة ذات لوحة خاصة وليس عامة\n2. أن لا تقل سنة صنع السيارة عن العام 2009\n3. أن يتم تقييم السيارة من خبير فني معتمد وأن تكون نسبة تغطية السيارة بالقيمة التقديرية لا تقل عن 200% لمبلغ التمويل\n4. أن تكون السيارة بحالة فنية جيدة\n5. أن يتم تأمين السيارة لدى شركة تأمين تكافلي تأمين شامل لأول سنتين وباقي السنوات تأمين هلاك كلي وأن يكون بنك البركة سورية المستفيد الأول من بوليصة التأمين"
                     else -> ""
                 }
 
@@ -1024,91 +1201,6 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
     override fun setViewModel(): Class<FinanceFormViewModel> {
         return FinanceFormViewModel::class.java
     }
-
-        override fun setUpView() {
-
-
-
-
-            val urlString = "https://albaraka.com.sy/AlBarakaForms/ApiController/credit_types"
-            FetchFinanceTypesDataTask().execute(urlString)
-            // Set up spinners
-            setupSpinners()
-
-            // Set up agreement checkbox
-            setupAgreementCheckbox()
-
-            // Set up step view
-            setupStepView()
-            datePicker =mViewDataBinding.datePicker2;
-
-
-
-
-
-
-            mViewDataBinding.etFirstName.addTextChangedListener(textWatcher)
-            mViewDataBinding.etFirstNamde.addTextChangedListener(textWatcher)
-            mViewDataBinding.etFirstNamde2.addTextChangedListener(textWatcher)
-
-
-
-            val etFirstName = view?.findViewById<TextInputEditText>(R.id.et_first_name)
-            val et_firstnamde = view?.findViewById<TextInputEditText>(R.id.et_first_namde)
-            val et_firstnamde2 = view?.findViewById<TextInputEditText>(R.id.et_first_namde2)
-            val moss = view?.findViewById<TextInputEditText>(R.id.moss)
-            val mos22 = view?.findViewById<TextInputEditText>(R.id.mos22)
-            val mos33 = view?.findViewById<TextInputEditText>(R.id.mos33)
-            val national_placec = view?.findViewById<TextInputEditText>(R.id.national_placec)
-            val kayed = view?.findViewById<TextInputEditText>(R.id.kayed)
-            val addrr = view?.findViewById<TextInputEditText>(R.id.addrr)
-            val job = view?.findViewById<TextInputEditText>(R.id.job)
-
-
-
-
-            val arabicInputFilter = InputFilter { source, start, end, dest, dstart, dend ->
-                for (i in start until end) {
-                    if (!isArabic(source[i].toString())) {
-                        Toast.makeText(requireContext(), "يرجى الكتابة باللغة العربية", Toast.LENGTH_SHORT).show()
-                        return@InputFilter ""
-                    }
-                }
-                null
-            }
-            if (etFirstName != null) {
-                etFirstName.filters = arrayOf(arabicInputFilter)
-            }
-            if (et_firstnamde != null) {
-                et_firstnamde.filters = arrayOf(arabicInputFilter)
-            }
-            if (et_firstnamde2 != null) {
-                et_firstnamde2.filters = arrayOf(arabicInputFilter)
-            }
-            if (moss != null) {
-                moss.filters = arrayOf(arabicInputFilter)
-            }
-            if (mos22 != null) {
-                mos22.filters = arrayOf(arabicInputFilter)
-            }
-            if (mos33 != null) {
-                mos33.filters = arrayOf(arabicInputFilter)
-            }
-            if (national_placec != null) {
-                national_placec.filters = arrayOf(arabicInputFilter)
-            }
-            if (kayed != null) {
-                kayed.filters = arrayOf(arabicInputFilter)
-            }
-            if (addrr != null) {
-                addrr.filters = arrayOf(arabicInputFilter)
-            }
-            if (job != null) {
-                job.filters = arrayOf(arabicInputFilter)
-            }
-
-
-        }
 
 
 
