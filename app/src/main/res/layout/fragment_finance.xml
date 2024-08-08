@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="80dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/cardView">
             <LinearLayout
@@ -650,20 +650,31 @@
                             android:layout_height="wrap_content"
                             android:drawablePadding="8dp"
                             android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
+                            android:paddingBottom="20dp"
                             android:text="@string/FATCA2"
                             app:layout_constraintTop_toTopOf="parent"
                             android:textAlignment="viewStart"
                             android:textStyle="bold"
                             app:drawableStartCompat="@drawable/file_icon"/>
+                        <TextView
+                            android:id="@+id/tv_contact_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="8dp"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="0dp"
+                            android:text="@string/basic_salary"
+                            android:textAlignment="viewStart"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@id/qanon" />
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/basic_salary"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             android:textColorHint="@color/gray"
+                            android:paddingTop="10dp"
                             app:hintEnabled="false"
-                            app:layout_constraintTop_toBottomOf="@id/qanon">
+                            app:layout_constraintTop_toBottomOf="@id/tv_contact_info">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/basic_salary2"
@@ -975,18 +986,25 @@
                             android:textAlignment="viewStart"
                             android:textStyle="bold"
                             app:drawableStartCompat="@drawable/file_icon"/>
-                        <!-- Spinner for branch_spinner_id -->
-                            <Spinner
-                                android:id="@+id/choseFinanceType"
+
+                        <!-- Spinner for choseFinanceType -->
+                        <TextView
+                            android:id="@+id/finance_type_hint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/financing_type"
+                            app:layout_constraintTop_toBottomOf="@id/required_finance"
+                            android:layout_marginTop="8dp"/>
+
+                        <Spinner
+                            android:id="@+id/choseFinanceType"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             style="@style/InputEt"
-                            android:hint="Select Gender"
-                            app:layout_constraintBottom_toTopOf="@+id/idea_explain"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/required_finance"
-                            android:layout_marginTop="16dp" />
+                            app:layout_constraintTop_toBottomOf="@id/finance_type_hint"
+                            android:layout_marginTop="8dp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -1019,10 +1037,17 @@
                                 android:maxLines="10"
                                 android:textAlignment="viewStart"
                                 android:textSize="14sp"
-                                android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"
-                                />
+                                android:digits="١٢٣٤٥٦٧٨٩٠ ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىآةؤإئ"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <!-- TextInput for total_amount -->
+                        <TextView
+                            android:id="@+id/total_amount_hint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Total2"
+                            app:layout_constraintTop_toBottomOf="@id/idea_explain"
+                            android:layout_marginTop="8dp"/>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/total_amount"
@@ -1031,7 +1056,7 @@
                             android:layout_marginTop="8dp"
                             android:textColorHint="@color/gray"
                             app:hintEnabled="false"
-                            app:layout_constraintTop_toBottomOf="@id/idea_explain">
+                            app:layout_constraintTop_toBottomOf="@id/total_amount_hint">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/total_amount2"
@@ -1046,10 +1071,17 @@
                                 android:textAlignment="viewStart"
                                 android:textSize="14sp"
                                 android:imeOptions="actionNext">
-
                             </com.google.android.material.textfield.TextInputEditText>
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <!-- TextInput for first_payment -->
+                        <TextView
+                            android:id="@+id/first_payment_hint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Total3"
+                            app:layout_constraintTop_toBottomOf="@id/total_amount"
+                            android:layout_marginTop="8dp"/>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/first_payment"
@@ -1058,7 +1090,7 @@
                             android:layout_marginTop="8dp"
                             android:textColorHint="@color/gray"
                             app:hintEnabled="false"
-                            app:layout_constraintTop_toBottomOf="@id/total_amount">
+                            app:layout_constraintTop_toBottomOf="@id/first_payment_hint">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/first_payment2"
@@ -1073,10 +1105,17 @@
                                 android:textAlignment="viewStart"
                                 android:textSize="14sp"
                                 android:imeOptions="actionNext">
-
                             </com.google.android.material.textfield.TextInputEditText>
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <!-- TextInput for amount_finance_required -->
+                        <TextView
+                            android:id="@+id/amount_finance_required_hint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Total4"
+                            app:layout_constraintTop_toBottomOf="@id/first_payment"
+                            android:layout_marginTop="8dp"/>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/amount_finance_required"
@@ -1085,7 +1124,7 @@
                             android:layout_marginTop="8dp"
                             android:textColorHint="@color/gray"
                             app:hintEnabled="false"
-                            app:layout_constraintTop_toBottomOf="@id/first_payment">
+                            app:layout_constraintTop_toBottomOf="@id/amount_finance_required_hint">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/amount_finance_required2"
@@ -1100,18 +1139,25 @@
                                 android:textAlignment="viewStart"
                                 android:textSize="14sp"
                                 android:imeOptions="actionNext">
-
                             </com.google.android.material.textfield.TextInputEditText>
                         </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Spinner for insuranse_spinner -->
+                        <TextView
+                            android:id="@+id/insurance_hint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="اختر الضمانات الممكن تقديمها"
+                            app:layout_constraintTop_toBottomOf="@id/amount_finance_required"
+                            android:layout_marginTop="8dp"/>
 
                         <Spinner
                             android:id="@+id/insuranse_spinner"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             style="@style/InputEt"
-                            android:hint="Select Gender"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/amount_finance_required"
+                            app:layout_constraintTop_toBottomOf="@id/insurance_hint"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="8dp" />
 
@@ -1124,14 +1170,22 @@
                             app:layout_constraintEnd_toEndOf="@id/insuranse_spinner"
                             app:layout_constraintTop_toTopOf="@id/insuranse_spinner" />
 
+                        <!-- Spinner for no_years_spinner -->
+                        <TextView
+                            android:id="@+id/no_years_hint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="عدد السنوات المطلوب المطلوب للتسديد"
+                            app:layout_constraintTop_toBottomOf="@id/insuranse_spinner"
+                            android:layout_marginTop="8dp"/>
+
                         <Spinner
                             android:id="@+id/no_years_spinner"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             style="@style/InputEt"
-                            android:hint="Select Gender"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/insuranse_spinner"
+                            app:layout_constraintTop_toBottomOf="@id/no_years_hint"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="8dp" />
 
@@ -1145,6 +1199,14 @@
                             app:layout_constraintEnd_toEndOf="@id/no_years_spinner"
                             app:layout_constraintTop_toTopOf="@id/no_years_spinner" />
 
+                        <!-- TextInput for almost_monthly_downpayment -->
+                        <TextView
+                            android:id="@+id/almost_monthly_downpayment_hint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Total5"
+                            app:layout_constraintTop_toBottomOf="@id/no_years_spinner"
+                            android:layout_marginTop="8dp"/>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/almost_monthly_downpayment"
@@ -1153,7 +1215,7 @@
                             android:layout_marginTop="8dp"
                             android:textColorHint="@color/gray"
                             app:hintEnabled="false"
-                            app:layout_constraintTop_toBottomOf="@id/no_years_spinner">
+                            app:layout_constraintTop_toBottomOf="@id/almost_monthly_downpayment_hint">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/almost_monthly_downpayment2"
@@ -1168,20 +1230,26 @@
                                 android:textAlignment="viewStart"
                                 android:textSize="14sp"
                                 android:imeOptions="actionNext">
-
                             </com.google.android.material.textfield.TextInputEditText>
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <!-- Spinner for branch_spinner_id -->
+                        <TextView
+                            android:id="@+id/branch_hint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="اختر الفرع الذي ترغب باستكمال البيانات فيه"
+                            app:layout_constraintTop_toBottomOf="@id/almost_monthly_downpayment"
+                            android:layout_marginTop="8dp"/>
+
                         <Spinner
                             android:id="@+id/branch_spinner_id"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             style="@style/InputEt"
-                            android:hint="Select Gender"
                             app:layout_constraintBottom_toTopOf="@+id/agreement_checkbox2"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/almost_monthly_downpayment"
+                            app:layout_constraintTop_toBottomOf="@id/branch_hint"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="8dp" />
 
@@ -1195,10 +1263,8 @@
                             app:layout_constraintTop_toTopOf="@id/branch_spinner_id" />
 
                         <!-- Checkbox for Agreement 2 -->
-
                         <CheckBox
                             android:id="@+id/agreement_checkbox2"
-
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:text="@null"
@@ -1206,9 +1272,17 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="16dp" />
-
-
-                        <!-- YOUR_VIEWS for Step 5 -->
+                        <TextView
+                            android:id="@+id/request_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/agreement_checkbox2"
+                            android:text=""
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:visibility="gone"
+                            android:layout_marginTop="8dp" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

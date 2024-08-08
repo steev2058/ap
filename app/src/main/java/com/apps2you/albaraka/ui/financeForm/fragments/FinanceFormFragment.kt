@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.AsyncTask
+import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.InputFilter
@@ -63,7 +64,13 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
     private var min_year = 0
     private var monthly_ins = 0.0
     private var isshow = false
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        etDate = mViewDataBinding.etDate
+
+        // Initialize other views and setup any additional logic
+    }
     override fun setUpView() {
 
         val urlString = "https://albaraka.com.sy/AlBarakaForms/ApiController/credit_types"
@@ -78,7 +85,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         setupStepView()
         datePicker =mViewDataBinding.datePicker2;
 
-        etDate = mViewDataBinding.etDate
+      //  etDate = mViewDataBinding.etDate
         mViewDataBinding.firstPayment2.setOnClickListener {
             showPaidAlert()
         }
@@ -172,7 +179,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
             }
             req_credit = total - paid
             mViewDataBinding.amountFinanceRequired2.setText(
-                NumberFormat.getNumberInstance().format(req_credit)
+                NumberFormat.getNumberInstance(Locale.ENGLISH).format(req_credit)
             )
             calcPartial()
         }
@@ -224,7 +231,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         if (selected_year > 0) {
             val partial = (req_credit + req_credit * prec * selected_year) / (selected_year * 12)
             mViewDataBinding.almostMonthlyDownpayment2.setText(
-                NumberFormat.getNumberInstance().format(partial)
+                NumberFormat.getNumberInstance(Locale.ENGLISH).format(partial)
             )
             calcPercent()
             if (monthly_ins > 40) {
@@ -233,6 +240,13 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                     .setPositiveButton("OK", null)
                     .show()
             }
+
+//            if (monthly_ins > 40) {
+//                AlertDialog.Builder(context)
+//                    .setMessage("لايمكن اتمام الطلب لان القسط الشهري اكبر من 40% من الدخل الشهري")
+//                    .setPositiveButton("OK", null)
+//                    .show()
+//            }
         }
     }
 
@@ -304,12 +318,15 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         val ideaExplainLayout = mViewDataBinding.ideaExplain
         val noYearsSpinnerImg = mViewDataBinding.noYearsSpinnerImg
         val noYearsSpinner = mViewDataBinding.noYearsSpinner
+        val noYearsSpinnerHint = mViewDataBinding.noYearsHint
         val almostMonthlyDownpayment = mViewDataBinding.almostMonthlyDownpayment
+        val almostMonthlyDownpaymentHint = mViewDataBinding.almostMonthlyDownpaymentHint
         val firstPayment = mViewDataBinding.firstPayment
+        val firstPaymentHint = mViewDataBinding.firstPaymentHint
 
         mViewDataBinding.choseFinanceType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                if (position > 0) { // Ignore the default option
+                if (position > 0) {
                     val selectedFinanceType = financeTypes[position - 1]
                     setupNoYearsSpinner(selectedFinanceType.maxYear)
 
@@ -324,15 +341,21 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                     if (hideElements) {
                         noYearsSpinnerImg.visibility = View.GONE
                         noYearsSpinner.visibility = View.GONE
+                        noYearsSpinnerHint.visibility = View.GONE
                         almostMonthlyDownpayment.visibility = View.GONE
+                        almostMonthlyDownpaymentHint.visibility = View.GONE
                         ideaExplainLayout.visibility = View.GONE
                         firstPayment.visibility = View.GONE
+                        firstPaymentHint.visibility=View.GONE
                     } else {
                         noYearsSpinnerImg.visibility = View.VISIBLE
                         noYearsSpinner.visibility = View.VISIBLE
+                        noYearsSpinnerHint.visibility = View.VISIBLE
                         almostMonthlyDownpayment.visibility = View.VISIBLE
+                        almostMonthlyDownpaymentHint.visibility = View.VISIBLE
                         // Add your condition for showing ideaExplainLayout here if necessary
                         firstPayment.visibility = View.VISIBLE
+                        firstPaymentHint.visibility=View.VISIBLE
 
                         // Check if the selected finance type requires showing the ideaExplainLayout
                         if (selectedFinanceType.type == "تمويل المشاريع الصغيرة ") {
@@ -347,9 +370,12 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                     // Hide all specific elements if the default option is selected
                     noYearsSpinnerImg.visibility = View.GONE
                     noYearsSpinner.visibility = View.GONE
+                    noYearsSpinnerHint.visibility = View.GONE
                     almostMonthlyDownpayment.visibility = View.GONE
+                    almostMonthlyDownpaymentHint.visibility = View.GONE
                     ideaExplainLayout.visibility = View.GONE
                     firstPayment.visibility = View.GONE
+                    firstPaymentHint.visibility = View.GONE
                 }
             }
 
@@ -417,6 +443,8 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                     if (!isAgreementCheckbox2Checked) {
                         showToast("يرجى التحقق من مربع الاقتراح الثاني")
                     }
+
+                    saveNewAccountRequest2()
                 }
 
                 else -> {
@@ -463,8 +491,8 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
             now.get(Calendar.DAY_OF_MONTH)
         ).apply {
             version = DatePickerDialog.Version.VERSION_2
-            setOkColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
-            setCancelColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
+            setOkColor(ContextCompat.getColor(baseActivity, R.color.colorAccent))
+            setCancelColor(ContextCompat.getColor(baseActivity, R.color.colorAccent))
             setOkText(okTitle)
             setCancelText(cancelTitle)
         }
@@ -693,19 +721,19 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                 val address = mViewDataBinding.etAddressInfo.text.toString().trim()
                 val mobileNumber = mViewDataBinding.mobnumm.text.toString().trim()
                 val email = mViewDataBinding.etEmail.text.toString().trim()
-                    if (address.isEmpty()) {
-                        mViewDataBinding.etAddressInfo.error = "يرجى إدخال عنوان السكن الحالي"
-                        return false
-                    } else {
-                        mViewDataBinding.etAddressInfo.error = null
-                    }
+                if (address.isEmpty()) {
+                    mViewDataBinding.etAddressInfo.error = "يرجى إدخال عنوان السكن الحالي"
+                    return false
+                } else {
+                    mViewDataBinding.etAddressInfo.error = null
+                }
 
                 if (mobileNumber.isEmpty()) {
-                        mViewDataBinding.mobnumm.error = "يرجى إدخال رقم هاتفك المحمول"
-                        return false
-                    } else {
-                        mViewDataBinding.mobnumm.error = null
-                    }
+                    mViewDataBinding.mobnumm.error = "يرجى إدخال رقم هاتفك المحمول"
+                    return false
+                } else {
+                    mViewDataBinding.mobnumm.error = null
+                }
 
                 if (email.isEmpty()) {
                     mViewDataBinding.etEmail.error = "يرجى إدخال الايميل"
@@ -731,21 +759,21 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
                     // Check if the fields are visible and then validate them
 
-                        if (nameCompany.isEmpty()) {
-                            mViewDataBinding.nameOfCompany2.error = "يرجى إدخال اسم الشركة/المعمل"
-                            return false
-                        } else {
-                            mViewDataBinding.nameOfCompany2.error = null
-                        }
+                    if (nameCompany.isEmpty()) {
+                        mViewDataBinding.nameOfCompany2.error = "يرجى إدخال اسم الشركة/المعمل"
+                        return false
+                    } else {
+                        mViewDataBinding.nameOfCompany2.error = null
+                    }
 
 
 
-                        if (jobDescription.isEmpty()) {
-                            mViewDataBinding.jobDescription2.error = "يرجى إدخال المنصب الوظيفي"
-                            return false
-                        } else {
-                            mViewDataBinding.jobDescription2.error = null
-                        }
+                    if (jobDescription.isEmpty()) {
+                        mViewDataBinding.jobDescription2.error = "يرجى إدخال المنصب الوظيفي"
+                        return false
+                    } else {
+                        mViewDataBinding.jobDescription2.error = null
+                    }
 
                 }
 
@@ -1109,7 +1137,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         val spannableString = SpannableString("أوافق على الشروط والأحكام الخاصة بطلبات التمويل لدى بنك البركة للإطلاع على الوثائق الممطلوبة يرجى الضغط على الوثائق المطلوبة")
 
         // Define a ForegroundColorSpan to color the text in blue
-        val blueColor = ContextCompat.getColor(requireContext(), R.color.blue)
+        val blueColor = ContextCompat.getColor(baseActivity, R.color.blue)
         val blueText = "الوثائق المطلوبة"
         val blueColorSpan = ForegroundColorSpan(blueColor)
 
@@ -1134,11 +1162,11 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                 }
 
                 val insuranceDocuments = when (selectedInsurance) {
-"كفالة شخصية" -> "*الأوراق المطلوبة للكفيل: إثبات دخل (بحسب طبيعة العمل)"
-"كفالة شركة" -> "*الأوراق المطلوبة للشركة: بيانات دخل + وثائق شخصية للمفوض بالتوقيع عن الشركة"
-"توطين" -> "*هذا الخيار للموظفين الموطنين لرواتبهم الشهرية في بنك البركة"
+                    "كفالة شخصية" -> "*الأوراق المطلوبة للكفيل: إثبات دخل (بحسب طبيعة العمل)"
+                    "كفالة شركة" -> "*الأوراق المطلوبة للشركة: بيانات دخل + وثائق شخصية للمفوض بالتوقيع عن الشركة"
+                    "توطين" -> "*هذا الخيار للموظفين الموطنين لرواتبهم الشهرية في بنك البركة"
 
-"رهن عقاري" -> """*الأوراق المطلوبة لاعتماد الضمان العقاري: إخراج قيد عقاري بتاريخ حديث + بيان مساحة + مخطط افرازي
+                    "رهن عقاري" -> """*الأوراق المطلوبة لاعتماد الضمان العقاري: إخراج قيد عقاري بتاريخ حديث + بيان مساحة + مخطط افرازي
 
  على أن تتوفر في العقار المقدم كضمان الشروط التالية:
   
@@ -1146,7 +1174,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 2. أن تكون صحيفة العقار خالية من الإشارات المؤثرة (حجز، رهن، دعوى ...)
 3. أن يتم الرهن على كامل العقار (كامل 2,400 سهم)
  4. تخمين العقار من مخمن / مخمنين عقاري معتمد وأن تكون نسبة تغطية العقار بالقيمة التخمينية لا تقل عن 150 % لمبلغ التمويل"""
-"رهن سيارة خاصة" -> """الأوراق المطلوبة لاعتماد ضمان السيارة: كشف إطلاع بتاريخ حديث 
+                    "رهن سيارة خاصة" -> """الأوراق المطلوبة لاعتماد ضمان السيارة: كشف إطلاع بتاريخ حديث 
 على أن تتوفر في السيارة المقدمة كضمان الشروط التالية:
 1. أن تكون السيارة ذات لوحة خاصة وليس عامة
 2. أن لا تقل سنة صنع السيارة عن العام 2009
@@ -1245,42 +1273,105 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
 
 
-    fun saveNewAccountRequest2(otp : String) {
-
-
+    fun saveNewAccountRequest2() {
         GlobalScope.launch {
             try {
-
                 responseWaiting = true
-
-
-
 
                 val selectedYear = datePicker.year
                 val selectedMonth = datePicker.month + 1 // Adjust month since it's zero-based
                 val selectedDay = datePicker.dayOfMonth
+                val formattedDate = String.format(
+                    Locale.getDefault(),
+                    "%02d/%02d/%04d",
+                    selectedDay,
+                    selectedMonth,
+                    selectedYear
+                )
 
-                // Format the date as needed, for example, in the format "dd/MM/yyyy"
-                val formattedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", selectedDay, selectedMonth, selectedYear)
                 val requestBody = MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("first_name", mViewDataBinding?.etFirstName?.text.toString())
                     .addFormDataPart("father_name", mViewDataBinding?.etFirstNamde?.text.toString())
                     .addFormDataPart("last_name", mViewDataBinding?.etFirstNamde2?.text.toString())
-                    .addFormDataPart("gender", mViewDataBinding?.genderSpinner?.selectedItem.toString())
-                    .addFormDataPart("nationality", mViewDataBinding?.gender2Spinner?.selectedItem.toString())
+                    .addFormDataPart(
+                        "gender",
+                        mViewDataBinding?.genderSpinner?.selectedItem.toString()
+                    )
+                    .addFormDataPart(
+                        "nationality",
+                        mViewDataBinding?.gender2Spinner?.selectedItem.toString()
+                    )
                     .addFormDataPart("birthdate", formattedDate)
-                    .addFormDataPart("national_id_type", mViewDataBinding?.typeIdSpinner?.selectedItem.toString())
-                    .addFormDataPart("national_id", mViewDataBinding?.nationalNumberr?.text.toString())
+                    .addFormDataPart(
+                        "national_id_type",
+                        mViewDataBinding?.typeIdSpinner?.selectedItem.toString()
+                    )
+                    .addFormDataPart(
+                        "national_id",
+                        mViewDataBinding?.nationalNumberr?.text.toString()
+                    )
                     .addFormDataPart("address", mViewDataBinding.etAddressInfo.text.toString())
-                    .addFormDataPart("phone", mViewDataBinding.mobnumm.text.toString())
-                    .addFormDataPart("delivery_address", mViewDataBinding?.branchSpinnerId?.selectedItem.toString())
-
-
+                    .addFormDataPart("mobile", mViewDataBinding.mobnumm.text.toString())
+                    .addFormDataPart("job", mViewDataBinding?.jobSpinner?.selectedItem.toString())
+                    .addFormDataPart("job_details", mViewDataBinding.jobDescription2.text.toString())
+                    .addFormDataPart("job_address", mViewDataBinding.addressJobInfoInDetails2.text.toString())
+                    .addFormDataPart("net_salary", mViewDataBinding.basicSalary2.text.toString())
+                    .addFormDataPart(
+                        "additional_salary",
+                        mViewDataBinding.additionalSalary2.text.toString()
+                    )
+                    .addFormDataPart(
+                        "bank_commitment",
+                        mViewDataBinding.engagementName2.text.toString()
+                    )
+                    .addFormDataPart(
+                        "commitment_value",
+                        mViewDataBinding.engagementValue2.text.toString()
+                    )
+                    .addFormDataPart(
+                        "monthly_commitment",
+                        mViewDataBinding.monthlyPayment2.text.toString()
+                    )
+                    .addFormDataPart(
+                        "other_commitment_value",
+                        mViewDataBinding.monthlyPaymentNb2.text.toString()
+                    )
+                    .addFormDataPart(
+                        "monthly_other_commitment",
+                        mViewDataBinding.monthlyPaymentNb2.text.toString()
+                    )
+                    .addFormDataPart(
+                        "required_credit",
+                        mViewDataBinding?.choseFinanceType?.selectedItem.toString()
+                    )
+                    .addFormDataPart("total_coast", mViewDataBinding.totalAmount2.text.toString())
+                    .addFormDataPart("paid_coast", mViewDataBinding.firstPayment2.text.toString())
+                    .addFormDataPart(
+                        "required_coast",
+                        mViewDataBinding.requiredFinance.text.toString()
+                    )
+                    .addFormDataPart(
+                        "required_year",
+                        mViewDataBinding?.noYearsSpinner?.selectedItem.toString()
+                    )
+                    .addFormDataPart("garantees", mViewDataBinding?.insuranseSpinner?.selectedItem.toString())
+                    .addFormDataPart(
+                        "monthly_installment",
+                        mViewDataBinding.almostMonthlyDownpayment2.text.toString()
+                    )
+                    .addFormDataPart(
+                        "state",
+                        mViewDataBinding.branchSpinnerId.selectedItem.toString()
+                    )
+                    .addFormDataPart("job_company", mViewDataBinding.nameOfCompany2.text.toString())
+                    .addFormDataPart("job_position", mViewDataBinding.jobDescription2.text.toString())
+                    .addFormDataPart("job_date", mViewDataBinding.etDate.text.toString())
+                    .build()
 
                 val request = Request.Builder()
-                    .url("https://albaraka.com.sy/KYC/ApiController/saveData")
-                    .post(requestBody.build())
+                    .url("https://albaraka.com.sy/AlBarakaForms/ApiController/saveCreditData")
+                    .post(requestBody)
                     .build()
 
                 val response = withContext(Dispatchers.IO) {
@@ -1294,16 +1385,19 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                         val jsonResponse = JSONObject(it)
                         withContext(Dispatchers.Main) {
                             if (jsonResponse.getBoolean("done")) {
+                                val requestNumber = jsonResponse.optString("request_number")
+                                if (requestNumber.isNotEmpty()) {
+                                    mViewDataBinding?.requestNumber?.apply {
+                                        text = "رقم الطلب: $requestNumber"
+                                        visibility = View.VISIBLE
+                                    }
+                                }
                                 showToast("تم حفظ الحساب بنجاح")
                                 val intent = Intent(requireContext(), finishActivity::class.java)
                                 startActivity(intent)
-                                // Response indicates success
-                                // Handle accordingly
                             } else {
-                                // Response indicates failure
                                 goToStep(4)
                                 showToast("حدث خطأ يرجى المحاولة مرة أخرى ")
-                                // Handle accordingly
                             }
                         }
                     } catch (e: Exception) {
@@ -1318,9 +1412,4 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         }
 
     }
-
-
-
-
-
 }
