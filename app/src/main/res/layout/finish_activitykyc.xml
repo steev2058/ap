@@ -60,18 +60,27 @@
                     app:layout_constraintTop_toBottomOf="@id/imageView" />
 
                 <!-- Green Checkmark Animation -->
-
+<!--                android:text="@string/success_msg2"-->
                 <TextView
                     android:id="@+id/additionalText"
                     android:layout_width="wrap_content"
                     android:padding="15dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/success_msg2"
                     android:textSize="16sp"
                     android:textColor="@android:color/darker_gray"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"/>
+                <Button
+                    android:id="@+id/button_ok"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/additionalText"
+                    android:text="@string/return_to_home" />
             </LinearLayout>
+
+
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -30,6 +30,7 @@ import com.apps2you.albaraka.R
 import com.apps2you.albaraka.databinding.FragmentFinanceBinding
 import com.apps2you.albaraka.ui.base.BaseFragment
 import com.apps2you.albaraka.ui.kyc.fragments.finishActivity
+import com.apps2you.albaraka.utils.NumberTextWatcher
 import com.apps2you.albaraka.viewmodels.FinanceFormViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
@@ -40,9 +41,13 @@ import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okio.IOException
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
+import java.net.ConnectException
 import java.net.HttpURLConnection
+import java.net.SocketTimeoutException
 import java.net.URL
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -56,7 +61,14 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
     // Fetch data from the API asynchronously
     private lateinit var etDate: TextInputEditText
 
-
+    private lateinit var basicSalary: TextInputEditText
+    private lateinit var additionalSalary: TextInputEditText
+    private lateinit var engagementValue: TextInputEditText
+    private lateinit var monthlyPayment: TextInputEditText
+    private lateinit var monthlyPaymentNb: TextInputEditText
+    private lateinit var totalAmount: TextInputEditText
+    private lateinit var firstPayment: TextInputEditText
+    private lateinit var amountFinanceRequired: TextInputEditText
     private var prec = 0.0
     private var max_year = 0
     private var selected_year = 0
@@ -66,8 +78,17 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
     private var isshow = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        basicSalary = mViewDataBinding.basicSalary2
+        additionalSalary = mViewDataBinding.additionalSalary2
+        engagementValue = mViewDataBinding.engagementValue2
+        monthlyPayment = mViewDataBinding.monthlyPayment2
+        monthlyPaymentNb = mViewDataBinding.monthlyPaymentNb2
+        totalAmount = mViewDataBinding.totalAmount2
+        firstPayment = mViewDataBinding.firstPayment2
+        amountFinanceRequired = mViewDataBinding.amountFinanceRequired2
         etDate = mViewDataBinding.etDate
+
+        initializeDatePicker()
 
         // Initialize other views and setup any additional logic
     }
@@ -77,13 +98,20 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         FetchFinanceTypesDataTask().execute(urlString)
         // Set up spinners
         setupSpinners()
-
+        basicSalary.addTextChangedListener(NumberTextWatcher(basicSalary))
+        additionalSalary.addTextChangedListener(NumberTextWatcher(additionalSalary))
+        engagementValue.addTextChangedListener(NumberTextWatcher(engagementValue))
+        monthlyPayment.addTextChangedListener(NumberTextWatcher(monthlyPayment))
+        monthlyPaymentNb.addTextChangedListener(NumberTextWatcher(monthlyPaymentNb))
+        totalAmount.addTextChangedListener(NumberTextWatcher(totalAmount))
+        firstPayment.addTextChangedListener(NumberTextWatcher(firstPayment))
+        amountFinanceRequired.addTextChangedListener(NumberTextWatcher(amountFinanceRequired))
         // Set up agreement checkbox
         setupAgreementCheckbox()
 
         // Set up step view
         setupStepView()
-        datePicker =mViewDataBinding.datePicker2;
+        datePicker =mViewDataBinding.datePicker2
 
       //  etDate = mViewDataBinding.etDate
         mViewDataBinding.firstPayment2.setOnClickListener {
@@ -275,32 +303,96 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         }
     }
 
+    private var selectedFinanceType: FinanceType? = null
+//    private inner class FetchFinanceTypesDataTask : AsyncTask<String, Void, List<FinanceType>>() {
+//        override fun doInBackground(vararg params: String?): List<FinanceType> {
+//            val urlString = params[0] ?: return emptyList()
+//            val url = URL(urlString)
+//            val connection = url.openConnection() as HttpURLConnection
+//            val response = connection.inputStream.bufferedReader().readText()
+//            connection.disconnect()
+//
+//            val financeTypes = mutableListOf<FinanceType>()
+//            val jsonArray = JSONArray(response)
+//
+//            for (i in 0 until jsonArray.length()) {
+//                val jsonObject = jsonArray.getJSONObject(i)
+//                val id = jsonObject.getString("id")
+//                val type = jsonObject.getString("type")
+//                val maxYear = jsonObject.getInt("max_year")
+//                financeTypes.add(FinanceType(id, type, maxYear))
+//            }
+//
+//            return financeTypes
+//        }
+//
+//        override fun onPostExecute(result: List<FinanceType>?) {
+//            result?.let {
+//                setupFinanceTypeSpinner(it)
+//            }
+//        }
+//    }
 
     private inner class FetchFinanceTypesDataTask : AsyncTask<String, Void, List<FinanceType>>() {
+
         override fun doInBackground(vararg params: String?): List<FinanceType> {
             val urlString = params[0] ?: return emptyList()
-            val url = URL(urlString)
-            val connection = url.openConnection() as HttpURLConnection
-            val response = connection.inputStream.bufferedReader().readText()
-            connection.disconnect()
+            var connection: HttpURLConnection? = null
 
-            val financeTypes = mutableListOf<FinanceType>()
-            val jsonArray = JSONArray(response)
+            return try {
+                val url = URL(urlString)
+                connection = url.openConnection() as HttpURLConnection
+                connection.connectTimeout = 10000 // 10 seconds timeout
+                connection.readTimeout = 10000 // 10 seconds timeout
+                connection.connect()
 
-            for (i in 0 until jsonArray.length()) {
-                val jsonObject = jsonArray.getJSONObject(i)
-                val id = jsonObject.getString("id")
-                val type = jsonObject.getString("type")
-                val maxYear = jsonObject.getInt("max_year")
-                financeTypes.add(FinanceType(id, type, maxYear))
+                val response = connection.inputStream.bufferedReader().readText()
+                val financeTypes = mutableListOf<FinanceType>()
+                val jsonArray = JSONArray(response)
+
+                for (i in 0 until jsonArray.length()) {
+                    val jsonObject = jsonArray.getJSONObject(i)
+                    val id = jsonObject.getString("id")
+                    val type = jsonObject.getString("type")
+                    val maxYear = jsonObject.getInt("max_year")
+                    financeTypes.add(FinanceType(id, type, maxYear))
+                }
+                financeTypes
+            } catch (e: ConnectException) {
+                e.printStackTrace()
+                showErrorMessage("خطأ في الاتصال. يرجى التحقق من اتصالك بالإنترنت.")
+                emptyList()
+            } catch (e: SocketTimeoutException) {
+                e.printStackTrace()
+                showErrorMessage("حدث خطأ أثناء جلب أنواع التمويل . يرجى المحاولة مرة أخرى لاحقًا.")
+                emptyList()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                showErrorMessage("حدث خطأ أثناء جلب البيانات. يرجى المحاولة مرة أخرى.")
+                emptyList()
+            } catch (e: JSONException) {
+                e.printStackTrace()
+                showErrorMessage("حدث خطأ أثناء معالجة البيانات.")
+                emptyList()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showErrorMessage("حدث خطأ غير متوقع.")
+                emptyList()
+            } finally {
+                connection?.disconnect()
             }
-
-            return financeTypes
         }
 
         override fun onPostExecute(result: List<FinanceType>?) {
             result?.let {
                 setupFinanceTypeSpinner(it)
+            }
+        }
+
+        private fun showErrorMessage(message: String) {
+            // Show an error message to the user using a Toast, Snackbar, or AlertDialog
+            requireActivity().runOnUiThread {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -365,6 +457,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                         }
                     }
                 } else {
+                    selectedFinanceType = null
                     // Reset the noYearsSpinner if the default option is selected
                     setupNoYearsSpinner(0)
                     // Hide all specific elements if the default option is selected
@@ -570,6 +663,8 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         }
     }
     private fun initializeDatePicker() {
+        val datePicker = mViewDataBinding.datePicker2
+
         val calendar = Calendar.getInstance()
         val maxDate = Calendar.getInstance()
         maxDate.set(2006, 0, 1) // January 1, 2006
@@ -577,11 +672,13 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
         datePicker.init(
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH),
-            null
-        )
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ) { _, year, monthOfYear, dayOfMonth ->
+            // Update selected date in the calendar
+            calendar.set(year, monthOfYear, dayOfMonth)
+        }
 
-        // Set max date
+        // Set the max date
         datePicker.maxDate = maxDate.timeInMillis
     }
 
@@ -963,6 +1060,8 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
             "دمشق - فرع أبو رمانة : شارع الجلاء - مقابل مكتب البريد",
             "دمشق - فرع الدامسكينو : كفرسوسة دامسكينو مول",
             "دمشق - فرع شارع حلب : شارع حلب",
+            "مركز التمويل الصغير: حلب الفرقان – شارع اكسبريس",
+            "مركز التمويل الصغير: طرطوس – شارع المينا",
             "ريف دمشق - فرع يعفور : يعفور - البوابة الثامنة",
             "ريف دمشق - فرع أشرفية صحنايا : أشرفية صحنايا الشارع العام",
             "حلب - فرع الفرقان : الفرقان - شارع اكسبريس",
@@ -1273,16 +1372,16 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
 
 
-    fun saveNewAccountRequest2() {
+    private fun saveNewAccountRequest2() {
         GlobalScope.launch {
             try {
                 responseWaiting = true
 
-                val selectedYear = datePicker.year
-                val selectedMonth = datePicker.month + 1 // Adjust month since it's zero-based
-                val selectedDay = datePicker.dayOfMonth
+                val selectedYear = mViewDataBinding.datePicker2.year
+                val selectedMonth = mViewDataBinding.datePicker2.month + 1 // Adjust month since it's zero-based
+                val selectedDay = mViewDataBinding.datePicker2.dayOfMonth
                 val formattedDate = String.format(
-                    Locale.getDefault(),
+                    Locale.ENGLISH,
                     "%02d/%02d/%04d",
                     selectedDay,
                     selectedMonth,
@@ -1291,82 +1390,44 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
                 val requestBody = MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
+                    .addFormDataPart("has_first_approve", "0")
                     .addFormDataPart("first_name", mViewDataBinding?.etFirstName?.text.toString())
                     .addFormDataPart("father_name", mViewDataBinding?.etFirstNamde?.text.toString())
                     .addFormDataPart("last_name", mViewDataBinding?.etFirstNamde2?.text.toString())
-                    .addFormDataPart(
-                        "gender",
-                        mViewDataBinding?.genderSpinner?.selectedItem.toString()
-                    )
-                    .addFormDataPart(
-                        "nationality",
-                        mViewDataBinding?.gender2Spinner?.selectedItem.toString()
-                    )
                     .addFormDataPart("birthdate", formattedDate)
-                    .addFormDataPart(
-                        "national_id_type",
-                        mViewDataBinding?.typeIdSpinner?.selectedItem.toString()
-                    )
-                    .addFormDataPart(
-                        "national_id",
-                        mViewDataBinding?.nationalNumberr?.text.toString()
-                    )
+                    .addFormDataPart("gender", mViewDataBinding?.genderSpinner?.selectedItem.toString())
+                    .addFormDataPart("militery_status",mViewDataBinding?.genderSpinnerServiceMilitary?.selectedItem.toString())
+                    .addFormDataPart("nationality",mViewDataBinding?.gender2Spinner?.selectedItem.toString())
+                    .addFormDataPart("national_id_type",mViewDataBinding?.typeIdSpinner?.selectedItem.toString())
+                    .addFormDataPart("national_id",mViewDataBinding?.nationalNumberr?.text.toString())
                     .addFormDataPart("address", mViewDataBinding.etAddressInfo.text.toString())
                     .addFormDataPart("mobile", mViewDataBinding.mobnumm.text.toString())
+                    .addFormDataPart("email", mViewDataBinding.etEmail.text.toString())
                     .addFormDataPart("job", mViewDataBinding?.jobSpinner?.selectedItem.toString())
-                    .addFormDataPart("job_details", mViewDataBinding.jobDescription2.text.toString())
+                    .addFormDataPart("job_date", mViewDataBinding.etDate.text.toString())
+                    .addFormDataPart("job_details",mViewDataBinding.moreJobInfo2.text.toString())
                     .addFormDataPart("job_address", mViewDataBinding.addressJobInfoInDetails2.text.toString())
+                    .addFormDataPart("job_company", mViewDataBinding.nameOfCompany2.text.toString())
+                    .addFormDataPart("job_position",mViewDataBinding.jobDescription2.text.toString() )
                     .addFormDataPart("net_salary", mViewDataBinding.basicSalary2.text.toString())
-                    .addFormDataPart(
-                        "additional_salary",
-                        mViewDataBinding.additionalSalary2.text.toString()
-                    )
-                    .addFormDataPart(
-                        "bank_commitment",
-                        mViewDataBinding.engagementName2.text.toString()
-                    )
-                    .addFormDataPart(
-                        "commitment_value",
-                        mViewDataBinding.engagementValue2.text.toString()
-                    )
-                    .addFormDataPart(
-                        "monthly_commitment",
-                        mViewDataBinding.monthlyPayment2.text.toString()
-                    )
-                    .addFormDataPart(
-                        "other_commitment_value",
-                        mViewDataBinding.monthlyPaymentNb2.text.toString()
-                    )
-                    .addFormDataPart(
-                        "monthly_other_commitment",
-                        mViewDataBinding.monthlyPaymentNb2.text.toString()
-                    )
-                    .addFormDataPart(
-                        "required_credit",
-                        mViewDataBinding?.choseFinanceType?.selectedItem.toString()
-                    )
+                    .addFormDataPart("additional_salary",  mViewDataBinding.additionalIncomeDetails2.text.toString())
+                    .addFormDataPart("additional_salary_value", mViewDataBinding.additionalSalary2.text.toString() )
+                    .addFormDataPart("commitment_value", mViewDataBinding.engagementValue2.text.toString()  )
+                    .addFormDataPart("monthly_commitment",   mViewDataBinding.monthlyPayment2.text.toString()   )
+                    .addFormDataPart("bank_commitment",mViewDataBinding.bankName2.text.toString()  )
+                    .addFormDataPart("other_commitment", mViewDataBinding?.isThereAnotherEngagmentsNotBank?.selectedItem.toString() )
+                    .addFormDataPart( "other_commitment_value",    mViewDataBinding.engagementName2.text.toString()   )
+                    .addFormDataPart( "monthly_other_commitment", mViewDataBinding.monthlyPaymentNb2.text.toString())
+                    .addFormDataPart( "required_credit",selectedFinanceType?.id ?: "" )
+                    .addFormDataPart(  "mini_credit_info", "" )
                     .addFormDataPart("total_coast", mViewDataBinding.totalAmount2.text.toString())
                     .addFormDataPart("paid_coast", mViewDataBinding.firstPayment2.text.toString())
-                    .addFormDataPart(
-                        "required_coast",
-                        mViewDataBinding.requiredFinance.text.toString()
-                    )
-                    .addFormDataPart(
-                        "required_year",
-                        mViewDataBinding?.noYearsSpinner?.selectedItem.toString()
-                    )
-                    .addFormDataPart("garantees", mViewDataBinding?.insuranseSpinner?.selectedItem.toString())
-                    .addFormDataPart(
-                        "monthly_installment",
-                        mViewDataBinding.almostMonthlyDownpayment2.text.toString()
-                    )
-                    .addFormDataPart(
-                        "state",
-                        mViewDataBinding.branchSpinnerId.selectedItem.toString()
-                    )
-                    .addFormDataPart("job_company", mViewDataBinding.nameOfCompany2.text.toString())
-                    .addFormDataPart("job_position", mViewDataBinding.jobDescription2.text.toString())
-                    .addFormDataPart("job_date", mViewDataBinding.etDate.text.toString())
+                    .addFormDataPart(  "required_coast", mViewDataBinding.requiredFinance.text.toString() )
+                    .addFormDataPart("garantees",mViewDataBinding?.insuranseSpinner?.selectedItem.toString()  )
+                    .addFormDataPart("required_year", mViewDataBinding?.noYearsSpinner?.selectedItem.toString() )
+                    .addFormDataPart("monthly_installment", mViewDataBinding.almostMonthlyDownpayment2.text.toString() )
+                    .addFormDataPart("state",mViewDataBinding.branchSpinnerId.selectedItem.toString())
+                    .addFormDataPart("skip_captcha",  "true")
                     .build()
 
                 val request = Request.Builder()
@@ -1380,36 +1441,57 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
                 val responseData = response.body?.string()
 
+
                 responseData?.let {
                     try {
-                        val jsonResponse = JSONObject(it)
-                        withContext(Dispatchers.Main) {
-                            if (jsonResponse.getBoolean("done")) {
-                                val requestNumber = jsonResponse.optString("request_number")
-                                if (requestNumber.isNotEmpty()) {
-                                    mViewDataBinding?.requestNumber?.apply {
-                                        text = "رقم الطلب: $requestNumber"
-                                        visibility = View.VISIBLE
+                        // Check if the response is JSON
+                        if (it.trim().startsWith("{")) {
+                            val jsonResponse = JSONObject(it)
+                            withContext(Dispatchers.Main) {
+                                if (jsonResponse.getBoolean("done")) {
+                                    val requestNumber = jsonResponse.optString("request_number")
+                                    val message = jsonResponse.optString("message")
+                                    if (requestNumber.isNotEmpty()) {
+                                        mViewDataBinding?.requestNumber?.apply {
+                                            text = "رقم الطلب: $requestNumber"
+                                            visibility = View.VISIBLE
+                                        }
                                     }
+                                    showToast("تم حفظ الحساب بنجاح")
+                                    val intent =
+                                        Intent(requireContext(), finishActivity::class.java)
+                                    intent.putExtra("response_message", message)
+                                    startActivity(intent)
+                                } else {
+                                    goToStep(4)
+                                    showToast("حدث خطأ يرجى المحاولة مرة أخرى ")
                                 }
-                                showToast("تم حفظ الحساب بنجاح")
-                                val intent = Intent(requireContext(), finishActivity::class.java)
-                                startActivity(intent)
-                            } else {
-                                goToStep(4)
-                                showToast("حدث خطأ يرجى المحاولة مرة أخرى ")
+                            }
+                        } else {
+                            // Handle non-JSON response
+                            withContext(Dispatchers.Main) {
+                                showToast("حدث خطأ في الاتصال بالخادم، يرجى المحاولة لاحقًا.")
                             }
                         }
-                    } catch (e: Exception) {
+                    } catch (e: JSONException) {
                         e.printStackTrace()
+                        withContext(Dispatchers.Main) {
+                            showToast("حدث خطأ في معالجة البيانات.")
+                        }
+                    }
+                } ?: run {
+                    withContext(Dispatchers.Main) {
+                        showToast("لم يتم تلقي أي بيانات من الخادم.")
                     }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    showToast("حدث خطأ غير متوقع.")
+                }
             } finally {
                 responseWaiting = false
             }
         }
-
     }
 }
