@@ -536,8 +536,9 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                     if (!isAgreementCheckbox2Checked) {
                         showToast("يرجى التحقق من مربع الاقتراح الثاني")
                     }
-
+                    if (selectedBranch != "اختر الفرع الذي ترغب بفتح الحساب فيه" && isAgreementCheckbox2Checked) {
                     saveNewAccountRequest2()
+                    }
                 }
 
                 else -> {
@@ -563,9 +564,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
             }
         }
 
-//        mViewDataBinding.radio.setOnCheckedChangeListener { _, _ ->
-//            handleRadioButtons()
-//        }
+
 
         mViewDataBinding.previousButton.visibility = if (position == 0) View.GONE else View.VISIBLE
     }
@@ -667,8 +666,9 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
         val calendar = Calendar.getInstance()
         val maxDate = Calendar.getInstance()
-        maxDate.set(2006, 0, 1) // January 1, 2006
-
+        val minDate = Calendar.getInstance()
+        maxDate.set(2006, 0, 0) // January 1, 2006
+        minDate.set(1960, 0, 0)
         datePicker.init(
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -680,6 +680,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
         // Set the max date
         datePicker.maxDate = maxDate.timeInMillis
+        datePicker.minDate = minDate.timeInMillis
     }
 
     private fun goToStep(step: Int,checkValidate:Boolean = true) {
@@ -805,7 +806,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
 
                 val nationalNumber = mViewDataBinding.nationalNumberr.text.toString().trim()
-                if (nationalNumber.isEmpty()) {
+                if (nationalNumber.isEmpty() || nationalNumber.length < 11) {
                     mViewDataBinding.nationalNumberr.error = "يرجى إدخال الرقم الوطني"
                     return false
                 } else {
@@ -825,7 +826,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                     mViewDataBinding.etAddressInfo.error = null
                 }
 
-                if (mobileNumber.isEmpty()) {
+                if (mobileNumber.isEmpty() || mobileNumber.length <10) {
                     mViewDataBinding.mobnumm.error = "يرجى إدخال رقم هاتفك المحمول"
                     return false
                 } else {
@@ -1379,7 +1380,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
 
                 val selectedYear = mViewDataBinding.datePicker2.year
                 val selectedMonth = mViewDataBinding.datePicker2.month + 1 // Adjust month since it's zero-based
-                val selectedDay = mViewDataBinding.datePicker2.dayOfMonth
+                val selectedDay = mViewDataBinding.datePicker2.dayOfMonth + 1
                 val formattedDate = String.format(
                     Locale.ENGLISH,
                     "%02d/%02d/%04d",
@@ -1457,7 +1458,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                                             visibility = View.VISIBLE
                                         }
                                     }
-                                    showToast("تم حفظ الحساب بنجاح")
+
                                     val intent =
                                         Intent(requireContext(), finishActivity::class.java)
                                     intent.putExtra("response_message", message)
