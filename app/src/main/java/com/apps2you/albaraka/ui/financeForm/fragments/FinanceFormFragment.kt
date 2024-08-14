@@ -269,12 +269,7 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
                     .show()
             }
 
-//            if (monthly_ins > 40) {
-//                AlertDialog.Builder(context)
-//                    .setMessage("لايمكن اتمام الطلب لان القسط الشهري اكبر من 40% من الدخل الشهري")
-//                    .setPositiveButton("OK", null)
-//                    .show()
-//            }
+
         }
     }
 
@@ -304,34 +299,6 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
     }
 
     private var selectedFinanceType: FinanceType? = null
-//    private inner class FetchFinanceTypesDataTask : AsyncTask<String, Void, List<FinanceType>>() {
-//        override fun doInBackground(vararg params: String?): List<FinanceType> {
-//            val urlString = params[0] ?: return emptyList()
-//            val url = URL(urlString)
-//            val connection = url.openConnection() as HttpURLConnection
-//            val response = connection.inputStream.bufferedReader().readText()
-//            connection.disconnect()
-//
-//            val financeTypes = mutableListOf<FinanceType>()
-//            val jsonArray = JSONArray(response)
-//
-//            for (i in 0 until jsonArray.length()) {
-//                val jsonObject = jsonArray.getJSONObject(i)
-//                val id = jsonObject.getString("id")
-//                val type = jsonObject.getString("type")
-//                val maxYear = jsonObject.getInt("max_year")
-//                financeTypes.add(FinanceType(id, type, maxYear))
-//            }
-//
-//            return financeTypes
-//        }
-//
-//        override fun onPostExecute(result: List<FinanceType>?) {
-//            result?.let {
-//                setupFinanceTypeSpinner(it)
-//            }
-//        }
-//    }
 
     private inner class FetchFinanceTypesDataTask : AsyncTask<String, Void, List<FinanceType>>() {
 
