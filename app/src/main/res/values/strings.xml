@@ -144,6 +144,10 @@
     <string name="Total5">Approximate monthly installment</string>
     <string name="Touch_ID">Touch ID</string>
     <string name="transfer">Transfer</string>
+    <string name="no_satelment">Paid installments</string>
+    <string name="no_rest_satelment">remaining premiums</string>
+    <string name="value_satelment">The installment</string>
+    <string name="value_rest_satelment">remaining commitment</string>
     <string name="Transfer_details">Transfer details</string>
     <string name="type_your_message_here">Type your message here</string>
     <string name="verification">Verification</string>
@@ -322,6 +326,7 @@
     <string name="enable_camera_access">Enable camera access</string>
     <string name="my_cards">My Cards</string>
     <string name="financing">Financing</string>
+    <string name="my_financing">My Financing</string>
     <string name="order_atm_card">Order an ATM card</string>
     <string name="scan_canceled">Scan canceled</string>
     <string name="receiver_name">Receiver name</string>
