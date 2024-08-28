@@ -13,21 +13,21 @@
         android:animateLayoutChanges="true">
 
         <!-- Toolbar Layout -->
-        <include
-            android:id="@+id/layout_toolbar"
-            layout="@layout/toolbar_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
-
+<!--        <include-->
+<!--            android:id="@+id/layout_toolbar"-->
+<!--            layout="@layout/toolbar_main"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pie_chart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="300dp"
+
             android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/layout_toolbar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Deposit Transfer Option -->
         <include

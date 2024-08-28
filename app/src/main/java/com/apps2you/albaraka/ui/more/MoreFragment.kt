@@ -13,6 +13,9 @@ import com.apps2you.albaraka.ui.exchange.ExchangeActivity
 import com.apps2you.albaraka.ui.financeForm.FinanceFormActivity
 import com.apps2you.albaraka.ui.kyc.KycActivity
 import com.apps2you.albaraka.ui.locations.LocationsActivity
+import com.apps2you.albaraka.ui.my_financing.MyFinancingActivity
+import com.apps2you.albaraka.ui.my_financing.MyFinancingListActivity
+import com.apps2you.albaraka.ui.my_financing2.MyFinancing2Activity
 import com.apps2you.albaraka.ui.products.ServicesActivity
 import com.apps2you.albaraka.utils.Constants
 import com.apps2you.albaraka.viewmodels.HomeViewModel
@@ -41,6 +44,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding, HomeViewModel>() {
         viewDataBinding.tvServices.setOnClickListener { startActivity(Intent(context, ServicesActivity::class.java)) }
         viewDataBinding.tvCalculator.setOnClickListener { startActivity(Intent(context, CalculatorActivity::class.java)) }
         viewDataBinding.tvFinancing.setOnClickListener { startActivity(Intent(context, FinanceFormActivity::class.java))  }
+        viewDataBinding.tvMyFinancing.setOnClickListener { startActivity(Intent(context, MyFinancingListActivity::class.java))  }
+        viewDataBinding.tvMyFinancing2.setOnClickListener { startActivity(Intent(context, MyFinancing2Activity::class.java))  }
         viewDataBinding.tvAtm.setOnClickListener { openLink(Constants.LINK_ORDER_ATM) }
     }
 

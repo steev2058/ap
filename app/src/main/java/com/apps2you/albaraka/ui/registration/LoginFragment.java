@@ -26,6 +26,7 @@ import com.apps2you.albaraka.ui.financeForm.FinanceFormActivity;
 import com.apps2you.albaraka.ui.home.GuestHomeActivity;
 import com.apps2you.albaraka.ui.kyc.KycActivity;
 import com.apps2you.albaraka.ui.mobForm.MobFormActivity;
+import com.apps2you.albaraka.ui.my_financing.MyFinancingActivity;
 import com.apps2you.albaraka.ui.reset_pass_form.ResetPassFormActivity;
 import com.apps2you.albaraka.ui.settings.SettingsActivity;
 import com.apps2you.albaraka.ui.settings.SettingsActivityTwo;
@@ -99,7 +100,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
         mViewDataBinding.btnAccount.setOnClickListener(view -> {
             try {
                 //kyc
-                Intent intent = new Intent(requireContext(), FinanceFormActivity.class);
+                Intent intent = new Intent(requireContext(), MyFinancingActivity.class);
                 startActivity(intent);
             }catch (Exception e) {
                 // Handle other exceptions
