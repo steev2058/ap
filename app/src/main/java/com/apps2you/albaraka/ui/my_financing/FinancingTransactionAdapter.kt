@@ -22,10 +22,10 @@ class FinancingTransactionAdapter(
         val view = convertView ?: LayoutInflater.from(fragment.requireContext()).inflate(R.layout.item_financing_transaction, parent, false)
 
         view.findViewById<TextView>(R.id.tvTransactionType).text = transaction?.transactionType
-        view.findViewById<TextView>(R.id.tvTotalAmount).text = transaction?.totalAmount
-        view.findViewById<TextView>(R.id.tvTotalInstallments).text = transaction?.totalInstallments
-        view.findViewById<TextView>(R.id.tvInstallmentValue).text = transaction?.installmentValue
-        view.findViewById<TextView>(R.id.tvNumberOfInstallments).text = transaction?.numberOfInstallments
+        view.findViewById<TextView>(R.id.tvTotalAmount2).text = transaction?.totalAmount
+        view.findViewById<TextView>(R.id.tvTotalInstallments2).text = transaction?.totalInstallments
+        view.findViewById<TextView>(R.id.tvInstallmentValue2).text = transaction?.installmentValue
+        view.findViewById<TextView>(R.id.tvNumberOfInstallments2).text = transaction?.numberOfInstallments
 
         view.setOnClickListener {
             fragment.openMyFinancingDetailsFragment()

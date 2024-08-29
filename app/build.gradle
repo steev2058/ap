@@ -151,6 +151,7 @@ dependencies {
 
     //fro my financing
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.salehyarahmadi:DataTable:v1.0.1'
 }
 repositories {
     mavenCentral()

@@ -221,11 +221,11 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                calcCreditMoney()
+
             }
 
             override fun afterTextChanged(s: Editable?) {
-                // Do nothing
+                calcCreditMoney()
             }
         }
 

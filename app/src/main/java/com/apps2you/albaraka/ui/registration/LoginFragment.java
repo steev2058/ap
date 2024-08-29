@@ -100,7 +100,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
         mViewDataBinding.btnAccount.setOnClickListener(view -> {
             try {
                 //kyc
-                Intent intent = new Intent(requireContext(), MyFinancingActivity.class);
+                Intent intent = new Intent(requireContext(), KycActivity.class);
                 startActivity(intent);
             }catch (Exception e) {
                 // Handle other exceptions

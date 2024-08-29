@@ -17,12 +17,28 @@
             app:exitAnim="@anim/stationary"
             app:popEnterAnim="@anim/stationary"
             app:popExitAnim="@anim/slide_down" />
+
     </fragment>
 
     <fragment
         android:id="@+id/MyFinancingFragmentDetails"
         android:name="com.apps2you.albaraka.ui.my_financing.fragments.MyFinancingFragment"
         android:label=""
-        tools:layout="@layout/fragment_my_financing" />
+        tools:layout="@layout/fragment_my_financing" >
+        <action
+            android:id="@+id/action_MyFinancingFragmentDetails_to_MyFinancingFragmentTable"
+            app:destination="@id/MyFinancingFragmentTable"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/MyFinancingFragmentTable"
+        android:name="com.apps2you.albaraka.ui.my_financing.fragments.MyFinancingTableFragment"
+        android:label=""
+        tools:layout="@layout/fragment_my_financing_table" />
 
 </navigation>

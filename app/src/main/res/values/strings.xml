@@ -148,7 +148,11 @@
     <string name="no_rest_satelment">remaining premiums</string>
     <string name="deposit_transfer_text">Your deposit transfer text here</string>
     <string name="deposit_transfers">Deposit Transfers</string>
+    <string name="all_installment">Show all installments</string>
+    <string name="all_installment_subs">View due and unpaid installments</string>
+    <string name="all_installment_subs_st">Due and unpaid installments with the remaining portion if it is partially due</string>
     <string name="withdraw_transfer_text">Your withdraw transfer text here</string>
+    <string name="all_installment_subs_ft">Show all paid and unpaid installments</string>
     <string name="withdraw_transfers">Withdraw Transfers</string>
 
     <string name="value_satelment">The installment</string>
@@ -333,7 +337,7 @@
     <string name="financing">Financing</string>
     <string name="my_financing">My Financing</string>
     <string name="my_financingChart">Financing</string>
-
+    <string name="my_financingTable">Installment Table</string>
     <string name="order_atm_card">Order an ATM card</string>
     <string name="scan_canceled">Scan canceled</string>
     <string name="receiver_name">Receiver name</string>

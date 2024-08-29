@@ -27,6 +27,7 @@ import com.apps2you.albaraka.ui.mobForm.MobFormProvider;
 import com.apps2you.albaraka.ui.my_financing.MyFinancingActivity;
 import com.apps2you.albaraka.ui.my_financing.MyFinancingListActivity;
 import com.apps2you.albaraka.ui.my_financing.MyFinancingProvider;
+import com.apps2you.albaraka.ui.my_financing.MyFinancingTableActivity;
 import com.apps2you.albaraka.ui.my_financing2.MyFinancing2Activity;
 import com.apps2you.albaraka.ui.my_financing2.MyFinancing2Provider;
 import com.apps2you.albaraka.ui.notifications.NotificationsActivity;
@@ -109,6 +110,9 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector(modules = {MyFinancingProvider.class})
     abstract MyFinancingActivity MyFinancingActivity();
+
+    @ContributesAndroidInjector(modules = {MyFinancingProvider.class})
+    abstract MyFinancingTableActivity MyFinancingTableActivity();
 
     @ContributesAndroidInjector(modules = {MyFinancingProvider.class})
     abstract MyFinancingListActivity MyFinancingListActivity();

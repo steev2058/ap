@@ -146,6 +146,10 @@
     <string name="no_rest_satelment">الأقساط المتبقية</string>
     <string name="deposit_transfer_text">Your deposit transfer text here</string>
     <string name="deposit_transfers">Deposit Transfers</string>
+    <string name="all_installment">جميع الأقساط</string>
+    <string name="all_installment_subs">الأقساط المستحقة والغير مسددة</string>
+    <string name="all_installment_subs_st">عرض الأقساط المستحقة والغير مسددة مع الجزء المتبقي في حال كان مستحق جزئياً</string>
+    <string name="all_installment_subs_ft">عرض حميع الأقساط المسددة والغير مسددة</string>
     <string name="withdraw_transfer_text">Your withdraw transfer text here</string>
     <string name="withdraw_transfers">Withdraw Transfers</string>
 
@@ -332,6 +336,7 @@
     <string name="financing">طلب تمويل</string>
     <string name="my_financing">تمويلاتي</string>
     <string name="my_financingChart">التمويل</string>
+    <string name="my_financingTable">جدول الأقساط</string>
     <string name="order_atm_card">طلب بطاقة صراف آلي</string>
     <string name="scan_canceled">تم إلغاء المسح</string>
     <string name="receiver_name">اسم الجهة المستفيدة</string>

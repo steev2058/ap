@@ -84,12 +84,12 @@ class MyFinancingFragment   : BaseFragment<FragmentMyFinancingBinding, MyFinanci
         pieChart.animateY(1000)
 
         // Legend customizations
-        val legend = pieChart.legend
-        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-        legend.orientation = Legend.LegendOrientation.VERTICAL
-        legend.setDrawInside(false)
-        legend.textSize = 12f
+//        val legend = pieChart.legend
+//        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+//        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+//        legend.orientation = Legend.LegendOrientation.VERTICAL
+//        legend.setDrawInside(false)
+//        legend.textSize = 12f
 
         // Refresh the chart
         pieChart.invalidate()
@@ -110,8 +110,19 @@ class MyFinancingFragment   : BaseFragment<FragmentMyFinancingBinding, MyFinanci
                 // Handle no selection
             }
         })
-    }
 
+
+        mViewDataBinding.layoutDeposit.root.setOnClickListener {
+            openMyFinancingTableFragment()
+        }
+
+        mViewDataBinding.layoutWithdraw.root.setOnClickListener {
+            openMyFinancingTableFragment()
+        }
+    }
+    private fun openMyFinancingTableFragment() {
+        navController.navigate(MyFinancingFragmentDirections.actionMyFinancingFragmentDetailsToMyFinancingFragmentTable())
+    }
     override fun fetchData() {
     }
 }

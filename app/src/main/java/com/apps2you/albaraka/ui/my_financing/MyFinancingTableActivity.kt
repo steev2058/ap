@@ -1,16 +1,14 @@
 package com.apps2you.albaraka.ui.my_financing
 
 import android.view.MenuItem
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import com.apps2you.albaraka.BR
 import com.apps2you.albaraka.R
-import com.apps2you.albaraka.databinding.ActivityMyFinancingBinding
 import com.apps2you.albaraka.databinding.ActivityMyFinancingListBinding
+import com.apps2you.albaraka.databinding.ActivityMyFinancingTableBinding
 import com.apps2you.albaraka.ui.base.BaseActivity
 import com.apps2you.albaraka.viewmodels.MyFinancingViewModel
 
-class MyFinancingListActivity : BaseActivity<ActivityMyFinancingListBinding, MyFinancingViewModel>() {
+class MyFinancingTableActivity : BaseActivity<ActivityMyFinancingTableBinding, MyFinancingViewModel>() {
 
 
     override fun getBindingVariable(): Int {
@@ -20,7 +18,7 @@ class MyFinancingListActivity : BaseActivity<ActivityMyFinancingListBinding, MyF
 
 
     override fun getLayoutId(): Int {
-        return R.layout.activity_my_financing_list
+        return R.layout.activity_my_financing_table
     }
 
     override fun setViewModel(): Class<MyFinancingViewModel> {
@@ -28,7 +26,7 @@ class MyFinancingListActivity : BaseActivity<ActivityMyFinancingListBinding, MyF
     }
 
     override fun setUpView() {
-      //  setToolbarTitle(mViewDataBinding.toolbar, "List Financing")
+        //  setToolbarTitle(mViewDataBinding.toolbar, "List Financing")
 
 //        val navHostFragment =
 //                supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
