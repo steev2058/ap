@@ -1,6 +1,8 @@
 package com.apps2you.albaraka.ui.my_financing.fragments
 
 import android.content.Context
+import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -43,25 +45,32 @@ class MyFinancingListFragment : BaseFragment<FragmentMyFinancingCardBinding, MyF
 
     override fun setUpView() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(MyFinancingViewModel::class.java)
-        val transactions = listOf(
-            FinancingTransaction("نوع المعاملة 1", "10000", "5000", "1000", "5"),
-            FinancingTransaction("نوع المعاملة 2", "20000", "10000", "2000", "10")
-            // Add more transactions as needed
-        )
 
+        // Observe the API data
+        viewModel.getAllMyFinancing().observe(viewLifecycleOwner, Observer { resource ->
+            resource.data?.let { transactions ->
+                val adapter = FinancingTransactionAdapter(this, transactions) { transaction ->
+                    // Pass deal_no and branch_code to the details fragment
+                    val action = MyFinancingListFragmentDirections
+                        .actionMyFinancingFragmentCardToMyFinancingFragmentDetails(
+                            transaction.DEAL_NO,
+                            transaction.BRANCH_CODE)
 
-        val adapter = FinancingTransactionAdapter(this, transactions)
-        mViewDataBinding.listView.adapter = adapter
+                    navController.navigate(action)
+                }
+                mViewDataBinding.listView.adapter = adapter
+            }
+        })
 
         // Get NavController using Navigation.findNavController(view)
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-
     }
 
 
-    fun openMyFinancingDetailsFragment() {
-        navController.navigate(MyFinancingListFragmentDirections.actionMyFinancingFragmentCardToMyFinancingFragmentDetails())
-    }
+
+//    fun openMyFinancingDetailsFragment() {
+//        navController.navigate(MyFinancingListFragmentDirections.actionMyFinancingFragmentCardToMyFinancingFragmentDetails())
+//    }
 
     override fun fetchData() {
     }

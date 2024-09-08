@@ -41,7 +41,7 @@
             android:dividerHeight="0dp" />
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

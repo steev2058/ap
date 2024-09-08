@@ -1,8 +1,10 @@
 package com.apps2you.albaraka.ui.my_financing.fragments
 
 import android.graphics.Color
+import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.apps2you.albaraka.BR
 import com.apps2you.albaraka.R
 import com.apps2you.albaraka.databinding.FragmentMyFinancingBinding
@@ -34,15 +36,13 @@ class MyFinancingFragment   : BaseFragment<FragmentMyFinancingBinding, MyFinanci
     override fun setViewModel(): Class<MyFinancingViewModel> {
         return MyFinancingViewModel::class.java
     }
-    private fun openMyFinancingDetailsFragment() {
-        navController.navigate(MyFinancingListFragmentDirections.actionMyFinancingFragmentCardToMyFinancingFragmentDetails()
-        )
-    }
+
     override fun setUpView() {
 
-
         val pieChart = mViewDataBinding.pieChart
-
+        val args = MyFinancingFragmentArgs.fromBundle(requireArguments())
+        val dealNo = args.dealNo
+        val branchCode = args.branchCode
         // Sample data for the PieChart
         val entries = ArrayList<PieEntry>()
         entries.add(PieEntry(4000000f, getString(R.string.no_satelment))) // 40% of total
@@ -76,20 +76,15 @@ class MyFinancingFragment   : BaseFragment<FragmentMyFinancingBinding, MyFinanci
         pieChart.setUsePercentValues(true)
 
 
-        // Optional customizations
         pieChart.setEntryLabelTextSize(12f)
         pieChart.setEntryLabelColor(Color.WHITE)
-       // pieChart.centerText = getString(R.string.my_financingChart)
+
         pieChart.setCenterTextSize(24f)
         pieChart.animateY(1000)
 
-        // Legend customizations
-//        val legend = pieChart.legend
-//        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-//        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-//        legend.orientation = Legend.LegendOrientation.VERTICAL
-//        legend.setDrawInside(false)
-//        legend.textSize = 12f
+        pieChart.legend.isEnabled = false
+
+        pieChart.setTouchEnabled(false)
 
         // Refresh the chart
         pieChart.invalidate()
@@ -112,17 +107,24 @@ class MyFinancingFragment   : BaseFragment<FragmentMyFinancingBinding, MyFinanci
         })
 
 
-        mViewDataBinding.layoutDeposit.root.setOnClickListener {
-            openMyFinancingTableFragment()
+        mViewDataBinding.allInstallments.root.setOnClickListener {
+            openMyFinancingTableFragment(dealNo,branchCode)
         }
 
-        mViewDataBinding.layoutWithdraw.root.setOnClickListener {
-            openMyFinancingTableFragment()
+        mViewDataBinding.unpaidInstallment.root.setOnClickListener {
+            openMyFinancingTableFragment(dealNo,branchCode)
         }
     }
-    private fun openMyFinancingTableFragment() {
-        navController.navigate(MyFinancingFragmentDirections.actionMyFinancingFragmentDetailsToMyFinancingFragmentTable())
+
+
+    private fun openMyFinancingTableFragment(dealNo: String, branchCode: String) {
+        val action = MyFinancingFragmentDirections
+            .actionMyFinancingFragmentDetailsToMyFinancingFragmentTable(dealNo, branchCode)
+        findNavController().navigate(action)
     }
+
+
+
     override fun fetchData() {
     }
 }

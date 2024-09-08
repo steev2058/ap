@@ -16,8 +16,18 @@
             app:enterAnim="@anim/slide_up"
             app:exitAnim="@anim/stationary"
             app:popEnterAnim="@anim/stationary"
-            app:popExitAnim="@anim/slide_down" />
+            app:popExitAnim="@anim/slide_down">
 
+            <!-- Add Arguments to the action -->
+
+
+        </action>
+        <argument
+            android:name="deal_no"
+            app:argType="string" />
+        <argument
+            android:name="branch_code"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -25,6 +35,13 @@
         android:name="com.apps2you.albaraka.ui.my_financing.fragments.MyFinancingFragment"
         android:label=""
         tools:layout="@layout/fragment_my_financing" >
+
+        <argument
+            android:name="dealNo"
+            app:argType="string" />
+        <argument
+            android:name="branchCode"
+            app:argType="string" />
         <action
             android:id="@+id/action_MyFinancingFragmentDetails_to_MyFinancingFragmentTable"
             app:destination="@id/MyFinancingFragmentTable"
@@ -32,6 +49,7 @@
             app:exitAnim="@anim/stationary"
             app:popEnterAnim="@anim/stationary"
             app:popExitAnim="@anim/slide_down" />
+
     </fragment>
 
 
@@ -39,6 +57,16 @@
         android:id="@+id/MyFinancingFragmentTable"
         android:name="com.apps2you.albaraka.ui.my_financing.fragments.MyFinancingTableFragment"
         android:label=""
-        tools:layout="@layout/fragment_my_financing_table" />
+        tools:layout="@layout/fragment_my_financing_table" >
+        <argument
+            android:name="dealNo"
+            app:argType="string" />
+        <argument
+            android:name="branchCode"
+            app:argType="string" />
+    </fragment>
+
+
+
 
 </navigation>

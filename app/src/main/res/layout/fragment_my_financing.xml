@@ -39,7 +39,8 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pie_chart"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+
+            android:layout_height="250dp"
             android:layout_margin="8dp"/>
 
             <LinearLayout
@@ -205,7 +206,7 @@
             </LinearLayout>
 
             <include
-            android:id="@+id/layout_deposit"
+            android:id="@+id/all_installments"
             layout="@layout/layout_transfer_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -217,12 +218,12 @@
 
 
         <include
-            android:id="@+id/layout_withdraw"
+            android:id="@+id/unpaid_installment"
             layout="@layout/layout_transfer_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_xlarge"
-            app:layout_constraintTop_toBottomOf="@id/layout_deposit"
+            app:layout_constraintTop_toBottomOf="@id/all_installments"
             app:icon="@{@drawable/ic_albaraka_transfer}"
             app:subTitle="@{@string/all_installment_subs_st}"
             app:title="@{@string/all_installment_subs}" />

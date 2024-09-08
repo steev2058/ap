@@ -7,6 +7,8 @@ import com.apps2you.albaraka.data.model.About;
 import com.apps2you.albaraka.data.model.Branch;
 import com.apps2you.albaraka.data.model.City;
 import com.apps2you.albaraka.data.model.Complaint;
+import com.apps2you.albaraka.data.model.FinancingTransaction;
+import com.apps2you.albaraka.data.model.FinancingTransactionDetails;
 import com.apps2you.albaraka.data.model.MobForm;
 import com.apps2you.albaraka.data.model.NotificationContent;
 import com.apps2you.albaraka.data.model.PrivacyPolicy;
@@ -46,6 +48,8 @@ public class AppRepository {
                 .getAsLiveServerData();
     }
 
+
+
     public LiveData<Resource<PrivacyPolicy>> getPrivacyPolicy() {
         return new NetworkBoundResource<PrivacyPolicy>() {
             @NonNull
@@ -76,6 +80,29 @@ public class AppRepository {
             @Override
             protected Call<MyResponse<ArrayList<City>>> createCall() {
                 return apiService.getCities();
+            }
+        }.getAsLiveServerData();
+    }
+
+    public LiveData<Resource<ArrayList<FinancingTransaction>>> getAllMyFinancing() {
+        return new NetworkBoundResource<ArrayList<FinancingTransaction>>() {
+
+            @NonNull
+            @Override
+            protected Call<MyResponse<ArrayList<FinancingTransaction>>> createCall() {
+                return apiService.getAllMyFinancing();
+            }
+        }.getAsLiveServerData();
+    }
+
+
+    public LiveData<Resource<ArrayList<FinancingTransactionDetails>>> getAllMyFinancingDetails(String dealNo, String branchCode) {
+        return new NetworkBoundResource<ArrayList<FinancingTransactionDetails>>() {
+
+            @NonNull
+            @Override
+            protected Call<MyResponse<ArrayList<FinancingTransactionDetails>>> createCall() {
+                return apiService.getAllMyFinancingDetails(dealNo, branchCode);
             }
         }.getAsLiveServerData();
     }
