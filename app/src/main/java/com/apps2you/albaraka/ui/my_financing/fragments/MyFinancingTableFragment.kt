@@ -2,6 +2,9 @@ package com.apps2you.albaraka.ui.my_financing.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +26,7 @@ class MyFinancingTableFragment : BaseFragment<FragmentMyFinancingTableBinding, M
     private lateinit var viewModel: MyFinancingViewModel
     private lateinit var dealNo: String
      lateinit var branchCode: String
-
+    private lateinit var selectedLayout: LinearLayout
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -52,26 +55,64 @@ class MyFinancingTableFragment : BaseFragment<FragmentMyFinancingTableBinding, M
     override fun setUpView() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(MyFinancingViewModel::class.java)
 
+        // Find the layouts for each status
+        val paidLayout = mViewDataBinding.paidLayout
+        val checkPaid = paidLayout.findViewById<ImageView>(R.id.check_paid)
+
+        val delayedLayout = mViewDataBinding.delayedLayout
+        val checkDelayed = delayedLayout.findViewById<ImageView>(R.id.check_delayed)
+
+        val notDueLayout = mViewDataBinding.notDueLayout
+        val checkNotDue = notDueLayout.findViewById<ImageView>(R.id.check_not_due)
+
+        val allLayout = mViewDataBinding.allLayout
+        val checkAll = allLayout.findViewById<ImageView>(R.id.check_all)
+
+        // Set click listeners to handle selection and filtering
+        paidLayout.setOnClickListener {
+            handleSelection(paidLayout, checkPaid, "مسدد")
+        }
+
+        delayedLayout.setOnClickListener {
+            handleSelection(delayedLayout, checkDelayed, "متآخر")
+        }
+
+        notDueLayout.setOnClickListener {
+            handleSelection(notDueLayout, checkNotDue, "غير مستحق بعد")
+        }
+        allLayout.setOnClickListener {
+            handleSelection(allLayout, checkAll, "الجميع")
+        }
 
         val dataTable: DataTable = mViewDataBinding.dataTable
         val fieldWeight = 1f
+
+        viewModel.getAllMyFinancingDetails(dealNo, branchCode).observe(viewLifecycleOwner, Observer { resource ->
+            resource.data?.let { details ->
+                // Update the details in the ViewModel
+                viewModel.updateAllDetails(details)
+            }
+        })
         val header = DataTableHeader.Builder()
-            .item("رقم", 0.5.toInt())  // Smaller weight for a short value
-            .item("التاريخ", 3)  // Larger weight for date
+            .item("رقم",1)  // Smaller weight for a short value
+            .item("التاريخ", 2)  // Larger weight for date
             .item("القيمة", 2)  // More weight for larger numeric values
             .item("تاريخ التسديد", 3)  // Larger weight for date
             .item("القيمة المسددة", 3)  // More weight for larger numeric values
-            .item("", 0.5.toInt())
+            .item("", 1)
             .build()
+
 
         val rows = ArrayList<DataTableRow>()
         val greenCircle = "\uD83D\uDFE2"  // Green circle emoji
         val redCircle = "\uD83D\uDD34"    // Red circle emoji
         val orangeCircle = "\uD83D\uDFE0" // Orange circle emoji
-        viewModel.getAllMyFinancingDetails(dealNo, branchCode).observe(viewLifecycleOwner, Observer { resource ->
-            resource.data?.let { details ->
-                rows.clear() // Map the details to DataTableRow and add them to the ArrayList
-                rows.addAll(details.map { detail ->
+
+
+
+        viewModel.filteredDetails.observe(viewLifecycleOwner, Observer { resource ->
+
+            val rows = resource.map { detail ->
                     val statusWithIcon = when (detail.LINE_STATUS) {
                         "مسدد" -> "$greenCircle"
                         "متآخر" -> "$redCircle"
@@ -87,20 +128,41 @@ class MyFinancingTableFragment : BaseFragment<FragmentMyFinancingTableBinding, M
                         .value(detail.SETTLEMENT_AMOUNT)
                         .value(statusWithIcon)
                         .build()
-                })
+                }
                 // Set the rows to the dataTable
-                dataTable.rows = rows
+                dataTable.rows = ArrayList(rows)
                 val typeface = ResourcesCompat.getFont(requireContext(), R.font.tahoma)
                 dataTable.typeface = typeface
                 dataTable.header = header
+           // dataTable.headerHorizontalPadding
                 dataTable.invalidate()
                 context?.let { dataTable.inflate(it) }
-            }
+
         })
 
 
     }
 
+    private fun handleSelection(selected: LinearLayout, checkIcon: ImageView, status: String) {
+        // Deselect the previous layout if it's not the same
+        if (this::selectedLayout.isInitialized && selectedLayout != selected) {
+            selectedLayout.isSelected = false
+            selectedLayout.findViewById<ImageView>(R.id.check_paid)?.visibility = View.GONE
+            selectedLayout.findViewById<ImageView>(R.id.check_delayed)?.visibility = View.GONE
+            selectedLayout.findViewById<ImageView>(R.id.check_not_due)?.visibility = View.GONE
+            selectedLayout.findViewById<ImageView>(R.id.check_all)?.visibility = View.GONE
+
+            selectedLayout.setBackgroundResource(0)
+        }
+
+        // Select the new layout
+        selected.isSelected = true
+        checkIcon.visibility = View.VISIBLE
+        selectedLayout = selected
+        selectedLayout.setBackgroundResource(R.drawable.bg_focused_edittext_red)
+        // Filter the table based on the status
+        viewModel.onStatusFilterClicked(status)
+    }
 
     override fun fetchData() {
 

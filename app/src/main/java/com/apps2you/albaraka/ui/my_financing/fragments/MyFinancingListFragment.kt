@@ -1,20 +1,17 @@
 package com.apps2you.albaraka.ui.my_financing.fragments
 
 import android.content.Context
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import com.apps2you.albaraka.BR
 import com.apps2you.albaraka.R
-import com.apps2you.albaraka.data.model.FinancingTransaction
+import com.apps2you.albaraka.data.remote.networkUtils.Status
+import com.apps2you.albaraka.databinding.FragmentMyFinancingCardBinding
 import com.apps2you.albaraka.ui.base.BaseFragment
 import com.apps2you.albaraka.ui.my_financing.FinancingTransactionAdapter
 import com.apps2you.albaraka.viewmodels.MyFinancingViewModel
-import com.apps2you.albaraka.BR
-import com.apps2you.albaraka.databinding.FragmentMyFinancingCardBinding
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -46,9 +43,13 @@ class MyFinancingListFragment : BaseFragment<FragmentMyFinancingCardBinding, MyF
     override fun setUpView() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(MyFinancingViewModel::class.java)
 
+
+        showProgress()
         // Observe the API data
         viewModel.getAllMyFinancing().observe(viewLifecycleOwner, Observer { resource ->
+
             resource.data?.let { transactions ->
+                hideProgress()
                 val adapter = FinancingTransactionAdapter(this, transactions) { transaction ->
                     // Pass deal_no and branch_code to the details fragment
                     val action = MyFinancingListFragmentDirections
@@ -60,6 +61,12 @@ class MyFinancingListFragment : BaseFragment<FragmentMyFinancingCardBinding, MyF
                 }
                 mViewDataBinding.listView.adapter = adapter
             }
+            // Handle errors and hide progress in case of failure
+            if (resource.status == Status.ERROR) {
+                hideProgress()
+                // Optionally show an error message or a toast
+            }
+
         })
 
         // Get NavController using Navigation.findNavController(view)

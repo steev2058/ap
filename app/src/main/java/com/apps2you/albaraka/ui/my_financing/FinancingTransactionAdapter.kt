@@ -20,12 +20,12 @@ class FinancingTransactionAdapter(
         val view = convertView ?: LayoutInflater.from(fragment.requireContext()).inflate(R.layout.item_financing_transaction, parent, false)
 
 
-        view.findViewById<TextView>(R.id.tvTransactionType).text = transaction?.CLASS_NAME_ENG
+        view.findViewById<TextView>(R.id.tvTransactionType).text = transaction?.CLASS_NAME_ARAB
         view.findViewById<TextView>(R.id.tvTotalAmount2).text = transaction?.TOTAL_AMT
         view.findViewById<TextView>(R.id.tvTotalInstallments2).text = transaction?.TOTAL_AMT_PAID
         view.findViewById<TextView>(R.id.tvInstallmentValue2).text = transaction?.AMT_PER_PAYMENT // Assuming you meant this
         view.findViewById<TextView>(R.id.tvNumberOfInstallments2).text = transaction?.NO_OF_PAYMENTS
-        view.findViewById<TextView>(R.id.tv_currency_name2).text = transaction?.CURRENCY_ENG
+        view.findViewById<TextView>(R.id.tv_currency_name2).text = transaction?.CURRENCY_ARAB
 
         view.setOnClickListener {
             transaction?.let { itemClickListener(it) }
