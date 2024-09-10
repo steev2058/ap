@@ -34,7 +34,7 @@
 
         <action
             android:id="@+id/action_transferOptionsFragment_to_HFFragment"
-            app:destination="@id/hFTransferFragment"
+            app:destination="@id/hfFragment"
             app:enterAnim="@anim/slide_in_end"
             app:exitAnim="@anim/slide_out_start"
             app:popEnterAnim="@anim/slide_in_start"
@@ -79,18 +79,19 @@
         android:label="MyTransferFragment"
         tools:layout="@layout/fragment_my_transfer" />
     <fragment
-        android:id="@+id/hFTransferFragment"
+        android:id="@+id/hfFragment"
         android:name="com.apps2you.albaraka.ui.transfer.hf.HFFragment"
-        android:label="HaramFouadTransferFragment"
-        tools:layout="@layout/activity_hf">
-    <action
-        android:id="@+id/action_hf_to_pickhorf"
-        app:destination="@id/providersFragment_hf"
-        app:enterAnim="@anim/slide_up"
-        app:exitAnim="@anim/stationary"
-        app:popEnterAnim="@anim/stationary"
-        app:popExitAnim="@anim/slide_down" />
+        android:label=""
+        tools:layout="@layout/fragment_hf">
+        <action
+            android:id="@+id/action_hfFragment_to_providersFragment"
+            app:destination="@id/providersFragment_hf"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
+
     <fragment
         android:id="@+id/providersFragment_hf"
         android:name="com.apps2you.albaraka.ui.transfer.hf.HFProvidersFragment"

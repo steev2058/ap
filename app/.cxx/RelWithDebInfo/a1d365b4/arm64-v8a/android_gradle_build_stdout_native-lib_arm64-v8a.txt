@@ -1,0 +1,3 @@
+ninja: Entering directory `D:\mobile application new albaraka\albaraka-android\app\.cxx\RelWithDebInfo\a1d365b4\arm64-v8a'
+[1/2] Building CXX object CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o
+[2/2] Linking CXX shared library ..\..\..\..\build\intermediates\cxx\RelWithDebInfo\a1d365b4\obj\arm64-v8a\libnative-lib.so

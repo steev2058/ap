@@ -58,7 +58,7 @@ public class HFFragment extends BaseTransferFragment<FragmentHfBinding, HFViewMo
 
 
         navController.navigate(
-                HFFragmentDirections.actionHfToPickhorf()
+                HFFragmentDirections.actionHfFragmentToProvidersFragment()
         );
     }
 
