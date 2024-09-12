@@ -48,7 +48,39 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:padding="16dp">
+                <LinearLayout
+                    android:id="@+id/all_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> viewModel.onStatusFilterClicked(`الجميع`)}">
+
+                    <ImageView
+                        android:id="@+id/check_all"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:visibility="gone" />
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:backgroundTint="@android:color/darker_gray"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/circle_shape" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="الجميع"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/paid_layout"
                     android:clickable="true"
@@ -154,20 +186,20 @@
                         android:textColor="#000"
                         android:textSize="14sp" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:id="@+id/all_layout"
+                    android:id="@+id/part_paid_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:orientation="horizontal"
                     android:layout_marginStart="16dp"
                     android:gravity="center_vertical"
                     android:clickable="true"
                     android:focusable="true"
-                    android:onClick="@{() -> viewModel.onStatusFilterClicked(`الجميع`)}">
+                    android:onClick="@{() -> viewModel.onStatusFilterClicked(`مسدد جزئياً`)}">
 
                     <ImageView
-                        android:id="@+id/check_all"
+                        android:id="@+id/check_part_paid"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="0dp"
@@ -183,11 +215,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="الجميع"
+                        android:text="مسدد جزئياً"
                         android:textColor="#000"
                         android:textSize="14sp" />
                 </LinearLayout>
-
 
 
             </LinearLayout>

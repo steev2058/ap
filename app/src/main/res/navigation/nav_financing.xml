@@ -28,6 +28,9 @@
         <argument
             android:name="branch_code"
             app:argType="string" />
+        <argument
+            android:name="remain_amt"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -41,6 +44,9 @@
             app:argType="string" />
         <argument
             android:name="branchCode"
+            app:argType="string" />
+        <argument
+            android:name="remain_amt"
             app:argType="string" />
         <action
             android:id="@+id/action_MyFinancingFragmentDetails_to_MyFinancingFragmentTable"

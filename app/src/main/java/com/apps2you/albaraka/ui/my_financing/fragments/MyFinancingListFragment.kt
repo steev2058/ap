@@ -55,7 +55,7 @@ class MyFinancingListFragment : BaseFragment<FragmentMyFinancingCardBinding, MyF
                     val action = MyFinancingListFragmentDirections
                         .actionMyFinancingFragmentCardToMyFinancingFragmentDetails(
                             transaction.DEAL_NO,
-                            transaction.BRANCH_CODE)
+                            transaction.BRANCH_CODE,transaction.REMAIN_AMT)
 
                     navController.navigate(action)
                 }

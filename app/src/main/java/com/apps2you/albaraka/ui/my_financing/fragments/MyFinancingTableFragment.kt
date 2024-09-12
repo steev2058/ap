@@ -54,7 +54,7 @@ class MyFinancingTableFragment : BaseFragment<FragmentMyFinancingTableBinding, M
 
     override fun setUpView() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(MyFinancingViewModel::class.java)
-
+        showProgress()
         // Find the layouts for each status
         val paidLayout = mViewDataBinding.paidLayout
         val checkPaid = paidLayout.findViewById<ImageView>(R.id.check_paid)
@@ -67,6 +67,9 @@ class MyFinancingTableFragment : BaseFragment<FragmentMyFinancingTableBinding, M
 
         val allLayout = mViewDataBinding.allLayout
         val checkAll = allLayout.findViewById<ImageView>(R.id.check_all)
+
+        val partPaidLayout = mViewDataBinding.partPaidLayout
+        val checkPartPaid = partPaidLayout.findViewById<ImageView>(R.id.check_part_paid)
 
         // Set click listeners to handle selection and filtering
         paidLayout.setOnClickListener {
@@ -84,20 +87,26 @@ class MyFinancingTableFragment : BaseFragment<FragmentMyFinancingTableBinding, M
             handleSelection(allLayout, checkAll, "الجميع")
         }
 
+        partPaidLayout.setOnClickListener {
+            handleSelection(partPaidLayout, checkPartPaid, "مسدد جزئياً")
+        }
+
         val dataTable: DataTable = mViewDataBinding.dataTable
         val fieldWeight = 1f
 
         viewModel.getAllMyFinancingDetails(dealNo, branchCode).observe(viewLifecycleOwner, Observer { resource ->
+
             resource.data?.let { details ->
                 // Update the details in the ViewModel
                 viewModel.updateAllDetails(details)
             }
+            hideProgress()
         })
         val header = DataTableHeader.Builder()
             .item("رقم",1)  // Smaller weight for a short value
             .item("التاريخ", 2)  // Larger weight for date
-            .item("القيمة", 2)  // More weight for larger numeric values
             .item("تاريخ التسديد", 3)  // Larger weight for date
+            .item("القيمة", 2)  // More weight for larger numeric values
             .item("القيمة المسددة", 3)  // More weight for larger numeric values
             .item("", 1)
             .build()
@@ -123,8 +132,8 @@ class MyFinancingTableFragment : BaseFragment<FragmentMyFinancingTableBinding, M
                     DataTableRow.Builder()
                         .value(detail.LINE_NBR.toString())
                         .value(detail.VALUE_DATE.toString())
-                        .value(detail.PAYMENT_AMOUNT.toString())
                         .value(detail.DATE_SETTLED.toString())
+                        .value(detail.PAYMENT_AMOUNT.toString())
                         .value(detail.SETTLEMENT_AMOUNT)
                         .value(statusWithIcon)
                         .build()
@@ -137,6 +146,7 @@ class MyFinancingTableFragment : BaseFragment<FragmentMyFinancingTableBinding, M
            // dataTable.headerHorizontalPadding
                 dataTable.invalidate()
                 context?.let { dataTable.inflate(it) }
+            hideProgress()
 
         })
 
@@ -151,6 +161,7 @@ class MyFinancingTableFragment : BaseFragment<FragmentMyFinancingTableBinding, M
             selectedLayout.findViewById<ImageView>(R.id.check_delayed)?.visibility = View.GONE
             selectedLayout.findViewById<ImageView>(R.id.check_not_due)?.visibility = View.GONE
             selectedLayout.findViewById<ImageView>(R.id.check_all)?.visibility = View.GONE
+            selectedLayout.findViewById<ImageView>(R.id.check_part_paid)?.visibility = View.GONE
 
             selectedLayout.setBackgroundResource(0)
         }

@@ -45,7 +45,6 @@ class MoreFragment : BaseFragment<FragmentMoreBinding, HomeViewModel>() {
         viewDataBinding.tvCalculator.setOnClickListener { startActivity(Intent(context, CalculatorActivity::class.java)) }
         viewDataBinding.tvFinancing.setOnClickListener { startActivity(Intent(context, FinanceFormActivity::class.java))  }
         viewDataBinding.tvMyFinancing.setOnClickListener { startActivity(Intent(context, MyFinancingListActivity::class.java))  }
-        viewDataBinding.tvMyFinancing2.setOnClickListener { startActivity(Intent(context, MyFinancing2Activity::class.java))  }
         viewDataBinding.tvAtm.setOnClickListener { openLink(Constants.LINK_ORDER_ATM) }
     }
 

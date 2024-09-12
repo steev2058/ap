@@ -67,7 +67,7 @@
                         android:gravity="center">
 
                         <TextView
-                            android:id="@+id/remaining_premiums"
+                            android:id="@+id/deposits_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/no_rest_satelment"
@@ -76,10 +76,10 @@
                             android:textColor="@android:color/white" />
 
                         <TextView
-                            android:id="@+id/deposits_amount"
+                            android:id="@+id/remaining_premiums"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10"
+                            android:text="@{String.valueOf(viewModel.remainingPremiums)}"
                             android:textSize="13sp"
                             android:textColor="@android:color/white" />
 
@@ -104,7 +104,7 @@
                         android:gravity="center">
 
                         <TextView
-                            android:id="@+id/Paid_installments"
+                            android:id="@+id/commission_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/no_satelment"
@@ -113,10 +113,11 @@
                             android:textColor="@android:color/white" />
 
                         <TextView
-                            android:id="@+id/commission_amount"
+
+                            android:id="@+id/Paid_installments"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="20"
+                            android:text="@{String.valueOf(viewModel.paidInstallments)}"
                             android:textSize="13sp"
                             android:textColor="@android:color/white" />
 
@@ -149,7 +150,7 @@
                         android:gravity="center">
 
                         <TextView
-                            android:id="@+id/remaining_commitment"
+                            android:id="@+id/commission_amount2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/value_rest_satelment"
@@ -158,10 +159,10 @@
                             android:textColor="@android:color/white" />
 
                         <TextView
-                            android:id="@+id/commission_amount2"
+                            android:id="@+id/remaining_commitment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="8,000 SP"
+                            android:text="@{viewModel.remainingCommitment}"
                             android:textSize="13sp"
                             android:textColor="@android:color/white" />
 
@@ -185,7 +186,8 @@
                         android:gravity="center">
 
                         <TextView
-                            android:id="@+id/The_installment"
+                            android:id="@+id/deposits_amount2"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/value_satelment"
@@ -194,10 +196,10 @@
                             android:textColor="@android:color/white" />
 
                         <TextView
-                            android:id="@+id/deposits_amount2"
+                            android:id="@+id/The_installment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="500,000 SP"
+                            android:text="@{viewModel.installmentValue}"
                             android:textSize="13sp"
                             android:textColor="@android:color/white" />
 
@@ -210,23 +212,13 @@
             layout="@layout/layout_transfer_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_large"
             app:layout_constraintTop_toBottomOf="@id/card_r2"
-            app:icon="@{@drawable/ic_my_transfer}"
+            app:icon="@{@drawable/ic_albaraka_transfer}"
             app:subTitle="@{@string/all_installment_subs_ft}"
             app:title="@{@string/all_installment}" />
 
 
-        <include
-            android:id="@+id/unpaid_installment"
-            layout="@layout/layout_transfer_option"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_xlarge"
-            app:layout_constraintTop_toBottomOf="@id/all_installments"
-            app:icon="@{@drawable/ic_albaraka_transfer}"
-            app:subTitle="@{@string/all_installment_subs_st}"
-            app:title="@{@string/all_installment_subs}" />
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
