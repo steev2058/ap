@@ -16,17 +16,17 @@ public class Constants {
             GENDER_FEMALE = "female";
 
     // test link
-  public static String BASE_URL = "Dapz/9upWXEoKkswz0bIqOPt34RWfWu9HRrfhk3MB6TH+AgrU1sFMg1PEzU9sF8XMUBHfhT43/VrfcDwh7e5j4JTc99bn1yQMAh3o4YZ6BjCxoITog==";
+ // public static String BASE_URL = "Dapz/9upWXEoKkswz0bIqOPt34RWfWu9HRrfhk3MB6TH+AgrU1sFMg1PEzU9sF8XMUBHfhT43/VrfcDwh7e5j4JTc99bn1yQMAh3o4YZ6BjCxoITog==";
 
     // live link
-//   public static String BASE_URL = "RLTWlkMoTClzcij5FhztackcT0FhNy6tBKB/DwqOpJgYSVNA47xPT5FTjPuRKpXGnGu3N1ApQcH87GcjWwnJCkGh6uLEG+1Ei5FV89JS9i9ong==";
+   public static String BASE_URL = "RLTWlkMoTClzcij5FhztackcT0FhNy6tBKB/DwqOpJgYSVNA47xPT5FTjPuRKpXGnGu3N1ApQcH87GcjWwnJCkGh6uLEG+1Ei5FV89JS9i9ong==";
 
-    public static String BASE_URL_SEP = "http://epaytest.albaraka.com.sy:4433/SEP";
-    public static String BASE_URL_SEP_ICON = "http://epaytest.albaraka.com.sy:4433";
+   // public static String BASE_URL_SEP = "http://epaytest.albaraka.com.sy:4433/SEP";
+  //  public static String BASE_URL_SEP_ICON = "http://epaytest.albaraka.com.sy:4433";
 
 
-//    public static String BASE_URL_SEP = "https://epay.albaraka.com.sy/SEP";
-//    public static String BASE_URL_SEP_ICON = "https://epay.albaraka.com.sy";
+    public static String BASE_URL_SEP = "https://epay.albaraka.com.sy/SEP";
+    public static String BASE_URL_SEP_ICON = "https://epay.albaraka.com.sy";
 
     public static String LINK_CREATE_ACCOUNT = "rvhV2HLplH95BCLFyBP7c6YTi/eBTAvYigwT1Hd9dioGrdApqLIlcFymRkPzUFC3V2aH6zAkEFpg48GZ7btdFp/xQIu67DoFodvq",
             LINK_FINANCING = "9VQwaXIdzDKzBy1cGnCKLWIuh1Ov5uchEwo4YSEWHBsQTE2jTa48UuErehNzaiWWuzQ3FO2P7N78v8/VkS0gNQcpzaKYisHjACTB5pPsQZ0lufxRYZ35FcuBZEg=",
