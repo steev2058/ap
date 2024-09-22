@@ -73,13 +73,13 @@ public class SecondFragment extends Fragment {
             }
         });
 
-        loadData();
+
         addButton.setOnClickListener(v -> {
             AddPaymentDialogFragment dialogFragment = new AddPaymentDialogFragment(sharedViewModel);
             FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
             dialogFragment.show(ft, "add_payment_dialog");
         });
-
+        loadData();
 //        sharedViewModel.getUserData().observe(getViewLifecycleOwner(), new Observer<UserData>() {
 //            @Override
 //            public void onChanged(UserData userData) {

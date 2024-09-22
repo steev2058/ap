@@ -249,7 +249,7 @@ public class UserSepProfileFragment extends Fragment {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Content-Type", "application/json");
-
+                conn.setRequestProperty("Authorization", "Bearer " + sepViewModel.token.getValue());
                 int responseCode = conn.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -361,7 +361,7 @@ public class UserSepProfileFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             String token = params[0];
-            String apiUrl = "http://epaytest.albaraka.com.sy:4433/SEP/Customer/my_payments";
+            String apiUrl = Constants.BASE_URL_SEP + "/Customer/my_payments";
 
             try {
                 URL url = new URL(apiUrl);

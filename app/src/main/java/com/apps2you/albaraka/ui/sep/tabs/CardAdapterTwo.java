@@ -253,7 +253,7 @@
                     try {
                         JSONObject jsonObject = new JSONObject(result);
                         String errorCode = jsonObject.optString("ErrorCode");
-                        String errorDescription = jsonObject.optString("ErrorDescription");
+                        String errorDescription = jsonObject.optString("ErrorDescriptionAR");
 
                         if ("000".equals(errorCode)) {
 
@@ -325,7 +325,7 @@
                 String id = params[0];
                 position = Integer.parseInt(params[1]);
                 try {
-                    URL url = new URL(Constants.BASE_URL_SEP+"/Services_Interface/remove_customer_profile/?id=" + id);
+                    URL url = new URL(Constants.BASE_URL_SEP+"/Services_Interface/remove_customer_profile/" + id);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("DELETE");
                     connection.setRequestProperty("token", token);

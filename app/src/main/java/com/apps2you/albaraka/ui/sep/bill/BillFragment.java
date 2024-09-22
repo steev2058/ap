@@ -438,7 +438,7 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
 
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String errorCode = jsonObject.optString("ErrorCode");
-                String errorDescription = jsonObject.optString("ErrorDescription");
+                String errorDescription = jsonObject.optString("ErrorDescriptionAR");
 
                 if ("000".equals(errorCode)) {
                     // Create a bundle and navigate to the next fragment
