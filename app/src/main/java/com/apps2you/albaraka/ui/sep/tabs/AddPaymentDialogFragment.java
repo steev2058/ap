@@ -30,6 +30,7 @@ import com.apps2you.albaraka.ui.sep.bill.Service;
 import com.apps2you.albaraka.ui.sep.profile.UserData;
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.viewmodels.SharedViewModel;
+import com.apps2you.albaraka.viewmodels.transfer.SEPViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.OutputStream;
@@ -61,7 +62,7 @@ public class AddPaymentDialogFragment extends DialogFragment {
     private Biller selectedBiller;
     private String billLabel;
     private List<BillingNumber> selectedBillingNumbers = new ArrayList<>();
-
+    private SEPViewModel sepViewModel;
     private SweetAlertDialog progressDialog;
 
     @Nullable
@@ -89,11 +90,12 @@ public class AddPaymentDialogFragment extends DialogFragment {
         sharedViewModel.getUserData().observe(getViewLifecycleOwner(), userData -> {
             if (userData != null) {
                 token = userData.getToken();
+                new GetDataTask().execute(Constants.BASE_URL_SEP+"/Customer/all");
             }
         });
 
         // Call the API and populate the spinners
-        new GetDataTask().execute(Constants.BASE_URL_SEP+"/Customer/all");
+
 
         return view;
     }
@@ -131,6 +133,7 @@ public class AddPaymentDialogFragment extends DialogFragment {
                 URL url = new URL(urls[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Bearer " + token);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder json = new StringBuilder();
                 String line;

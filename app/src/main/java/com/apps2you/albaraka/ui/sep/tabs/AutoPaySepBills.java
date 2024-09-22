@@ -123,6 +123,7 @@
 
             billLabelEditText.setText(billLabel);
             maxAmount.setText(String.valueOf(maxA));
+            new NumberTextWatcher(maxAmount);
             progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
            // progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
             progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
@@ -141,6 +142,26 @@
             // Set OnCheckedChangeListener for the switch
             SwitchCompat switchAutoPay = view.findViewById(R.id.switch_auto_pay);
             switchAutoPay.setChecked(autoPay == 1);
+            if (autoPay == 1) {
+                dividerNotification.setVisibility(View.VISIBLE);
+                textView2.setVisibility(View.VISIBLE);
+                spinnerAccounts.setVisibility(View.VISIBLE);
+                imageViewCatigories.setVisibility(View.VISIBLE);
+                textView3.setVisibility(View.VISIBLE);
+                textView4.setVisibility(View.VISIBLE);
+                maxAmount.setVisibility(View.VISIBLE);
+                // pickTimeEditText.setVisibility(View.VISIBLE);
+            } else {
+                dividerNotification.setVisibility(View.GONE);
+                textView2.setVisibility(View.GONE);
+                spinnerAccounts.setVisibility(View.GONE);
+                imageViewCatigories.setVisibility(View.GONE);
+                textView3.setVisibility(View.GONE);
+                textView4.setVisibility(View.GONE);
+                maxAmount.setVisibility(View.GONE);
+                // pickTimeEditText.setVisibility(View.GONE);
+            }
+
             switchAutoPay.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
                 if (isChecked) {
@@ -220,11 +241,14 @@
                                 String accountNameArabic = accountObject.getString("BRIEFos_gl_name_arab");
                                 String accountNameEnglish = accountObject.getString("BRIEF_gl_name_eng");
                                 String accountReference = accountObject.optString("os_add_reference", "");
-                                String accountDisplay = accountReference.isEmpty() ? accountNameArabic : accountReference + " " + accountNameArabic;
+                                String accountDisplay = accountReference.isEmpty() ? accountNameArabic : accountNameArabic;
 
                                 accounts.add(accountDisplay);
+
                             }
+
                         } else {
+
                             // Handle error scenario
                             // You can add a message or log the error as needed
                         }
@@ -281,7 +305,7 @@
 
 
                 // Collect data from UI
-                maxAmount = Integer.parseInt(((EditText) getView().findViewById(R.id.max_amount)).getText().toString());
+                maxAmount = Integer.parseInt(((EditText) getView().findViewById(R.id.max_amount)).getText().toString().replaceAll(",",""));
                 billLabelR = ((EditText) getView().findViewById(R.id.billLabel)).getText().toString();
                // pickTime = ((EditText) getView().findViewById(R.id.pick_time)).getText().toString() + ":00";
                 autoPay = ((SwitchCompat) getView().findViewById(R.id.switch_auto_pay)).isChecked();

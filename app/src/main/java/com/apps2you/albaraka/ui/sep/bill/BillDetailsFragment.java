@@ -238,7 +238,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                     JSONObject responseJson = new JSONObject(response.toString());
                     boolean success = responseJson.getBoolean("data");
                     if (!success) {
-                        errorMessage = responseJson.getString("ErrorDescription");
+                        errorMessage = responseJson.getString("ErrorDescriptionAR");
                     }
                     return success;
                 } else {
@@ -615,7 +615,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
             try {
                 JSONObject responseJson = new JSONObject(responseData.toString());
                 String errorCode = responseJson.getString("ErrorCode");
-                String errorDescription = responseJson.getString("ErrorDescription");
+                String errorDescription = responseJson.getString("ErrorDescriptionAR");
 
                 if ("000".equals(errorCode)) {
                     new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
