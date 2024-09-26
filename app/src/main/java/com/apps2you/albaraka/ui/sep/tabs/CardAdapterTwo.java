@@ -74,6 +74,7 @@
     //        return mCardItemList.size();
     //    }
 
+
         @Override
         public int getCount() {
             // Display filtered list only if it's not empty, otherwise display original list
@@ -171,19 +172,44 @@
             return convertView;
         }
 
+//        public void filter(String query) {
+//            filteredList.clear();
+//            if (query.isEmpty()) {
+//                filteredList.addAll(originalList);
+//            } else {
+//                for (CardItemProfile item : originalList) {
+//                    if (item.getDescription().toLowerCase().contains(query.toLowerCase()) || item.getDescription().contains(query) || item.getServiceNameAr().contains(query) || item.getServiceNameEn().contains(query) || item.getBillingNo().contains(query)) {
+//                        filteredList.add(item);
+//                    }
+//                }
+//            }
+//            notifyDataSetChanged();
+//        }
+
         public void filter(String query) {
             filteredList.clear();
-            if (query.isEmpty()) {
+            if (query == null || query.isEmpty()) {
                 filteredList.addAll(originalList);
             } else {
                 for (CardItemProfile item : originalList) {
-                    if (item.getDescription().toLowerCase().contains(query.toLowerCase()) || item.getDescription().contains(query)) {
+                    String description = item.getDescription();
+                    String title = item.getTitle();
+                    String serviceNameAr = item.getServiceNameAr();
+                    String serviceNameEn = item.getServiceNameEn();
+                    String billingNo = item.getBillingNo();
+
+                    if ((description != null && description.toLowerCase().contains(query.toLowerCase())) ||
+                            (serviceNameAr != null && serviceNameAr.contains(query)) ||
+                            (serviceNameEn != null && serviceNameEn.contains(query)) ||
+                            (title != null && title.toLowerCase().contains(query.toLowerCase()))||
+                            (billingNo != null && billingNo.contains(query))) {
                         filteredList.add(item);
                     }
                 }
             }
             notifyDataSetChanged();
         }
+
 
 
         private void showConfirmSearchDialog(final String id, final int position,String billerCode) {
@@ -347,17 +373,18 @@
                     if (position >= 0 && position < mCardItemList.size()) {
                     mCardItemList.remove(position);
                     notifyDataSetChanged();
+
                     new SweetAlertDialog(mFragment.requireContext(), SweetAlertDialog.SUCCESS_TYPE)
                             .setTitleText("Success")
                             .setContentText("تم حذف الفاتورة بنجاح")
                             .show();
-                    Toast.makeText(mContext, "تم حذف الفاتورة بنجاح", Toast.LENGTH_SHORT).show();
+
                 } else {
                     new SweetAlertDialog(mFragment.requireContext(), SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("Error")
                             .setContentText("فشل عملية حذف الفاتورة")
                             .show();
-                    Toast.makeText(mContext, "فشل عملية حذف الفاتورة", Toast.LENGTH_SHORT).show();
+
                 }
             }else {
                     Toast.makeText(mContext, "فشل عملية حذف الفاتورة", Toast.LENGTH_SHORT).show();
@@ -395,11 +422,5 @@
                 progressDialog.dismiss();
             }
         }
-//        protected void showProgress() {
-//            progressDialog.show();
-//        }
-//
-//        protected void hideProgress() {
-//            progressDialog.dismiss();
-//        }
+
     }

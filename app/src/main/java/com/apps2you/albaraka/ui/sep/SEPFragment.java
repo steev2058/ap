@@ -98,8 +98,8 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         tabLayout = getViewDataBinding().getRoot().findViewById(R.id.tabLayout2);
 
         // Add tabs to the TabLayout
-        tabLayout.addTab(tabLayout.newTab().setText("الدفع الفوري"));
-        tabLayout.addTab(tabLayout.newTab().setText("الفواتير الشخصية"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.SEP_tab1));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.SEP_tab2));
 
         // Set up ViewPager with TabsAdapter
          tabsAdapter = new TabsAdapter(activity, tabLayout.getTabCount(),sharedViewModel);

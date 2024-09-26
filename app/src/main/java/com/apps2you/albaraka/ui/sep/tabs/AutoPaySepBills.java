@@ -80,6 +80,7 @@
         private ImageView imageViewCatigories;
         private TextView textView3;
         private TextView textView4;
+        private TextView textView56;
         private EditText maxAmount;
 
 //        public static AutoPaySepBills newInstance(SharedViewModel sharedViewModel, String billLabel, String id) {
@@ -118,6 +119,7 @@
             imageViewCatigories = view.findViewById(R.id.imageView_catigories);
             textView3 = view.findViewById(R.id.textView3);
             textView4 = view.findViewById(R.id.textView4);
+            textView56 = view.findViewById(R.id.textView56);
 
 
 
@@ -149,6 +151,7 @@
                 imageViewCatigories.setVisibility(View.VISIBLE);
                 textView3.setVisibility(View.VISIBLE);
                 textView4.setVisibility(View.VISIBLE);
+                textView56.setVisibility(View.VISIBLE);
                 maxAmount.setVisibility(View.VISIBLE);
                 // pickTimeEditText.setVisibility(View.VISIBLE);
             } else {
@@ -158,6 +161,7 @@
                 imageViewCatigories.setVisibility(View.GONE);
                 textView3.setVisibility(View.GONE);
                 textView4.setVisibility(View.GONE);
+                textView56.setVisibility(View.GONE);
                 maxAmount.setVisibility(View.GONE);
                 // pickTimeEditText.setVisibility(View.GONE);
             }
@@ -171,6 +175,7 @@
                     imageViewCatigories.setVisibility(View.VISIBLE);
                     textView3.setVisibility(View.VISIBLE);
                     textView4.setVisibility(View.VISIBLE);
+                    textView56.setVisibility(View.VISIBLE);
                     maxAmount.setVisibility(View.VISIBLE);
                    // pickTimeEditText.setVisibility(View.VISIBLE);
                 } else {
@@ -180,6 +185,7 @@
                     imageViewCatigories.setVisibility(View.GONE);
                     textView3.setVisibility(View.GONE);
                     textView4.setVisibility(View.GONE);
+                    textView56.setVisibility(View.GONE);
                     maxAmount.setVisibility(View.GONE);
                    // pickTimeEditText.setVisibility(View.GONE);
                 }

@@ -197,8 +197,10 @@
     <string name="personalization">تخصيص</string>
     <string name="ADSL_payment">فواتير ADSL (مزودي خدمة الإنترنت)</string>
     <string name="SEP_payment">تسديد فواتير الخدمات (SEP)</string>
-
+    <string name="SEP_tab1">الدفع الفوري</string>
+    <string name="SEP_tab2">الفواتير الشخصية</string>
     <string name="SEP_profile">المدفوعات الشخصية (SEP)</string>
+    <string name="SEP_profile1">المدفوعات الشخصية</string>
 
     <string name="SEP_bill">الاستعلام عن فاتورة</string>
     <string name="Add_SEP_bill">إضافة فاتورة</string>
