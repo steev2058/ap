@@ -57,7 +57,7 @@
                 android:id="@+id/card_descriptionp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="اسم الفاتورة : "
+                android:text="@string/bill_name"
                 android:textSize="12sp"
                 android:layout_marginTop="5dp"
                 android:textStyle="bold"/>
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
-                android:text="الخدمة : "
+                android:text="@string/serv_name"
                 android:textSize="14sp"
                 />
             <TextView
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="رقم الفاتورة : "
+                android:text="@string/billingNo"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/card_billing_no"
@@ -134,7 +134,7 @@
             android:layout_height="39dp"
             android:paddingStart="6dp"
             android:textSize="12sp"
-            android:text="استعلام"
+            android:text="@string/button"
             android:paddingEnd="12dp"
             android:drawableEnd="@drawable/ic_search_24"
             android:textColor="@color/white"/>
@@ -159,7 +159,7 @@
             android:paddingStart="11dp"
             android:paddingEnd="12dp"
             android:textSize="12sp"
-            android:text="تعديل"
+            android:text="@string/edit"
             android:drawableEnd="@drawable/ic_edit_w"
             android:textColor="@color/white"/>
 
@@ -183,7 +183,7 @@
             android:paddingStart="11dp"
             android:paddingEnd="12dp"
             android:textSize="12sp"
-            android:text="حذف"
+            android:text="@string/delete"
             android:drawableEnd="@drawable/ic_delete"
             android:textColor="@color/red"/>
     </LinearLayout>

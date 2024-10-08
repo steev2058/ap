@@ -20,10 +20,11 @@
         android:layout_toLeftOf="@+id/add_button"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        android:hint="البحث"
-        android:padding="8dp"
+        android:hint="@string/search"
+        android:textColorHint="@color/gray_line_view"
+        android:padding="13dp"
         android:background="@drawable/bg_radio_button"
-        android:textDirection="rtl" />
+        />
 
     <Button
         android:id="@+id/add_button"
@@ -33,7 +34,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="إضافة +"
+        android:text="@string/Add_SEP_bill2"
         style="@style/ButtonPrimary"
         android:padding="8dp"
         />

@@ -104,6 +104,7 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
         // Set up ViewPager with TabsAdapter
          tabsAdapter = new TabsAdapter(activity, tabLayout.getTabCount(),sharedViewModel);
         viewPager.setAdapter(tabsAdapter);
+      //  viewPager.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 
         // Connect TabLayout and ViewPager
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -124,8 +125,9 @@ public class SEPFragment extends BaseFragment<FragmentSepBinding, SEPViewModel> 
 
         // Set tab text colors
         tabLayout.setTabTextColors(getResources().getColor(R.color.gray), getResources().getColor(R.color.orange));
+        tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 
-
+      // tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
 
     @Override

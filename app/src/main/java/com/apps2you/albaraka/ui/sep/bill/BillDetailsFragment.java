@@ -303,7 +303,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 feeAmountTextView.setText(feeAmount);
                 issueDateTextView.setText(getString(R.string.issue_date, formattedIssueDate));
                 dueDateTextView.setText(getString(R.string.due_date, formattedDueDate));
-                statusTextView.setText("فاتورة جديدة");
+                statusTextView.setText(R.string.new_bills);
                 statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                 statusTextView.setBackgroundResource(R.drawable.rounded_background_orange);
                 statusTextView.setVisibility(View.VISIBLE);
@@ -531,9 +531,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder responseStrBuilder = new StringBuilder();
                 String line;
-                while ((line = reader.readLine()) != null) {
-                    responseStrBuilder.append(line);
-                }
+
                 reader.close();
                 response = new StringBuilder(responseStrBuilder.toString());
                 connection.disconnect();
@@ -560,7 +558,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                             .setContentText("تم الدفع بنجاح")
                             .show();
 
-                    statusTextView.setText("تم دفع الفاتورة بنجاح");
+                    statusTextView.setText(R.string.payed_bills);
                     statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                     statusTextView.setBackgroundResource(R.drawable.rounded_background_g);
                     statusTextView.setVisibility(View.VISIBLE);
@@ -569,7 +567,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                             .setTitleText("Error")
                             .setContentText("هناك خطأ: " + errorDescription)
                             .show();
-                    statusTextView.setText("فشلت العملية");
+                    statusTextView.setText(R.string.faild_pay);
                     statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                     statusTextView.setBackgroundResource(R.drawable.rounded_background_red);
                     statusTextView.setVisibility(View.VISIBLE);

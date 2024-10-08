@@ -23,6 +23,7 @@
     import androidx.fragment.app.DialogFragment;
 
     import com.apps2you.albaraka.R;
+    import com.apps2you.albaraka.data.preference.UserUtils;
     import com.apps2you.albaraka.ui.sep.bill.Biller;
     import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
     import com.apps2you.albaraka.ui.sep.bill.Service;
@@ -211,7 +212,7 @@
 //            timePickerDialog.show();
 //        }
         private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
-
+    String language = UserUtils.getInstance(requireContext()).getLanguage();
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -244,7 +245,10 @@
                             JSONArray accountsArray = jsonResponse.getJSONArray("data");
                             for (int i = 0; i < accountsArray.length(); i++) {
                                 JSONObject accountObject = accountsArray.getJSONObject(i);
-                                String accountNameArabic = accountObject.getString("BRIEFos_gl_name_arab");
+                                String accountNameArabic = language.equals("ar") ?
+                                        accountObject.optString("BRIEFos_gl_name_arab", "N/A") :
+                                        accountObject.optString("BRIEF_gl_name_eng", "N/A");
+                               // String accountNameArabic = accountObject.getString("BRIEFos_gl_name_arab");
                                 String accountNameEnglish = accountObject.getString("BRIEF_gl_name_eng");
                                 String accountReference = accountObject.optString("os_add_reference", "");
                                 String accountDisplay = accountReference.isEmpty() ? accountNameArabic : accountNameArabic;

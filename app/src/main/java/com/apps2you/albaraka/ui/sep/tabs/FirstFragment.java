@@ -1,5 +1,6 @@
 package com.apps2you.albaraka.ui.sep.tabs;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.R;
+import com.apps2you.albaraka.data.preference.UserUtils;
 import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
 import com.apps2you.albaraka.ui.sep.SEPFragmentDirections;
 import com.apps2you.albaraka.ui.sep.bill.Biller;
@@ -30,6 +32,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +65,7 @@ public class FirstFragment extends Fragment {
         sharedViewModel.getUserData().observe(getViewLifecycleOwner(), userData -> {
             if (userData != null) {
                 token = userData.getToken();
-                new FetchCategoriesTask().execute();
+                new FetchCategoriesTask(getContext()).execute();
             }
         });
         sharedViewModel.getRefreshData().observe(getViewLifecycleOwner(), refresh -> {
@@ -83,7 +86,7 @@ public class FirstFragment extends Fragment {
         sharedViewModel.getUserData().observe(getViewLifecycleOwner(), userData -> {
             if (userData != null) {
                 token = userData.getToken();
-                new FetchCategoriesTask().execute();
+                new FetchCategoriesTask(getContext()).execute();
             }
         });
     }
@@ -102,6 +105,7 @@ public class FirstFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putString("iconUrl", clickedItem.getIconUrl());
                     bundle.putString("categName_ar", clickedItem.getText());
+                    bundle.putString("categName", clickedItem.getText());
                     bundle.putString("categoryName", clickedItem.getText());
                     bundle.putSerializable("billers", (Serializable) clickedItem.getBillerList());
 
@@ -121,11 +125,20 @@ public class FirstFragment extends Fragment {
     }
 
     private class FetchCategoriesTask extends AsyncTask<Void, Void, List<CardItem>> {
+        private WeakReference<Context> contextRef;
+
+        public FetchCategoriesTask(Context context) {
+            this.contextRef = new WeakReference<>(context);
+        }
 
         @Override
         protected List<CardItem> doInBackground(Void... voids) {
             List<CardItem> cardItemList = new ArrayList<>();
-
+            Context context = contextRef.get(); // Get the context safely
+            if (context == null) {
+                return cardItemList; // If context is null, return to avoid a crash
+            }
+            String language = UserUtils.getInstance(context).getLanguage();
             try {
                 URL url = new URL(Constants.BASE_URL_SEP + "/Customer/all");
                 OkHttpClient client = NetworkBoundResource.provideOkHttpClient();
@@ -152,10 +165,12 @@ public class FirstFragment extends Fragment {
 
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject category = categories.getJSONObject(i);
-                        String categName_ar = category.optString("categName_ar", "N/A");
+                        String categName = language.equals("ar") ?
+                                category.optString("categName_ar", "N/A") :
+                                category.optString("categName", "N/A");
                         String iconUrl = category.optString("icon", "N/A");
                         List<Biller> billers = parseBillersJson(category.getJSONArray("billers"));
-                        cardItemList.add(new CardItem(categName_ar, iconUrl.replace("..", Constants.BASE_URL_SEP_ICON), billers));
+                        cardItemList.add(new CardItem(categName, iconUrl.replace("..", Constants.BASE_URL_SEP_ICON), billers));
                     }
                 } else {
                     Log.e("FetchCategoriesTask", "Request failed. Response code: " + response.code());
@@ -181,10 +196,18 @@ public class FirstFragment extends Fragment {
 
     private List<Biller> parseBillersJson(JSONArray billersArray) throws JSONException {
         List<Biller> billers = new ArrayList<>();
+        Context context = getContext();
+        if (context == null) {
+            return billers; // Return early if the fragment is not attached
+        }
 
+        String language = UserUtils.getInstance(context).getLanguage();
         for (int j = 0; j < billersArray.length(); j++) {
             JSONObject billerObj = billersArray.getJSONObject(j);
-            String billerName = billerObj.optString("billerName_ar");
+            String billerName = language.equals("ar") ?
+                    billerObj.optString("billerName_ar", "N/A") :
+                    billerObj.optString("billerName", "N/A");
+        //    String billerName = billerObj.optString("billerName_ar");
             String billerCode = billerObj.optString("billerCode");
 
             List<Service> services = new ArrayList<>();
@@ -192,14 +215,22 @@ public class FirstFragment extends Fragment {
 
             for (int k = 0; k < servicesArray.length(); k++) {
                 JSONObject serviceObj = servicesArray.getJSONObject(k);
-                String serviceName = serviceObj.optString("serviceName_ar");
+
+                String serviceName = language.equals("ar") ?
+                        serviceObj.optString("serviceName_ar", "N/A") :
+                        serviceObj.optString("serviceName", "N/A");
+
+             //   String serviceName = serviceObj.optString("serviceName_ar");
                 String serviceId = serviceObj.optString("serviceId");
 
                 List<BillingNumber> billingNumbers = new ArrayList<>();
                 JSONArray billingNumbersArray = serviceObj.getJSONArray("billingnumbers");
                 for (int l = 0; l < billingNumbersArray.length(); l++) {
                     JSONObject billingNumberObj = billingNumbersArray.getJSONObject(l);
-                    String arabicLabel = billingNumberObj.optString("ArabicLabel");
+                    String arabicLabel = language.equals("ar") ?
+                            billingNumberObj.optString("ArabicLabel", "N/A") :
+                            billingNumberObj.optString("EnglishLabel", "N/A");
+                //    String arabicLabel = billingNumberObj.optString("ArabicLabel");
                     String type = billingNumberObj.optString("Type");
                     String texts = billingNumberObj.optString("Texts");
                     billingNumbers.add(new BillingNumber(arabicLabel, type, texts));

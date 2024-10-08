@@ -15,7 +15,7 @@
         android:textColor="@color/gray"
         android:textStyle="bold"
         android:drawablePadding="@dimen/_5sdp"
-        android:text="واجهة إضافة خدمة دفع"
+        android:text="@string/Add_Payment_Service_Interface"
         android:layout_gravity="center" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,7 +65,7 @@
             android:id="@+id/textView0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="اختر الفئة"
+            android:text="@string/choose_catigory"
             android:textColor="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -97,7 +97,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="اختر المفوتر"
+            android:text="@string/choose_biller"
             android:textColor="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_catigories_add" />
@@ -130,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="اختر خدمة الفوترة"
+            android:text="@string/choose_service"
             android:textColor="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_billers_add" />
@@ -163,7 +163,7 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ادخل اسم الفاتورة"
+            android:text="@string/bill_name_add"
             android:textColor="@color/gray"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -177,7 +177,7 @@
             android:drawableStart="@drawable/ic_reason"
             android:drawablePadding="@dimen/margin_small"
             android:inputType="text"
-            android:hint="مثال : فاتورة منزل,هاتف العمل"
+            android:hint="@string/hint_add_bill"
             android:maxLines="1"
 
             app:layout_constraintTop_toBottomOf="@id/textView5"
@@ -201,7 +201,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="إضافة إلى الملف الشخصي"
+            android:text="@string/btn_add_bill"
             app:layout_constraintTop_toBottomOf="@+id/input_fields_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
-                android:text="اختر الفاتورة للدفع"/>
+                android:text="@string/choose_bill_to_pay"/>
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                     android:id="@+id/billingNoTextViewح"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="اسم الفاتورة:"
+                    android:text="@string/bill_name"
                     android:textSize="16sp"
                     android:textColor="@android:color/black"/>
 
@@ -68,7 +68,7 @@
                     android:id="@+id/dueAmountTextViewp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="القيمة  : "
+                    android:text="@string/due_amount2"
                     android:textSize="16sp"
                     android:textColor="@android:color/black"/>
 
@@ -97,7 +97,7 @@
         android:id="@+id/feeAmountTextViewp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="العمولة : "
+        android:text="@string/fee_amount"
         android:textSize="16sp"
         android:textColor="@android:color/black"/>
     <TextView
