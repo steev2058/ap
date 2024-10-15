@@ -89,7 +89,7 @@
                             android:background="@color/white"
                             android:paddingStart="10dp"
                             android:paddingEnd="10dp"
-                            android:text="الفواتير"
+                            android:text="@string/bills_txt"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/_13sdp"
 
@@ -104,7 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="تحديد جميع الفواتير"
+                        android:text="@string/select_all_bills"
                         app:layout_constraintTop_toBottomOf="@id/bills_card"
                         app:layout_constraintStart_toStartOf="@id/bills_card"
                         android:textColor="@color/black" />
@@ -129,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="50dp"
-                        android:text="دفع الفواتير المختارة"
+                        android:text="@string/pay_selected_bills"
                         app:layout_constraintTop_toBottomOf="@+id/cards_container" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

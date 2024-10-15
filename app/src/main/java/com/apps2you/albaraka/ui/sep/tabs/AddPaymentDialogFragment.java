@@ -24,6 +24,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 
 import com.apps2you.albaraka.R;
+import com.apps2you.albaraka.data.preference.UserUtils;
 import com.apps2you.albaraka.ui.sep.bill.Biller;
 import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
 import com.apps2you.albaraka.ui.sep.bill.Service;
@@ -121,6 +122,7 @@ public class AddPaymentDialogFragment extends DialogFragment {
     }
 
     private class GetDataTask extends AsyncTask<String, Void, List<Category>> {
+        String language = UserUtils.getInstance(requireContext()).getLanguage();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -149,7 +151,10 @@ public class AddPaymentDialogFragment extends DialogFragment {
                 for (int i = 0; i < categoriesArray.length(); i++) {
                     JSONObject categoryObject = categoriesArray.getJSONObject(i);
                     String categId = categoryObject.getString("categId");
-                    String categName = categoryObject.getString("categName_ar");
+                    String categName = language.equals("ar") ?
+                            categoryObject.optString("categName_ar", "N/A") :
+                            categoryObject.optString("categName", "N/A");
+                //    String categName = categoryObject.getString("categName_ar");
 
                     JSONArray billersArray = categoryObject.getJSONArray("billers");
                     List<Biller> billers = new ArrayList<>();
@@ -157,7 +162,10 @@ public class AddPaymentDialogFragment extends DialogFragment {
                     for (int j = 0; j < billersArray.length(); j++) {
                         JSONObject billerObject = billersArray.getJSONObject(j);
                         String billerCode = billerObject.getString("billerCode");
-                        String billerName = billerObject.getString("billerName_ar");
+                        String billerName = language.equals("ar") ?
+                                billerObject.optString("billerName_ar", "N/A") :
+                                billerObject.optString("billerName", "N/A");
+                    //    String billerName = billerObject.getString("billerName_ar");
 
                         JSONArray servicesArray = billerObject.getJSONArray("services");
                         List<Service> services = new ArrayList<>();
@@ -165,14 +173,20 @@ public class AddPaymentDialogFragment extends DialogFragment {
                         for (int k = 0; k < servicesArray.length(); k++) {
                             JSONObject serviceObject = servicesArray.getJSONObject(k);
                             String serviceId = serviceObject.getString("serviceId");
-                            String serviceName = serviceObject.getString("serviceName_ar");
+                            String serviceName = language.equals("ar") ?
+                                    serviceObject.optString("serviceName_ar", "N/A") :
+                                    serviceObject.optString("serviceName", "N/A");
+                        //    String serviceName = serviceObject.getString("serviceName_ar");
 
                             JSONArray billingNumbersArray = serviceObject.getJSONArray("billingnumbers");
                             List<BillingNumber> billingNumbers = new ArrayList<>();
 
                             for (int l = 0; l < billingNumbersArray.length(); l++) {
                                 JSONObject billingNumberObject = billingNumbersArray.getJSONObject(l);
-                                String arabicLabel = billingNumberObject.getString("ArabicLabel");
+                                String arabicLabel = language.equals("ar") ?
+                                        billingNumberObject.optString("ArabicLabel", "N/A") :
+                                        billingNumberObject.optString("EnglishLabel", "N/A");
+                             //   String arabicLabel = billingNumberObject.getString("ArabicLabel");
                                 String type = billingNumberObject.getString("Type");
                                 String texts = billingNumberObject.optString("Texts", "");
 
@@ -203,11 +217,16 @@ public class AddPaymentDialogFragment extends DialogFragment {
     }
 
     private void populateCategoriesSpinner(List<Category> categories) {
+        String language = UserUtils.getInstance(requireContext()).getLanguage();
         if (!isAdded()) {
             return;  // Exit if the fragment is not attached
         }
         List<String> categoryNames = new ArrayList<>();
-        categoryNames.add("اختر فئة");
+
+        String c1 = language.equals("ar") ?
+                "اختر فئة" :
+                "Choose Category";
+        categoryNames.add(c1);
         for (Category category : categories) {
             categoryNames.add(category.getCategName());
         }
@@ -238,7 +257,11 @@ public class AddPaymentDialogFragment extends DialogFragment {
 
     private void populateBillersSpinner(List<Biller> billers) {
         List<String> billerNames = new ArrayList<>();
-        billerNames.add(" اختر مفوتر");
+        String language = UserUtils.getInstance(requireContext()).getLanguage();
+        String c2 = language.equals("ar") ?
+                "اختر مفوتر" :
+                "Choose Biller";
+        billerNames.add(c2);
         for (Biller biller : billers) {
             billerNames.add(biller.getBillerName());
         }
@@ -268,7 +291,11 @@ public class AddPaymentDialogFragment extends DialogFragment {
 
     private void populateServicesSpinner(List<Service> services) {
         List<String> serviceNames = new ArrayList<>();
-        serviceNames.add("اختر خدمة الفوترة");
+        String language = UserUtils.getInstance(requireContext()).getLanguage();
+        String c3 = language.equals("ar") ?
+                "اختر خدمة الفوترة" :
+                "Select billing service";
+        serviceNames.add(c3);
         for (Service service : services) {
             serviceNames.add(service.getServiceName());
         }

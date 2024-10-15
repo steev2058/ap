@@ -235,6 +235,7 @@ public class UserSepProfileFragment extends Fragment {
         paymentsAdapter.notifyDataSetChanged();
     }
     private class FetchCategoriesTask extends AsyncTask<Void, Void, String> {
+        String language = UserUtils.getInstance(requireContext()).getLanguage();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -282,14 +283,23 @@ public class UserSepProfileFragment extends Fragment {
                 JSONArray categoriesArray = dataObject.getJSONArray("categories");
 
                 List<String> billerNamesArList = new ArrayList<>();
-                billerNamesArList.add("اختر مفوتر");
+
+                String c2 = language.equals("ar") ?
+                        "اختر مفوتر" :
+                        "Choose Biller";
+                billerNamesArList.add(c2);
+
+
                 for (int i = 0; i < categoriesArray.length(); i++) {
                     JSONObject categoryObject = categoriesArray.getJSONObject(i);
                     JSONArray billersArray = categoryObject.getJSONArray("billers");
 
                     for (int j = 0; j < billersArray.length(); j++) {
                         JSONObject billerObject = billersArray.getJSONObject(j);
-                        String billerNameAr = billerObject.getString("billerName_ar");
+                        String billerNameAr = language.equals("ar") ?
+                                billerObject.optString("billerName_ar", "N/A") :
+                                billerObject.optString("billerName", "N/A");
+                       // String billerNameAr = billerObject.getString("billerName_ar");
                         billerNamesArList.add(billerNameAr);
                     }
                 }
@@ -338,9 +348,10 @@ public class UserSepProfileFragment extends Fragment {
                 Date paymentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse(paymentDateStr);
 
                 String billerNameAr = payment.getString("billerName_ar");
+                String billerName = payment.getString("billerName");
 
                 if ((paymentDate.equals(from) || paymentDate.after(from)) && (paymentDate.equals(to) || paymentDate.before(to))) {
-                    if (selectedBillerName.equals("اختر مفوتر") || billerNameAr.equals(selectedBillerName)) {
+                    if (selectedBillerName.equals("اختر مفوتر") || billerNameAr.equals(selectedBillerName) || billerName.equals(selectedBillerName)) {
                         filteredPayments.add(payment);
                     }
                 }

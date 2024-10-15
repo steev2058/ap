@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.R;
+import com.apps2you.albaraka.data.preference.UserUtils;
 import com.apps2you.albaraka.ui.sep.SEPFragment;
 import com.apps2you.albaraka.ui.sep.bill.Biller;
 import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
@@ -128,7 +129,7 @@ public class SecondFragment extends Fragment {
         });
     }
     private class FetchProfileBillsTask extends AsyncTask<Void, Void, List<CardItemProfile>> {
-
+        String language = UserUtils.getInstance(requireContext()).getLanguage();
         @Override
         protected List<CardItemProfile> doInBackground(Void... voids) {
             List<CardItemProfile> cardItemList = new ArrayList<>();
@@ -155,9 +156,15 @@ public class SecondFragment extends Fragment {
 
                 for (int i = 0; i < bills.length(); i++) {
                     JSONObject bill = bills.getJSONObject(i);
-                    String billerNameAr = bill.optString("billerName_ar", "N/A");
+                    String billerNameAr = language.equals("ar") ?
+                            bill.optString("billerName_ar", "N/A") :
+                            bill.optString("billerName", "N/A");
+                  //  String billerNameAr = bill.optString("billerName_ar", "N/A");
                     String billLabel = bill.optString("billLabel", "N/A");
-                    String serviceNameAr = bill.optString("serviceName_ar", "N/A");
+                    String serviceNameAr = language.equals("ar") ?
+                            bill.optString("serviceName_ar", "N/A") :
+                            bill.optString("serviceName", "N/A");
+                 //   String serviceNameAr = bill.optString("serviceName_ar", "N/A");
                     String billingNo = bill.optString("BillingNo", "N/A");
                     String iconUrl = bill.optString("logoName", "N/A");
                     String billerCode = bill.optString("billerCode", "N/A");

@@ -74,8 +74,6 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
     private Button buttonSubmitPayBills;
     private JSONObject jsonObject;
     private List<Biller> billersList;
-    private BillViewModel viewModel;
-    private TextView textViewResponse;
     private SweetAlertDialog progressDialog;
 
     public BillDetailsFragment() {
@@ -94,12 +92,6 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
         mViewDataBinding = FragmentBillDetailsBinding.inflate(inflater, container, false);
         View rootView = mViewDataBinding.getRoot();
 
-
-
-
-//        viewModel = new ViewModelProvider(this).get(BillViewModel.class);
-//        mViewDataBinding.setViewModel(viewModel);
-//        mViewDataBinding.setLifecycleOwner(this);
         billersList = (List<Biller>)getArguments().getSerializable("billers");
         cardsContainer = rootView.findViewById(R.id.cards_container);
         checkboxAllBills = rootView.findViewById(R.id.checkbox_all_bills);
@@ -150,34 +142,8 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
             }
         });
 
-       // buttonSubmitPayBills.setOnClickListener(v -> handlePayBills());
-
         return rootView;
     }
-//    private String getUserPinCode() {
-//        User user = UserUtils.getInstance(MyApplication.getAppContext()).getUser();
-//        return user.getPin_code();
-//    }
-//    private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
-//
-//        ConfirmPinDialog.show(getParentFragmentManager(), pinCode -> {
-//
-//            ConfirmPinViewModel viewModel = new ViewModelProvider(this).get(ConfirmPinViewModel.class);
-//
-//
-//            viewModel.pinCode.setValue(pinCode);
-//            viewModel.checkPinStatus.observe(getViewLifecycleOwner(), isPinValid -> {
-//                if (Boolean.TRUE.equals(isPinValid)) {
-//                    handlePayBills(selectedBills);
-//                } else {
-//                    Toast.makeText(getContext(), "Invalid PIN. Please try again.", Toast.LENGTH_SHORT).show();
-//                    showPinConfirmationDialog(selectedBills);
-//                }
-//            });
-//            viewModel.check2();
-//        });
-//
-//    }
 private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
     ConfirmPinDialog.show(getParentFragmentManager(), pinCode -> {
         verifyPinAndProceed(pinCode, selectedBills);
@@ -262,8 +228,9 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
                         .setTitleText("Error")
                         .setContentText(errorMessage)
+
                         .show();
-                showPinConfirmationDialog(selectedBills); // Show dialog again to retry
+           //     showPinConfirmationDialog(selectedBills); // Show dialog again to retry
             }
         }
     }
@@ -336,7 +303,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 feeAmountTextView.setText(feeAmount);
                 issueDateTextView.setText(getString(R.string.issue_date, formattedIssueDate));
                 dueDateTextView.setText(getString(R.string.due_date, formattedDueDate));
-                statusTextView.setText("فاتورة جديدة");
+                statusTextView.setText(R.string.new_bills);
                 statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                 statusTextView.setBackgroundResource(R.drawable.rounded_background_orange);
                 statusTextView.setVisibility(View.VISIBLE);
@@ -398,41 +365,11 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                    showConfirmationDialog(selectedBills, totalCost);
 
                 } else {
-                    Toast.makeText(getContext(), "Please select at least one bill.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "الرجاء تحديد فاتورة واحدة على الأقل", Toast.LENGTH_SHORT).show();
                 }
             });
 
-//            buttonSubmitPayBills.setOnClickListener(v -> {
-//                for (int i = 0; i < cardsContainer.getChildCount(); i++) {
-//                    View cardView = cardsContainer.getChildAt(i);
-//                    CheckBox cardCheckbox = cardView.findViewById(R.id.cardCheckbox);
-//                    TextView statusTextView = cardView.findViewById(R.id.statusTextView);
-//
-//                    if (cardCheckbox.isChecked()) {
-//                        String billingNo = ((TextView) cardView.findViewById(R.id.billingNoTextView)).getText().toString();
-//                        String billNo = null;
-//                        String dueAmount = ((TextView) cardView.findViewById(R.id.dueAmountTextView)).getText().toString();
-//                        String feeAmount = ((TextView) cardView.findViewById(R.id.feeAmountTextView)).getText().toString();
-//                        String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
-//
-//                        try {
-//                            billNo = data.getJSONObject(i).getString("billNo");
-//                            dueAmount = data.getJSONObject(i).getString("dueAmount");
-//                        } catch (JSONException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        String serviceType = null;
-//                        try {
-//                            serviceType = data.getJSONObject(i).getString("serviceType");
-//                        } catch (JSONException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        String accountNumber = getAccountNumber();
-//
-//                        new SendPostRequestTask2(billingNo, billNo, serviceType, billerCode, accountNumber, dueAmount, paidAmt, statusTextView).execute();
-//                    }
-//                }
-//            });
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -594,9 +531,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder responseStrBuilder = new StringBuilder();
                 String line;
-                while ((line = reader.readLine()) != null) {
-                    responseStrBuilder.append(line);
-                }
+
                 reader.close();
                 response = new StringBuilder(responseStrBuilder.toString());
                 connection.disconnect();
@@ -623,7 +558,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                             .setContentText("تم الدفع بنجاح")
                             .show();
 
-                    statusTextView.setText("تم دفع الفاتورة بنجاح");
+                    statusTextView.setText(R.string.payed_bills);
                     statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                     statusTextView.setBackgroundResource(R.drawable.rounded_background_g);
                     statusTextView.setVisibility(View.VISIBLE);
@@ -632,7 +567,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                             .setTitleText("Error")
                             .setContentText("هناك خطأ: " + errorDescription)
                             .show();
-                    statusTextView.setText("فشلت العملية");
+                    statusTextView.setText(R.string.faild_pay);
                     statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                     statusTextView.setBackgroundResource(R.drawable.rounded_background_red);
                     statusTextView.setVisibility(View.VISIBLE);

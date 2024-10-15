@@ -23,6 +23,7 @@
     import androidx.fragment.app.DialogFragment;
 
     import com.apps2you.albaraka.R;
+    import com.apps2you.albaraka.data.preference.UserUtils;
     import com.apps2you.albaraka.ui.sep.bill.Biller;
     import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
     import com.apps2you.albaraka.ui.sep.bill.Service;
@@ -80,6 +81,7 @@
         private ImageView imageViewCatigories;
         private TextView textView3;
         private TextView textView4;
+        private TextView textView56;
         private EditText maxAmount;
 
 //        public static AutoPaySepBills newInstance(SharedViewModel sharedViewModel, String billLabel, String id) {
@@ -118,6 +120,7 @@
             imageViewCatigories = view.findViewById(R.id.imageView_catigories);
             textView3 = view.findViewById(R.id.textView3);
             textView4 = view.findViewById(R.id.textView4);
+            textView56 = view.findViewById(R.id.textView56);
 
 
 
@@ -149,6 +152,7 @@
                 imageViewCatigories.setVisibility(View.VISIBLE);
                 textView3.setVisibility(View.VISIBLE);
                 textView4.setVisibility(View.VISIBLE);
+                textView56.setVisibility(View.VISIBLE);
                 maxAmount.setVisibility(View.VISIBLE);
                 // pickTimeEditText.setVisibility(View.VISIBLE);
             } else {
@@ -158,6 +162,7 @@
                 imageViewCatigories.setVisibility(View.GONE);
                 textView3.setVisibility(View.GONE);
                 textView4.setVisibility(View.GONE);
+                textView56.setVisibility(View.GONE);
                 maxAmount.setVisibility(View.GONE);
                 // pickTimeEditText.setVisibility(View.GONE);
             }
@@ -171,6 +176,7 @@
                     imageViewCatigories.setVisibility(View.VISIBLE);
                     textView3.setVisibility(View.VISIBLE);
                     textView4.setVisibility(View.VISIBLE);
+                    textView56.setVisibility(View.VISIBLE);
                     maxAmount.setVisibility(View.VISIBLE);
                    // pickTimeEditText.setVisibility(View.VISIBLE);
                 } else {
@@ -180,6 +186,7 @@
                     imageViewCatigories.setVisibility(View.GONE);
                     textView3.setVisibility(View.GONE);
                     textView4.setVisibility(View.GONE);
+                    textView56.setVisibility(View.GONE);
                     maxAmount.setVisibility(View.GONE);
                    // pickTimeEditText.setVisibility(View.GONE);
                 }
@@ -205,7 +212,7 @@
 //            timePickerDialog.show();
 //        }
         private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
-
+    String language = UserUtils.getInstance(requireContext()).getLanguage();
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -238,7 +245,10 @@
                             JSONArray accountsArray = jsonResponse.getJSONArray("data");
                             for (int i = 0; i < accountsArray.length(); i++) {
                                 JSONObject accountObject = accountsArray.getJSONObject(i);
-                                String accountNameArabic = accountObject.getString("BRIEFos_gl_name_arab");
+                                String accountNameArabic = language.equals("ar") ?
+                                        accountObject.optString("BRIEFos_gl_name_arab", "N/A") :
+                                        accountObject.optString("BRIEF_gl_name_eng", "N/A");
+                               // String accountNameArabic = accountObject.getString("BRIEFos_gl_name_arab");
                                 String accountNameEnglish = accountObject.getString("BRIEF_gl_name_eng");
                                 String accountReference = accountObject.optString("os_add_reference", "");
                                 String accountDisplay = accountReference.isEmpty() ? accountNameArabic : accountNameArabic;

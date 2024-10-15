@@ -17,9 +17,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.apps2you.albaraka.MyApplication;
 import com.apps2you.albaraka.R;
+import com.apps2you.albaraka.data.model.User;
+import com.apps2you.albaraka.data.preference.UserUtils;
+import com.apps2you.albaraka.ui.sep.SEPFragment;
+import com.apps2you.albaraka.ui.sep.tabs.FirstFragment;
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.utils.StorageUtils;
+import com.apps2you.albaraka.viewmodels.SharedViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +33,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.List;
 
 import okhttp3.Call;
@@ -38,6 +45,9 @@ import okhttp3.Response;
 public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.PaymentViewHolder> {
     private List<JSONObject> paymentsList;
     private Context context;
+    private SharedViewModel sharedViewModel;
+
+   String token;
     private final int RC_PERMISSION_WRITE = 123;
 
     public PaymentsAdapter(Context context,List<JSONObject> paymentsList) {
@@ -45,10 +55,14 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.Paymen
         this.context = context;
     }
 
+
+
     @NonNull
     @Override
     public PaymentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_payment, parent, false);
+        User user = UserUtils.getInstance(MyApplication.getAppContext()).getUser();
+         token = user.getBillsPaymentToken();
         return new PaymentViewHolder(view);
     }
 
@@ -62,7 +76,7 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.Paymen
 
             double paidAmount = Double.parseDouble(paidAmountStr);
             double dueAmount = Double.parseDouble(dueAmountStr);
-            double totalAmount = paidAmount + dueAmount;
+            double totalAmount = paidAmount;
             holder.billerName.setText("المفوتر: " + payment.getString("billerName_ar"));
             holder.billingNo.setText("معرف الخدمة: " + payment.getString("BillingNo"));
             holder.paymentDate.setText("تاريخ الدفع: " + payment.getString("payment_date"));
@@ -107,10 +121,16 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.Paymen
     private void downloadPdfUrl(String billId) {
         String url = Constants.BASE_URL_SEP + "/Customer/print_bill2?id=" + billId;
 
+
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer " + token) // Use addHeader here
+                .build();
 
         client.newCall(request).enqueue(new Callback() {
+
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -168,72 +188,6 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.Paymen
         ((Activity) context).runOnUiThread(() -> Toast.makeText(context, message, Toast.LENGTH_LONG).show());
     }
 
-//    private void downloadPdfUrl(String billId) {
-//        String url = Constants.BASE_URL_SEP + "/Customer/print_bill2?id=" + billId;
-//
-//        OkHttpClient client = new OkHttpClient();
-//        Request request = new Request.Builder().url(url).build();
-//
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                if (response.isSuccessful()) {
-//                    try {
-//                        String jsonData = response.body().string();
-//                        JSONObject jsonObject = new JSONObject(jsonData);
-//                        String fileUrl = jsonObject.getString("data");
-//                        downloadFile(fileUrl, billId);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                } else {
-//                    // Handle the error case
-//                }
-//            }
-//        });
-//    }
-//
-//    private void downloadFile(String fileUrl, String billId) {
-//        OkHttpClient client = new OkHttpClient();
-//        Request request = new Request.Builder().url(fileUrl).build();
-//
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                if (response.isSuccessful()) {
-//                    byte[] pdfData = response.body().bytes();
-//                    File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-//                    if (!downloadDir.exists()) {
-//                        downloadDir.mkdirs();
-//                    }
-//                    File pdfFile = new File(downloadDir, "bill_" + billId + ".pdf");
-//                    try (FileOutputStream fos = new FileOutputStream(pdfFile)) {
-//                        fos.write(pdfData);
-//                        fos.flush();
-//                        showToast("تم تحميل الملف في التنزيلات");
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                } else {
-//                    // Handle the error case
-//                }
-//            }
-//        });
-//    }
-//
-//    private void showToast(String message) {
-//        ((Activity) context).runOnUiThread(() -> Toast.makeText(context, message, Toast.LENGTH_LONG).show());
-//    }
 
     @Override
     public int getItemCount() {
