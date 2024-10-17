@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+    <!-- Search Bar and Add Button -->
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/add_button"
+        android:layout_toLeftOf="@+id/add_button"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:hint="@string/search"
+        android:textColorHint="@color/gray_line_view"
+        android:padding="13dp"
+        android:background="@drawable/bg_radio_button"
+        />
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/Add_SEP_bill2"
+        style="@style/ButtonPrimary"
+        android:padding="8dp"
+        />
+
+    <!-- Category Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button_contacts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="اتصالات"
+            android:background="@drawable/bg_radio_button" />
+
+        <Button
+            android:id="@+id/button_transport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="نقل"
+            android:background="@drawable/bg_radio_button" />
+
+        <Button
+            android:id="@+id/button_traffic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="مرور"
+            android:background="@drawable/bg_radio_button"  />
+
+        <Button
+            android:id="@+id/button_water"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="مياه"
+            android:background="@drawable/bg_radio_button" />
+    </LinearLayout>
+            <GridView
+                android:id="@+id/grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="165dp"
+                android:numColumns="1"
+                android:verticalSpacing="8dp"
+                android:horizontalSpacing="8dp"
+                android:scrollbars="none"
+                android:visibility="invisible" />
+
+</RelativeLayout>

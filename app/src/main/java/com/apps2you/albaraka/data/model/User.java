@@ -37,6 +37,10 @@ public class User extends BaseObservable {
     @Expose
     private String refreshToken;
 
+    @SerializedName("bills_payment_token")
+    @Expose
+    private String billsPaymentToken;
+
     @SerializedName("last_login")
     private String lastLogin;
 
@@ -70,6 +74,13 @@ public class User extends BaseObservable {
     @Bindable
     public String getCif_number() {
         return cif_number;
+    }
+    @Bindable
+    public String getBillsPaymentToken() {
+        return billsPaymentToken;
+    }
+    public void setBillsPaymentToken(String billsPaymentToken) {
+        this.billsPaymentToken = billsPaymentToken;
     }
 
     public void setCif_number(String cif_number) {

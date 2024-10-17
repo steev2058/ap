@@ -26,7 +26,7 @@ abstract class AtmBaseFragment<T : ViewDataBinding> :BaseFragment<T, AtmViewMode
 
         if (dialog.window != null) {
             dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
-           dialog.window!!.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+            dialog.window!!.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         }
 
         val dialogDataBinding: DialogConfirmBinding = DialogConfirmBinding.inflate(LayoutInflater.from(requireContext()), null, false)

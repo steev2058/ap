@@ -34,6 +34,9 @@ import com.apps2you.albaraka.ui.registration.LoginActivity;
 import com.apps2you.albaraka.ui.registration.LoginProvider;
 import com.apps2you.albaraka.ui.reset_pass_form.ResetPassFormActivity;
 import com.apps2you.albaraka.ui.reset_pass_form.ResetPassFormProvider;
+import com.apps2you.albaraka.ui.sep.SEPActivity;
+import com.apps2you.albaraka.ui.sep.bill.BillActivity;
+import com.apps2you.albaraka.ui.sep.bill.BillFragment;
 import com.apps2you.albaraka.ui.settings.SettingsActivity;
 import com.apps2you.albaraka.ui.settings.SettingsActivityTwo;
 import com.apps2you.albaraka.ui.settings.SettingsProvider;
@@ -141,6 +144,12 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector(modules = {TransferProvider.class})
     abstract HFActivity hfActivity();
+
+    @ContributesAndroidInjector(modules = {TransferProvider.class})
+    abstract SEPActivity sepActivity();
+
+    @ContributesAndroidInjector(modules = {TransferProvider.class})
+    abstract BillActivity billActivity();
 
     @ContributesAndroidInjector(modules = {TransferProvider.class})
     abstract UniversitiesPaymentActivity universitiesPaymentActivity();

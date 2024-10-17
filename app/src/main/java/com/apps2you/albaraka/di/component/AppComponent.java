@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.apps2you.albaraka.MyApplication;
 import com.apps2you.albaraka.di.builder.ActivityBuilderModule;
+import com.apps2you.albaraka.di.builder.FragmentBuilderModule;
 import com.apps2you.albaraka.di.builder.ServiceBuilderModule;
 import com.apps2you.albaraka.di.module.AppModule;
 import com.apps2you.albaraka.ui.transfer.hf.HFFragment;
@@ -20,7 +21,8 @@ import dagger.android.AndroidInjectionModule;
         AppModule.class,
         AndroidInjectionModule.class,
         ActivityBuilderModule.class,
-        ServiceBuilderModule.class
+        ServiceBuilderModule.class,
+        FragmentBuilderModule.class
 })
 public interface AppComponent {
 

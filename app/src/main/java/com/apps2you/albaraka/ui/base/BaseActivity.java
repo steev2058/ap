@@ -183,8 +183,7 @@ public abstract class BaseActivity<VB extends ViewDataBinding, VM extends BaseVi
             } else {
                 hideProgress();
             }
-        }
-        );
+        });
     }
 
     private void setBackButtonAction() {
@@ -417,7 +416,7 @@ public abstract class BaseActivity<VB extends ViewDataBinding, VM extends BaseVi
 
         if (progressDialog == null) {
             progressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-           // progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+            progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
             progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
             progressDialog.setContentText(getString(R.string.loading));
             progressDialog.setCancelable(false);
@@ -460,6 +459,14 @@ public abstract class BaseActivity<VB extends ViewDataBinding, VM extends BaseVi
     }
 
     protected void setToolbarTitle(Toolbar toolbar, String title) {
+        toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleText);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        getSupportActionBar().setTitle(title);
+    }
+
+    public void setToolbarTitle2(Toolbar toolbar, String title) {
         toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleText);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

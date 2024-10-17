@@ -105,6 +105,8 @@ public interface ApiService {
     @GET("my_accounts")
     Call<MyResponse<ArrayList<Account>>> getAccounts();
 
+
+
     @GET("statement")
     Call<MyResponse<ArrayList<Transaction>>> getTransactions(@Query("account_no") String accountNumber,
                                                              @Query("my_account_name") String accountName,

@@ -123,7 +123,7 @@ public class SYGSTransferFragment extends BaseTransferFragment<FragmentBanksTran
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+          //  dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         }
 
         DialogTermsConfirmBinding dialogDataBinding = DialogTermsConfirmBinding.inflate(LayoutInflater.from(getContext()),

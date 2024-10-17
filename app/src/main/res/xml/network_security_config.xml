@@ -7,7 +7,11 @@
             <certificates src="system" />
         </trust-anchors>
     </base-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">epaytest.albaraka.com.sy</domain>
+    </domain-config>
     <domain-config>
+
         <domain includeSubdomains="true">albarakasyria.com</domain>
         <domain includeSubdomains="true">https://albarakasyria.com:5533</domain>
         <trust-anchors>
@@ -15,4 +19,16 @@
             <certificates src="system" />
         </trust-anchors>
     </domain-config>
+
+    <domain-config>
+
+        <domain includeSubdomains="true">albaraka.com.sy</domain>
+        <domain includeSubdomains="true">https://epay.albaraka.com.sy</domain>
+        <trust-anchors>
+            <certificates src="@raw/epay" />
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+
+
 </network-security-config>

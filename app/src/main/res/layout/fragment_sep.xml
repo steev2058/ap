@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.transfer.SEPViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/SEP_payment}" />
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/padding_page_horizontal"
+            android:visibility="@{!(viewModel.isContentLoading || viewModel.isFeeLoading) &amp;&amp; !viewModel.isError()}"
+            app:layoutDescription="@xml/scene_expandable_accounts_recycler"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+            <LinearLayout
+                android:id="@+id/cardLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_drop_shadow_stack"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_home"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/image_center_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_albaraka_transfer"
+                    android:layout_gravity="center_vertical"/>
+                <!-- Icon on the left -->
+
+
+                <!-- Text container -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_first_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/SEP_profile1"
+                        android:textColor="@color/gray"/>
+
+
+                </LinearLayout>
+
+                <!-- Image on the right -->
+                <ImageView
+                    android:id="@+id/icon_sep"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
+                    android:src="@drawable/seplogor"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"/>
+                <ImageView
+                    android:id="@+id/icon_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_forward"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"/>
+
+            </LinearLayout>
+
+
+
+            <!-- Add a ViewPager to hold the tab content -->
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/cardLayout"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <!-- Add a TabLayout -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            app:tabIndicatorColor="@color/orange"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar" />
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/partial_progressbar"
+            app:existence="@{viewModel.isContentLoading || viewModel.isFeeLoading}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

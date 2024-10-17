@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_sep"
+    app:startDestination="@id/sepFragment">
+
+    <fragment
+        android:id="@+id/sepFragment"
+        android:name="com.apps2you.albaraka.ui.sep.SEPFragment"
+        android:label="SEP Fragment"
+        tools:layout="@layout/fragment_sep">
+        <action
+            android:id="@+id/action_firstFragment_to_fragment_bill"
+            app:destination="@id/fragment_bill"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+
+        <action
+            android:id="@+id/action_firstFragment_to_fragment_sep_user"
+            app:destination="@id/fragment_sep_user"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+
+
+        <action
+            android:id="@+id/action_firstFragment_to_fragment_sep_details_profile"
+            app:destination="@id/fragment_bill_details"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+
+
+
+
+    <fragment
+        android:id="@+id/fragment_bill"
+        android:name="com.apps2you.albaraka.ui.sep.bill.BillFragment"
+        android:label="FragmentBill"
+        tools:layout="@layout/fragment_bill">
+        <action
+            android:id="@+id/action_fragment_bill_to_fragment_bill_details"
+            app:destination="@id/fragment_bill_details"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_sep_user"
+        android:name="com.apps2you.albaraka.ui.sep.profile.UserSepProfileFragment"
+        android:label="FragmentSepUser"
+        tools:layout="@layout/fragment_sep_user">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_bill_details"
+        android:name="com.apps2you.albaraka.ui.sep.bill.BillDetailsFragment"
+        android:label="FragmentBillDetails"
+        tools:layout="@layout/fragment_bill_details" />
+
+</navigation>

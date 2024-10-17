@@ -9,6 +9,7 @@ import com.apps2you.albaraka.data.remote.networkUtils.Status
 import com.apps2you.albaraka.databinding.FragmentPaymentBinding
 import com.apps2you.albaraka.ui.atmCard.AtmCardsActivity
 import com.apps2you.albaraka.ui.base.BaseFragment
+import com.apps2you.albaraka.ui.sep.SEPActivity
 import com.apps2you.albaraka.ui.transfer.accountsTransfer.TransferActivity
 import com.apps2you.albaraka.ui.transfer.accountsTransfer.sygs.SYGSActivity
 import com.apps2you.albaraka.ui.transfer.adsl.ADSLActivity
@@ -95,9 +96,11 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, HomeViewModel>(),
 
             Constants.ADSL -> openADSLActivity()
 
+            Constants.SEP -> openSEPActivity()
+
             Constants.RESTAURANTS -> openRestaurantsPaymentActivity()
 
-            Constants.BILLS -> activityNavigation.navigate(Intent(requireContext(), BillsActivity::class.java))
+            //Constants.BILLS -> activityNavigation.navigate(Intent(requireContext(), BillsActivity::class.java))
 
             Constants.ALPHA_CAPITAL -> activityNavigation.navigate(Intent(requireContext(), AlphaPaymentActivity::class.java))
 
@@ -123,6 +126,10 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, HomeViewModel>(),
 
     private fun openADSLActivity() {
         activityNavigation.navigate(Intent(requireContext(), ADSLActivity::class.java))
+    }
+
+    private fun openSEPActivity() {
+        activityNavigation.navigate(Intent(requireContext(), SEPActivity::class.java))
     }
 
     private fun openUniversitiesPaymentActivity() {

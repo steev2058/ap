@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/gray"
+        android:textStyle="bold"
+        android:drawablePadding="@dimen/_5sdp"
+        android:text="@string/Add_Payment_Service_Interface"
+        android:layout_gravity="center" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bills_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp">
+
+        <!-- Divider line -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- TextView in the middle of the divider line -->
+        <TextView
+            android:id="@+id/text_first_row2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:drawableStart="@drawable/peaper"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_form2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/card_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- New TextView and Spinner for categories -->
+        <TextView
+            android:id="@+id/textView0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_catigory"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_catigories_add"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_edittext_selector"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toBottomOf="@+id/textView0"
+            tools:listitem="@layout/item_complaint_spinner" />
+
+        <!-- Image view associated with spinner_catigories_add -->
+        <ImageView
+            android:id="@+id/imageView_catigories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/spinner_catigories_add"
+            app:layout_constraintEnd_toEndOf="@id/spinner_catigories_add"
+            app:layout_constraintTop_toTopOf="@id/spinner_catigories_add"
+            app:tint="@color/gray" />
+
+        <!-- Existing TextView and Spinner for billers -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_biller"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_catigories_add" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_billers_add"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_edittext_selector"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:listitem="@layout/item_complaint_spinner" />
+
+        <!-- Image view associated with spinner_billers_add -->
+        <ImageView
+            android:id="@+id/imageView_billers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/spinner_billers_add"
+            app:layout_constraintEnd_toEndOf="@id/spinner_billers_add"
+            app:layout_constraintTop_toTopOf="@id/spinner_billers_add"
+            app:tint="@color/gray" />
+
+        <!-- Existing TextView and Spinner for services -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/choose_service"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_billers_add" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_billers_services_add"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_edittext_selector"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            tools:listitem="@layout/item_complaint_spinner" />
+
+        <!-- Image view associated with spinner_billers_services_add -->
+        <ImageView
+            android:id="@+id/imageView_billers_services"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/spinner_billers_services_add"
+            app:layout_constraintEnd_toEndOf="@id/spinner_billers_services_add"
+            app:layout_constraintTop_toTopOf="@id/spinner_billers_services_add"
+            app:tint="@color/gray" />
+
+
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bill_name_add"
+            android:textColor="@color/gray"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_billers_services_add" />
+        <EditText
+            android:id="@+id/billLabel"
+            style="@style/InputEt"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_reason"
+            android:drawablePadding="@dimen/margin_small"
+            android:inputType="text"
+            android:hint="@string/hint_add_bill"
+            android:maxLines="1"
+
+            app:layout_constraintTop_toBottomOf="@id/textView5"
+            android:text=""
+            android:textColor="@color/gray" />
+        <!-- Container for dynamic input fields -->
+        <LinearLayout
+            android:id="@+id/input_fields_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="0dp"
+            app:layout_constraintTop_toBottomOf="@id/billLabel"/>
+
+
+
+        <!-- Submit button -->
+        <Button
+            android:id="@+id/button_submit"
+            style="@style/ButtonPrimary5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/btn_add_bill"
+            app:layout_constraintTop_toBottomOf="@+id/input_fields_container" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
