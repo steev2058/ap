@@ -1,0 +1,2 @@
+ninja: Entering directory `C:\Users\M.Joha\Desktop\BBarka\albaraka-android\app\.cxx\Debug\6p1f6q66\arm64-v8a'
+ninja: no work to do.

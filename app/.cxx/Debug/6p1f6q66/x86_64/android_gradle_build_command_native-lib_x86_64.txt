@@ -1,0 +1,7 @@
+Executable : C:\Users\M.Joha\AppData\Local\Android\Sdk\cmake\3.18.1\bin\ninja.exe
+arguments : 
+-C
+C:\Users\M.Joha\Desktop\BBarka\albaraka-android\app\.cxx\Debug\6p1f6q66\x86_64
+native-lib
+jvmArgs : 
+

@@ -1,0 +1,23 @@
+                    Executable : C:\Users\M.Joha\AppData\Local\Android\Sdk\cmake\3.18.1\bin\cmake.exe
+arguments : 
+-HC:\Users\M.Joha\Desktop\BBarka\albaraka-android\app
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=21
+-DANDROID_PLATFORM=android-21
+-DANDROID_ABI=arm64-v8a
+-DCMAKE_ANDROID_ARCH_ABI=arm64-v8a
+-DANDROID_NDK=C:\Users\M.Joha\AppData\Local\Android\Sdk\ndk\24.0.8215888
+-DCMAKE_ANDROID_NDK=C:\Users\M.Joha\AppData\Local\Android\Sdk\ndk\24.0.8215888
+-DCMAKE_TOOLCHAIN_FILE=C:\Users\M.Joha\AppData\Local\Android\Sdk\ndk\24.0.8215888\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=C:\Users\M.Joha\AppData\Local\Android\Sdk\cmake\3.18.1\bin\ninja.exe
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Users\M.Joha\Desktop\BBarka\albaraka-android\app\build\intermediates\cxx\Debug\6p1f6q66\obj\arm64-v8a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=C:\Users\M.Joha\Desktop\BBarka\albaraka-android\app\build\intermediates\cxx\Debug\6p1f6q66\obj\arm64-v8a
+-DCMAKE_BUILD_TYPE=Debug
+-BC:\Users\M.Joha\Desktop\BBarka\albaraka-android\app\.cxx\Debug\6p1f6q66\arm64-v8a
+-GNinja
+jvmArgs : 
+
+
+                    Build command args: []
+                    Version: 2
