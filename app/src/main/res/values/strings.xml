@@ -455,11 +455,13 @@
     <string name="download_attachments">Click to download the required attachments</string>
     <string name="FATCA">Foreign Account Tax Compliance Act (FATCA)</string>
     <string name="phone_number_kyc">Mobile number</string>
-
+    <string name="faild_pay">Operation Failed</string>
+    <string name="new_bills">New Bill </string>
+    <string name="payed_bills">Bill Paid Successfully</string>
     <string name="txt_student">بيانات الاتصال المسبق (طالب جامعي) </string>
     <string name="txt_normal">بيانات الاتصال القضائي </string>
-    <string name="btn_previous">السابق</string>
-    <string name="btn_next">التالي</string>
+    <string name="btn_previous">Prev</string>
+    <string name="btn_next">Next</string>
     <string name="mobile_form_error">Please enter your mobile number</string>
     <string name="cif_form_error">Please enter the account number</string>
     <string name="national_form_error">Please enter the national ID</string>

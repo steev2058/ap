@@ -88,7 +88,7 @@ public class HFViewModel extends BaseSelectionViewModel<HFProviderUI> {
 
     @Override
     public int getTransferTypeId() {
-        return Constants.TRANSFER_HF;
+        return Constants.HF;
     }
 
     @Override

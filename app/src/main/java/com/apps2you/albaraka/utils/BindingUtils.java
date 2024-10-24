@@ -211,9 +211,6 @@ public class BindingUtils {
             case Constants.TRANSFER:
                 resource = R.drawable.ic_transfer;
                 break;
-            case Constants.BILLS:
-                resource = R.drawable.newwsepicon;
-                break;
             case Constants.SEP:
                 resource = R.drawable.newwsepicon;
                 break;

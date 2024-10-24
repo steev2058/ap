@@ -59,7 +59,7 @@ public class SEPViewModel extends BaseSelectionViewModel<SEPProviderUI> {
 
     @Override
     public int getTransferTypeId() {
-        return Constants.TRANSFER_SEP;
+        return Constants.SEP;
     }
 
     @Override
