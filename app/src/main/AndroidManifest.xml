@@ -138,6 +138,10 @@
             android:name=".ui.locations.LocationsActivity"
             android:screenOrientation="portrait"
             android:taskAffinity="" />
+        <activity
+            android:name=".ui.locations_v2.LocationsV2Activity"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
 
         <activity
             android:name=".ui.notifications.NotificationsActivity"

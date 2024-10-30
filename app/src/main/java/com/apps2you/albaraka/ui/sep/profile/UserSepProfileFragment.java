@@ -113,6 +113,7 @@ public class UserSepProfileFragment extends Fragment {
         binding.setViewModel(sepViewModel);
         binding.setLifecycleOwner(this);
         new FetchCategoriesTask().execute();
+        new FetchPaymentsTask().execute(sepViewModel.token.getValue());
         return binding.getRoot();
     }
 
@@ -298,7 +299,7 @@ public class UserSepProfileFragment extends Fragment {
                         JSONObject billerObject = billersArray.getJSONObject(j);
                         String billerNameAr = language.equals("ar") ?
                                 billerObject.optString("billerName_ar", "N/A") :
-                                billerObject.optString("billerName", "N/A");
+                                billerObject.optString("billerName_en", "N/A");
                        // String billerNameAr = billerObject.getString("billerName_ar");
                         billerNamesArList.add(billerNameAr);
                     }
@@ -348,7 +349,7 @@ public class UserSepProfileFragment extends Fragment {
                 Date paymentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse(paymentDateStr);
 
                 String billerNameAr = payment.getString("billerName_ar");
-                String billerName = payment.getString("billerName");
+                String billerName = payment.getString("billerName_en");
 
                 if ((paymentDate.equals(from) || paymentDate.after(from)) && (paymentDate.equals(to) || paymentDate.before(to))) {
                     if (selectedBillerName.equals("اختر مفوتر") || billerNameAr.equals(selectedBillerName) || billerName.equals(selectedBillerName)) {

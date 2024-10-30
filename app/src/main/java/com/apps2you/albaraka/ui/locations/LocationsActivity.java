@@ -320,7 +320,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
 
         if (getViewModel().getBranches().isEmpty()
                 && getViewModel().getAtms().isEmpty()
-                && getViewModel().getPos().isEmpty()) {//request the API if there is no data (refresh replacement)
+                && getViewModel().getPos().isEmpty()) {
             getData(type);
             return;
         }
