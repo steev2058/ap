@@ -21,6 +21,7 @@
     import androidx.navigation.fragment.NavHostFragment;
 
     import com.apps2you.albaraka.R;
+    import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
     import com.apps2you.albaraka.ui.sep.bill.BillDetailsFragment;
     import com.apps2you.albaraka.ui.sep.bill.BillFragment;
     import com.apps2you.albaraka.ui.sep.profile.UserData;
@@ -32,6 +33,7 @@
     import org.json.JSONObject;
 
     import java.io.BufferedReader;
+    import java.io.IOException;
     import java.io.InputStreamReader;
     import java.net.HttpURLConnection;
     import java.net.URL;
@@ -39,6 +41,10 @@
     import java.util.List;
 
     import cn.pedant.SweetAlert.SweetAlertDialog;
+    import okhttp3.HttpUrl;
+    import okhttp3.OkHttpClient;
+    import okhttp3.Request;
+    import okhttp3.Response;
 
     public class CardAdapterTwo extends BaseAdapter {
         private Context mContext;
@@ -243,38 +249,45 @@
         }
 
         private class SearchBillTask extends AsyncTask<String, Void, String> {
-            String billerCode;
+            private String billerCode;
+            private String errorMessage;
+
             @Override
             protected String doInBackground(String... params) {
                 String id = params[0];
-                billerCode= params[1];
-                try {
-                    URL url = new URL(Constants.BASE_URL_SEP + "/Services_Interface/bank_bill_presentment?id=" + id);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setRequestProperty("token", token);
-                    connection.connect();
+                billerCode = params[1];
 
-                    int responseCode = connection.getResponseCode();
-                    if (responseCode == 200) {
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                        StringBuilder response = new StringBuilder();
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            response.append(line);
-                        }
-                        reader.close();
-                        return response.toString();
+                OkHttpClient client = NetworkBoundResource.provideOkHttpClient();
+
+                HttpUrl url = HttpUrl.parse(Constants.BASE_URL_SEP + "/Services_Interface/bank_bill_presentment")
+                        .newBuilder()
+                        .addQueryParameter("id", id)
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(url)
+                        .get()
+                        .addHeader("token", token)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) {
+                        errorMessage = "Server error: " + response.message();
+                        return null;
                     }
-                } catch (Exception e) {
+                    return response.body() != null ? response.body().string() : null;
+                } catch (IOException e) {
                     e.printStackTrace();
+                    errorMessage = "Network error occurred.";
+                    return null;
                 }
-                return null;
             }
+
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
                 hideProgress();
+
                 if (result != null && !result.isEmpty()) {
                     try {
                         JSONObject jsonObject = new JSONObject(result);
@@ -282,28 +295,24 @@
                         String errorDescription = jsonObject.optString("ErrorDescriptionAR");
 
                         if ("000".equals(errorCode)) {
-
-                            handleSearchResponse(jsonObject,billerCode);
+                            handleSearchResponse(jsonObject, billerCode);
                         } else {
-                            new SweetAlertDialog(mContext, SweetAlertDialog.NORMAL_TYPE)
-                                    .setTitleText("نتيجة الاستعلام")
-                                    .setContentText(errorDescription)
-                                    .show();
+                            showAlert("نتيجة الاستعلام", errorDescription, SweetAlertDialog.NORMAL_TYPE);
                         }
-
-                    }catch (JSONException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
-                        new SweetAlertDialog(mContext, SweetAlertDialog.NORMAL_TYPE)
-                                .setTitleText("نتيجة الاستعلام")
-                                .setContentText("لا يوجد فواتير للدفع")
-                                .show();
+                        showAlert("نتيجة الاستعلام", "لا يوجد فواتير للدفع", SweetAlertDialog.NORMAL_TYPE);
                     }
                 } else {
-                    new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("خطأ")
-                            .setContentText("حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا")
-                            .show();
+                    showAlert("خطأ", errorMessage != null ? errorMessage : "حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا", SweetAlertDialog.ERROR_TYPE);
                 }
+            }
+
+            private void showAlert(String title, String content, int alertType) {
+                new SweetAlertDialog(mContext, alertType)
+                        .setTitleText(title)
+                        .setContentText(content)
+                        .show();
             }
         }
 
@@ -345,54 +354,60 @@
 
         private class DeleteBillTask extends AsyncTask<String, Void, Boolean> {
             private int position;
-            //String token = userData.getToken();
+            private String errorMessage;
+
             @Override
             protected Boolean doInBackground(String... params) {
                 String id = params[0];
                 position = Integer.parseInt(params[1]);
-                try {
-                    URL url = new URL(Constants.BASE_URL_SEP+"/Services_Interface/remove_customer_profile/" + id);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("DELETE");
-                    connection.setRequestProperty("token", token);
-                    connection.connect();
 
-                    int responseCode = connection.getResponseCode();
-                    return responseCode == 200;
-                } catch (Exception e) {
+                OkHttpClient client = NetworkBoundResource.provideOkHttpClient();
+
+                HttpUrl url = HttpUrl.parse(Constants.BASE_URL_SEP + "/Services_Interface/remove_customer_profile/" + id);
+
+                Request request = new Request.Builder()
+                        .url(url)
+                        .delete()
+                        .addHeader("token", token)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) {
+                        errorMessage = "Server error: " + response.message();
+                        return false;
+                    }
+                    return response.code() == 200;
+                } catch (IOException e) {
                     e.printStackTrace();
+                    errorMessage = "Network error occurred.";
+                    return false;
                 }
-                return false;
             }
 
             @Override
             protected void onPostExecute(Boolean success) {
                 super.onPostExecute(success);
                 hideProgress();
+
                 if (success) {
                     if (position >= 0 && position < mCardItemList.size()) {
-                    mCardItemList.remove(position);
-                    notifyDataSetChanged();
+                        mCardItemList.remove(position);
+                        notifyDataSetChanged();
 
-                    new SweetAlertDialog(mFragment.requireContext(), SweetAlertDialog.SUCCESS_TYPE)
-                            .setTitleText("Success")
-                            .setContentText("تم حذف الفاتورة بنجاح")
-                            .show();
-
+                        new SweetAlertDialog(mFragment.requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Success")
+                                .setContentText("تم حذف الفاتورة بنجاح")
+                                .show();
+                    }
                 } else {
+                    String message = errorMessage != null ? errorMessage : "فشل عملية حذف الفاتورة";
                     new SweetAlertDialog(mFragment.requireContext(), SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("Error")
-                            .setContentText("فشل عملية حذف الفاتورة")
+                            .setContentText(message)
                             .show();
-
                 }
-            }else {
-                    Toast.makeText(mContext, "فشل عملية حذف الفاتورة", Toast.LENGTH_SHORT).show();
-                }
-
-
-
-        }}
+            }
+        }
 
         private static class ViewHolder {
             TextView title;

@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apps2you.albaraka.BR;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.model.Account;
+import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
 import com.apps2you.albaraka.databinding.FragmentBillBinding;
 import com.apps2you.albaraka.ui.base.BaseFragment;
 import com.apps2you.albaraka.ui.base.adapter.OnItemClickListener;
@@ -54,6 +55,11 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import dagger.android.support.AndroidSupportInjection;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewModel> {
 
@@ -379,121 +385,97 @@ public class BillFragment extends BaseFragment<FragmentBillBinding, BillViewMode
         progressDialog.dismiss();
     }
 
-private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder> {
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        showProgress();
-    }
-
-    @Override
-    protected StringBuilder doInBackground(String... params) {
-        String apiUrl = Constants.BASE_URL_SEP+"/Services_Interface/bank_bill_presentment2";
-        StringBuilder response = new StringBuilder();
-
-        try {
-            URL url = new URL(apiUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setDoOutput(true);
-
-            OutputStream outputStream = connection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            writer.write(params[0]);
-            writer.flush();
-            writer.close();
-            outputStream.close();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder responseStrBuilder = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                responseStrBuilder.append(line);
-            }
-            reader.close();
-            response = new StringBuilder(responseStrBuilder.toString());
-            connection.disconnect();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private class SendPostRequestTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showProgress();
         }
 
-        return response;
-    }
+        @Override
+        protected String doInBackground(String... params) {
+            String apiUrl = Constants.BASE_URL_SEP + "/Services_Interface/bank_bill_presentment2";
+            OkHttpClient client = NetworkBoundResource.provideOkHttpClient();  // Use your custom OkHttpClient
+            String jsonBody = params[0];
 
-    @Override
-    protected void onPostExecute(StringBuilder responseData) {
-        super.onPostExecute(responseData);
-        hideProgress();
+            // Create the request body with JSON content
+            RequestBody requestBody = RequestBody.create(
+                    jsonBody,
+                    MediaType.parse("application/json; charset=utf-8")
+            );
 
-        // Convert StringBuilder to String
-        String jsonString = responseData.toString();
-        String bc = getSelectedBillerCode().toString();
+            // Build the POST request
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .post(requestBody)
+                    .build();
 
-        if (!jsonString.isEmpty()) {
-
-
-            try {
-
-                JSONObject jsonObject = new JSONObject(jsonString);
-                String errorCode = jsonObject.optString("ErrorCode");
-                String errorDescription = jsonObject.optString("ErrorDescriptionAR");
-
-                if ("000".equals(errorCode)) {
-                    // Create a bundle and navigate to the next fragment
-                    Bundle bundle = new Bundle();
-                    bundle.putString("responseData", jsonObject.toString());
-                    bundle.putString("billerCode", bc);
-
-                    NavHostFragment.findNavController(BillFragment.this)
-                            .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
-
-
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful() && response.body() != null) {
+                    return response.body().string();  // Return JSON response as a string
                 } else {
-                    new SweetAlertDialog(getContext(), SweetAlertDialog.NORMAL_TYPE)
-                            .setTitleText("نتيجة الاستعلام")
-                            .setContentText(errorDescription)
-                            .show();
-
-
+                    return null;  // Handle unsuccessful response
                 }
-            } catch (JSONException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-                new SweetAlertDialog(getContext(), SweetAlertDialog.NORMAL_TYPE)
-                        .setTitleText("نتيجة الاستعلام")
-                        .setContentText("لا يوجد فواتير للدفع")
-                        .show();
-
-
+                return null;  // Handle connection failure
             }
-        } else {
-            new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("خطأ")
-                    .setContentText("حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا")
-                    .show();
+        }
 
+        @Override
+        protected void onPostExecute(String responseData) {
+            super.onPostExecute(responseData);
+            hideProgress();
+
+            String billerCode = getSelectedBillerCode();
+            if (responseData != null && !responseData.isEmpty()) {
+                try {
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    String errorCode = jsonObject.optString("ErrorCode");
+                    String errorDescription = jsonObject.optString("ErrorDescriptionAR");
+
+                    if ("000".equals(errorCode)) {
+                        // Create a bundle and navigate to the next fragment
+                        Bundle bundle = new Bundle();
+                        bundle.putString("responseData", jsonObject.toString());
+                        bundle.putString("billerCode", billerCode);
+
+                        NavHostFragment.findNavController(BillFragment.this)
+                                .navigate(R.id.action_fragment_bill_to_fragment_bill_details, bundle);
+                    } else {
+                        showAlert("نتيجة الاستعلام", errorDescription, SweetAlertDialog.NORMAL_TYPE);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    showAlert("نتيجة الاستعلام", "لا يوجد فواتير للدفع", SweetAlertDialog.NORMAL_TYPE);
+                }
+            } else {
+                showAlert("خطأ", "حدث خطأ اثناء الاتصال في السيرفر حاول لاحقا", SweetAlertDialog.ERROR_TYPE);
+            }
+        }
+
+        // Helper method for displaying SweetAlertDialog
+        private void showAlert(String title, String message, int alertType) {
+            new SweetAlertDialog(getContext(), alertType)
+                    .setTitleText(title)
+                    .setContentText(message)
+                    .show();
         }
     }
 
-
-
-}
 
 
     //for pay
-    class SendPostRequestTask2 extends AsyncTask<String, Void, StringBuilder> {
-        private String billingNo;
-        private String billNo;
-        private String serviceType;
-        private String billerCode;
-        private String accountNumber;
+    class SendPostRequestTask2 extends AsyncTask<String, Void, String> {
+        private final String billingNo;
+        private final String billNo;
+        private final String serviceType;
+        private final String billerCode;
+        private final String accountNumber;
+        private final String dueAmount;
+        private final String paidAmt;
 
-        private String dueAmount;
-
-        private String paidAmt;
-
-        public SendPostRequestTask2(String billingNo, String billNo, String serviceType, String billerCode, String accountNumber,String dueAmount,String paidAmt) {
+        public SendPostRequestTask2(String billingNo, String billNo, String serviceType, String billerCode, String accountNumber, String dueAmount, String paidAmt) {
             this.billingNo = billingNo;
             this.billNo = billNo;
             this.serviceType = serviceType;
@@ -506,68 +488,63 @@ private class SendPostRequestTask extends AsyncTask<String, Void, StringBuilder>
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Show progress loader
             showProgress();
         }
 
         @Override
-        protected StringBuilder doInBackground(String... params) {
-            String apiUrl = Constants.BASE_URL_SEP+"/Services_Interface/bank_bill_Payment2";
-            StringBuilder response = new StringBuilder();
+        protected String doInBackground(String... params) {
+            String apiUrl = Constants.BASE_URL_SEP + "/Services_Interface/bank_bill_Payment2";
+            OkHttpClient client = NetworkBoundResource.provideOkHttpClient();  // Use your custom OkHttpClient
 
+            // Construct JSON payload
+            JSONObject postData = new JSONObject();
             try {
-                URL url = new URL(apiUrl);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type", "application/json");
-                connection.setDoOutput(true);
-
-                // Construct JSON payload
-                JSONObject postData = new JSONObject();
-                try {
-                    postData.put("BillerCode", billerCode);
-                    postData.put("BillingNo", billingNo);
-                    postData.put("BillNo", billNo);
-                    postData.put("ServiceType", serviceType);
-                    postData.put("accountNumber", accountNumber);
-                    postData.put("BillAmount", dueAmount);
-                    postData.put("paidAmt", paidAmt);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                OutputStream outputStream = connection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                writer.write(postData.toString());
-                writer.flush();
-                writer.close();
-                outputStream.close();
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder responseStrBuilder = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    responseStrBuilder.append(line);
-                }
-                reader.close();
-                response = new StringBuilder(responseStrBuilder.toString());
-                connection.disconnect();
-            } catch (IOException e) {
+                postData.put("BillerCode", billerCode);
+                postData.put("BillingNo", billingNo);
+                postData.put("BillNo", billNo);
+                postData.put("ServiceType", serviceType);
+                postData.put("accountNumber", accountNumber);
+                postData.put("BillAmount", dueAmount);
+                postData.put("paidAmt", paidAmt);
+            } catch (JSONException e) {
                 e.printStackTrace();
+                return null;
             }
 
-            return response;
+            // Create request body
+            RequestBody requestBody = RequestBody.create(
+                    postData.toString(),
+                    MediaType.parse("application/json; charset=utf-8")
+            );
+
+            // Build the POST request
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .post(requestBody)
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful() && response.body() != null) {
+                    return response.body().string();  // Return JSON response as a string
+                } else {
+                    return null;  // Handle unsuccessful response
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;  // Handle connection failure
+            }
         }
 
         @Override
-        protected void onPostExecute(StringBuilder responseData) {
+        protected void onPostExecute(String responseData) {
             super.onPostExecute(responseData);
-            // Hide progress loader
-
             hideProgress();
 
-        //    Toast.makeText(requireContext(), responseData.toString(), Toast.LENGTH_LONG).show();
-
+            if (responseData != null) {
+                Toast.makeText(requireContext(), responseData, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(requireContext(), "Error in response", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

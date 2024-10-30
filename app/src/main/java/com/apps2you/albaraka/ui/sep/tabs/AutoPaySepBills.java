@@ -24,6 +24,7 @@
 
     import com.apps2you.albaraka.R;
     import com.apps2you.albaraka.data.preference.UserUtils;
+    import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
     import com.apps2you.albaraka.ui.sep.bill.Biller;
     import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
     import com.apps2you.albaraka.ui.sep.bill.Service;
@@ -32,9 +33,11 @@
     import com.apps2you.albaraka.viewmodels.SharedViewModel;
 
     import org.json.JSONArray;
+    import org.json.JSONException;
     import org.json.JSONObject;
 
     import java.io.BufferedReader;
+    import java.io.IOException;
     import java.io.InputStreamReader;
     import java.io.OutputStream;
     import java.net.HttpURLConnection;
@@ -44,6 +47,11 @@
     import java.util.List;
 
     import cn.pedant.SweetAlert.SweetAlertDialog;
+    import okhttp3.MediaType;
+    import okhttp3.OkHttpClient;
+    import okhttp3.Request;
+    import okhttp3.RequestBody;
+    import okhttp3.Response;
 
     public class AutoPaySepBills extends DialogFragment{
         private Spinner spinnerAccounts;
@@ -211,84 +219,87 @@
 //
 //            timePickerDialog.show();
 //        }
-        private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
-    String language = UserUtils.getInstance(requireContext()).getLanguage();
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                showProgress();
+private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
+    private String language = UserUtils.getInstance(requireContext()).getLanguage();
+    private String errorMessage;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        showProgress();
+    }
+
+    @Override
+    protected List<String> doInBackground(Void... voids) {
+        List<String> accounts = new ArrayList<>();
+        OkHttpClient client = NetworkBoundResource.provideOkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(Constants.BASE_URL_SEP + "/Customer/accounts")
+                .get()
+                .addHeader("Authorization", "Bearer " + token)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                errorMessage = "Failed to fetch accounts.";
+                return null;
             }
 
-            @Override
-            protected List<String> doInBackground(Void... voids) {
-                List<String> accounts = new ArrayList<>();
-                try {
-                    URL url = new URL(Constants.BASE_URL_SEP + "/Customer/accounts");
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setRequestProperty("Authorization", "Bearer " + token);
-                    connection.connect();
+            String jsonData = response.body().string();
+            JSONObject jsonResponse = new JSONObject(jsonData);
+            int errorCode = jsonResponse.getInt("ErrorCode");
 
-                    int responseCode = connection.getResponseCode();
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                        String inputLine;
-                        StringBuilder response = new StringBuilder();
-                        while ((inputLine = in.readLine()) != null) {
-                            response.append(inputLine);
-                        }
-                        in.close();
+            if (errorCode == 200) {
+                JSONArray accountsArray = jsonResponse.getJSONArray("data");
+                for (int i = 0; i < accountsArray.length(); i++) {
+                    JSONObject accountObject = accountsArray.getJSONObject(i);
+                    String accountName = language.equals("ar") ?
+                            accountObject.optString("BRIEFos_gl_name_arab", "N/A") :
+                            accountObject.optString("BRIEF_gl_name_eng", "N/A");
+                    String accountReference = accountObject.optString("os_add_reference", "");
+                    String accountDisplay = accountReference.isEmpty() ? accountName : accountName;
 
-                        JSONObject jsonResponse = new JSONObject(response.toString());
-                        int errorCode = jsonResponse.getInt("ErrorCode");
-                        if (errorCode == 200) {
-                            JSONArray accountsArray = jsonResponse.getJSONArray("data");
-                            for (int i = 0; i < accountsArray.length(); i++) {
-                                JSONObject accountObject = accountsArray.getJSONObject(i);
-                                String accountNameArabic = language.equals("ar") ?
-                                        accountObject.optString("BRIEFos_gl_name_arab", "N/A") :
-                                        accountObject.optString("BRIEF_gl_name_eng", "N/A");
-                               // String accountNameArabic = accountObject.getString("BRIEFos_gl_name_arab");
-                                String accountNameEnglish = accountObject.getString("BRIEF_gl_name_eng");
-                                String accountReference = accountObject.optString("os_add_reference", "");
-                                String accountDisplay = accountReference.isEmpty() ? accountNameArabic : accountNameArabic;
-
-                                accounts.add(accountDisplay);
-
-                            }
-
-                        } else {
-
-                            // Handle error scenario
-                            // You can add a message or log the error as needed
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    accounts.add(accountDisplay);
                 }
-                return accounts;
+            } else {
+                errorMessage = "Error fetching accounts: " + jsonResponse.optString("ErrorMessage", "Unknown error.");
             }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            errorMessage = "Error parsing data.";
+        }
+        return accounts;
+    }
 
-            @Override
-            protected void onPostExecute(List<String> accounts) {
-                super.onPostExecute(accounts);
-                hideProgress();
-                accountList = accounts;
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, accountList);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerAccounts.setAdapter(adapter);
+    @Override
+    protected void onPostExecute(List<String> accounts) {
+        super.onPostExecute(accounts);
+        hideProgress();
 
-                // Set the default account
-                if (defaultAccount != null && !defaultAccount.isEmpty()) {
-                    for (int i = 0; i < accountList.size(); i++) {
-                        if (accountList.get(i).startsWith(defaultAccount)) {
-                            spinnerAccounts.setSelection(i);
-                            break;
-                        }
+        if (accounts == null) {
+            new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Error")
+                    .setContentText(errorMessage != null ? errorMessage : "Unknown error.")
+                    .show();
+        } else {
+            accountList = accounts;
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, accountList);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerAccounts.setAdapter(adapter);
+
+            // Set the default account
+            if (defaultAccount != null && !defaultAccount.isEmpty()) {
+                for (int i = 0; i < accountList.size(); i++) {
+                    if (accountList.get(i).startsWith(defaultAccount)) {
+                        spinnerAccounts.setSelection(i);
+                        break;
                     }
+                }
             }
         }
-        }
+    }
+}
 
 
         public AutoPaySepBills(SharedViewModel sharedViewModel, String billLabel,String id, int autoPay, int maxAmount, String defaultAccount) {
@@ -307,50 +318,53 @@
             private String pickTime;
             private boolean autoPay;
             private String defaultAccount;
+            private String errorMessage;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 showProgress();
 
-
                 // Collect data from UI
-                maxAmount = Integer.parseInt(((EditText) getView().findViewById(R.id.max_amount)).getText().toString().replaceAll(",",""));
+                maxAmount = Integer.parseInt(((EditText) getView().findViewById(R.id.max_amount)).getText().toString().replaceAll(",", ""));
                 billLabelR = ((EditText) getView().findViewById(R.id.billLabel)).getText().toString();
-               // pickTime = ((EditText) getView().findViewById(R.id.pick_time)).getText().toString() + ":00";
                 autoPay = ((SwitchCompat) getView().findViewById(R.id.switch_auto_pay)).isChecked();
                 defaultAccount = ((Spinner) getView().findViewById(R.id.spinner_accounts)).getSelectedItem().toString().split(" ")[0];
-
-
             }
 
             @Override
             protected Boolean doInBackground(Void... voids) {
-                try {
-                    URL url = new URL(Constants.BASE_URL_SEP + "/Customer/bill");
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("PUT");
-                    connection.setRequestProperty("Content-Type", "application/json");
-                    connection.setRequestProperty("Authorization", "Bearer " + token);
-                    connection.setDoOutput(true);
+                OkHttpClient client = NetworkBoundResource.provideOkHttpClient();
 
-                    JSONObject jsonRequest = new JSONObject();
+                JSONObject jsonRequest = new JSONObject();
+                try {
                     jsonRequest.put("id", id);
                     jsonRequest.put("auto_pay", autoPay ? 1 : 0);
                     jsonRequest.put("default_account", defaultAccount);
                     jsonRequest.put("max_amount", maxAmount);
                     jsonRequest.put("billLabel", billLabelR);
-
-                    try (OutputStream os = connection.getOutputStream()) {
-                        byte[] input = jsonRequest.toString().getBytes("utf-8");
-                        os.write(input, 0, input.length);
-                    }
-
-                    int responseCode = connection.getResponseCode();
-                    String responsemsg = connection.getResponseMessage();
-                    return responseCode == HttpURLConnection.HTTP_OK;
-                } catch (Exception e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
+                    errorMessage = "Failed to create JSON data.";
+                    return false;
+                }
+
+                RequestBody body = RequestBody.create(jsonRequest.toString(), MediaType.get("application/json; charset=utf-8"));
+                Request request = new Request.Builder()
+                        .url(Constants.BASE_URL_SEP + "/Customer/bill")
+                        .put(body)
+                        .addHeader("Authorization", "Bearer " + token)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) {
+                        errorMessage = "Error: " + response.message();
+                        return false;
+                    }
+                    return true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    errorMessage = "Network error.";
                     return false;
                 }
             }
@@ -365,12 +379,11 @@
                             .setTitleText("نجاح العملية")
                             .setContentText("تم تحديث البيانات بنجاح")
                             .show();
-
                     dismiss();
                 } else {
                     new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("خطأ في العملية")
-                            .setContentText("فشل تحديث البيانات")
+                            .setContentText(errorMessage != null ? errorMessage : "فشل تحديث البيانات")
                             .show();
                 }
             }

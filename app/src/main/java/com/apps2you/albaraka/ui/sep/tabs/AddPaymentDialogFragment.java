@@ -25,6 +25,7 @@ import androidx.lifecycle.Observer;
 
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.preference.UserUtils;
+import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
 import com.apps2you.albaraka.ui.sep.bill.Biller;
 import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
 import com.apps2you.albaraka.ui.sep.bill.Service;
@@ -34,6 +35,7 @@ import com.apps2you.albaraka.viewmodels.SharedViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.SEPViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -48,6 +51,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class AddPaymentDialogFragment extends DialogFragment {
 
@@ -122,29 +130,35 @@ public class AddPaymentDialogFragment extends DialogFragment {
     }
 
     private class GetDataTask extends AsyncTask<String, Void, List<Category>> {
-        String language = UserUtils.getInstance(requireContext()).getLanguage();
+        private String language = UserUtils.getInstance(requireContext()).getLanguage();
+        private String errorMessage;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             showProgress();
         }
+
         @Override
         protected List<Category> doInBackground(String... urls) {
-            // List<Category> categories = new ArrayList<>();
-            try {
-                URL url = new URL(urls[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Authorization", "Bearer " + token);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder json = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    json.append(line);
-                }
-                reader.close();
+            List<Category> categoriesList = new ArrayList<>();
+            OkHttpClient client = NetworkBoundResource.provideOkHttpClient();
 
-                JSONObject jsonObject = new JSONObject(json.toString());
+            Request request = new Request.Builder()
+                    .url(urls[0])
+                    .get()
+                    .addHeader("Authorization", "Bearer " + token)
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (!response.isSuccessful()) {
+                    errorMessage = "Failed to fetch data.";
+                    return null;
+                }
+
+                // Parse JSON response
+                String jsonData = response.body().string();
+                JSONObject jsonObject = new JSONObject(jsonData);
                 JSONObject data = jsonObject.getJSONObject("data");
                 JSONArray categoriesArray = data.getJSONArray("categories");
 
@@ -154,7 +168,6 @@ public class AddPaymentDialogFragment extends DialogFragment {
                     String categName = language.equals("ar") ?
                             categoryObject.optString("categName_ar", "N/A") :
                             categoryObject.optString("categName", "N/A");
-                //    String categName = categoryObject.getString("categName_ar");
 
                     JSONArray billersArray = categoryObject.getJSONArray("billers");
                     List<Biller> billers = new ArrayList<>();
@@ -165,7 +178,6 @@ public class AddPaymentDialogFragment extends DialogFragment {
                         String billerName = language.equals("ar") ?
                                 billerObject.optString("billerName_ar", "N/A") :
                                 billerObject.optString("billerName", "N/A");
-                    //    String billerName = billerObject.getString("billerName_ar");
 
                         JSONArray servicesArray = billerObject.getJSONArray("services");
                         List<Service> services = new ArrayList<>();
@@ -176,7 +188,6 @@ public class AddPaymentDialogFragment extends DialogFragment {
                             String serviceName = language.equals("ar") ?
                                     serviceObject.optString("serviceName_ar", "N/A") :
                                     serviceObject.optString("serviceName", "N/A");
-                        //    String serviceName = serviceObject.getString("serviceName_ar");
 
                             JSONArray billingNumbersArray = serviceObject.getJSONArray("billingnumbers");
                             List<BillingNumber> billingNumbers = new ArrayList<>();
@@ -186,7 +197,6 @@ public class AddPaymentDialogFragment extends DialogFragment {
                                 String arabicLabel = language.equals("ar") ?
                                         billingNumberObject.optString("ArabicLabel", "N/A") :
                                         billingNumberObject.optString("EnglishLabel", "N/A");
-                             //   String arabicLabel = billingNumberObject.getString("ArabicLabel");
                                 String type = billingNumberObject.getString("Type");
                                 String texts = billingNumberObject.optString("Texts", "");
 
@@ -201,8 +211,9 @@ public class AddPaymentDialogFragment extends DialogFragment {
 
                     categoriesList.add(new Category(categId, categName, billers));
                 }
-            } catch (Exception e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
+                errorMessage = "Error parsing data.";
             }
             return categoriesList;
         }
@@ -210,9 +221,15 @@ public class AddPaymentDialogFragment extends DialogFragment {
         @Override
         protected void onPostExecute(List<Category> categories) {
             hideProgress();
-
-            categoriesList = categories;
-            populateCategoriesSpinner(categoriesList);
+            if (categories == null) {
+                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Error")
+                        .setContentText(errorMessage != null ? errorMessage : "Unknown error.")
+                        .show();
+            } else {
+                categoriesList = categories;
+                populateCategoriesSpinner(categoriesList);
+            }
         }
     }
 
@@ -322,23 +339,22 @@ public class AddPaymentDialogFragment extends DialogFragment {
     }
 
     private class AddCustomerProfileTask extends AsyncTask<Void, Void, Boolean> {
+        private String errorMessage;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             showProgress();
         }
+
         @Override
         protected Boolean doInBackground(Void... voids) {
-            try {
-                URL url = new URL(Constants.BASE_URL_SEP + "/Services_Interface/add_customer_profile");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type", "application/json");
-                connection.setRequestProperty("Authorization", "Bearer " + token);
-                connection.setDoOutput(true);
+            String apiUrl = Constants.BASE_URL_SEP + "/Services_Interface/add_customer_profile";
+            OkHttpClient client = NetworkBoundResource.provideOkHttpClient();  // Use custom OkHttpClient
 
-                JSONObject requestBody = new JSONObject();
+            // Construct JSON payload
+            JSONObject requestBody = new JSONObject();
+            try {
                 requestBody.put("ServiceType", selectedService.getServiceId());
                 requestBody.put("BillerCode", selectedBiller.getBillerCode());
                 requestBody.put("billLabel", billLabel);
@@ -351,20 +367,38 @@ public class AddPaymentDialogFragment extends DialogFragment {
                     }
                     billingNumbersStringBuilder.append(billingNumber.getArabicLabel());
                 }
-
                 requestBody.put("BillingNo", billingNumbersStringBuilder.toString());
-
-                OutputStream os = connection.getOutputStream();
-                os.write(requestBody.toString().getBytes());
-                os.flush();
-                os.close();
-
-                int responseCode = connection.getResponseCode();
-                return responseCode == 200;
-            } catch (Exception e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
+                errorMessage = "Error constructing request.";
+                return false;
             }
-            return false;
+
+            // Create request body
+            RequestBody body = RequestBody.create(
+                    requestBody.toString(),
+                    MediaType.parse("application/json; charset=utf-8")
+            );
+
+            // Build the POST request
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .post(body)
+                    .addHeader("Authorization", "Bearer " + token)  // Add authorization header
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful()) {
+                    return true;
+                } else {
+                    errorMessage = "Failed to add customer profile.";
+                    return false;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                errorMessage = "Network error. Please try again.";
+                return false;
+            }
         }
 
         @Override
@@ -377,16 +411,13 @@ public class AddPaymentDialogFragment extends DialogFragment {
                         .setTitleText("Success")
                         .setContentText("تم إضافة الفاتورة بنجاح")
                         .show();
-
             } else {
                 new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
                         .setTitleText("Error")
-                        .setContentText("فشل عملية إضافة الفاتورة")
+                        .setContentText(errorMessage)
                         .show();
-
             }
         }
-
     }
 
 

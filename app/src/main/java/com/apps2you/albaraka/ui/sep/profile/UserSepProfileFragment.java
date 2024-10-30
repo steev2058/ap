@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.preference.UserUtils;
+import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
 import com.apps2you.albaraka.databinding.FragmentSepUserBinding;
 import com.apps2you.albaraka.ui.sep.tabs.AddPaymentDialogFragment;
 import com.apps2you.albaraka.utils.Constants;
@@ -53,9 +54,9 @@ import java.util.Locale;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class UserSepProfileFragment extends Fragment {
 
@@ -97,6 +98,7 @@ public class UserSepProfileFragment extends Fragment {
 //            FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
 //            dialogFragment.show(ft, "add_payment_dialog");
 //        });
+        new FetchPaymentsTask().execute(sepViewModel.token.getValue());
         if (getArguments() != null) {
             String arName = getArguments().getString("arName");
             String cif = getArguments().getString("cif");
@@ -113,7 +115,7 @@ public class UserSepProfileFragment extends Fragment {
         binding.setViewModel(sepViewModel);
         binding.setLifecycleOwner(this);
         new FetchCategoriesTask().execute();
-        new FetchPaymentsTask().execute(sepViewModel.token.getValue());
+
         return binding.getRoot();
     }
 
@@ -237,35 +239,30 @@ public class UserSepProfileFragment extends Fragment {
     }
     private class FetchCategoriesTask extends AsyncTask<Void, Void, String> {
         String language = UserUtils.getInstance(requireContext()).getLanguage();
+        OkHttpClient client = NetworkBoundResource.provideOkHttpClient();  // Initialize OkHttpClient
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             showProgress();
         }
+
         @Override
         protected String doInBackground(Void... params) {
             String apiUrl = Constants.BASE_URL_SEP + "/Customer/all/";
 
-            try {
-                URL url = new URL(apiUrl);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("Authorization", "Bearer " + sepViewModel.token.getValue());
-                int responseCode = conn.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    String inputLine;
-                    StringBuilder response = new StringBuilder();
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .get()
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("Authorization", "Bearer " + sepViewModel.token.getValue())
+                    .build();
 
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    in.close();
-
-                    return response.toString();
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful()) {
+                    return response.body() != null ? response.body().string() : "Error: Empty response";
                 } else {
-                    return "Error: " + responseCode;
+                    return "Error: " + response.code();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -284,12 +281,8 @@ public class UserSepProfileFragment extends Fragment {
                 JSONArray categoriesArray = dataObject.getJSONArray("categories");
 
                 List<String> billerNamesArList = new ArrayList<>();
-
-                String c2 = language.equals("ar") ?
-                        "اختر مفوتر" :
-                        "Choose Biller";
+                String c2 = language.equals("ar") ? "اختر مفوتر" : "Choose Biller";
                 billerNamesArList.add(c2);
-
 
                 for (int i = 0; i < categoriesArray.length(); i++) {
                     JSONObject categoryObject = categoriesArray.getJSONObject(i);
@@ -297,26 +290,25 @@ public class UserSepProfileFragment extends Fragment {
 
                     for (int j = 0; j < billersArray.length(); j++) {
                         JSONObject billerObject = billersArray.getJSONObject(j);
-                        String billerNameAr = language.equals("ar") ?
+                        String billerName = language.equals("ar") ?
                                 billerObject.optString("billerName_ar", "N/A") :
                                 billerObject.optString("billerName_en", "N/A");
-                       // String billerNameAr = billerObject.getString("billerName_ar");
-                        billerNamesArList.add(billerNameAr);
+                        billerNamesArList.add(billerName);
                     }
                 }
 
-                // Populate spinner_categories with biller names in Arabic
+                // Populate spinner_categories with biller names
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, billerNamesArList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 binding.spinnerCategories.setAdapter(adapter);
 
-                // Handle spinner item selection if needed
+                // Handle spinner item selection
                 binding.spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         String selectedBillerName = (String) parent.getItemAtPosition(position);
                         if (selectedBillerName.equals("اختر مفوتر")) {
-                            displayPayments(paymentsList); // Display all payments
+                            displayPayments(paymentsList);
                         } else {
                             List<JSONObject> filteredPayments = filterPayments(paymentsList, fromDate, toDate, selectedBillerName);
                             displayPayments(filteredPayments);
@@ -328,7 +320,6 @@ public class UserSepProfileFragment extends Fragment {
                         // Handle nothing selected logic here
                     }
                 });
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -364,6 +355,8 @@ public class UserSepProfileFragment extends Fragment {
     }
 
     private class FetchPaymentsTask extends AsyncTask<String, Void, String> {
+        OkHttpClient client = NetworkBoundResource.provideOkHttpClient();  // Initialize OkHttpClient
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -375,27 +368,18 @@ public class UserSepProfileFragment extends Fragment {
             String token = params[0];
             String apiUrl = Constants.BASE_URL_SEP + "/Customer/my_payments";
 
-            try {
-                URL url = new URL(apiUrl);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("Authorization", "Bearer " + token);
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .get()
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("Authorization", "Bearer " + token)
+                    .build();
 
-                int responseCode = conn.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    String inputLine;
-                    StringBuilder response = new StringBuilder();
-
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    in.close();
-
-                    return response.toString();
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful() && response.body() != null) {
+                    return response.body().string();
                 } else {
-                    return "Error: " + responseCode;
+                    return "Error: " + (response.code());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -406,7 +390,8 @@ public class UserSepProfileFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-           hideProgress();
+            hideProgress();
+
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONObject dataObject = jsonObject.getJSONObject("data");
@@ -426,5 +411,6 @@ public class UserSepProfileFragment extends Fragment {
             }
         }
     }
+
 
 }

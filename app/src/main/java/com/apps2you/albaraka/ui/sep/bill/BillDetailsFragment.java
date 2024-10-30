@@ -31,6 +31,7 @@ import com.apps2you.albaraka.data.model.Account;
 import com.apps2you.albaraka.data.model.City;
 import com.apps2you.albaraka.data.model.User;
 import com.apps2you.albaraka.data.preference.UserUtils;
+import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
 import com.apps2you.albaraka.databinding.FragmentBillDetailsBinding;
 import com.apps2you.albaraka.ui.common.dialogs.ConfirmPinDialog;
 import com.apps2you.albaraka.ui.common.model.ADSLProviderUI;
@@ -62,6 +63,12 @@ import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import dagger.android.support.AndroidSupportInjection;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 import com.apps2you.albaraka.ui.sep.SEPFragment;
 public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetailsBinding, BillViewModel> {
 
@@ -155,8 +162,8 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
 }
 
     private class VerifyPinTask extends AsyncTask<Void, Void, Boolean> {
-        private String pinCode;
-        private List<JSONObject> selectedBills;
+        private final String pinCode;
+        private final List<JSONObject> selectedBills;
         private String errorMessage;
 
         public VerifyPinTask(String pinCode, List<JSONObject> selectedBills) {
@@ -172,37 +179,38 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            String apiUrl = Constants.BASE_URL_SEP+"/Customer/checkPIN";
+            String apiUrl = Constants.BASE_URL_SEP + "/Customer/checkPIN";
+            OkHttpClient client = NetworkBoundResource.provideOkHttpClient();  // Use your custom OkHttpClient
+
+            // Construct JSON payload
+            JSONObject postData = new JSONObject();
             try {
-                URL url = new URL(apiUrl);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type", "application/json");
-                connection.setRequestProperty("Authorization", "Bearer " + token);
-                connection.setDoOutput(true);
-
-                JSONObject postData = new JSONObject();
                 postData.put("pin", pinCode);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                errorMessage = "JSON error.";
+                return false;
+            }
 
-                OutputStream outputStream = connection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                writer.write(postData.toString());
-                writer.flush();
-                writer.close();
-                outputStream.close();
+            // Create request body
+            RequestBody requestBody = RequestBody.create(
+                    postData.toString(),
+                    MediaType.parse("application/json; charset=utf-8")
+            );
 
-                int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    StringBuilder response = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        response.append(line);
-                    }
-                    reader.close();
+            // Build the POST request
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .post(requestBody)
+                    .addHeader("Authorization", "Bearer " + token)  // Add authorization header
+                    .build();
 
-                    JSONObject responseJson = new JSONObject(response.toString());
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String responseStr = response.body().string();
+                    JSONObject responseJson = new JSONObject(responseStr);
                     boolean success = responseJson.getBoolean("data");
+
                     if (!success) {
                         errorMessage = responseJson.getString("ErrorDescriptionAR");
                     }
@@ -222,15 +230,14 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             hideProgress();
+
             if (success) {
                 handlePayBills(selectedBills);
             } else {
                 new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
                         .setTitleText("Error")
                         .setContentText(errorMessage)
-
                         .show();
-           //     showPinConfirmationDialog(selectedBills); // Show dialog again to retry
             }
         }
     }
@@ -469,14 +476,15 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
 
 
     class SendPostRequestTask2 extends AsyncTask<String, Void, StringBuilder> {
-        private String billingNo;
-        private String billNo;
-        private String serviceType;
-        private String billerCode;
-        private String accountNumber;
-        private String dueAmount;
-        private String paidAmt;
-        private TextView statusTextView;
+        private final String billingNo;
+        private final String billNo;
+        private final String serviceType;
+        private final String billerCode;
+        private final String accountNumber;
+        private final String dueAmount;
+        private final String paidAmt;
+        private final TextView statusTextView;
+        private String errorDescription;
 
         public SendPostRequestTask2(String billingNo, String billNo, String serviceType, String billerCode, String accountNumber, String dueAmount, String paidAmt, TextView statusTextView) {
             this.billingNo = billingNo;
@@ -497,49 +505,49 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
 
         @Override
         protected StringBuilder doInBackground(String... params) {
-            String apiUrl = Constants.BASE_URL_SEP+"/Services_Interface/bank_bill_Payment2";
-            StringBuilder response = new StringBuilder();
+            String apiUrl = Constants.BASE_URL_SEP + "/Services_Interface/bank_bill_Payment2";
+            OkHttpClient client = NetworkBoundResource.provideOkHttpClient();  // Use custom OkHttpClient
 
+            // Construct JSON payload
+            JSONObject postData = new JSONObject();
             try {
-                URL url = new URL(apiUrl);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type", "application/json");
-                connection.setRequestProperty("Authorization", "Bearer " + token);
-                connection.setDoOutput(true);
-
-                JSONObject postData = new JSONObject();
-                try {
-                    postData.put("BillerCode", billerCode);
-                    postData.put("BillingNo", billingNo);
-                    postData.put("BillNo", billNo);
-                    postData.put("ServiceType", serviceType);
-                    postData.put("accountNumber", accountNumber);
-                    postData.put("BillAmount", dueAmount);
-                    postData.put("paidAmt", paidAmt);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                OutputStream outputStream = connection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                writer.write(postData.toString());
-                writer.flush();
-                writer.close();
-                outputStream.close();
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder responseStrBuilder = new StringBuilder();
-                String line;
-
-                reader.close();
-                response = new StringBuilder(responseStrBuilder.toString());
-                connection.disconnect();
-            } catch (IOException e) {
+                postData.put("BillerCode", billerCode);
+                postData.put("BillingNo", billingNo);
+                postData.put("BillNo", billNo);
+                postData.put("ServiceType", serviceType);
+                postData.put("accountNumber", accountNumber);
+                postData.put("BillAmount", dueAmount);
+                postData.put("paidAmt", paidAmt);
+            } catch (JSONException e) {
                 e.printStackTrace();
+                return new StringBuilder();  // Return empty on JSON error
             }
 
-            return response;
+            // Create request body
+            RequestBody requestBody = RequestBody.create(
+                    postData.toString(),
+                    MediaType.parse("application/json; charset=utf-8")
+            );
+
+            // Build the POST request
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .post(requestBody)
+                    .addHeader("Authorization", "Bearer " + token)  // Add authorization header
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful() && response.body() != null) {
+                    return new StringBuilder(response.body().string());
+                } else {
+                    errorDescription = "Server error. Please try again.";
+                    return new StringBuilder();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                errorDescription = "Network error. Please try again.";
+                return new StringBuilder();
+            }
         }
 
         @Override
@@ -548,39 +556,41 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
             hideProgress();
 
             try {
-                JSONObject responseJson = new JSONObject(responseData.toString());
-                String errorCode = responseJson.getString("ErrorCode");
-                String errorDescription = responseJson.getString("ErrorDescriptionAR");
+                if (responseData.length() > 0) {
+                    JSONObject responseJson = new JSONObject(responseData.toString());
+                    String errorCode = responseJson.getString("ErrorCode");
+                    errorDescription = responseJson.getString("ErrorDescriptionAR");
 
-                if ("000".equals(errorCode)) {
-                    new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
-                            .setTitleText("Success")
-                            .setContentText("تم الدفع بنجاح")
-                            .show();
+                    if ("000".equals(errorCode)) {
+                        new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Success")
+                                .setContentText("تم الدفع بنجاح")
+                                .show();
 
-                    statusTextView.setText(R.string.payed_bills);
-                    statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
-                    statusTextView.setBackgroundResource(R.drawable.rounded_background_g);
-                    statusTextView.setVisibility(View.VISIBLE);
+                        statusTextView.setText(R.string.payed_bills);
+                        statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
+                        statusTextView.setBackgroundResource(R.drawable.rounded_background_g);
+                    } else {
+                        displayError("هناك خطأ: " + errorDescription);
+                        statusTextView.setText(R.string.faild_pay);
+                        statusTextView.setBackgroundResource(R.drawable.rounded_background_red);
+                    }
                 } else {
-                    new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Error")
-                            .setContentText("هناك خطأ: " + errorDescription)
-                            .show();
-                    statusTextView.setText(R.string.faild_pay);
-                    statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
-                    statusTextView.setBackgroundResource(R.drawable.rounded_background_red);
-                    statusTextView.setVisibility(View.VISIBLE);
+                    displayError(errorDescription);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("خطأ")
-                        .setContentText("يرجى المحاولة مرة أخرى")
-                        .show();
-
-
+                displayError("يرجى المحاولة مرة أخرى");
             }
+        }
+
+        private void displayError(String message) {
+            new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Error")
+                    .setContentText(message)
+                    .show();
+            statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
+            statusTextView.setVisibility(View.VISIBLE);
         }
     }
 

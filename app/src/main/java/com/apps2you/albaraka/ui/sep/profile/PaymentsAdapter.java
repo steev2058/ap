@@ -21,6 +21,7 @@ import com.apps2you.albaraka.MyApplication;
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.model.User;
 import com.apps2you.albaraka.data.preference.UserUtils;
+import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
 import com.apps2you.albaraka.ui.sep.SEPFragment;
 import com.apps2you.albaraka.ui.sep.tabs.FirstFragment;
 import com.apps2you.albaraka.utils.Constants;
@@ -73,7 +74,6 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.Paymen
         try {
             String paidAmountStr = payment.getString("PaidAmt");
             String dueAmountStr = payment.getString("DueAmt");
-
             double paidAmount = Double.parseDouble(paidAmountStr);
             double dueAmount = Double.parseDouble(dueAmountStr);
             double totalAmount = paidAmount;
@@ -120,9 +120,9 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.Paymen
 
     private void downloadPdfUrl(String billId) {
         String url = Constants.BASE_URL_SEP + "/Customer/print_bill2?id=" + billId;
+       OkHttpClient client = NetworkBoundResource.provideOkHttpClient();
 
-
-        OkHttpClient client = new OkHttpClient();
+     //   OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
                 .url(url)
