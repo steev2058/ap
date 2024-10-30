@@ -107,7 +107,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         hideBottomSheet();
 
         getViewDataBinding().btnBranch.setOnClickListener(v -> {
-//            getData(Constants.TYPE_BRANCH);
+            getData(Constants.TYPE_BRANCH);
             setMarkers(Constants.TYPE_BRANCH);
 
             getViewDataBinding().btnBranch.setBackgroundResource(R.drawable.bg_shadow_primary);
@@ -128,7 +128,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         });
 
         getViewDataBinding().btnAtm.setOnClickListener(v -> {
-//            getData(Constants.TYPE_ATM);
+            getData(Constants.TYPE_ATM);
             setMarkers(Constants.TYPE_ATM);
 
             getViewDataBinding().btnAtm.setBackgroundResource(R.drawable.bg_shadow_orange);
@@ -149,7 +149,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         });
 
         getViewDataBinding().btnPos.setOnClickListener(v -> {
-//            getData(Constants.TYPE_POS);
+            getData(Constants.TYPE_POS.toLowerCase());
             setMarkers(Constants.TYPE_POS);
 
             getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_gray);
@@ -170,7 +170,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         });
 
         getViewDataBinding().btnMerchant.setOnClickListener(v -> {
-//            getData(Constants.TYPE_POS);
+            getData(Constants.TYPE_POS);
             setMarkers(Constants.TYPE_MERCHANT);
 
             getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_white);

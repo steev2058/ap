@@ -40,7 +40,7 @@ public class LocationsVM extends BaseViewModel {
         cancelPreviousCall();
 
         setSelectedType(type);
-        NetworkBoundResource<ArrayList<Branch>> request = repository.getBranchesRequest(null/*send null so the response contains branches, atms and pos */);
+        NetworkBoundResource<ArrayList<Branch>> request = repository.getBranchesRequest(type);
         branchesCall = request.getCall();
         return request.getAsLiveServerData();
     }

@@ -22,6 +22,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.apps2you.albaraka.R;
 import com.apps2you.albaraka.data.preference.UserUtils;
+import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
 import com.apps2you.albaraka.ui.sep.SEPFragment;
 import com.apps2you.albaraka.ui.sep.bill.Biller;
 import com.apps2you.albaraka.ui.sep.bill.BillingNumber;
@@ -43,6 +44,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class SecondFragment extends Fragment {
     private GridView gridView;
     private CardAdapterTwo adapter;
@@ -134,22 +140,31 @@ public class SecondFragment extends Fragment {
         protected List<CardItemProfile> doInBackground(Void... voids) {
             List<CardItemProfile> cardItemList = new ArrayList<>();
             InputStream inputStream = null;
+            OkHttpClient client = NetworkBoundResource.provideOkHttpClient();
+            String url = Constants.BASE_URL_SEP + "/Customer/Bills";
 
-            try {
-                URL url = new URL(Constants.BASE_URL_SEP+"/Customer/Bills");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("token", token); // Set the token in the header
-                connection.connect();
+            Request.Builder requestBuilder = new Request.Builder()
+                    .url(url)
+                    .addHeader("Content-Type", "application/json");
 
-                inputStream = connection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    stringBuilder.append(line);
+            if (token != null && !token.isEmpty()) {
+                requestBuilder.addHeader("token", token);
+            } else {
+                Log.e("FetchCategoriesTask", "Token is null or empty");
+                return cardItemList; // Return empty list if token is missing
+            }
+
+            Request request = requestBuilder.build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
                 }
-                String json = stringBuilder.toString();
+
+                // Get the JSON response as a string
+                String json = response.body().string();
+
+                // Parse the JSON response
                 JSONObject jsonObject = new JSONObject(json);
                 JSONObject data = jsonObject.getJSONObject("data");
                 JSONArray bills = data.getJSONArray("bills");
@@ -159,38 +174,29 @@ public class SecondFragment extends Fragment {
                     String billerNameAr = language.equals("ar") ?
                             bill.optString("billerName_ar", "N/A") :
                             bill.optString("billerName", "N/A");
-                  //  String billerNameAr = bill.optString("billerName_ar", "N/A");
                     String billLabel = bill.optString("billLabel", "N/A");
                     String serviceNameAr = language.equals("ar") ?
                             bill.optString("serviceName_ar", "N/A") :
                             bill.optString("serviceName", "N/A");
-                 //   String serviceNameAr = bill.optString("serviceName_ar", "N/A");
                     String billingNo = bill.optString("BillingNo", "N/A");
                     String iconUrl = bill.optString("logoName", "N/A");
                     String billerCode = bill.optString("billerCode", "N/A");
                     int isDeleted = bill.optInt("is_deleted", 1);
-
                     String id = bill.optString("id", "N/A");
                     int isAutoPay = bill.optInt("auto_pay", 1);
                     int max_amount = Integer.parseInt(bill.optString("max_amount", "N/A"));
                     String default_account = bill.optString("default_account", "N/A");
 
-                    cardItemList.add(new CardItemProfile(billerNameAr, billLabel,serviceNameAr, billingNo, iconUrl.replace("..", Constants.BASE_URL_SEP_ICON), isDeleted,id,billerCode,isAutoPay,default_account,max_amount));
+                    // Add item to cardItemList
+                    cardItemList.add(new CardItemProfile(billerNameAr, billLabel, serviceNameAr, billingNo,
+                            iconUrl.replace("..", Constants.BASE_URL_SEP_ICON), isDeleted, id, billerCode, isAutoPay, default_account, max_amount));
                 }
-
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
-            } finally {
-                if (inputStream != null) {
-                    try {
-                        inputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
 
             return cardItemList;
+
         }
         @Override
         protected void onPostExecute(List<CardItemProfile> cardItemList) {
