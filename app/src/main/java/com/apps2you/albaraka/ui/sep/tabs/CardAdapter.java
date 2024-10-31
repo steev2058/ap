@@ -9,18 +9,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apps2you.albaraka.R;
+import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 public class CardAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<CardItem> mCardItemList;
 
+    private  Picasso picasso;
+
     public CardAdapter(Context context, List<CardItem> cardItemList) {
         mContext = context;
         mCardItemList = cardItemList;
+        // Initialize Picasso only once
+        OkHttpClient client = NetworkBoundResource.provideOkHttpClient();
+        this.picasso = new Picasso.Builder(mContext)
+                .downloader(new OkHttp3Downloader(client))
+                .build();
     }
 
     @Override
@@ -54,9 +66,13 @@ public class CardAdapter extends BaseAdapter {
 
         CardItem item = mCardItemList.get(position);
         holder.cardText.setText(item.getText());
+        // Clear any previous image to avoid flickering of old images
+        holder.cardImage.setImageDrawable(null);
 
-        // Load image using Picasso
-        Picasso.get().load(item.getIconUrl()).into(holder.cardImage);
+        // Load image with Picasso
+        picasso.load(item.getIconUrl())
+                .placeholder(R.drawable.seplogob) // Optional placeholder while loading
+                .into(holder.cardImage);
         return convertView;
     }
 
@@ -65,4 +81,7 @@ public class CardAdapter extends BaseAdapter {
         ImageView cardImage;
         TextView cardText;
     }
+
+
+
 }

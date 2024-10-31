@@ -311,7 +311,8 @@
             private void showAlert(String title, String content, int alertType) {
                 new SweetAlertDialog(mContext, alertType)
                         .setTitleText(title)
-                        .setContentText(content)
+                        .setContentText(content).setConfirmText("تم")
+
                         .show();
             }
         }

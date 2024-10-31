@@ -75,7 +75,7 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        loadData();
+        //loadData();
 
         return rootView;
     }
@@ -124,6 +124,8 @@ public class FirstFragment extends Fragment {
         ft.detach(this).attach(this).commit();
     }
 
+    List<CardItem> cardItemList = new ArrayList<>();
+
     private class FetchCategoriesTask extends AsyncTask<Void, Void, List<CardItem>> {
         private WeakReference<Context> contextRef;
 
@@ -133,10 +135,14 @@ public class FirstFragment extends Fragment {
 
         @Override
         protected List<CardItem> doInBackground(Void... voids) {
-            List<CardItem> cardItemList = new ArrayList<>();
+
             Context context = contextRef.get(); // Get the context safely
             if (context == null) {
                 return cardItemList; // If context is null, return to avoid a crash
+            }
+            if(!cardItemList.isEmpty())
+            {
+                return cardItemList;
             }
             String language = UserUtils.getInstance(context).getLanguage();
             try {
@@ -190,6 +196,7 @@ public class FirstFragment extends Fragment {
             gridView.setVisibility(View.VISIBLE);
 
             adapter = new CardAdapter(getContext(), cardItemList);
+
             gridView.setAdapter(adapter);
         }
     }
