@@ -47,6 +47,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, LocationsVM>
         implements OnMapReadyCallback {
@@ -170,7 +171,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         });
 
         getViewDataBinding().btnMerchant.setOnClickListener(v -> {
-            getData(Constants.TYPE_POS);
+            getData(Constants.TYPE_MERCHANT);
             setMarkers(Constants.TYPE_MERCHANT);
 
             getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_white);
@@ -318,12 +319,12 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         hideBottomSheet();
         getViewModel().setSelectedType(type);
 
-        if (getViewModel().getBranches().isEmpty()
+        /*if (getViewModel().getBranches().isEmpty()
                 && getViewModel().getAtms().isEmpty()
                 && getViewModel().getPos().isEmpty()) {
             getData(type);
             return;
-        }
+        }*/
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         ArrayList<Branch> data = new ArrayList<>();
@@ -336,7 +337,10 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
                 data.addAll(getViewModel().getAtms());
                 break;
 
-            case Constants.TYPE_POS:
+            case Constants.TYPE_POS  :
+                data.addAll(getViewModel().getPos());
+                break;
+            case "pos"  :
                 data.addAll(getViewModel().getPos());
                 break;
             case Constants.TYPE_MERCHANT:
