@@ -71,6 +71,8 @@ public class UserSepProfileFragment extends Fragment {
 
     private List<JSONObject> paymentsList = new ArrayList<>();
 
+    private String  selectedBillerName = "اختر مفوتر";
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sep_user, container, false);
@@ -98,7 +100,7 @@ public class UserSepProfileFragment extends Fragment {
 //            FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
 //            dialogFragment.show(ft, "add_payment_dialog");
 //        });
-        new FetchPaymentsTask().execute(sepViewModel.token.getValue());
+
         if (getArguments() != null) {
             String arName = getArguments().getString("arName");
             String cif = getArguments().getString("cif");
@@ -115,7 +117,7 @@ public class UserSepProfileFragment extends Fragment {
         binding.setViewModel(sepViewModel);
         binding.setLifecycleOwner(this);
         new FetchCategoriesTask().execute();
-
+        new FetchPaymentsTask().execute(sepViewModel.token.getValue());
         return binding.getRoot();
     }
 
@@ -208,21 +210,11 @@ public class UserSepProfileFragment extends Fragment {
 
 
         binding.iBtnSubmit.setOnClickListener(v -> {
-            try {
-                Date from = simpleDateFormat.parse(fromDate);
-                Date to = simpleDateFormat.parse(toDate);
 
-                if (to != null && from != null) {
-                    if (to.before(from)) {
-                        showToast(R.string.invalid_date);
-                    } else {
-                        new FetchPaymentsTask().execute(sepViewModel.token.getValue());
-                    }
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            displayPayments( filterPayments(paymentsList, fromDate, toDate, selectedBillerName));
+
         });
+
     }
 
     private void getTransactions() {
@@ -306,7 +298,7 @@ public class UserSepProfileFragment extends Fragment {
                 binding.spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        String selectedBillerName = (String) parent.getItemAtPosition(position);
+                        selectedBillerName = (String) parent.getItemAtPosition(position);
                         if (selectedBillerName.equals("اختر مفوتر")) {
                             displayPayments(paymentsList);
                         } else {
@@ -332,6 +324,7 @@ public class UserSepProfileFragment extends Fragment {
     private List<JSONObject> filterPayments(List<JSONObject> payments, String fromDate, String toDate, String selectedBillerName) {
         List<JSONObject> filteredPayments = new ArrayList<>();
         try {
+            Toast.makeText(requireContext(), "جاري فلترة البيانات", Toast.LENGTH_LONG).show();
             Date from = simpleDateFormat.parse(fromDate);
             Date to = simpleDateFormat.parse(toDate);
 
@@ -351,6 +344,7 @@ public class UserSepProfileFragment extends Fragment {
         } catch (ParseException | JSONException e) {
             e.printStackTrace();
         }
+        //hideProgress();
         return filteredPayments;
     }
 

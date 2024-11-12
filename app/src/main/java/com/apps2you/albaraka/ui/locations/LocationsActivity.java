@@ -56,6 +56,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+//import java.util.Locale;
 
 public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, LocationsVM>
         implements OnMapReadyCallback {
@@ -91,7 +92,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                //.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(20 * 1000);
         // By default locations are continuously updated until the request is explicitly removed,
         // however you can optionally request a set number of updates.
@@ -99,7 +100,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(@NotNull LocationResult locationResult) {
-                if (locationResult != null)
+
                     for (Location location : locationResult.getLocations()) {
                         if (location != null) {
                             LatLng me = new LatLng(location.getLatitude(), location.getLongitude());
@@ -210,7 +211,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         });
 
         getViewDataBinding().btnMerchant.setOnClickListener(v -> {
-            getData(Constants.TYPE_POS);
+            getData(Constants.TYPE_MERCHANT);
             setMarkers(Constants.TYPE_MERCHANT);
             progressLayout.setVisibility(View.GONE);
             getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_white);
@@ -368,16 +369,13 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
                         case LOADING:
                             mMap.clear(); // clear previous markers
                             getViewModel().clearLocationsLists(); // clear previous data
-
                             hideBottomSheet();
                             getViewDataBinding().progressBar.setVisibility(View.VISIBLE);
                             break;
-
                         case ERROR:
                             getViewDataBinding().progressBar.setVisibility(View.GONE);
                             showToast(arrayListResource.message);
                             break;
-
                         case SUCCESS:
                             getViewDataBinding().progressBar.setVisibility(View.GONE);
                             getViewModel().addAllLocations(arrayListResource.data);
@@ -392,12 +390,12 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         hideBottomSheet();
         getViewModel().setSelectedType(type);
 
-        if (getViewModel().getBranches().isEmpty()
+        /*if (getViewModel().getBranches().isEmpty()
                 && getViewModel().getAtms().isEmpty()
                 && getViewModel().getPos().isEmpty()) {
             getData(type);
             return;
-        }
+        }*/
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         ArrayList<Branch> data = new ArrayList<>();
@@ -410,7 +408,10 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
                 data.addAll(getViewModel().getAtms());
                 break;
 
-            case Constants.TYPE_POS:
+            case Constants.TYPE_POS  :
+                data.addAll(getViewModel().getPos());
+                break;
+            case "pos"  :
                 data.addAll(getViewModel().getPos());
                 break;
             case Constants.TYPE_MERCHANT:
@@ -456,7 +457,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         }
 
         // zoom camera to the center of all the locations
-        if(type== Constants.TYPE_MERCHANT)
+        if(type.equals(Constants.TYPE_MERCHANT))
         {
             getMyLocation();
         }
