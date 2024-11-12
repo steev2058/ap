@@ -4,3 +4,6 @@
 0	12	0	clean	6c00d5c6cc69b379
 3	2298	751111291	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	2652a8287ae10209
 2299	3412	751111293	../../../../build/intermediates/cxx/Debug/6p1f6q66/obj/arm64-v8a/libnative-lib.so	b8e9410080b59cab
+1	11	0	clean	6c00d5c6cc69b379
+8	2405	752668364	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	2652a8287ae10209
+2405	4596	752668366	../../../../build/intermediates/cxx/Debug/6p1f6q66/obj/arm64-v8a/libnative-lib.so	b8e9410080b59cab

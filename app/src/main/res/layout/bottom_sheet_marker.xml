@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools">
 
     <data>
         <import type="android.view.View" />
@@ -9,8 +11,7 @@
             type="com.apps2you.albaraka.data.model.Branch" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -31,8 +32,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp">
 
-                <!-- cardCornerRadius of this card should match the corner in
-                @drawable/ic_branch_bg and @drawable/ic_atm_bg-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/view"
                     android:layout_width="wrap_content"
@@ -40,18 +39,40 @@
                     app:cardElevation="0dp"
                     app:cardCornerRadius="13dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    >
+                    app:layout_constraintTop_toTopOf="parent">
                     <FrameLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
                         <ImageView
+                            android:id="@+id/imgUrl"
                             android:layout_width="132dp"
                             android:layout_height="132dp"
                             android:scaleType="centerCrop"
-                            imageUrlDef="@{item.imageUrl}"
-                            />
+                            app:imageUrlDef="@{item.imageUrl}" />
+                        <!-- Progress Layout for ATM amount -->
+                        <LinearLayout
+                            android:id="@+id/progress_layout"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:visibility="gone"
+                            android:layout_height="wrap_content"
+                            android:gravity="left">
+                            <com.github.lzyzsd.circleprogress.ArcProgress
+                                android:id="@+id/atm_progress_bar"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+
+                                app:arc_progress="0"
+                                app:arc_max="100"
+                                app:arc_finished_color="#FF0000"
+                                app:arc_unfinished_color="#E0E0E0"
+                                app:arc_text_color="#000000"
+                                app:arc_bottom_text_size="16sp"
+                                app:arc_stroke_width="8dp"
+                                app:arc_text_size="40sp" />
+
+                        </LinearLayout>
+
 
                         <ImageView
                             android:id="@+id/imageView"
@@ -59,8 +80,7 @@
                             android:layout_height="36dp"
                             android:layout_gravity="bottom|end"
                             android:scaleType="centerInside"
-                            android:src="@{item.branch ? @drawable/ic_branch_bg : item.atm ? @drawable/ic_atm_bg : @drawable/ic_pos_bg}"
-                            />
+                            android:src="@{item.branch ? @drawable/ic_branch_bg : item.atm ? @drawable/ic_atm_bg : @drawable/ic_pos_bg}" />
                     </FrameLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -112,8 +132,6 @@
                     android:visibility="@{item.branch || item.merchant ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toStartOf="@+id/iBtn_direction"
                     app:layout_constraintTop_toTopOf="@+id/iBtn_direction" />
-
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

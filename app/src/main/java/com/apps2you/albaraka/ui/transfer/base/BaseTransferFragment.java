@@ -451,7 +451,7 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        //    dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         }
 
         DialogConfirmHfPaymentBinding dialogDataBinding = DialogConfirmHfPaymentBinding.inflate(LayoutInflater.from(requireContext()),

@@ -182,7 +182,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+            //dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         }
 
         DialogLanguageBinding dialogDataBinding = DialogLanguageBinding.inflate(LayoutInflater.from(this),
