@@ -1,6 +1,7 @@
 package com.apps2you.albaraka.ui.my_financing.fragments
 
 import android.content.Context
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -40,39 +41,81 @@ class MyFinancingListFragment : BaseFragment<FragmentMyFinancingCardBinding, MyF
         return MyFinancingViewModel::class.java
     }
 
+//    override fun setUpView() {
+//        viewModel = ViewModelProvider(this, viewModelFactory).get(MyFinancingViewModel::class.java)
+//
+//
+//        showProgress()
+//        // Observe the API data
+//        viewModel.getAllMyFinancing().observe(viewLifecycleOwner, Observer { resource ->
+//
+//            resource.data?.let { transactions ->
+//                hideProgress()
+//                val adapter = FinancingTransactionAdapter(this, transactions) { transaction ->
+//                    // Pass deal_no and branch_code to the details fragment
+//                    val action = MyFinancingListFragmentDirections
+//                        .actionMyFinancingFragmentCardToMyFinancingFragmentDetails(
+//                            transaction.DEAL_NO,
+//                            transaction.BRANCH_CODE,transaction.REMAIN_AMT)
+//
+//                    navController.navigate(action)
+//                }
+//                mViewDataBinding.listView.adapter = adapter
+//            }
+//            // Handle errors and hide progress in case of failure
+//            if (resource.status == Status.ERROR) {
+//                hideProgress()
+//                // Optionally show an error message or a toast
+//            }
+//
+//        })
+//
+//        // Get NavController using Navigation.findNavController(view)
+//        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+//    }
+
     override fun setUpView() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(MyFinancingViewModel::class.java)
 
-
         showProgress()
+
         // Observe the API data
         viewModel.getAllMyFinancing().observe(viewLifecycleOwner, Observer { resource ->
+            hideProgress()
 
-            resource.data?.let { transactions ->
-                hideProgress()
+            if (resource.data.isNullOrEmpty()) {
+
+                mViewDataBinding.listView.visibility = View.GONE
+                mViewDataBinding.noDealsTextView.visibility = View.VISIBLE
+            } else {
+
+                mViewDataBinding.noDealsTextView.visibility = View.GONE
+                mViewDataBinding.listView.visibility = View.VISIBLE
+
+                val transactions = resource.data
                 val adapter = FinancingTransactionAdapter(this, transactions) { transaction ->
                     // Pass deal_no and branch_code to the details fragment
                     val action = MyFinancingListFragmentDirections
                         .actionMyFinancingFragmentCardToMyFinancingFragmentDetails(
                             transaction.DEAL_NO,
-                            transaction.BRANCH_CODE,transaction.REMAIN_AMT)
-
+                            transaction.BRANCH_CODE,
+                            transaction.REMAIN_AMT
+                        )
                     navController.navigate(action)
                 }
                 mViewDataBinding.listView.adapter = adapter
             }
+
             // Handle errors and hide progress in case of failure
             if (resource.status == Status.ERROR) {
                 hideProgress()
-                // Optionally show an error message or a toast
-            }
 
+            }
         })
 
         // Get NavController using Navigation.findNavController(view)
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
     }
-
 
 
 //    fun openMyFinancingDetailsFragment() {
