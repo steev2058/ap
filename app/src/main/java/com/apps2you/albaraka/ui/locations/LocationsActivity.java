@@ -121,14 +121,6 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         ImageView imageView = bottomSheet.findViewById(R.id.imageView);
 
 
-
-
-
-
-
-        //int atmValue = 50; // قيمة افتراضية للتجربة
-
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -262,13 +254,21 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
 
                         // Set color based on percentage
                         if (percentage >= 75) {
+                            atmProgressBar.setProgress(100);
                             atmProgressBar.setFinishedStrokeColor(0xFF2f8d46);
                         } else if (percentage >= 50) {
+                            atmProgressBar.setProgress(75);
                             atmProgressBar.setFinishedStrokeColor(Color.parseColor("#FFA500")); // Orange
                         } else if (percentage >= 25) {
+                            atmProgressBar.setProgress(50);
+                            atmProgressBar.setFinishedStrokeColor(Color.parseColor("#FFB347")); // Light Orange
+                        }
+                        else if (percentage >= 5) {
+                            atmProgressBar.setProgress(10);
                             atmProgressBar.setFinishedStrokeColor(Color.parseColor("#FFB347")); // Light Orange
                         }
                         else {
+                            atmProgressBar.setProgress(0);
                             atmProgressBar.setFinishedStrokeColor(Color.RED);
                         }
 
