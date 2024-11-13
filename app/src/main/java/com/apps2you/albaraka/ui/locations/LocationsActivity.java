@@ -5,15 +5,23 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
 
 import com.apps2you.albaraka.BR;
 import com.apps2you.albaraka.MyApplication;
@@ -23,6 +31,7 @@ import com.apps2you.albaraka.databinding.ActivityLocationsBinding;
 import com.apps2you.albaraka.ui.base.BaseActivity;
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.viewmodels.LocationsVM;
+import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -102,6 +111,16 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         };
 
 
+
+       View bottomSheet = findViewById(R.id.bottom_sheet);
+
+     Button btnAtm = bottomSheet.findViewById(R.id.btn_atm);
+
+        LinearLayout progressLayout = bottomSheet.findViewById(R.id.progress_layout);
+        ImageView imgUrl = bottomSheet.findViewById(R.id.imgUrl);
+        ImageView imageView = bottomSheet.findViewById(R.id.imageView);
+
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -110,7 +129,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         getViewDataBinding().btnBranch.setOnClickListener(v -> {
             getData(Constants.TYPE_BRANCH);
             setMarkers(Constants.TYPE_BRANCH);
-
+            progressLayout.setVisibility(View.GONE);
             getViewDataBinding().btnBranch.setBackgroundResource(R.drawable.bg_shadow_primary);
             getViewDataBinding().btnBranch.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_branch_white, 0, 0, 0);
             getViewDataBinding().btnBranch.setTextColor(getResources().getColor(R.color.white));
@@ -128,31 +147,44 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
             getViewDataBinding().btnMerchant.setTextColor(getResources().getColor(R.color.blue));
         });
 
-        getViewDataBinding().btnAtm.setOnClickListener(v -> {
-            getData(Constants.TYPE_ATM);
-            setMarkers(Constants.TYPE_ATM);
+            getViewDataBinding().btnAtm.setOnClickListener(v -> {
+                getData(Constants.TYPE_ATM);
+                setMarkers(Constants.TYPE_ATM);
 
-            getViewDataBinding().btnAtm.setBackgroundResource(R.drawable.bg_shadow_orange);
-            getViewDataBinding().btnAtm.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_atm_white, 0, 0, 0);
-            getViewDataBinding().btnAtm.setTextColor(getResources().getColor(R.color.white));
+                getViewDataBinding().btnAtm.setBackgroundResource(R.drawable.bg_shadow_orange);
+                getViewDataBinding().btnAtm.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_atm_white, 0, 0, 0);
+                getViewDataBinding().btnAtm.setTextColor(getResources().getColor(R.color.white));
 
-            getViewDataBinding().btnBranch.setBackgroundResource(R.drawable.bg_shadow_white);
-            getViewDataBinding().btnBranch.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_branch, 0, 0, 0);
-            getViewDataBinding().btnBranch.setTextColor(getResources().getColor(R.color.red));
+                getViewDataBinding().btnBranch.setBackgroundResource(R.drawable.bg_shadow_white);
+                getViewDataBinding().btnBranch.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_branch, 0, 0, 0);
+                getViewDataBinding().btnBranch.setTextColor(getResources().getColor(R.color.red));
 
-            getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_white);
-            getViewDataBinding().btnPos.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
-            getViewDataBinding().btnPos.setTextColor(getResources().getColor(R.color.gray));
+                getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_white);
+                getViewDataBinding().btnPos.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
+                getViewDataBinding().btnPos.setTextColor(getResources().getColor(R.color.gray));
 
-            getViewDataBinding().btnMerchant.setBackgroundResource(R.drawable.bg_shadow_white);
-            getViewDataBinding().btnMerchant.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
-            getViewDataBinding().btnMerchant.setTextColor(getResources().getColor(R.color.blue));
-        });
+                getViewDataBinding().btnMerchant.setBackgroundResource(R.drawable.bg_shadow_white);
+                getViewDataBinding().btnMerchant.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
+                getViewDataBinding().btnMerchant.setTextColor(getResources().getColor(R.color.blue));
+
+
+                getViewDataBinding().btnAtm.setBackgroundResource(R.drawable.bg_shadow_orange);
+                getViewDataBinding().btnAtm.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_atm_white, 0, 0, 0);
+                getViewDataBinding().btnAtm.setTextColor(getResources().getColor(R.color.white));
+
+                // Show the progress layout
+                progressLayout.setVisibility(View.VISIBLE);
+                imgUrl.setVisibility(View.GONE);
+                imageView.setVisibility(View.GONE);
+// Get the first ATM from the list for demonstration purposes (you may adjust as needed)
+
+
+            });
 
         getViewDataBinding().btnPos.setOnClickListener(v -> {
             getData(Constants.TYPE_POS.toLowerCase());
             setMarkers(Constants.TYPE_POS);
-
+            progressLayout.setVisibility(View.GONE);
             getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_gray);
             getViewDataBinding().btnPos.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos_white, 0, 0, 0);
             getViewDataBinding().btnPos.setTextColor(getResources().getColor(R.color.white));
@@ -173,7 +205,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
         getViewDataBinding().btnMerchant.setOnClickListener(v -> {
             getData(Constants.TYPE_MERCHANT);
             setMarkers(Constants.TYPE_MERCHANT);
-
+            progressLayout.setVisibility(View.GONE);
             getViewDataBinding().btnPos.setBackgroundResource(R.drawable.bg_shadow_white);
             getViewDataBinding().btnPos.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pos, 0, 0, 0);
             getViewDataBinding().btnPos.setTextColor(getResources().getColor(R.color.gray));
@@ -205,6 +237,47 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
 
             final Branch branch = getViewModel().getLocation(Integer.parseInt(marker.getTag().toString()));
             if (branch != null && (!branch.isMerchant() || (branch.isMerchant() && branch.isAvaliable()))) {
+                if(branch.isAtm())
+                {
+                    if (!getViewModel().getAtms().isEmpty()) {
+                        ArcProgress atmProgressBar = findViewById(R.id.atm_progress_bar);
+                        int atmValue = branch.getAtm_value(); // Fetch ATM value
+                        double atmMaxValue = 100; // Fetch ATM max value for percentage calculation
+
+                        // Calculate the percentage
+                        int percentage = (int) ((atmValue / atmMaxValue) * 100);
+
+                        // Set progress and text
+                        atmProgressBar.setProgress(percentage);
+
+
+
+                        // Set color based on percentage
+                        if (percentage >= 75) {
+                            atmProgressBar.setProgress(100);
+                            atmProgressBar.setFinishedStrokeColor(0xFF2f8d46);
+                        } else if (percentage >= 50) {
+                            atmProgressBar.setProgress(75);
+                            atmProgressBar.setFinishedStrokeColor(Color.parseColor("#FFA500")); // Orange
+                        } else if (percentage >= 25) {
+                            atmProgressBar.setProgress(50);
+                            atmProgressBar.setFinishedStrokeColor(Color.parseColor("#FFB347")); // Light Orange
+                        }
+                        else if (percentage >= 5) {
+                            atmProgressBar.setProgress(10);
+                            atmProgressBar.setFinishedStrokeColor(Color.parseColor("#FFB347")); // Light Orange
+                        }
+                        else {
+                            atmProgressBar.setProgress(0);
+                            atmProgressBar.setFinishedStrokeColor(Color.RED);
+                        }
+
+                        // Make the progress bar visible
+                        atmProgressBar.setVisibility(View.VISIBLE);
+                    } else {
+                        Log.e("LocationsActivity", "ATM data is empty");
+                    }
+                }
                 BottomSheetBehavior<LinearLayout> sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
                 sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 getViewDataBinding().bottomSheet.setItem(branch);
@@ -221,6 +294,7 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
                             startActivity(intent);
                     }
                 });
+
 
                 getViewDataBinding().bottomSheet.iBtnDirection.setOnClickListener(v -> {
                     Uri gmmIntentUri = Uri.parse("google.navigation:q="
@@ -357,7 +431,15 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
             if (branch.isBranch())
                 marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_branch));
             else if (branch.isAtm())
-                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_atm));
+            {
+                if(branch.isAvaliable())
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_atm_green));
+                else {
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_atm_red));
+                }
+
+            }
+
             else if (branch.isPos())
                 marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_pos));
             else if (branch.isMerchant())
