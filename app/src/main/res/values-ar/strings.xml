@@ -335,7 +335,7 @@
     <string name="my_cards">بطاقاتي</string>
     <string name="financing">طلب تمويل</string>
     <string name="my_financing">تمويلاتي</string>
-    <string name="no_deals">لا يوجد تمويلات</string>
+    <string name="no_deals">لا يوجد تمويلات قائمة</string>
     <string name="my_financingChart">التمويل</string>
     <string name="my_financingTable">جدول الأقساط</string>
     <string name="order_atm_card">طلب بطاقة صراف آلي</string>
