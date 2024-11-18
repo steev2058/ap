@@ -110,7 +110,7 @@ class ExchangeActivity : BaseActivity<ActivityExchangeBinding, ExchangeViewModel
         val dialog = Dialog(this)
         if (dialog.window != null) {
             dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
-            dialog.window!!.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        //    dialog.window!!.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         }
 
         val dialogDataBinding: DialogCalculatorBinding = DataBindingUtil.inflate(LayoutInflater.from(this),
