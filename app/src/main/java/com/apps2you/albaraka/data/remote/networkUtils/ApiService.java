@@ -12,6 +12,8 @@ import com.apps2you.albaraka.data.model.Currency;
 import com.apps2you.albaraka.data.model.DepositResult;
 import com.apps2you.albaraka.data.model.FavoriteAccount;
 import com.apps2you.albaraka.data.model.FinancingResult;
+import com.apps2you.albaraka.data.model.FinancingTransaction;
+import com.apps2you.albaraka.data.model.FinancingTransactionDetails;
 import com.apps2you.albaraka.data.model.FinancingType;
 import com.apps2you.albaraka.data.model.HfTransferType;
 import com.apps2you.albaraka.data.model.MobForm;
@@ -118,6 +120,17 @@ public interface ApiService {
 
     @GET("about_us")
     Call<MyResponse<About>> getAbout();
+
+    @GET("my_deals")
+    Call<MyResponse<ArrayList<FinancingTransaction>>> getAllMyFinancing();
+
+
+
+    @GET("deals_details/{deal_no}/{branch_code}")
+    Call<MyResponse<ArrayList<FinancingTransactionDetails>>> getAllMyFinancingDetails(
+            @Path("deal_no") String dealNo,
+            @Path("branch_code") String branchCode
+    );
 
     @GET("privacy_policy")
     Call<MyResponse<PrivacyPolicy>> getPrivacyPolicy();

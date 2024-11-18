@@ -154,6 +154,11 @@ dependencies {
     implementation 'com.github.shuhart:stepview:1.5.1'
     implementation 'io.github.chaosleung:pinview:1.4.4'
 
+
+    //fro my financing
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.salehyarahmadi:DataTable:v1.0.1'
+
     //for location
     implementation 'com.github.lzyzsd:circleprogress:1.1.0'
 

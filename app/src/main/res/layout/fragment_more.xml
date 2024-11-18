@@ -63,6 +63,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_kyc"
                 />
 
+
+            <TextView
+                android:id="@+id/tv_my_financing"
+                style="@style/MoreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/my_financing"
+                app:drawableStartCompat="@drawable/ic_financing"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_financing"
+                />
+
             <TextView
                 android:id="@+id/tv_atm"
                 style="@style/MoreButton"
@@ -72,7 +85,7 @@
                 android:text="@string/order_atm_card"
                 app:drawableStartCompat="@drawable/ic_order_atm"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_financing"
+                app:layout_constraintTop_toBottomOf="@+id/tv_my_financing"
                 />
 
             <TextView

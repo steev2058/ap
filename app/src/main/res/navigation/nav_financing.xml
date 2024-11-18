@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_financing"
+    app:startDestination="@id/MyFinancingFragmentCard">
+
+    <fragment
+        android:id="@+id/MyFinancingFragmentCard"
+        android:name="com.apps2you.albaraka.ui.my_financing.fragments.MyFinancingListFragment"
+        android:label=""
+        tools:layout="@layout/fragment_my_financing_card">
+        <action
+            android:id="@+id/action_MyFinancingFragmentCard_to_MyFinancingFragmentDetails"
+            app:destination="@id/MyFinancingFragmentDetails"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down">
+
+            <!-- Add Arguments to the action -->
+
+
+        </action>
+        <argument
+            android:name="deal_no"
+            app:argType="string" />
+        <argument
+            android:name="branch_code"
+            app:argType="string" />
+        <argument
+            android:name="remain_amt"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/MyFinancingFragmentDetails"
+        android:name="com.apps2you.albaraka.ui.my_financing.fragments.MyFinancingFragment"
+        android:label=""
+        tools:layout="@layout/fragment_my_financing" >
+
+        <argument
+            android:name="dealNo"
+            app:argType="string" />
+        <argument
+            android:name="branchCode"
+            app:argType="string" />
+        <argument
+            android:name="remain_amt"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_MyFinancingFragmentDetails_to_MyFinancingFragmentTable"
+            app:destination="@id/MyFinancingFragmentTable"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/MyFinancingFragmentTable"
+        android:name="com.apps2you.albaraka.ui.my_financing.fragments.MyFinancingTableFragment"
+        android:label=""
+        tools:layout="@layout/fragment_my_financing_table" >
+        <argument
+            android:name="dealNo"
+            app:argType="string" />
+        <argument
+            android:name="branchCode"
+            app:argType="string" />
+    </fragment>
+
+
+
+
+</navigation>

@@ -14,6 +14,8 @@ import com.apps2you.albaraka.ui.complaints.ComplaintActivity;
 import com.apps2you.albaraka.ui.complaints.ComplaintProvider;
 import com.apps2you.albaraka.ui.exchange.ExchangeActivity;
 import com.apps2you.albaraka.ui.exchange.ExchangeProvider;
+import com.apps2you.albaraka.ui.financeForm.FinanceFormActivity;
+import com.apps2you.albaraka.ui.financeForm.FinanceFormProvider;
 import com.apps2you.albaraka.ui.home.GuestHomeActivity;
 import com.apps2you.albaraka.ui.home.HomeActivity;
 import com.apps2you.albaraka.ui.home.HomeProvider;
@@ -23,6 +25,12 @@ import com.apps2you.albaraka.ui.locations.LocationsActivity;
 import com.apps2you.albaraka.ui.locations_v2.LocationsV2Activity;
 import com.apps2you.albaraka.ui.mobForm.MobFormActivity;
 import com.apps2you.albaraka.ui.mobForm.MobFormProvider;
+import com.apps2you.albaraka.ui.my_financing.MyFinancingActivity;
+import com.apps2you.albaraka.ui.my_financing.MyFinancingListActivity;
+import com.apps2you.albaraka.ui.my_financing.MyFinancingProvider;
+import com.apps2you.albaraka.ui.my_financing.MyFinancingTableActivity;
+import com.apps2you.albaraka.ui.my_financing2.MyFinancing2Activity;
+import com.apps2you.albaraka.ui.my_financing2.MyFinancing2Provider;
 import com.apps2you.albaraka.ui.notifications.NotificationsActivity;
 import com.apps2you.albaraka.ui.notifications.NotificationsProvider;
 import com.apps2you.albaraka.ui.products.ProductDetailsActivity;
@@ -103,6 +111,22 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector(modules = {KycProvider.class})
     abstract KycActivity kycActivity();
+
+    @ContributesAndroidInjector(modules = {FinanceFormProvider.class})
+    abstract FinanceFormActivity FinanceFormActivity();
+
+    @ContributesAndroidInjector(modules = {MyFinancingProvider.class})
+    abstract MyFinancingActivity MyFinancingActivity();
+
+    @ContributesAndroidInjector(modules = {MyFinancingProvider.class})
+    abstract MyFinancingTableActivity MyFinancingTableActivity();
+
+    @ContributesAndroidInjector(modules = {MyFinancingProvider.class})
+    abstract MyFinancingListActivity MyFinancingListActivity();
+
+    @ContributesAndroidInjector(modules = {MyFinancing2Provider.class})
+    abstract MyFinancing2Activity MyFinancing2Activity();
+
     @ContributesAndroidInjector(modules = {MobFormProvider.class})
     abstract MobFormActivity mobFormActivity();
 
