@@ -1,3 +1,0 @@
-C:/Users/M.Joha/Desktop/BBarka/albaraka-android/app/.cxx/Debug/4o4k314a/armeabi-v7a/CMakeFiles/native-lib.dir
-C:/Users/M.Joha/Desktop/BBarka/albaraka-android/app/.cxx/Debug/4o4k314a/armeabi-v7a/CMakeFiles/edit_cache.dir
-C:/Users/M.Joha/Desktop/BBarka/albaraka-android/app/.cxx/Debug/4o4k314a/armeabi-v7a/CMakeFiles/rebuild_cache.dir

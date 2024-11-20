@@ -33,6 +33,7 @@
     <string name="guest_complaints">Complaints</string>
     <string name="more_complaints">Complaints and suggestions</string>
     <string name="more_mobile_form">Request to subscribe to Al Baraka application</string>
+    <string name="more_mobile_form2">Request to subscribe to ATM</string>
 
     <string name="more_resetpassfprm_form">Request Reset Password</string>
     <string name="error_connection">Connection error!</string>
@@ -435,10 +436,13 @@
     <string name="mobFormTerms">To complete the procedures, please ensure that the data entered is correct and agree to the terms below</string>
     <string name="mobFormimg">Enter the numbers in the image</string>
     <string name="mobFormTitle">Al Baraka application subscription application form</string>
+    <string name="mobFormTitle2">ATM subscription application form</string>
 
     <string name="resetPassFormTitle">Password reset request form</string>
     <string name="mobFormtext">Al Baraka application enables you to manage your bank accounts at Al Baraka Bank through your mobile phone from anywhere and at any time around the clock 24/7 in accordance with the highest standards of accuracy and security that were followed in designing the Al Baraka Syria application to fully maintain... Your banking confidentiality and information about your accounts.</string>
+    <string name="mobFormtext2">Al Baraka Bank card enables you to pay for your purchases through electronic payment devices provided by Al Baraka Bank, in addition to withdrawing cash from ATMs.</string>
     <string name="mobFormtextinfo">Please fill out the form and you will be provided with a user account after verifying the information</string>
+    <string name="mobFormtextinfo2">Please fill out the form and we will contact you when the card is issued.</string>
     <string name="natoinalnumber">National number or passport number</string>
     <string name="resetpassFormtextinfo">Please fill out the form :</string>
 

@@ -444,9 +444,12 @@
     <string name="mobFormTerms">لاستكمال الاجراءات يرجى التأكد من صحة البيانات المدخلة والموافقة على الشروط أدناه</string>
     <string name="mobFormimg">أدخل الأرقام في الصورة</string>
     <string name="mobFormTitle">استمارة طلب الاشتراك بتطبيق البركة</string>
+    <string name="mobFormTitle2">استمارة طلب بطاقة دفع إلكتروني / صراف آلي جديدة</string>
     <string name="resetPassFormTitle">  إعادة تعيين كلمة السر / رمز التحقق</string>
     <string name="mobFormtext">يمكّنك تطبيق البركة من إدارة حساباتك المصرفية في بنك البركة من خلال هاتفك الجوال من أي مكان وفي أي وقت على مدار الساعة 24/7 وفقاً لأعلى معايير الدقة والأمان التي تم اتباعها في تصميم تطبيق البركة سورية للحفاظ التام على سريتك المصرفية والمعلومات الخاصة بحساباتك.</string>
+    <string name="mobFormtext2">بطاقة بنك البركة تمكنك من تسديد قيمة مشترياتك عبر أجهزة الدفع الإلكتروني المقدمة من بنك البركة بالإضافة للسحب النقدي من الصرافات الآلية</string>
     <string name="mobFormtextinfo">لطفاً منك ملء الاستمارة وسيتم تزويدك بحساب المستخدم بعد التحقق من المعلومات</string>
+    <string name="mobFormtextinfo2">لطفاً منكم ملء الاستمارة وسيتم التواصل معكم حين صدور البطاقة</string>
     <string name="resetpassFormtextinfo"> يرجى ملء الطلب أدناه :</string>
     <string name="natoinalnumber">الرقم الوطني أو رقم جواز السفر</string>
     <string name="success_msg">تمت العملية بنجاح!</string>
@@ -455,6 +458,7 @@
     <string name="commission_question_baraka_trans">عمولة هذه الخدمة هي %1$s SP. هل تريد متابعة النقل إلى (%2$s)؟</string>
     <string name="mother_name">اسم الأم</string>
     <string name="more_mobile_form">طلب الاشتراك في تطبيق البركة</string>
+    <string name="more_mobile_form2">طلب  بطاقة دفع إلكتروني / صراف آلي جديدة</string>
     <string name="more_resetpassfprm_form">إعادة تعيين كلمة السر</string>
     <string name="mother_last_name">نسبة الأم</string>
     <string name="place_of_birth">مكان الولادة</string>

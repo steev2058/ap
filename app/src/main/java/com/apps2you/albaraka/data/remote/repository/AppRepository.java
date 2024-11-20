@@ -3,6 +3,7 @@ package com.apps2you.albaraka.data.remote.repository;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.apps2you.albaraka.data.model.ATMForm;
 import com.apps2you.albaraka.data.model.About;
 import com.apps2you.albaraka.data.model.Branch;
 import com.apps2you.albaraka.data.model.City;
@@ -162,6 +163,21 @@ public class AppRepository {
                         mobForm.getCaptcha_challenge(),
                         mobForm.getMobileNumber(),
                         mobForm.getComplaintTitleID());
+            }
+        }.getAsLiveServerData();
+    }
+
+    public LiveData<Resource<ATMForm>> sendATMForm(ATMForm atmForm) {
+        return new NetworkBoundResource<ATMForm>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<ATMForm>> createCall() {
+                return apiService.atmForm(
+                        atmForm.getNational_id(),
+                        atmForm.getCif_id(),
+                        atmForm.getCaptcha_challenge(),
+                        atmForm.getMobileNumber(),
+                        atmForm.getComplaintTitleID());
             }
         }.getAsLiveServerData();
     }

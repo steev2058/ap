@@ -2,6 +2,7 @@ package com.apps2you.albaraka.data.remote.networkUtils;
 
 import androidx.annotation.Nullable;
 
+import com.apps2you.albaraka.data.model.ATMForm;
 import com.apps2you.albaraka.data.model.About;
 import com.apps2you.albaraka.data.model.Account;
 import com.apps2you.albaraka.data.model.AtmCard;
@@ -173,6 +174,15 @@ public interface ApiService {
                                         @Field("mobile_id") String mobile_id,
                                         @Field("reset_password") String reset_password,
                                         @Field("reset_pin") @Nullable Integer reset_pin);
+
+
+    @FormUrlEncoded
+    @POST("saveData")
+    Call<MyResponse<ATMForm>> atmForm(@Field("national_id") String national_id,
+                                      @Field("cif_id") String cif_id,
+                                      @Field("mobile_id") String mobile_id,
+                                      @Field("reset_password") String reset_password,
+                                      @Field("reset_pin") @Nullable Integer reset_pin);
 
 
     @FormUrlEncoded
