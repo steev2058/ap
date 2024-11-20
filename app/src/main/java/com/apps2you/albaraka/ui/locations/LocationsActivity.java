@@ -263,9 +263,9 @@ public class LocationsActivity extends BaseActivity<ActivityLocationsBinding, Lo
                             atmProgressBar.setProgress(50);
                             atmProgressBar.setFinishedStrokeColor(Color.parseColor("#FFB347")); // Light Orange
                         }
-                        else if (percentage >= 5) {
+                        else if (percentage >= 10) {
                             atmProgressBar.setProgress(10);
-                            atmProgressBar.setFinishedStrokeColor(Color.parseColor("#FFB347")); // Light Orange
+                            atmProgressBar.setFinishedStrokeColor(Color.RED); // Light Orange
                         }
                         else {
                             atmProgressBar.setProgress(0);

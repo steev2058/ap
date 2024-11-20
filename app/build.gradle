@@ -19,7 +19,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         versionCode 44
-        versionName "3.10"
+        versionName "3.11"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
