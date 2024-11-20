@@ -100,10 +100,12 @@ class MyFinancingListFragment : BaseFragment<FragmentMyFinancingCardBinding, MyF
 
                 mViewDataBinding.listView.visibility = View.GONE
                 mViewDataBinding.emptyStateLayout.visibility = View.VISIBLE
+
             } else {
 
                 mViewDataBinding.emptyStateLayout.visibility = View.GONE
                 mViewDataBinding.listView.visibility = View.VISIBLE
+
 
                 val transactions = resource.data
                 val adapter = FinancingTransactionAdapter(this, transactions) { transaction ->

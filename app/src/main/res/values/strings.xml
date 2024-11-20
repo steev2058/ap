@@ -497,8 +497,7 @@
     <string name="payed_bills">Bill Paid Successfully</string>
     <string name="txt_student">بيانات الاتصال المسبق (طالب جامعي) </string>
     <string name="txt_normal">بيانات الاتصال القضائي </string>
-    <string name="btn_previous">Prev</string>
-    <string name="btn_next">Next</string>
+
     <string name="txt_normal2">Job Details </string>
     <string name="btn_previous">السابق</string>
     <string name="btn_next">التالي</string>

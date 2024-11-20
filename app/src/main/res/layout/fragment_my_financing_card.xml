@@ -62,26 +62,17 @@
         </LinearLayout>
 
 
-        <androidx.constraintlayout.motion.widget.MotionLayout
-            android:id="@+id/motion_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:paddingHorizontal="@dimen/padding_page_horizontal"
-            android:visibility="@{!viewModel.isContentLoading  &amp;&amp; !viewModel.isError()}"
-            app:layoutDescription="@xml/scene_expandable_accounts_recycler"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
         <GridView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
             android:verticalSpacing="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar"
             android:dividerHeight="0dp" />
 
-        </androidx.constraintlayout.motion.widget.MotionLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
