@@ -362,7 +362,7 @@ private fun showOtpDialog() {
 
     private fun sendOtpAndHandleResponse(cifNumber: String?) {
     // UI logic before sending OTP
-
+showProgress()
     // Launch a coroutine in the background
     lifecycleScope.launch(Dispatchers.IO) {
         try {
@@ -371,12 +371,11 @@ private fun showOtpDialog() {
 
             // Switch back to the main thread to update UI
             withContext(Dispatchers.Main) {
-              //  showProgress()
+                hideProgress()
                 if (response != null) {
                     showToast("تم إرسال رمز التحقق (OTP) بنجاح")
                     showOtpDialog()
-                   // hideProgress()
-//                        saveNewAccountRequest()
+
                 } else {
                     showToast("حدث خطأ أثناء إرسال رمز التحقق (OTP) حاول مرة اخرى.")
                    // hideProgress()
@@ -384,9 +383,11 @@ private fun showOtpDialog() {
             }
         } catch (e: Exception) {
             // Handle exceptions here
+
             withContext(Dispatchers.Main) {
-                showToast("فشل طلب الشبكة حاول مرة اخرى.")
                 hideProgress()
+                showToast("فشل طلب الشبكة حاول مرة اخرى.")
+
             }
         }
     }}
@@ -399,6 +400,7 @@ private fun showOtpDialog() {
     private fun sendOtp(vararg params: String?): String? {
         val cifNumber = params[0]
         try {
+            showProgress()
             val url = URL(com.apps2you.albaraka.utils.Constants.BASE_URL + "/api/send_otp")
             val connection = url.openConnection() as HttpURLConnection
 
@@ -422,6 +424,7 @@ private fun showOtpDialog() {
                 os.write(input, 0, input.size)
             }
 
+
             val responseCode = connection.responseCode
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader(InputStreamReader(connection.inputStream)).use { br ->
@@ -434,11 +437,17 @@ private fun showOtpDialog() {
                 }
             } else {
                 Log.e(Constants.TAG, "HTTP error code: $responseCode")
+                showToast("حدث خطأ ما!... يرجى المحاولة لاحقاً")
                 return null
             }
         } catch (e: IOException) {
+            hideProgress()
+            showToast("حدث خطأ ما!... يرجى المحاولة لاحقاً")
             e.printStackTrace()
             return null
+        }
+        finally {
+            hideProgress() // Always hide progress, even in case of error
         }
     }
 

@@ -236,7 +236,7 @@
                 app:header_vertical_padding="16dp"
                 app:header_horizontal_padding="0dp"
                 app:row_vertical_padding="16dp"
-                app:header_text_size="5sp"
+                app:header_text_size="4sp"
                 app:row_text_size="4sp"
                 app:row_text_color="#000"
                 app:header_text_color="#fff"
