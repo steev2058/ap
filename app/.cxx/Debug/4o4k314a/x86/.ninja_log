@@ -1,27 +1,25 @@
 # ninja log v5
-<<<<<<< HEAD
-0	19	0	clean	e8e56a750ac41363
+0	421	744211797	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
+422	594	744211797	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
 0	12	0	clean	e8e56a750ac41363
-1	428	727797648	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
-430	612	727797648	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
-0	12	0	clean	e8e56a750ac41363
-2	388	727798502	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
-388	548	727798503	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
-0	6	0	clean	e8e56a750ac41363
-3	374	728479754	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
-374	516	728479754	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
-1	11	0	clean	e8e56a750ac41363
-2	457	728916792	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
-457	650	728916792	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
-0	12	0	clean	e8e56a750ac41363
-2	451	728925147	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
-451	633	728925147	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
 0	11	0	clean	e8e56a750ac41363
-2	436	728998153	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
-436	612	728998153	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
-1	489	731164705	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
-490	737	731164705	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
-=======
-1	424	732975719	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
-426	655	732975719	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
->>>>>>> origin/mustafa_mobileFormRequest
+3	415	745072259	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
+415	610	745072259	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
+0	12	0	clean	e8e56a750ac41363
+0	11	0	clean	e8e56a750ac41363
+3	435	746031113	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
+436	682	746031113	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
+0	12	0	clean	e8e56a750ac41363
+2	426	746031221	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
+427	598	746031222	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
+0	13	0	clean	e8e56a750ac41363
+0	12	0	clean	e8e56a750ac41363
+2	424	746291218	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
+424	621	746291218	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
+0	14	0	clean	e8e56a750ac41363
+0	13	0	clean	e8e56a750ac41363
+3	504	746891486	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
+505	701	746891486	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b
+0	13	0	clean	e8e56a750ac41363
+2	449	746891525	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	4c945c0f395acf80
+449	622	746891525	../../../../build/intermediates/cxx/Debug/4o4k314a/obj/x86/libnative-lib.so	fbfe3a08cd28393b

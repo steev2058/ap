@@ -273,6 +273,35 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity
+            android:name=".ui.financeForm.FinanceFormActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".ui.my_financing.MyFinancingActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".ui.my_financing.MyFinancingTableActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".ui.my_financing.MyFinancingListActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".ui.my_financing2.MyFinancing2Activity"
+            android:screenOrientation="portrait"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
             android:name=".ui.kyc.fragments.ScannerActivity"
             android:screenOrientation="portrait"
             android:taskAffinity=""

@@ -3,6 +3,9 @@ package com.apps2you.albaraka.ui.transfer.di;
 import com.apps2you.albaraka.ui.common.dialogs.ConfirmPinDialog;
 import com.apps2you.albaraka.ui.sep.SEPFragment;
 import com.apps2you.albaraka.ui.sep.SEPProvidersFragment;
+import com.apps2you.albaraka.ui.my_financing.fragments.MyFinancingListFragment;
+import com.apps2you.albaraka.ui.my_financing.fragments.MyFinancingModule;
+import com.apps2you.albaraka.ui.my_financing.fragments.MyFinancingTableFragment;
 import com.apps2you.albaraka.ui.transfer.accountsTransfer.TransferOptionsFragment;
 import com.apps2you.albaraka.ui.transfer.accountsTransfer.alBarakaTransfer.AlBarakaTransferFragment;
 import com.apps2you.albaraka.ui.transfer.accountsTransfer.alBarakaTransfer.favorite.FavoriteAccountsFragment;
@@ -69,6 +72,14 @@ public abstract class TransferProvider {
 
     @ContributesAndroidInjector(modules = {TransferModule.class})
     abstract ADSLProvidersFragment provideADSLProvidersFragment();
+
+
+    @ContributesAndroidInjector(modules = {MyFinancingModule.class})
+    abstract MyFinancingListFragment provideMyFinancingListFragment();
+
+    @ContributesAndroidInjector(modules = {MyFinancingModule.class})
+    abstract MyFinancingTableFragment provideMyFinancingTableFragment();
+
 
 
     @ContributesAndroidInjector(modules = {TransferModule.class})

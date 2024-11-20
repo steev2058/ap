@@ -278,7 +278,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
     private fun initializeDatePicker() {
         val calendar = Calendar.getInstance()
         val maxDate = Calendar.getInstance()
-        maxDate.set(2006, 0, 1) // January 1, 2006
+        maxDate.set(2006, 1, 1) // January 1, 2006
 
         datePicker.init(
             calendar.get(Calendar.YEAR),

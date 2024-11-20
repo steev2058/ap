@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.apps2you.albaraka.viewmodels.MyFinancingViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/my_financingTable}" />
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/padding_page_horizontal"
+            android:visibility="@{!viewModel.isContentLoading  &amp;&amp; !viewModel.isError()}"
+            app:layoutDescription="@xml/scene_expandable_accounts_recycler"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:id="@+id/legend_scroll">
+            <LinearLayout
+                android:id="@+id/legend_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="16dp">
+                <LinearLayout
+                    android:id="@+id/all_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> viewModel.onStatusFilterClicked(`الجميع`)}">
+
+                    <ImageView
+                        android:id="@+id/check_all"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:visibility="gone" />
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:backgroundTint="@android:color/darker_gray"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/circle_shape" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="الجميع"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/paid_layout"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:onClick="@{() -> viewModel.onStatusFilterClicked(`مسدد`)}"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/check_paid"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:visibility="gone"
+                         />
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+
+                        android:backgroundTint="@android:color/holo_green_light"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/circle_shape" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="مسدد"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                     />
+                </LinearLayout>
+
+                <!-- Red Circle Legend -->
+                <LinearLayout
+                    android:id="@+id/delayed_layout"
+
+                    android:orientation="horizontal"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> viewModel.onStatusFilterClicked(`متآخر`)}">
+                    <ImageView
+                        android:id="@+id/check_delayed"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:visibility="gone"/>
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:backgroundTint="@android:color/holo_red_light"
+                        android:layout_marginEnd="8dp"
+
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/circle_shape" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="متأخر"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Orange Circle Legend -->
+                <LinearLayout
+                    android:id="@+id/not_due_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{() -> viewModel.onStatusFilterClicked(`غير مستحق بعد`)}">
+                    <ImageView
+                        android:id="@+id/check_not_due"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:visibility="gone"/>
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:backgroundTint="@android:color/holo_orange_light"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/circle_shape" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="غير مستحق بعد"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/part_paid_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> viewModel.onStatusFilterClicked(`مسدد جزئياً`)}">
+
+                    <ImageView
+                        android:id="@+id/check_part_paid"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:visibility="gone" />
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:backgroundTint="@android:color/holo_blue_light"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/circle_shape" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="مسدد جزئياً"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+            </HorizontalScrollView>
+            <ir.androidexception.datatable.DataTable
+                android:id="@+id/data_table"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="70dp"
+                app:header_gravity="center"
+                app:row_gravity="center"
+                app:header_vertical_padding="16dp"
+                app:header_horizontal_padding="0dp"
+                app:row_vertical_padding="16dp"
+                app:header_text_size="5sp"
+                app:row_text_size="4sp"
+                app:row_text_color="#000"
+                app:header_text_color="#fff"
+                app:row_background_color="#fff"
+                app:header_background_color="@color/colorPrimary"
+                app:persian_number="false"
+                app:corner_radius="8dp"
+                app:direction="rtl"
+                app:shadow="1dp"/>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

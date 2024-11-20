@@ -10,12 +10,15 @@ import com.apps2you.albaraka.viewmodels.ComplaintViewModel;
 import com.apps2you.albaraka.viewmodels.ConfirmPinViewModel;
 import com.apps2you.albaraka.viewmodels.DepositCalculatorVM;
 import com.apps2you.albaraka.viewmodels.ExchangeViewModel;
+import com.apps2you.albaraka.viewmodels.FinanceFormViewModel;
 import com.apps2you.albaraka.viewmodels.FinancingCalculatorVM;
 import com.apps2you.albaraka.viewmodels.HomeViewModel;
 import com.apps2you.albaraka.viewmodels.KycViewModel;
 import com.apps2you.albaraka.viewmodels.LocationsVM;
 import com.apps2you.albaraka.viewmodels.LoginViewModel;
 import com.apps2you.albaraka.viewmodels.MobFormViewModel;
+import com.apps2you.albaraka.viewmodels.MyFinancing2ViewModel;
+import com.apps2you.albaraka.viewmodels.MyFinancingViewModel;
 import com.apps2you.albaraka.viewmodels.NotificationsViewModel;
 import com.apps2you.albaraka.viewmodels.PrivacyPolicyVM;
 import com.apps2you.albaraka.viewmodels.ProductsViewModel;
@@ -205,6 +208,22 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(KycViewModel.class)
     abstract ViewModel bindsKycViewModel(KycViewModel viewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FinanceFormViewModel.class)
+    abstract ViewModel bindsFinanceFormViewModel(FinanceFormViewModel viewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MyFinancingViewModel.class)
+    abstract ViewModel bindsMyFinancingViewModel(MyFinancingViewModel viewModel);
+    @Binds
+    @IntoMap
+    @ViewModelKey(MyFinancing2ViewModel.class)
+    abstract ViewModel bindsMyFinancing2ViewModel(MyFinancing2ViewModel viewModel);
 
     @Binds
     @IntoMap
