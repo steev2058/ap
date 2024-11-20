@@ -39,7 +39,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding, HomeViewModel>() {
 
     override fun setUpView() {
         viewDataBinding.tvLocation.setOnClickListener { startActivity(Intent(context, LocationsActivity::class.java)) }
-        viewDataBinding.tvLocationV2.setOnClickListener { startActivity(Intent(context, LocationsV2Activity::class.java)) }
+        //viewDataBinding.tvLocationV2.setOnClickListener { startActivity(Intent(context, LocationsV2Activity::class.java)) }
         viewDataBinding.tvExchangeRate.setOnClickListener { startActivity(Intent(context, ExchangeActivity::class.java)) }
         viewDataBinding.tvKyc.setOnClickListener { startActivity(Intent(context, KycActivity::class.java)) }
         viewDataBinding.tvAbout.setOnClickListener { startActivity(Intent(context, AboutActivity::class.java)) }
