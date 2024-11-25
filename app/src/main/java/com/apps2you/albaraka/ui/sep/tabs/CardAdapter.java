@@ -14,22 +14,31 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 
 public class CardAdapter extends BaseAdapter {
-
-    private Context mContext;
-    private List<CardItem> mCardItemList;
-
-    private  Picasso picasso;
+    private final Context mContext;
+    private final List<CardItem> mCardItemList;
+    private final Picasso picasso;
 
     public CardAdapter(Context context, List<CardItem> cardItemList) {
         mContext = context;
         mCardItemList = cardItemList;
-        // Initialize Picasso only once
-        OkHttpClient client = NetworkBoundResource.provideOkHttpClient();
+
+        // Setup a cache directory
+        File cacheDir = new File(context.getCacheDir(), "picasso-cache");
+        long cacheSize = 50 * 1024 * 1024; // 50 MB
+
+        // Configure OkHttpClient with caching
+        OkHttpClient client = new OkHttpClient.Builder()
+                .cache(new Cache(cacheDir, cacheSize))
+                .build();
+
+        // Initialize Picasso with OkHttpClient
         this.picasso = new Picasso.Builder(mContext)
                 .downloader(new OkHttp3Downloader(client))
                 .build();
@@ -66,22 +75,19 @@ public class CardAdapter extends BaseAdapter {
 
         CardItem item = mCardItemList.get(position);
         holder.cardText.setText(item.getText());
-        // Clear any previous image to avoid flickering of old images
-        holder.cardImage.setImageDrawable(null);
 
-        // Load image with Picasso
+        // Load image with Picasso using caching
         picasso.load(item.getIconUrl())
-                .placeholder(R.drawable.seplogob) // Optional placeholder while loading
+                .placeholder(R.drawable.seplogob) // Optional placeholder
+                .error(R.drawable.sep_icon) // Optional error placeholder
                 .into(holder.cardImage);
+
         return convertView;
     }
-
 
     private static class ViewHolder {
         ImageView cardImage;
         TextView cardText;
     }
-
-
 
 }

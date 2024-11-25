@@ -2,6 +2,7 @@ package com.apps2you.albaraka.ui.sep.tabs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -126,6 +127,25 @@ public class AddPaymentDialogFragment extends DialogFragment {
         Dialog dialog = getDialog();
         if (dialog != null) {
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+    }
+
+    private OnDialogDismissListener onDialogDismissListener;
+
+    public interface OnDialogDismissListener {
+        void onDialogDismissed();
+    }
+
+    public void setOnDialogDismissListener(OnDialogDismissListener listener) {
+        this.onDialogDismissListener = listener;
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        // Notify the listener
+        if (onDialogDismissListener != null) {
+            onDialogDismissListener.onDialogDismissed();
         }
     }
 
