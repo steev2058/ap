@@ -87,10 +87,7 @@
             return filteredList.isEmpty() ? originalList.size() : filteredList.size();
         }
 
-    //    @Override
-    //    public Object getItem(int position) {
-    //        return mCardItemList.get(position);
-    //    }
+
         @Override
         public Object getItem(int position) {
             // Return item from filtered list if not empty, otherwise return from original list
@@ -150,6 +147,7 @@
                 @Override
                 public void onClick(View v) {
                     showConfirmDeleteDialog(item.getId(), position);
+
                 }
             });
 
@@ -391,15 +389,26 @@
                 hideProgress();
 
                 if (success) {
-                    if (position >= 0 && position < mCardItemList.size()) {
-                        mCardItemList.remove(position);
-                        notifyDataSetChanged();
-
-                        new SweetAlertDialog(mFragment.requireContext(), SweetAlertDialog.SUCCESS_TYPE)
-                                .setTitleText("Success")
-                                .setContentText("تم حذف الفاتورة بنجاح")
-                                .show();
+                    // Remove the item from both lists
+                    if (filteredList.isEmpty()) {
+                        // Remove from original list
+                        if (position >= 0 && position < mCardItemList.size()) {
+                            mCardItemList.remove(position);
+                        }
+                    } else {
+                        // Remove from filtered list and original list
+                        if (position >= 0 && position < filteredList.size()) {
+                            CardItemProfile removedItem = filteredList.remove(position);
+                            mCardItemList.remove(removedItem); // Remove by reference to ensure consistency
+                        }
                     }
+
+                    notifyDataSetChanged();
+
+                    new SweetAlertDialog(mFragment.requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Success")
+                            .setContentText("تم حذف الفاتورة بنجاح")
+                            .show();
                 } else {
                     String message = errorMessage != null ? errorMessage : "فشل عملية حذف الفاتورة";
                     new SweetAlertDialog(mFragment.requireContext(), SweetAlertDialog.ERROR_TYPE)

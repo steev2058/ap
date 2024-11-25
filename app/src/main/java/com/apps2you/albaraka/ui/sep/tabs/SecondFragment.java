@@ -83,6 +83,10 @@ public class SecondFragment extends Fragment {
 
         addButton.setOnClickListener(v -> {
             AddPaymentDialogFragment dialogFragment = new AddPaymentDialogFragment(sharedViewModel);
+            dialogFragment.setOnDialogDismissListener(() -> {
+                // Reload the data
+                loadData();
+            });
             FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
             dialogFragment.show(ft, "add_payment_dialog");
         });

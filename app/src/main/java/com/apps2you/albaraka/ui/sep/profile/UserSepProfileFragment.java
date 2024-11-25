@@ -116,8 +116,9 @@ public class UserSepProfileFragment extends Fragment {
         }
         binding.setViewModel(sepViewModel);
         binding.setLifecycleOwner(this);
-        new FetchCategoriesTask().execute();
+
         new FetchPaymentsTask().execute(sepViewModel.token.getValue());
+        new FetchCategoriesTask().execute();
         return binding.getRoot();
     }
 
@@ -343,6 +344,8 @@ public class UserSepProfileFragment extends Fragment {
             }
         } catch (ParseException | JSONException e) {
             e.printStackTrace();
+        }finally {
+            Toast.makeText(requireContext(), "تم فلترة البيانات بنجاح", Toast.LENGTH_LONG).show();
         }
         //hideProgress();
         return filteredPayments;
