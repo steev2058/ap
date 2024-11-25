@@ -199,6 +199,7 @@
                         android:textSize="15sp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
+                        android:textDirection="rtl"
                         android:textAlignment="center"
                         android:letterSpacing="0.5"
                         android:text=""

@@ -23,6 +23,7 @@
     import androidx.fragment.app.DialogFragment;
 
     import com.apps2you.albaraka.R;
+    import com.apps2you.albaraka.data.model.Account;
     import com.apps2you.albaraka.data.preference.UserUtils;
     import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
     import com.apps2you.albaraka.ui.sep.bill.Biller;
@@ -58,6 +59,8 @@
       //  private EditText pickTimeEditText;
 
         private List<String> accountList = new ArrayList<>();
+
+        private List<String> accountNumberList = new ArrayList<>();
         private List<Category> categoriesList = new ArrayList<>();
         private Spinner spinnerBillersServices;
         private List<Biller> billersList = new ArrayList<>();
@@ -259,7 +262,7 @@ private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
                             accountObject.optString("BRIEF_gl_name_eng", "N/A");
                     String accountReference = accountObject.optString("os_add_reference", "");
                     String accountDisplay = accountReference.isEmpty() ? accountName : accountName;
-
+                    accountNumberList.add(accountReference);
                     accounts.add(accountDisplay);
                 }
             } else {
@@ -329,7 +332,8 @@ private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
                 maxAmount = Integer.parseInt(((EditText) getView().findViewById(R.id.max_amount)).getText().toString().replaceAll(",", ""));
                 billLabelR = ((EditText) getView().findViewById(R.id.billLabel)).getText().toString();
                 autoPay = ((SwitchCompat) getView().findViewById(R.id.switch_auto_pay)).isChecked();
-                defaultAccount = ((Spinner) getView().findViewById(R.id.spinner_accounts)).getSelectedItem().toString().split(" ")[0];
+                int index = ((Spinner) getView().findViewById(R.id.spinner_accounts)).getSelectedItemPosition();
+                defaultAccount = accountNumberList.get(index);
             }
 
             @Override

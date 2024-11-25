@@ -275,21 +275,38 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
             isRunning = false
         }
     }
-    private fun initializeDatePicker() {
-        val calendar = Calendar.getInstance()
-        val maxDate = Calendar.getInstance()
-        maxDate.set(2006, 1, 1) // January 1, 2006
+//    private fun initializeDatePicker() {
+//        val calendar = Calendar.getInstance()
+//        val maxDate = Calendar.getInstance()
+//        maxDate.set(2006, 1, 1) // January 1, 2006
+//
+//        datePicker.init(
+//            calendar.get(Calendar.YEAR),
+//            calendar.get(Calendar.MONTH),
+//            calendar.get(Calendar.DAY_OF_MONTH),
+//            null
+//        )
+//
+//        // Set max date
+//        datePicker.maxDate = maxDate.timeInMillis
+//    }
+private fun initializeDatePicker() {
+    val calendar = Calendar.getInstance()
 
-        datePicker.init(
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH),
-            null
-        )
+    // Calculate the max date for users 18 years old and older
+    val maxDate = Calendar.getInstance()
+    maxDate.add(Calendar.YEAR, -18) // Subtract 18 years from the current date
 
-        // Set max date
-        datePicker.maxDate = maxDate.timeInMillis
-    }
+    datePicker.init(
+        calendar.get(Calendar.YEAR),
+        calendar.get(Calendar.MONTH),
+        calendar.get(Calendar.DAY_OF_MONTH),
+        null
+    )
+
+    // Set max date to 18 years ago
+    datePicker.maxDate = maxDate.timeInMillis
+}
 
     private fun goToStep(step: Int,checkValidate:Boolean = true) {
         if(checkValidate)
@@ -1310,6 +1327,8 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
         // Set up step view
         setupStepView()
         datePicker =mViewDataBinding.datePicker2;
+
+        initializeDatePicker()
         setupDatePicker()
 
 
