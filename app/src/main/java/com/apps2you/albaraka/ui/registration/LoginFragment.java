@@ -1,10 +1,13 @@
 package com.apps2you.albaraka.ui.registration;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -60,6 +63,22 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
     public Class<LoginViewModel> setViewModel() {
         return LoginViewModel.class;
     }
+
+
+    @SuppressLint("HardwareIds")
+    private String getSystemDetail() {
+        String deviceID = Settings.Secure.getString(
+                requireContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID
+        );
+
+        return "Brand: " + Build.BRAND + "\n" +
+                "DeviceID: " + deviceID + "\n" +
+                "Model: " + Build.MODEL + "\n" +
+                "ID: " + Build.ID + "\n" +
+                "Manufacture: " + Build.MANUFACTURER + "\n";
+    }
+
 
     @Override
     public void setUpView() {
@@ -138,6 +157,11 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
                 ((LoginActivity) mActivity).showBiometricRequest();
             }
         });
+
+
+        String device_info =getSystemDetail();
+
+
 
     }
 

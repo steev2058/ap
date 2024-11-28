@@ -205,7 +205,7 @@
             maxAmount.addTextChangedListener(new NumberTextWatcher(maxAmount));
             buttonAddToFile.setOnClickListener(v -> {
                 new SendAutoPayDataTask().execute();
-
+             sharedViewModel.setRefreshData(true);
             });
 
             return view;
