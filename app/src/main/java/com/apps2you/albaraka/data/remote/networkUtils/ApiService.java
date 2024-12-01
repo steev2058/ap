@@ -65,7 +65,9 @@ public interface ApiService {
     @POST("login")
     Call<MyResponse<User>> login(@Field("CIF") String cif_number,
                                  @Field("password") String password,
-                                 @Field("fcm_token") String fcm_token);
+                                 @Field("fcm_token") String fcm_token,
+                                 @Field("device") String device);
+
 
     @FormUrlEncoded
     @POST("reset_password")

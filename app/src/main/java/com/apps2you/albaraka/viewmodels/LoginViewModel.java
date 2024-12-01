@@ -34,8 +34,8 @@ public class LoginViewModel extends BaseViewModel {
         this.user = user;
     }
 
-    public LiveData<Resource<User>> login(String password, String fcm_token) {
-        return userRepository.login(user.getCif_number(), password , fcm_token);
+    public LiveData<Resource<User>> login(String password, String fcm_token,String device) {
+        return userRepository.login(user.getCif_number(), password , fcm_token,device);
     }
 
     public LiveData<Resource<String>> resetPassword(String currentPass, String newPass, String confirmNewPass) {

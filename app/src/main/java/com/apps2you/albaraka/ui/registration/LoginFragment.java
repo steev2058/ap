@@ -49,6 +49,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
         mViewModel = new ViewModelProvider(mActivity).get(LoginViewModel.class);
     }
 
+
+
     @Override
     public int getBindingVariable() {
         return BR.viewModel;
@@ -72,11 +74,11 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
                 Settings.Secure.ANDROID_ID
         );
 
-        return "Brand: " + Build.BRAND + "\n" +
-                "DeviceID: " + deviceID + "\n" +
-                "Model: " + Build.MODEL + "\n" +
-                "ID: " + Build.ID + "\n" +
-                "Manufacture: " + Build.MANUFACTURER + "\n";
+        return "Brand: " + Build.BRAND + "-" +
+                "DeviceID: " + deviceID + "-" +
+                "Model: " + Build.MODEL + "-" +
+                "ID: " + Build.ID + "-" +
+                "Manufacture: " + Build.MANUFACTURER;
     }
 
 
@@ -159,7 +161,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
         });
 
 
-        String device_info =getSystemDetail();
+
 
 
 
@@ -174,9 +176,10 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
     }
 
     private void login(String password) {
+        String device =getSystemDetail();
         ConstantsKt.setUSER_PASS(password);
         String token = UserUtils.getInstance(getContext()).getFCMToken();
-        getViewModel().login(password, token).observe(this, resource -> {
+        getViewModel().login(password, token,device).observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
                     showProgress();

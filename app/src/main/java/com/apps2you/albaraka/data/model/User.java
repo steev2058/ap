@@ -19,6 +19,11 @@ public class User extends BaseObservable {
     @Bindable
     private String cif_number;
 
+    @SerializedName("device")
+    @Expose
+    @Bindable
+    private String device;
+
     @SerializedName("password")
     @Expose
     @Bindable
@@ -74,6 +79,11 @@ public class User extends BaseObservable {
     @Bindable
     public String getCif_number() {
         return cif_number;
+    }
+
+    @Bindable
+    public String getDevice() {
+        return device;
     }
     @Bindable
     public String getBillsPaymentToken() {

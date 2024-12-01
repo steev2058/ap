@@ -70,19 +70,7 @@ public class SEPViewModel extends BaseSelectionViewModel<SEPProviderUI> {
             if (isLoadingValue()) {
                 return;
             }
-//            _transferStatus.addSource(
-//                    transferRepository.sepTransfer(
-//                            selectedAccount.getValue().getNumber(),
-//                            selectedAccount.getValue().getAccountCode(),
-//                            getSelectedItem().getId(),
-//                            sepForm.phoneNumber.getLocalizedValue(),
-//                            sepForm.amount.getLocalizedNumber(),
-//                            sepForm.reason.getValue(),
-//                            selectedCity.getValue().getId(),
-//                            UserUtils.getInstance(MyApplication.getAppContext()).getUser().getPhone(),
-//                            pinCode),
-//                    this::handleTransferResponse
-//            );
+
         }
     }
 
@@ -104,10 +92,7 @@ public class SEPViewModel extends BaseSelectionViewModel<SEPProviderUI> {
 
     @Override
     protected LiveData<Resource<List<SEPProviderUI>>> provideDataSource() {
-//        return Transformations.map(
-//                transferRepository.getSEPProviders(),
-//                input -> input.mapData(sepProviderUIMapper::map)
-//        );
+
         return null;
     }
 
@@ -116,9 +101,7 @@ public class SEPViewModel extends BaseSelectionViewModel<SEPProviderUI> {
     }
 
     private void fetchCities(){
-//        if (isContentLoadingValue()) {
-//            return;
-//        }
+
         _citiesList.addSource(getCities(),
                 resource -> {
                     stopContentLoading();
@@ -135,11 +118,6 @@ public class SEPViewModel extends BaseSelectionViewModel<SEPProviderUI> {
                             break;
                     }
                 });
-    }
-
-
-    public void setSelectedCity(City city) {
-        _selectedCity.setValue(city);
     }
 
 }
