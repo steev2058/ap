@@ -155,7 +155,34 @@
             holder.buttonEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AutoPaySepBills dialogFragment = new AutoPaySepBills(sharedViewModel, item.getDescription(),item.getId(),item.getAuto_pay(),item.getMax_amount(),item.getDefault_account());
+                    AutoPaySepBills dialogFragment = new AutoPaySepBills(sharedViewModel, item.getDescription(),item.getId(),item.getAuto_pay(),item.getMax_amount(),item.getDefault_account()
+                    ,new AutoPaySepBills.OnAutoPaySepBillsDismissListener() {
+                        @Override
+                        public void onDialogDismissed(CardItemProfile updatedItem) {
+                            if (filteredList.isEmpty()) {
+                                originalList.get(position).setAuto_pay(updatedItem.getAuto_pay());
+                                originalList.get(position).setMax_amount(updatedItem.getMax_amount());
+                                originalList.get(position).setDefault_account(updatedItem.getDefault_account());
+                                originalList.get(position).setDescription(updatedItem.getDescription());
+                            } else {
+                                filteredList.get(position).setAuto_pay(updatedItem.getAuto_pay());
+                                filteredList.get(position).setMax_amount(updatedItem.getMax_amount());
+                                filteredList.get(position).setDefault_account(updatedItem.getDefault_account());
+                                filteredList.get(position).setDescription(updatedItem.getDescription());
+
+                                // Ensure originalList is updated if needed
+                                int originalPosition = originalList.indexOf(item);
+                                if (originalPosition >= 0) {
+                                    originalList.get(originalPosition).setAuto_pay(updatedItem.getAuto_pay());
+                                    originalList.get(originalPosition).setMax_amount(updatedItem.getMax_amount());
+                                    originalList.get(originalPosition).setDefault_account(updatedItem.getDefault_account());
+                                    originalList.get(originalPosition).setDescription(updatedItem.getDescription());
+                                }
+                            }
+                            notifyDataSetChanged();
+
+                        }
+                    });
                     FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
                     dialogFragment.show(ft, "Edit_payment_dialog");
                 }

@@ -402,6 +402,7 @@
     <string name="select_all_bills">Select all bills</string>
     <string name="bills_txt">Bills</string>
     <string name="bill_name">Bill Name: </string>
+    <string name="note_name">Notes : </string>
     <string name="serv_name">Service: </string>
     <string name="billingNo">Bill Number: </string>
     <string name="edit">Edit</string>

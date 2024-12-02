@@ -2,6 +2,7 @@
 
     import android.app.Dialog;
     import android.app.TimePickerDialog;
+    import android.content.DialogInterface;
     import android.os.AsyncTask;
     import android.os.Bundle;
     import android.util.Log;
@@ -54,9 +55,17 @@
     import okhttp3.RequestBody;
     import okhttp3.Response;
 
+
+
     public class AutoPaySepBills extends DialogFragment{
+
+
+        public  interface OnAutoPaySepBillsDismissListener {
+            void onDialogDismissed(CardItemProfile item);
+        }
         private Spinner spinnerAccounts;
       //  private EditText pickTimeEditText;
+        private OnAutoPaySepBillsDismissListener dismissListener;
 
         private List<String> accountList = new ArrayList<>();
 
@@ -305,14 +314,35 @@ private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
 }
 
 
-        public AutoPaySepBills(SharedViewModel sharedViewModel, String billLabel,String id, int autoPay, int maxAmount, String defaultAccount) {
+        public AutoPaySepBills(SharedViewModel sharedViewModel, String billLabel,String id, int autoPay, int maxAmount, String defaultAccount, OnAutoPaySepBillsDismissListener listener) {
             this.sharedViewModel = sharedViewModel;
             this.billLabel = billLabel;
             this.id = id;
             this.autoPay = autoPay;
             this.maxA = maxAmount;
             this.defaultAccount = defaultAccount;
+            this.dismissListener = listener;
 
+        }
+
+        @Override
+        public void onDismiss(@NonNull DialogInterface dialog) {
+            super.onDismiss(dialog);
+
+            if (dismissListener != null) {
+
+
+                int index = ((Spinner) getView().findViewById(R.id.spinner_accounts)).getSelectedItemPosition();
+                defaultAccount = accountNumberList.get(index);
+                CardItemProfile item = new CardItemProfile(); // Replace with your actual item class
+                item.setDescription(billLabelEditText.getText().toString());
+                item.setId(id);
+                item.setAuto_pay(((SwitchCompat) getView().findViewById(R.id.switch_auto_pay)).isChecked()?1:0);
+                item.setMax_amount(Integer.parseInt(((EditText) getView().findViewById(R.id.max_amount)).getText().toString().replaceAll(",", "")));
+                item.setDefault_account(defaultAccount);
+
+                dismissListener.onDialogDismissed(item);
+            }
         }
 
         private class SendAutoPayDataTask extends AsyncTask<Void, Void, Boolean> {

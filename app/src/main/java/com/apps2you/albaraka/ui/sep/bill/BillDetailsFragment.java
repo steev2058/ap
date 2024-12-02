@@ -54,6 +54,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -278,6 +280,10 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
         return BillViewModel.class;
     }
 
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.ENGLISH);
+
+    final DecimalFormat decimalFormat = new DecimalFormat("#,###.##",symbols);
+
     private void displayResponse(JSONObject jsonObject) {
         try {
             JSONArray data = jsonObject.getJSONArray("data");
@@ -287,13 +293,15 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 JSONObject bill = data.getJSONObject(i);
                 View cardView = LayoutInflater.from(requireContext()).inflate(R.layout.card_bill_item, cardsContainer, false);
                 String billingNo = bill.getString("billingNo");
-                String billNo = bill.getString("billNo");
                 String serviceType = bill.getString("serviceType");
                 String dueAmount = bill.getString("dueAmount");
                 String feeAmount = bill.getString("feeAmount");
                 String issueDate = bill.getString("issueDate");
                 String dueDate = bill.getString("dueDate");
-                String paidAmt = String.valueOf(Double.parseDouble(dueAmount) + Double.parseDouble(feeAmount));
+                String notes = bill.getString("message");
+
+                String formattedDueAmount = decimalFormat.format(Double.parseDouble(dueAmount));
+                String formattedFeeAmount = decimalFormat.format(Double.parseDouble(feeAmount));
                 String formattedDueDate = formatDateString(dueDate);
                 String formattedIssueDate = formatDateString(issueDate);
 
@@ -304,16 +312,20 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 TextView issueDateTextView = cardView.findViewById(R.id.issueDateTextView);
                 TextView dueDateTextView = cardView.findViewById(R.id.dueDateTextView);
                 TextView statusTextView = cardView.findViewById(R.id.statusTextView);
+                TextView noteTextView = cardView.findViewById(R.id.noteTextView);
 
                 billingNoTextView.setText(billingNo);
-                dueAmountTextView.setText(dueAmount);
-                feeAmountTextView.setText(feeAmount);
+                dueAmountTextView.setText(formattedDueAmount);
+                feeAmountTextView.setText(formattedFeeAmount);
                 issueDateTextView.setText(getString(R.string.issue_date, formattedIssueDate));
                 dueDateTextView.setText(getString(R.string.due_date, formattedDueDate));
                 statusTextView.setText(R.string.new_bills);
+                noteTextView.setText(notes);
+
                 statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                 statusTextView.setBackgroundResource(R.drawable.rounded_background_orange);
                 statusTextView.setVisibility(View.VISIBLE);
+
                 cardCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (!isChecked) {
                         checkboxAllBills.setOnCheckedChangeListener(null);
@@ -342,9 +354,11 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                         }
                     }
                 });
+
                 cardCheckboxes.add(cardCheckbox);
                 cardsContainer.addView(cardView);
             }
+
             buttonSubmitPayBills.setOnClickListener(v -> {
                 List<JSONObject> selectedBills = new ArrayList<>();
                 double totalCost = 0.0;
@@ -352,13 +366,11 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 for (int i = 0; i < cardsContainer.getChildCount(); i++) {
                     View cardView = cardsContainer.getChildAt(i);
                     CheckBox cardCheckbox = cardView.findViewById(R.id.cardCheckbox);
-                    TextView statusTextView = cardView.findViewById(R.id.statusTextView);
 
                     if (cardCheckbox.isChecked()) {
                         try {
                             JSONObject bill = data.getJSONObject(i);
                             selectedBills.add(bill);
-
                             double dueAmount = bill.getDouble("dueAmount");
                             double feeAmount = bill.getDouble("feeAmount");
                             totalCost += (dueAmount + feeAmount);
@@ -369,14 +381,11 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 }
 
                 if (!selectedBills.isEmpty()) {
-                   showConfirmationDialog(selectedBills, totalCost);
-
+                    showConfirmationDialog(selectedBills, totalCost);
                 } else {
                     Toast.makeText(getContext(), "الرجاء تحديد فاتورة واحدة على الأقل", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -384,9 +393,11 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                     .setTitleText("استعلام")
                     .setContentText("لا يوجد فواتير لعرضها")
                     .show();
-
         }
     }
+
+
+
     private void showConfirmationDialog(List<JSONObject> selectedBills, double totalCost) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
@@ -395,7 +406,10 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
 
         LinearLayout billDetailsContainer = dialogView.findViewById(R.id.bill_details_container);
         TextView totalCostTextView = dialogView.findViewById(R.id.total_cost_text_view);
-        totalCostTextView.setText(String.format(Locale.ENGLISH,  "%.2f ل.س", totalCost));
+
+        // Format and display the total cost using DecimalFormat
+        String formattedTotalCost = decimalFormat.format(totalCost);
+        totalCostTextView.setText(String.format(Locale.ENGLISH, "%s ل.س", formattedTotalCost));
 
         for (JSONObject bill : selectedBills) {
             View billDetailView = inflater.inflate(R.layout.layout_key_value_item_sep, billDetailsContainer, false);
@@ -407,8 +421,11 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                 double feeAmount = bill.getDouble("feeAmount");
                 double totalAmount = dueAmount + feeAmount;
 
+                // Format the total amount using DecimalFormat
+                String formattedTotalAmount = decimalFormat.format(totalAmount);
+
                 keyTextView.setText(getString(R.string.due_amount2));
-                valueTextView.setText(String.format(Locale.ENGLISH, "%.2f ل.س", totalAmount));
+                valueTextView.setText(String.format(Locale.ENGLISH, "%s ل.س", formattedTotalAmount));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -427,6 +444,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
 
         dialog.show();
     }
+
     private void handlePayBills(List<JSONObject> selectedBills) {
         for (JSONObject bill : selectedBills) {
             try {
@@ -603,7 +621,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
         // Example input format: yyyyMMddHHmm
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
         // Desired output format: yyyy-MM-dd
-        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
         try {
             Date date = inputFormat.parse(dateString);
             return outputFormat.format(date);

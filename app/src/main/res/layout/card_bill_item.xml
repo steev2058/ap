@@ -43,7 +43,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/billingNoTextViewح"
+                    android:id="@+id/billingNoTextViewp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bill_name"
@@ -118,6 +118,7 @@
 </LinearLayout>
 
 
+
             <TextView
                 android:id="@+id/issueDateTextView"
                 android:layout_width="wrap_content"
@@ -133,6 +134,26 @@
                 android:text=""
                 android:textSize="16sp"
                 android:textColor="@android:color/black"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/noteTextViewp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/note_name"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:id="@+id/noteTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
             <TextView
                 android:id="@+id/statusTextView"
                 android:layout_width="wrap_content"
@@ -142,15 +163,6 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@android:color/black"/>
 
-<!--            <Button-->
-<!--                android:id="@+id/button_submit_pay_bills2"-->
-<!--                style="@style/ButtonPrimary"-->
-<!--                android:layout_width="80dp"-->
-<!--                android:layout_marginStart="90dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:text="دفع"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/cards_container" />-->
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

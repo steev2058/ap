@@ -153,9 +153,9 @@ public abstract class NetworkBoundResource<T> {
 
 
 
-        okHttpClient.connectTimeout(30000, TimeUnit.MILLISECONDS);
-        okHttpClient.readTimeout(30000, TimeUnit.MILLISECONDS);
-        okHttpClient.writeTimeout(30000, TimeUnit.MILLISECONDS);
+        okHttpClient.connectTimeout(60000, TimeUnit.MILLISECONDS);
+        okHttpClient.readTimeout(60000, TimeUnit.MILLISECONDS);
+        okHttpClient.writeTimeout(60000, TimeUnit.MILLISECONDS);
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.level(HttpLoggingInterceptor.Level.BODY);
