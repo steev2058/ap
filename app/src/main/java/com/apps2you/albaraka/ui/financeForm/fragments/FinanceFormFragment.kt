@@ -628,27 +628,54 @@ class FinanceFormFragment  : BaseFragment<FragmentFinanceBinding, FinanceFormVie
             isRunning = false
         }
     }
-    private fun initializeDatePicker() {
-        val datePicker = mViewDataBinding.datePicker2
+//    private fun initializeDatePicker() {
+//        val datePicker = mViewDataBinding.datePicker2
+//
+//        val calendar = Calendar.getInstance()
+//        val maxDate = Calendar.getInstance()
+//        val minDate = Calendar.getInstance()
+//        maxDate.set(2006, 0, 0) // January 1, 2006
+//        minDate.set(1960, 0, 0)
+//        datePicker.init(
+//            calendar.get(Calendar.YEAR),
+//            calendar.get(Calendar.MONTH),
+//            calendar.get(Calendar.DAY_OF_MONTH)
+//        ) { _, year, monthOfYear, dayOfMonth ->
+//            // Update selected date in the calendar
+//            calendar.set(year, monthOfYear, dayOfMonth)
+//        }
+//
+//        // Set the max date
+//        datePicker.maxDate = maxDate.timeInMillis
+//        datePicker.minDate = minDate.timeInMillis
+//    }
+private fun initializeDatePicker() {
+    val datePicker = mViewDataBinding.datePicker2
 
-        val calendar = Calendar.getInstance()
-        val maxDate = Calendar.getInstance()
-        val minDate = Calendar.getInstance()
-        maxDate.set(2006, 0, 0) // January 1, 2006
-        minDate.set(1960, 0, 0)
-        datePicker.init(
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        ) { _, year, monthOfYear, dayOfMonth ->
-            // Update selected date in the calendar
-            calendar.set(year, monthOfYear, dayOfMonth)
-        }
+    val calendar = Calendar.getInstance()
+    val maxDate = Calendar.getInstance()
+    val minDate = Calendar.getInstance()
 
-        // Set the max date
-        datePicker.maxDate = maxDate.timeInMillis
-        datePicker.minDate = minDate.timeInMillis
+    // Calculate the max date for users 18 years old and older
+    maxDate.add(Calendar.YEAR, -18) // Subtract 18 years from the current date
+
+    // Set the min date to January 1, 1960
+    minDate.set(1960, Calendar.JANUARY, 1)
+
+    datePicker.init(
+        calendar.get(Calendar.YEAR),
+        calendar.get(Calendar.MONTH),
+        calendar.get(Calendar.DAY_OF_MONTH)
+    ) { _, year, monthOfYear, dayOfMonth ->
+        // Update selected date in the calendar
+        calendar.set(year, monthOfYear, dayOfMonth)
     }
+
+    // Set the max and min dates dynamically
+    datePicker.maxDate = maxDate.timeInMillis
+    datePicker.minDate = minDate.timeInMillis
+}
+
 
     private fun goToStep(step: Int,checkValidate:Boolean = true) {
         if(checkValidate)

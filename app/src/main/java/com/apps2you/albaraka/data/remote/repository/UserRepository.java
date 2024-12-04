@@ -54,12 +54,12 @@ public class UserRepository {
         this.apiService = apiService;
     }
 
-    public LiveData<Resource<User>> login(String number, String password, String fcm_token) {
+    public LiveData<Resource<User>> login(String number, String password, String fcm_token, String device ) {
         return new NetworkBoundResource<User>() {
             @NonNull
             @Override
             protected Call<MyResponse<User>> createCall() {
-                return apiService.login(number, password, fcm_token);
+                return apiService.login(number, password, fcm_token,device);
             }
         }.getAsLiveServerData();
     }

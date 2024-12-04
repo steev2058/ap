@@ -1,10 +1,13 @@
 package com.apps2you.albaraka.ui.registration;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -46,6 +49,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
         mViewModel = new ViewModelProvider(mActivity).get(LoginViewModel.class);
     }
 
+
+
     @Override
     public int getBindingVariable() {
         return BR.viewModel;
@@ -60,6 +65,22 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
     public Class<LoginViewModel> setViewModel() {
         return LoginViewModel.class;
     }
+
+
+    @SuppressLint("HardwareIds")
+    private String getSystemDetail() {
+        String deviceID = Settings.Secure.getString(
+                requireContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID
+        );
+
+        return "Brand: " + Build.BRAND + "-" +
+                "DeviceID: " + deviceID + "-" +
+                "Model: " + Build.MODEL + "-" +
+                "ID: " + Build.ID + "-" +
+                "Manufacture: " + Build.MANUFACTURER;
+    }
+
 
     @Override
     public void setUpView() {
@@ -139,6 +160,11 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
             }
         });
 
+
+
+
+
+
     }
 
     @Override
@@ -150,9 +176,10 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
     }
 
     private void login(String password) {
+        String device =getSystemDetail();
         ConstantsKt.setUSER_PASS(password);
         String token = UserUtils.getInstance(getContext()).getFCMToken();
-        getViewModel().login(password, token).observe(this, resource -> {
+        getViewModel().login(password, token,device).observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
                     showProgress();
@@ -227,7 +254,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
 
                     if (dialog.getWindow() != null) {
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+                   //     dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
                     }
 
                     dialog.setContentView(R.layout.dialog_privacy);

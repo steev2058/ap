@@ -402,6 +402,7 @@
     <string name="select_all_bills">تحديد جميع الفواتير</string>
     <string name="bills_txt">الفواتير</string>
     <string name="bill_name">اسم الفاتورة : </string>
+    <string name="note_name">الملاحظات : </string>
     <string name="serv_name">الخدمة : </string>
     <string name="billingNo">رقم الفاتورة : </string>
     <string name="edit">تعديل</string>

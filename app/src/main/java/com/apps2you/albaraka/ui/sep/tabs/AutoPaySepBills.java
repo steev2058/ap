@@ -2,6 +2,7 @@
 
     import android.app.Dialog;
     import android.app.TimePickerDialog;
+    import android.content.DialogInterface;
     import android.os.AsyncTask;
     import android.os.Bundle;
     import android.util.Log;
@@ -23,6 +24,7 @@
     import androidx.fragment.app.DialogFragment;
 
     import com.apps2you.albaraka.R;
+    import com.apps2you.albaraka.data.model.Account;
     import com.apps2you.albaraka.data.preference.UserUtils;
     import com.apps2you.albaraka.data.remote.networkUtils.NetworkBoundResource;
     import com.apps2you.albaraka.ui.sep.bill.Biller;
@@ -53,11 +55,21 @@
     import okhttp3.RequestBody;
     import okhttp3.Response;
 
+
+
     public class AutoPaySepBills extends DialogFragment{
+
+
+        public  interface OnAutoPaySepBillsDismissListener {
+            void onDialogDismissed(CardItemProfile item);
+        }
         private Spinner spinnerAccounts;
       //  private EditText pickTimeEditText;
+        private OnAutoPaySepBillsDismissListener dismissListener;
 
         private List<String> accountList = new ArrayList<>();
+
+        private List<String> accountNumberList = new ArrayList<>();
         private List<Category> categoriesList = new ArrayList<>();
         private Spinner spinnerBillersServices;
         private List<Biller> billersList = new ArrayList<>();
@@ -202,7 +214,7 @@
             maxAmount.addTextChangedListener(new NumberTextWatcher(maxAmount));
             buttonAddToFile.setOnClickListener(v -> {
                 new SendAutoPayDataTask().execute();
-
+             sharedViewModel.setRefreshData(true);
             });
 
             return view;
@@ -259,7 +271,7 @@ private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
                             accountObject.optString("BRIEF_gl_name_eng", "N/A");
                     String accountReference = accountObject.optString("os_add_reference", "");
                     String accountDisplay = accountReference.isEmpty() ? accountName : accountName;
-
+                    accountNumberList.add(accountReference);
                     accounts.add(accountDisplay);
                 }
             } else {
@@ -302,14 +314,35 @@ private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
 }
 
 
-        public AutoPaySepBills(SharedViewModel sharedViewModel, String billLabel,String id, int autoPay, int maxAmount, String defaultAccount) {
+        public AutoPaySepBills(SharedViewModel sharedViewModel, String billLabel,String id, int autoPay, int maxAmount, String defaultAccount, OnAutoPaySepBillsDismissListener listener) {
             this.sharedViewModel = sharedViewModel;
             this.billLabel = billLabel;
             this.id = id;
             this.autoPay = autoPay;
             this.maxA = maxAmount;
             this.defaultAccount = defaultAccount;
+            this.dismissListener = listener;
 
+        }
+
+        @Override
+        public void onDismiss(@NonNull DialogInterface dialog) {
+            super.onDismiss(dialog);
+
+            if (dismissListener != null) {
+
+
+                int index = ((Spinner) getView().findViewById(R.id.spinner_accounts)).getSelectedItemPosition();
+                defaultAccount = accountNumberList.get(index);
+                CardItemProfile item = new CardItemProfile(); // Replace with your actual item class
+                item.setDescription(billLabelEditText.getText().toString());
+                item.setId(id);
+                item.setAuto_pay(((SwitchCompat) getView().findViewById(R.id.switch_auto_pay)).isChecked()?1:0);
+                item.setMax_amount(Integer.parseInt(((EditText) getView().findViewById(R.id.max_amount)).getText().toString().replaceAll(",", "")));
+                item.setDefault_account(defaultAccount);
+
+                dismissListener.onDialogDismissed(item);
+            }
         }
 
         private class SendAutoPayDataTask extends AsyncTask<Void, Void, Boolean> {
@@ -329,7 +362,8 @@ private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
                 maxAmount = Integer.parseInt(((EditText) getView().findViewById(R.id.max_amount)).getText().toString().replaceAll(",", ""));
                 billLabelR = ((EditText) getView().findViewById(R.id.billLabel)).getText().toString();
                 autoPay = ((SwitchCompat) getView().findViewById(R.id.switch_auto_pay)).isChecked();
-                defaultAccount = ((Spinner) getView().findViewById(R.id.spinner_accounts)).getSelectedItem().toString().split(" ")[0];
+                int index = ((Spinner) getView().findViewById(R.id.spinner_accounts)).getSelectedItemPosition();
+                defaultAccount = accountNumberList.get(index);
             }
 
             @Override

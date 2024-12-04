@@ -25,9 +25,61 @@ public class CardItemProfile {
     private int max_amount;
 
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public CardItemProfile(String title, String description, String serviceNameAr, String billingNo, String iconUrl, int isDeleted, String id, String billerCode, int auto_pay, String default_account,int max_amount)  {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setServiceNameAr(String serviceNameAr) {
+        this.serviceNameAr = serviceNameAr;
+    }
+
+    public void setServiceNameEn(String serviceNameEn) {
+        this.serviceNameEn = serviceNameEn;
+    }
+
+    public void setBillingNo(String billingNo) {
+        this.billingNo = billingNo;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
+
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public void setAuto_pay(int auto_pay) {
+        this.auto_pay = auto_pay;
+    }
+
+    public void setBillLabelAr(String billLabelAr) {
+        this.billLabelAr = billLabelAr;
+    }
+
+    public void setBillLabel(String billLabel) {
+        this.billLabel = billLabel;
+    }
+
+    public void setDefault_account(String default_account) {
+        this.default_account = default_account;
+    }
+
+    public void setMax_amount(int max_amount) {
+        this.max_amount = max_amount;
+    }
+
+    public CardItemProfile(){}
+
+    public CardItemProfile(String title, String description, String serviceNameAr, String billingNo, String iconUrl, int isDeleted, String id, String billerCode, int auto_pay, String default_account, int max_amount)  {
         this.title = title;
         this.description = description;
         this.serviceNameAr = serviceNameAr;
