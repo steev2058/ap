@@ -85,6 +85,8 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
     private List<Biller> billersList;
     private SweetAlertDialog progressDialog;
 
+
+
     public BillDetailsFragment() {
        this.sharedViewModel = new SharedViewModel();
     }
@@ -588,6 +590,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
                         statusTextView.setText(R.string.payed_bills);
                         statusTextView.setTextColor(getContext().getResources().getColor(android.R.color.white));
                         statusTextView.setBackgroundResource(R.drawable.rounded_background_g);
+                        buttonSubmitPayBills.setEnabled(false);
                     } else {
                         displayError("هناك خطأ: " + errorDescription);
                         statusTextView.setText(R.string.faild_pay);
