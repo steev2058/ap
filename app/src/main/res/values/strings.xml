@@ -139,7 +139,7 @@
     <string name="password_error_wrong">The current password is wrong!</string>
     <string name="password_error_match">The new password doesn\'t match the password confirmation</string>
     <string name="password_error_length">The new password should be at least 6 character</string>
-    <string name="password_validation_error">The new password should contain at least one number and one character, and shouldn\'t contain special characters.</string>
+    <string name="password_validation_error">The new password should contain at least one number and one Upper character, and one Lower character, and one special characters, and one .</string>
     <string name="pin_error_match">The new PIN code doesn\'t match the PIN code confirmation</string>
     <string name="pin_error_length">The PIN code should be 4 digits</string>
     <string name="There_is_no_biometric_record_saved_for_the_entered">There is no biometric record saved for the entered CIF, please log in with password</string>

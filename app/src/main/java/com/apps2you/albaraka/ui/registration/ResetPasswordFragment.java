@@ -92,11 +92,12 @@ public class ResetPasswordFragment extends BaseFragment<FragmentResetPasswordBin
     }
 
     public boolean isPasswordValid(String pass) {
-        boolean isContainsCharacter = Pattern.compile("[a-zA-Z]").matcher(pass).find();
+        boolean isContainsLawerCharacter = Pattern.compile("[a-z]").matcher(pass).find();
+        boolean isContainsUpperCharacter = Pattern.compile("[A-Z]").matcher(pass).find();
         boolean isContainsDigit = Pattern.compile("[0-9]").matcher(pass).find();
         boolean isContainsSpecialCharacter = Pattern.compile("[@#$%^&+=]").matcher(pass).find();
 
-        if (TextUtils.isEmpty(pass) || pass.length() < 6 || !isContainsCharacter || !isContainsDigit || isContainsSpecialCharacter)
+        if (TextUtils.isEmpty(pass) || pass.length() < 8 || !isContainsLawerCharacter || !isContainsUpperCharacter || !isContainsDigit || !isContainsSpecialCharacter)
             return false;
         return true;
     }
