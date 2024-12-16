@@ -1048,35 +1048,119 @@ private fun initializeDatePicker() {
 
         val insuranseSpinner = mViewDataBinding.insuranseSpinner
 
-        val branchOptions = arrayOf( "اختر الفرع الذي ترغب بفتح الحساب فيه",
-            "دمشق - فرع المزة : اوتوستراد المزة ( إياب ) - مقابل طلعة الإسكان",
-            "دمشق - الفرع الرئيسي : السبع بحرات",
-            "دمشق - فرع الميدان : غربي الميدان - مقابل شركة البريد السريع",
-            "دمشق - فرع أبو رمانة : شارع الجلاء - مقابل مكتب البريد",
-            "دمشق - فرع الدامسكينو : كفرسوسة دامسكينو مول",
-            "دمشق - فرع شارع حلب : شارع حلب",
-            "مركز التمويل الصغير: حلب الفرقان – شارع اكسبريس",
-            "مركز التمويل الصغير: طرطوس – شارع المينا",
-            "ريف دمشق - فرع يعفور : يعفور - البوابة الثامنة",
-            "ريف دمشق - فرع أشرفية صحنايا : أشرفية صحنايا الشارع العام",
-            "حلب - فرع الفرقان : الفرقان - شارع اكسبريس",
-            "حلب - فرع الفيصل : شارع الفيصل - جوار القنصلية الفرنسية",
-            "حماه - فرع القوتلي : شارع القوتلي",
-            "حمص - فرع الدروبي : شارع عبد الحميد الدروبي",
-            "اللاذقية - فرع اللاذقية : الكورنيش الغربي - منطقة الشيخ ضاهر - بناء برج سبيرو",
-            "طرطوس - فرع طرطوس : شارع المينا",
-            "صافيتا - مكتب صافيتا : شارع الكورنيش امتداد السرايا",
-            "حماة - فرع صلاح الدين : شارع صلاح الدين")
-        val serviceMilitaryOptions = arrayOf("الخدمة العسكرية","مؤجل","مؤدي", "معفى")
-        val isThereIncomeOptions = arrayOf("هل يوجد دخل إضافي","نعم", "لا")
-        val isThereAnotherEngagementsOptions = arrayOf("هل يوجد لديكم التزامات قائمة لدى البنوك العاملة في سورية","نعم", "لا")
-        val isThereAnotherEngagementsNotBankOptions = arrayOf("هل يوجد لديكم التزامات اُخرى (إيجار منزل ، أقساط غير مصرفية)","نعم", "لا")
-        val jobOptions = arrayOf("العمل الحالي","نقابي","تاجر / صناعي", "موظف","غير ذلك")
-        val typeidOptions = arrayOf("اختر نوع الوثيقة","بطاقة شخصية", "هوية عسكرية")
-        val genderOptions = arrayOf("اختر الجنس","ذكر", "أنثى")
-        val nationalityOptions = arrayOf("اختر الجنسية","سوري", "فلسطيني","غير ذلك")
+        val branchOptions = arrayOf(
+            getString(R.string.select_branch),
+            getString(R.string.branch_mazzeh),
+            getString(R.string.branch_sabaa_bahraat),
+            getString(R.string.branch_midan),
+            getString(R.string.branch_abou_roumana),
+            getString(R.string.branch_damascino),
+            getString(R.string.branch_street_halab),
+            getString(R.string.branch_micro_finance_aleppo),
+            getString(R.string.branch_micro_finance_tartous),
+            getString(R.string.branch_yaafour),
+            getString(R.string.branch_ashrafieh_sahnaya),
+            getString(R.string.branch_aleppo_forkan),
+            getString(R.string.branch_aleppo_faisal),
+            getString(R.string.branch_hama_qutli),
+            getString(R.string.branch_homs_droobi),
+            getString(R.string.branch_latakia),
+            getString(R.string.branch_tartous),
+            getString(R.string.branch_safita),
+            getString(R.string.branch_hama_salah)
+        )
 
-        val insuranseOptions = arrayOf("اختر الضمانات الممكن تقديمها","كفالة شخصية ", "كفالة شركة","توطين","رهن عقاري","رهن سيارة خاصة","لايوجد ضمان")
+        val serviceMilitaryOptions = arrayOf(
+            getString(R.string.service_military),
+            getString(R.string.postponed),
+            getString(R.string.completed),
+            getString(R.string.exempted)
+        )
+
+        val isThereIncomeOptions = arrayOf(
+            getString(R.string.additional_income),
+            getString(R.string.yes),
+            getString(R.string.no)
+        )
+
+        val isThereAnotherEngagementsOptions = arrayOf(
+            getString(R.string.bank_commitments),
+            getString(R.string.yes),
+            getString(R.string.no)
+        )
+
+        val isThereAnotherEngagementsNotBankOptions = arrayOf(
+            getString(R.string.other_commitments),
+            getString(R.string.yes),
+            getString(R.string.no)
+        )
+
+        val jobOptions = arrayOf(
+            getString(R.string.current_job),
+            getString(R.string.union_member),
+            getString(R.string.trader_industrialist),
+            getString(R.string.employee),
+            getString(R.string.other)
+        )
+
+        val typeidOptions = arrayOf(
+            getString(R.string.select_document_type),
+            getString(R.string.personal_id),
+            getString(R.string.military_id)
+        )
+
+        val genderOptions = arrayOf(
+            getString(R.string.select_gender),
+            getString(R.string.male),
+            getString(R.string.female)
+        )
+
+        val nationalityOptions = arrayOf(
+            getString(R.string.select_nationality),
+            getString(R.string.syrian),
+            getString(R.string.palestinian),
+            getString(R.string.other)
+        )
+
+        val insuranseOptions = arrayOf(
+            getString(R.string.select_insurance),
+            getString(R.string.personal_guarantee),
+            getString(R.string.company_guarantee),
+            getString(R.string.salary_transfer),
+            getString(R.string.real_estate_mortgage),
+            getString(R.string.private_car_mortgage),
+            getString(R.string.no_guarantee)
+        )
+
+//        val branchOptions = arrayOf( "اختر الفرع الذي ترغب بفتح الحساب فيه",
+//            "دمشق - فرع المزة : اوتوستراد المزة ( إياب ) - مقابل طلعة الإسكان",
+//            "دمشق - الفرع الرئيسي : السبع بحرات",
+//            "دمشق - فرع الميدان : غربي الميدان - مقابل شركة البريد السريع",
+//            "دمشق - فرع أبو رمانة : شارع الجلاء - مقابل مكتب البريد",
+//            "دمشق - فرع الدامسكينو : كفرسوسة دامسكينو مول",
+//            "دمشق - فرع شارع حلب : شارع حلب",
+//            "مركز التمويل الصغير: حلب الفرقان – شارع اكسبريس",
+//            "مركز التمويل الصغير: طرطوس – شارع المينا",
+//            "ريف دمشق - فرع يعفور : يعفور - البوابة الثامنة",
+//            "ريف دمشق - فرع أشرفية صحنايا : أشرفية صحنايا الشارع العام",
+//            "حلب - فرع الفرقان : الفرقان - شارع اكسبريس",
+//            "حلب - فرع الفيصل : شارع الفيصل - جوار القنصلية الفرنسية",
+//            "حماه - فرع القوتلي : شارع القوتلي",
+//            "حمص - فرع الدروبي : شارع عبد الحميد الدروبي",
+//            "اللاذقية - فرع اللاذقية : الكورنيش الغربي - منطقة الشيخ ضاهر - بناء برج سبيرو",
+//            "طرطوس - فرع طرطوس : شارع المينا",
+//            "صافيتا - مكتب صافيتا : شارع الكورنيش امتداد السرايا",
+//            "حماة - فرع صلاح الدين : شارع صلاح الدين")
+//        val serviceMilitaryOptions = arrayOf("الخدمة العسكرية","مؤجل","مؤدي", "معفى")
+//        val isThereIncomeOptions = arrayOf("هل يوجد دخل إضافي","نعم", "لا")
+//        val isThereAnotherEngagementsOptions = arrayOf("هل يوجد لديكم التزامات قائمة لدى البنوك العاملة في سورية","نعم", "لا")
+//        val isThereAnotherEngagementsNotBankOptions = arrayOf("هل يوجد لديكم التزامات اُخرى (إيجار منزل ، أقساط غير مصرفية)","نعم", "لا")
+//        val jobOptions = arrayOf("العمل الحالي","نقابي","تاجر / صناعي", "موظف","غير ذلك")
+//        val typeidOptions = arrayOf("اختر نوع الوثيقة","بطاقة شخصية", "هوية عسكرية")
+//        val genderOptions = arrayOf("اختر الجنس","ذكر", "أنثى")
+//        val nationalityOptions = arrayOf("اختر الجنسية","سوري", "فلسطيني","غير ذلك")
+//
+//        val insuranseOptions = arrayOf("اختر الضمانات الممكن تقديمها","كفالة شخصية ", "كفالة شركة","توطين","رهن عقاري","رهن سيارة خاصة","لايوجد ضمان")
 
 
 

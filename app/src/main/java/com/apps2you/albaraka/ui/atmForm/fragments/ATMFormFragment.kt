@@ -63,7 +63,7 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
         }
 
 //        setupAgreementCheckbox()
-        setupCaptcha()
+//        setupCaptcha()
 
 
 
@@ -136,15 +136,15 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
 
 
         // setupCaptcha()
-        val captchaTextView = mViewDataBinding.captchaTextView.text.toString()
-        val captchaInput:String = mViewDataBinding.captchaInput.text.toString()
-        if(captchaTextView.reversed().replace("\\s".toRegex(),"") == captchaInput) {
-            // SendOtpReq()
-            //  showToast("تم تسجيل طلبكم بنجاح")
-        }
-        else{
-            showToast("الرقم المدخل غير مطابق حاول مرة اخرى")
-        }
+//        val captchaTextView = mViewDataBinding.captchaTextView.text.toString()
+//        val captchaInput:String = mViewDataBinding.captchaInput.text.toString()
+//        if(captchaTextView.reversed().replace("\\s".toRegex(),"") == captchaInput) {
+//            // SendOtpReq()
+//            //  showToast("تم تسجيل طلبكم بنجاح")
+//        }
+//        else{
+//            showToast("الرقم المدخل غير مطابق حاول مرة اخرى")
+//        }
 
         return isValid
     }
@@ -164,33 +164,33 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
 
 
 
-    private fun setupCaptcha() {
-        // Function to generate a random CAPTCHA string
-        fun generateCaptcha(): String {
-            val random = Random()
-            val number1 = random.nextInt(10)
-            val number2 = random.nextInt(10)
-            val number3 = random.nextInt(10)
-
-            return "$number1    $number2    $number3"
-        }
-
-        // Initialize CAPTCHA elements
-        val captchaTextView = mViewDataBinding.captchaTextView
-        val captchaInput = mViewDataBinding.captchaInput
-        val refreshButton = mViewDataBinding.refreshButton
-
-        // Generate and display the initial CAPTCHA
-        val initialCaptcha = generateCaptcha()
-        captchaTextView.text = initialCaptcha
-
-        // Set an OnClickListener for the Refresh button to generate and set a new CAPTCHA
-        refreshButton.setOnClickListener {
-            val newCaptcha = generateCaptcha()
-            captchaTextView.text = newCaptcha
-        }
-
-    }
+//    private fun setupCaptcha() {
+//        // Function to generate a random CAPTCHA string
+//        fun generateCaptcha(): String {
+//            val random = Random()
+//            val number1 = random.nextInt(10)
+//            val number2 = random.nextInt(10)
+//            val number3 = random.nextInt(10)
+//
+//            return "$number1    $number2    $number3"
+//        }
+//
+//        // Initialize CAPTCHA elements
+////        val captchaTextView = mViewDataBinding.captchaTextView
+////        val captchaInput = mViewDataBinding.captchaInput
+////        val refreshButton = mViewDataBinding.refreshButton
+//
+//        // Generate and display the initial CAPTCHA
+////        val initialCaptcha = generateCaptcha()
+////        captchaTextView.text = initialCaptcha
+////
+////        // Set an OnClickListener for the Refresh button to generate and set a new CAPTCHA
+////        refreshButton.setOnClickListener {
+////            val newCaptcha = generateCaptcha()
+////            captchaTextView.text = newCaptcha
+////        }
+//
+//    }
 
 
 

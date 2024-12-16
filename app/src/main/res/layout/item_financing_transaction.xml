@@ -36,7 +36,7 @@
                 android:id="@+id/tvTotalAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="مبلغ المعاملة كاملا  : "
+                android:text="@string/total_transaction_amount"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:layout_marginTop="5dp"
@@ -60,7 +60,7 @@
                 android:textColor="@color/white"
                 android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
-                android:text="مجموع الاقساط : "
+                android:text="@string/total_installments"
                 android:textSize="13sp"
                 />
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_marginTop="5dp"
-                android:text="قيمة القسط  : "
+                android:text="@string/installment_value"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/tvInstallmentValue2"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/white"
-                android:text="عدد الاقساط  : "
+                android:text="@string/number_of_installments"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/tvNumberOfInstallments2"
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/white"
-                android:text="العملة : "
+                android:text="@string/currency2"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/tv_currency_name2"

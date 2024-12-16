@@ -144,15 +144,19 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
                         showToast("يرجى التحقق من مربع الاقتراح الثاني")
 
                     }
-                   // setupCaptcha()
-                    val captchaTextView = mViewDataBinding.captchaTextView.text.toString()
-                    val captchaInput:String = mViewDataBinding.captchaInput.text.toString()
-                    if(captchaTextView.reversed().replace("\\s".toRegex(),"") == captchaInput) {
+                     else{
                         SendOtpReq()
                     }
-                    else{
-                        showToast("الرقم المدخل غير مطابق حاول مرة اخرى")
-                    }
+
+                   // setupCaptcha()
+//                    val captchaTextView = mViewDataBinding.captchaTextView.text.toString()
+//                    val captchaInput:String = mViewDataBinding.captchaInput.text.toString()
+//                    if(captchaTextView.reversed().replace("\\s".toRegex(),"") == captchaInput) {
+//
+//                    }
+//                    else{
+//                        showToast("الرقم المدخل غير مطابق حاول مرة اخرى")
+//                    }
 
                 }
 
@@ -621,50 +625,50 @@ private fun initializeDatePicker() {
                 // Validate the Agreement Checkbox 2
                 val isAgreementCheckbox2Checked = mViewDataBinding.agreementCheckbox2.isChecked
                 if (!isAgreementCheckbox2Checked) {
-                    showToast("يرجى التحقق من مربع الاقتراح الثاني")
+                    showToast("يرجى التحقق من مربع الاقتراح ")
                     return false
                 }
 
                 // Validate the CAPTCHA input
-                val captchaInput = mViewDataBinding.captchaInput.text.toString().trim()
-                val captchaText = mViewDataBinding.captchaTextView.text.toString()
-                if (captchaInput != captchaText) {
-                    showToast("الرمز المدخل غير صحيح، يرجى المحاولة مرة أخرى")
-                    return false
-                }
+//                val captchaInput = mViewDataBinding.captchaInput.text.toString().trim()
+//                val captchaText = mViewDataBinding.captchaTextView.text.toString()
+//                if (captchaInput != captchaText) {
+//                    showToast("الرمز المدخل غير صحيح، يرجى المحاولة مرة أخرى")
+//                    return false
+//                }
             }
         }
 
         //  all validations pass
         return true
     }
-    private fun setupCaptcha() {
-        // Function to generate a random CAPTCHA string
-        fun generateCaptcha(): String {
-            val random = Random()
-            val number1 = random.nextInt(10)
-            val number2 = random.nextInt(10)
-            val number3 = random.nextInt(10)
-
-            return "$number1    $number2    $number3"
-        }
-
-        // Initialize CAPTCHA elements
-        val captchaTextView = mViewDataBinding.captchaTextView
-        val captchaInput = mViewDataBinding.captchaInput
-        val refreshButton = mViewDataBinding.refreshButton
-
-        // Generate and display the initial CAPTCHA
-        val initialCaptcha = generateCaptcha()
-        captchaTextView.text = initialCaptcha
-
-        // Set an OnClickListener for the Refresh button to generate and set a new CAPTCHA
-        refreshButton.setOnClickListener {
-            val newCaptcha = generateCaptcha()
-            captchaTextView.text = newCaptcha
-        }
-
-    }
+//    private fun setupCaptcha() {
+//        // Function to generate a random CAPTCHA string
+//        fun generateCaptcha(): String {
+//            val random = Random()
+//            val number1 = random.nextInt(10)
+//            val number2 = random.nextInt(10)
+//            val number3 = random.nextInt(10)
+//
+//            return "$number1    $number2    $number3"
+//        }
+//
+//        // Initialize CAPTCHA elements
+//        val captchaTextView = mViewDataBinding.captchaTextView
+//        val captchaInput = mViewDataBinding.captchaInput
+//        val refreshButton = mViewDataBinding.refreshButton
+//
+//        // Generate and display the initial CAPTCHA
+//        val initialCaptcha = generateCaptcha()
+//        captchaTextView.text = initialCaptcha
+//
+//        // Set an OnClickListener for the Refresh button to generate and set a new CAPTCHA
+//        refreshButton.setOnClickListener {
+//            val newCaptcha = generateCaptcha()
+//            captchaTextView.text = newCaptcha
+//        }
+//
+//    }
 
     private fun cardInfo(){
         universitySpinner = mViewDataBinding.universitySpinner
@@ -690,31 +694,31 @@ private fun initializeDatePicker() {
         val collegespinner = mViewDataBinding.collegeSpinner
 
 
-        val branchOptions = arrayOf( "اختر الفرع الذي ترغب بفتح الحساب فيه",
-            "دمشق - فرع المزة : اوتوستراد المزة ( إياب ) - مقابل طلعة الإسكان",
-            "دمشق - الفرع الرئيسي : السبع بحرات",
-            "دمشق - فرع الميدان : غربي الميدان - مقابل شركة البريد السريع",
-            "دمشق - فرع أبو رمانة : شارع الجلاء - مقابل مكتب البريد",
-            "دمشق - فرع الدامسكينو : كفرسوسة دامسكينو مول",
-            "دمشق - فرع شارع حلب : شارع حلب",
-            "ريف دمشق - فرع يعفور : يعفور - البوابة الثامنة",
-            "ريف دمشق - فرع أشرفية صحنايا : أشرفية صحنايا الشارع العام",
-            "حلب - فرع الفرقان : الفرقان - شارع اكسبريس",
-            "حلب - فرع الفيصل : شارع الفيصل - جوار القنصلية الفرنسية",
-            "حماه - فرع القوتلي : شارع القوتلي",
-            "حمص - فرع الدروبي : شارع عبد الحميد الدروبي",
-            "اللاذقية - فرع اللاذقية : الكورنيش الغربي - منطقة الشيخ ضاهر - بناء برج سبيرو",
-            "طرطوس - فرع طرطوس : شارع المينا",
-            "صافيتا - مكتب صافيتا : شارع الكورنيش امتداد السرايا",
-            "حماة - فرع صلاح الدين : شارع صلاح الدين")
-        val countryOptions = arrayOf("اختر المحافظة","دمشق","حمص", "ريف دمشق")
-        val qanonOptions = arrayOf("أنا لست مواطناً أمريكياً أو مقيم في الولايات المتحدة.","أنا مواطن أمريكي أو مقيم في الولايات المتحدة ")
-        val typeidOptions = arrayOf("اختر نوع الوثيقة","بطاقة شخصية", "هوية عسكرية")
-        val genderOptions = arrayOf("اختر الجنس","ذكر", "أنثى")
-        val nationalityOptions = arrayOf("اختر الجنسية","سوري", "فلسطيني")
-       // val governoratespinnerOptions = arrayOf("اختر المحافظة","دمشق", "ريف دمشق","حمص")
-        val universityspinnerOptions = arrayOf("اختر الجامعة")
-        val collegespinnerOptions = arrayOf("اختر الكلية")
+        val branchOptions = arrayOf( getString(R.string.select_branch),
+            getString(R.string.branch_mazzeh),
+            getString(R.string.branch_sabaa_bahraat),
+            getString(R.string.branch_midan),
+            getString(R.string.branch_abou_roumana),
+            getString(R.string.branch_damascino),
+            getString(R.string.branch_street_halab),
+            getString(R.string.branch_yaafour),
+            getString(R.string.branch_ashrafieh_sahnaya),
+            getString(R.string.branch_aleppo_forkan),
+            getString(R.string.branch_aleppo_faisal),
+            getString(R.string.branch_hama_qutli),
+            getString(R.string.branch_homs_droobi),
+            getString(R.string.branch_latakia),
+            getString(R.string.branch_tartous),
+            getString(R.string.branch_safita),
+            getString(R.string.branch_hama_salah)
+        )
+        val qanonOptions = arrayOf(getString(R.string.not_us_citizen), getString(R.string.us_citizen))
+        val typeidOptions = arrayOf(getString(R.string.select_document_type), getString(R.string.personal_id), getString(R.string.military_id))
+        val genderOptions = arrayOf(getString(R.string.select_gender), getString(R.string.male), getString(R.string.female))
+        val nationalityOptions = arrayOf(getString(R.string.select_nationality), getString(R.string.syrian), getString(R.string.palestinian))
+        val universityspinnerOptions = arrayOf(getString(R.string.select_university))
+        val collegespinnerOptions = arrayOf(getString(R.string.select_college))
+
 
 
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, genderOptions)
@@ -1319,7 +1323,7 @@ private fun initializeDatePicker() {
         setupAgreementCheckbox()
 
         // Set up CAPTCHA
-        setupCaptcha()
+//        setupCaptcha()
 
         // Set up CARD INFO
         cardInfo()
@@ -1490,14 +1494,14 @@ private fun initializeDatePicker() {
 
     }
 
-    private fun sendOtpAndHandleResponse(mobileNumber: String?, captchaChallenge: String?) {
+    private fun sendOtpAndHandleResponse(mobileNumber: String?) {
         // UI logic before sending OTP
 
         // Launch a coroutine in the background
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 // Perform network operation here (replace this with your actual code)
-                val response = sendOtp(mobileNumber, captchaChallenge)
+                val response = sendOtp(mobileNumber)
 
                 // Switch back to the main thread to update UI
                 withContext(Dispatchers.Main) {
@@ -1518,7 +1522,7 @@ private fun initializeDatePicker() {
 
     private fun sendOtp(vararg params: String?): String? {
         val mobileNumber = params[0]
-        val captchaChallenge = params[1]
+
         try {
             val url = URL("https://albaraka.com.sy/KYC/ApiController/sendOtp")
             val connection = url.openConnection() as HttpURLConnection
@@ -1530,7 +1534,7 @@ private fun initializeDatePicker() {
             // Create the request body
             val postData: MutableMap<String, String?> = HashMap()
             postData["phone"] = mobileNumber
-            postData["captcha_challenge"] = captchaChallenge
+            postData["captcha_challenge"] = "0"
             postData["skip_captcha"] = "true";
             val requestBody = StringBuilder()
             for ((key, value) in postData) {
@@ -1578,9 +1582,9 @@ private fun initializeDatePicker() {
     fun SendOtpReq() {
         // Inside your Fragment class
 
-        val captchaInputText = mViewDataBinding?.captchaInput?.text.toString()
+//        val captchaInputText = mViewDataBinding?.captchaInput?.text.toString()
         val mobnumText = mViewDataBinding?.mobnumm?.text.toString()
-        sendOtpAndHandleResponse(mobnumText, captchaInputText)
+        sendOtpAndHandleResponse(mobnumText)
 
     }
 
@@ -1671,7 +1675,7 @@ private fun initializeDatePicker() {
                     .addFormDataPart("job",  isStudent)
                     .addFormDataPart("fatca_id_type", mViewDataBinding?.qanonSpinner?.selectedItem.toString())
                     .addFormDataPart("delivery_address", mViewDataBinding?.branchSpinnerId?.selectedItem.toString())
-                    .addFormDataPart("captcha_challenge", mViewDataBinding?.captchaInput?.text.toString())
+//                    .addFormDataPart("captcha_challenge", mViewDataBinding?.captchaInput?.text.toString())
                     .addFormDataPart("otp", otp)
 
                 // Add image files to the request body

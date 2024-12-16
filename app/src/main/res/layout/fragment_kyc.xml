@@ -1014,60 +1014,60 @@
                             android:layout_marginTop="16dp" />
 
                         <!-- CAPTCHA Layout -->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+<!--                        <RelativeLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
 
-                            app:layout_constraintTop_toBottomOf="@+id/agreement_checkbox2">
+<!--                            app:layout_constraintTop_toBottomOf="@+id/agreement_checkbox2">-->
 
-                            <LinearLayout
-                                android:id="@+id/captc"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+<!--                            <LinearLayout-->
+<!--                                android:id="@+id/captc"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
 
-                                android:layout_marginRight="70dp"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="16dp">
+<!--                                android:layout_marginRight="70dp"-->
+<!--                                android:orientation="horizontal"-->
+<!--                                android:layout_gravity="center_horizontal"-->
+<!--                                android:layout_marginTop="16dp">-->
 
-                                <TextView
-                                    android:id="@+id/captchaTextView"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/background_image"
-                                    android:textSize="15sp"
-                                    android:textColor="@color/white"
-                                    android:textDirection="rtl"
-                                    android:textStyle="bold"
-                                    android:textAlignment="center"
-                                    android:letterSpacing="0.5"
-                                    android:text=""
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:layout_marginEnd="8dp" />
+<!--                                <TextView-->
+<!--                                    android:id="@+id/captchaTextView"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:background="@drawable/background_image"-->
+<!--                                    android:textSize="15sp"-->
+<!--                                    android:textColor="@color/white"-->
+<!--                                    android:textDirection="rtl"-->
+<!--                                    android:textStyle="bold"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:letterSpacing="0.5"-->
+<!--                                    android:text=""-->
+<!--                                    android:layout_gravity="center"-->
+<!--                                    android:gravity="center"-->
+<!--                                    android:layout_marginEnd="8dp" />-->
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/refresh_icon"
-                                    android:contentDescription="Refresh"
-                                    android:id="@+id/refreshButton"
-                                    android:clickable="true"
-                                    android:focusable="true" />
-                            </LinearLayout>
+<!--                                <ImageView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:src="@drawable/refresh_icon"-->
+<!--                                    android:contentDescription="Refresh"-->
+<!--                                    android:id="@+id/refreshButton"-->
+<!--                                    android:clickable="true"-->
+<!--                                    android:focusable="true" />-->
+<!--                            </LinearLayout>-->
 
 
-                            <EditText
-                                android:id="@+id/captchaInput"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/InputEt"
-                                android:textAlignment="center"
-                                android:hint="@string/enter_numbers_here"
-                                android:layout_centerHorizontal="true"
-                                android:layout_below="@id/captc"
-                                android:layout_marginTop="16dp" />
-                        </RelativeLayout>
+<!--                            <EditText-->
+<!--                                android:id="@+id/captchaInput"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                style="@style/InputEt"-->
+<!--                                android:textAlignment="center"-->
+<!--                                android:hint="@string/enter_numbers_here"-->
+<!--                                android:layout_centerHorizontal="true"-->
+<!--                                android:layout_below="@id/captc"-->
+<!--                                android:layout_marginTop="16dp" />-->
+<!--                        </RelativeLayout>-->
                         <!-- YOUR_VIEWS for Step 5 -->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

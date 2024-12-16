@@ -72,7 +72,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/no_rest_satelment"
                             android:textAlignment="center"
-                            android:textSize="15sp"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="13sp"
                             android:textColor="@android:color/white" />
 
                         <TextView
@@ -109,6 +110,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/no_satelment"
                             android:textSize="15sp"
+                            android:layout_marginBottom="3dp"
                             android:textAlignment="center"
                             android:textColor="@android:color/white" />
 
@@ -154,7 +156,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/value_rest_satelment"
-                            android:textSize="13sp"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="12sp"
                             android:textAlignment="center"
                             android:textColor="@android:color/white" />
 
@@ -192,6 +195,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/value_satelment"
                             android:textAlignment="center"
+                            android:layout_marginBottom="2dp"
                             android:textSize="15sp"
                             android:textColor="@android:color/white" />
 

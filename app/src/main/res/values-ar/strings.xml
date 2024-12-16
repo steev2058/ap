@@ -502,6 +502,97 @@
     <string name="btn_next">التالي</string>
     <string name="mobile_form_error">الرجاء إدخال رقم الموبايل</string>
 
+    <!-- Gender Options -->
+    <string name="select_gender">اختر الجنس</string>
+    <string name="male">ذكر</string>
+    <string name="female">أنثى</string>
+
+    <!-- Nationality Options -->
+    <string name="select_nationality">اختر الجنسية</string>
+    <string name="syrian">سوري</string>
+    <string name="palestinian">فلسطيني</string>
+
+    <!-- Document Type Options -->
+    <string name="select_document_type">اختر نوع الوثيقة</string>
+    <string name="personal_id">بطاقة شخصية</string>
+    <string name="military_id">هوية عسكرية</string>
+
+    <!-- FATCA Compliance Options -->
+    <string name="not_us_citizen">أنا لست مواطناً أمريكياً أو مقيم في الولايات المتحدة.</string>
+    <string name="us_citizen">أنا مواطن أمريكي أو مقيم في الولايات المتحدة</string>
+
+    <!-- Branch Options -->
+    <string name="select_branch">اختر الفرع الذي ترغب بفتح الحساب فيه</string>
+    <string name="branch_mazzeh">دمشق - فرع المزة : اوتوستراد المزة ( إياب ) - مقابل طلعة الإسكان</string>
+    <string name="branch_sabaa_bahraat">دمشق - الفرع الرئيسي : السبع بحرات</string>
+    <string name="branch_midan">دمشق - فرع الميدان : غربي الميدان - مقابل شركة البريد السريع</string>
+    <string name="branch_abou_roumana">دمشق - فرع أبو رمانة : شارع الجلاء - مقابل مكتب البريد</string>
+    <string name="branch_damascino">دمشق - فرع الدامسكينو : كفرسوسة دامسكينو مول</string>
+    <string name="branch_street_halab">دمشق - فرع شارع حلب : شارع حلب</string>
+    <string name="branch_yaafour">ريف دمشق - فرع يعفور : يعفور - البوابة الثامنة</string>
+    <string name="branch_ashrafieh_sahnaya">ريف دمشق - فرع أشرفية صحنايا : أشرفية صحنايا الشارع العام</string>
+    <string name="branch_aleppo_forkan">حلب - فرع الفرقان : الفرقان - شارع اكسبريس</string>
+    <string name="branch_aleppo_faisal">حلب - فرع الفيصل : شارع الفيصل - جوار القنصلية الفرنسية</string>
+    <string name="branch_hama_qutli">حماه - فرع القوتلي : شارع القوتلي</string>
+    <string name="branch_homs_droobi">حمص - فرع الدروبي : شارع عبد الحميد الدروبي</string>
+    <string name="branch_latakia">اللاذقية - فرع اللاذقية : الكورنيش الغربي - منطقة الشيخ ضاهر - بناء برج سبيرو</string>
+    <string name="branch_tartous">طرطوس - فرع طرطوس : شارع المينا</string>
+    <string name="branch_safita">صافيتا - مكتب صافيتا : شارع الكورنيش امتداد السرايا</string>
+    <string name="branch_hama_salah">حماة - فرع صلاح الدين : شارع صلاح الدين</string>
+
+    <!-- University Options -->
+    <string name="select_university">اختر الجامعة</string>
+
+    <!-- College Options -->
+    <string name="select_college">اختر الكلية</string>
+
+
+<!--    finance-->
+
+
+    <string name="branch_micro_finance_aleppo">مركز التمويل الصغير: حلب الفرقان – شارع اكسبريس</string>
+    <string name="branch_micro_finance_tartous">مركز التمويل الصغير: طرطوس – شارع المينا</string>
+
+    <string name="service_military">الخدمة العسكرية</string>
+    <string name="postponed">مؤجل</string>
+    <string name="completed">مؤدي</string>
+    <string name="exempted">معفى</string>
+    <string name="additional_income">هل يوجد دخل إضافي</string>
+    <string name="bank_commitments">هل يوجد لديكم التزامات قائمة لدى البنوك العاملة في سورية</string>
+    <string name="other_commitments">هل يوجد لديكم التزامات اُخرى (إيجار منزل ، أقساط غير مصرفية)</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="current_job">العمل الحالي</string>
+    <string name="union_member">نقابي</string>
+    <string name="trader_industrialist">تاجر / صناعي</string>
+    <string name="employee">موظف</string>
+    <string name="other">غير ذلك</string>
+
+    <string name="select_insurance">اختر الضمانات الممكن تقديمها</string>
+    <string name="personal_guarantee">كفالة شخصية</string>
+    <string name="company_guarantee">كفالة شركة</string>
+    <string name="salary_transfer">توطين</string>
+    <string name="real_estate_mortgage">رهن عقاري</string>
+    <string name="private_car_mortgage">رهن سيارة خاصة</string>
+    <string name="no_guarantee">لايوجد ضمان</string>
+
+
+    <string name="all">الجميع</string>
+    <string name="paid">مسدد</string>
+    <string name="overdue">متأخر</string>
+    <string name="not_due_yet">غير مستحق بعد</string>
+    <string name="partially_paid">مسدد جزئياً</string>
+    <string name="number">رقم</string>
+    <string name="date">التاريخ</string>
+    <string name="payment_date">تاريخ التسديد</string>
+    <string name="value">القيمة</string>
+    <string name="paid_value">القيمة المسددة</string>
+
+    <string name="currency2">العملة : </string>
+    <string name="number_of_installments">عدد الأقساط : </string>
+    <string name="installment_value">قيمة القسط : </string>
+    <string name="total_installments">مجموع الأقساط : </string>
+    <string name="total_transaction_amount">مبلغ المعاملة كاملاً : </string>
     <string name="cif_form_error">الرجاء إدخال رقم الحساب</string>
     <string name="national_form_error">الرجاء إدخال الرقم الوطني أو رقم جواز السفر</string>
     <array name="details">

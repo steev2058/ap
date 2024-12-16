@@ -103,11 +103,11 @@ class MyFinancingTableFragment : BaseFragment<FragmentMyFinancingTableBinding, M
             hideProgress()
         })
         val header = DataTableHeader.Builder()
-            .item("رقم",1)  // Smaller weight for a short value
-            .item("التاريخ", 2)  // Larger weight for date
-            .item("تاريخ التسديد", 3)  // Larger weight for date
-            .item("القيمة", 2)  // More weight for larger numeric values
-            .item("القيمة المسددة", 3)  // More weight for larger numeric values
+            .item(getString(R.string.number),1)  // Smaller weight for a short value
+            .item(getString(R.string.date), 2)  // Larger weight for date
+            .item(getString(R.string.payment_date), 3)  // Larger weight for date
+            .item(getString(R.string.value), 2)  // More weight for larger numeric values
+            .item(getString(R.string.paid_value), 3)  // More weight for larger numeric values
             .item("", 1)
             .build()
 

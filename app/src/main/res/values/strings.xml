@@ -500,12 +500,108 @@
     <string name="faild_pay">Operation Failed</string>
     <string name="new_bills">New Bill </string>
     <string name="payed_bills">Bill Paid Successfully</string>
-    <string name="txt_student">بيانات الاتصال المسبق (طالب جامعي) </string>
-    <string name="txt_normal">بيانات الاتصال القضائي </string>
+    <string name="txt_student">Contact and Education (Student)</string>
+    <string name="txt_normal">Contact and Work Info</string>
+
+
+    <!-- Gender Options -->
+    <string name="select_gender">Select gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
+    <!-- Nationality Options -->
+    <string name="select_nationality">Select nationality</string>
+    <string name="syrian">Syrian</string>
+    <string name="palestinian">Palestinian</string>
+
+    <!-- Document Type Options -->
+    <string name="select_document_type">Select document type</string>
+    <string name="personal_id">ID</string>
+    <string name="military_id">Military ID</string>
+
+    <!-- FATCA Compliance Options -->
+    <string name="not_us_citizen">I am not a US citizen or resident.</string>
+    <string name="us_citizen">I am a US citizen Or a resident of the United States</string>
+
+    <!-- Branch Options -->
+    <string name="select_branch">Select the branch you want to open the account in</string>
+    <string name="branch_mazzeh">Damascus - Mazzeh Branch: Mazzeh Highway (return) - Opposite the Housing exit</string>
+    <string name="branch_sabaa_bahraat">Damascus - Main Branch: Seven Lakes</string>
+    <string name="branch_midan">Damascus - Al-Midan Branch: West of Al-Midan - Opposite the Express Mail Company</string>
+    <string name="branch_abou_roumana">Damascus - Abu Rummaneh Branch: Al-Jalaa Street - Opposite the Post Office</string>
+    <string name="branch_damascino">Damascus - Damascus - Damascus Branch: Kafr Sousa Damascus Mall</string>
+    <string name="branch_street_halab">Damascus - Aleppo Street Branch: Aleppo Street</string>
+    <string name="branch_yaafour">Damascus countryside - Yaafour branch: Yaafour - Eighth Gate</string>
+    <string name="branch_ashrafieh_sahnaya">Damascus countryside - Ashrafieh Sahnaya branch: Ashrafieh Sahnaya main street</string>
+    <string name="branch_aleppo_forkan">Aleppo - Al-Furqan branch: Al-Furqan - Express Street</string>
+    <string name="branch_aleppo_faisal">Aleppo - Al-Faisal branch: Al-Faisal Street - next to the French Consulate</string>
+    <string name="branch_hama_qutli">Hama - Al-Qutli branch: Al-Qutli Street</string>
+    <string name="branch_homs_droobi">Homs - Al-Droubi branch: Abdul Hamid Al-Droubi Street</string>
+    <string name="branch_latakia">Lattakia - Lattakia branch: Western Corniche - Sheikh Daher area - Spiro Tower building</string>
+    <string name="branch_tartous">Tartous - Tartous Branch: Mina Street</string>
+
+    <string name="branch_safita">Safita - Safita Office: Corniche Street, Saraya Extension</string>
+
+    <string name="branch_hama_salah">Hama - Salah al-Din Branch: Salah al-Din Street</string>
+
+    <!-- University Options -->
+    <string name="select_university">Select the university</string>
+
+    <!-- College Options -->
+    <string name="select_college">Select the college</string>
+
+
+<!--    finance-->
+
+
+
+    <string name="branch_micro_finance_aleppo">Microfinance Center: Aleppo - Forkan, Express Street</string>
+    <string name="branch_micro_finance_tartous">Microfinance Center: Tartous - Mina Street</string>
+
+    <string name="service_military">Military Service</string>
+    <string name="postponed">Postponed</string>
+    <string name="completed">Completed</string>
+    <string name="exempted">Exempted</string>
+    <string name="additional_income">Is there additional income?</string>
+    <string name="bank_commitments">Do you have existing commitments with banks operating in Syria?</string>
+    <string name="other_commitments">Do you have other commitments (e.g., house rent, non-banking installments)?</string>
+    <string name="current_job">Current Job</string>
+    <string name="union_member">Union Member</string>
+    <string name="trader_industrialist">Trader / Industrialist</string>
+    <string name="employee">Employee</string>
+    <string name="other">Other</string>
+
+    <string name="select_insurance">Select Insurance</string>
+    <string name="personal_guarantee">Personal Guarantee</string>
+    <string name="company_guarantee">Company Guarantee</string>
+    <string name="salary_transfer">Salary Transfer</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="real_estate_mortgage">Real Estate Mortgage</string>
+    <string name="private_car_mortgage">Private Car Mortgage</string>
+    <string name="no_guarantee">No Guarantee</string>
+
+
+    <string name="currency2">Currency : </string>
+    <string name="number_of_installments">Number of Installments : </string>
+    <string name="installment_value">Installment Value : </string>
+    <string name="total_installments">Total Installments : </string>
+    <string name="total_transaction_amount">Total Transaction Amount : </string>
+
+    <string name="all">All</string>
+    <string name="paid">Paid</string>
+    <string name="overdue">Overdue</string>
+    <string name="not_due_yet">Not Due Yet</string>
+    <string name="partially_paid">Partially Paid</string>
+    <string name="number">No.</string>
+    <string name="date">Date</string>
+    <string name="payment_date">Payment Date</string>
+    <string name="value">Value</string>
+    <string name="paid_value">Paid Value</string>
 
     <string name="txt_normal2">Job Details </string>
-    <string name="btn_previous">السابق</string>
-    <string name="btn_next">التالي</string>
+    <string name="btn_previous">Previous</string>
+    <string name="btn_next">Next</string>
     <string name="mobile_form_error">Please enter your mobile number</string>
     <string name="cif_form_error">Please enter the account number</string>
     <string name="national_form_error">Please enter the national ID</string>
