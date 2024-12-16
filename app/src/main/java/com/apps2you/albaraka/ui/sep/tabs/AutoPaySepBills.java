@@ -303,7 +303,9 @@ private class FetchAccountsTask extends AsyncTask<Void, Void, List<String>> {
             // Set the default account
             if (defaultAccount != null && !defaultAccount.isEmpty()) {
                 for (int i = 0; i < accountList.size(); i++) {
-                    if (accountList.get(i).startsWith(defaultAccount)) {
+
+                    if ( accountNumberList.get(i).startsWith(defaultAccount)) {
+
                         spinnerAccounts.setSelection(i);
                         break;
                     }

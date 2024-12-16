@@ -302,12 +302,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
             Constants.RESTAURANTS -> openRestaurantsPaymentActivity()
 
-//            Constants.BILLS -> activityNavigation.navigate(
-//                Intent(
-//                    requireContext(),
-//                    BillsActivity::class.java
-//                )
-//            )
+            Constants.BILLS -> activityNavigation.navigate(
+                Intent(
+                    requireContext(),
+                    BillsActivity::class.java
+                )
+            )
 
             Constants.ALPHA_CAPITAL -> activityNavigation.navigate(
                 Intent(

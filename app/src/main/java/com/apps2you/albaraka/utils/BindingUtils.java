@@ -214,6 +214,9 @@ public class BindingUtils {
             case Constants.SEP:
                 resource = R.drawable.newwsepicon;
                 break;
+            case Constants.BILLS:
+                resource = R.drawable.newwsepicon;
+                break;
             case Constants.ZAKAT:
                 resource = R.drawable.ic_hand;
                 break;
