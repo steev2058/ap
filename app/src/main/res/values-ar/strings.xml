@@ -136,7 +136,7 @@
     <string name="password_error_wrong">كلمة المرور الحالية خاطئة</string>
     <string name="password_error_match">كلمة المرور الجديدة غير متوافقة مع تأكيد كلمة المرور</string>
     <string name="password_error_length">كلمة المرور الجديدة يجب أن تكون ٦ محارف على الأقل</string>
-    <string name="password_validation_error">كلمة المرور الجديدة يجب أن تتضمن على الأقل حرفاَ ورقماَ, وأن لا تتضمن محارف خاصة.\u0020</string>
+    <string name="password_validation_error">كلمة المرور الجديدة يجب أن تتضمن على الأقل حرفا  كبيراً وصغيراَ ورقماَ, ومحارف خاصة.\u0020</string>
     <string name="pin_error_match">رمز التحقق الجديد غير متوافق مع تأكيد رمز التحقق</string>
     <string name="pin_error_length">رمز التحقق الجديد يجب أن يكون ٤ أرقام</string>
     <string name="There_is_no_biometric_record_saved_for_the_entered">رقم CIF\u0020\u0020المدخل لا يطابق البصمة المدخلة, الرجاء تسجيل الدخول باستخدام كلمة المرور</string>

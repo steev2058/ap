@@ -17,13 +17,13 @@ public class Constants {
             GENDER_FEMALE = "female";
 
     // test link
- //  public static String BASE_URL = "Dapz/9upWXEoKkswz0bIqOPt34RWfWu9HRrfhk3MB6TH+AgrU1sFMg1PEzU9sF8XMUBHfhT43/VrfcDwh7e5j4JTc99bn1yQMAh3o4YZ6BjCxoITog==";
+   //public static String BASE_URL = "Dapz/9upWXEoKkswz0bIqOPt34RWfWu9HRrfhk3MB6TH+AgrU1sFMg1PEzU9sF8XMUBHfhT43/VrfcDwh7e5j4JTc99bn1yQMAh3o4YZ6BjCxoITog==";
 
     // live link
     public static String BASE_URL = "RLTWlkMoTClzcij5FhztackcT0FhNy6tBKB/DwqOpJgYSVNA47xPT5FTjPuRKpXGnGu3N1ApQcH87GcjWwnJCkGh6uLEG+1Ei5FV89JS9i9ong==";
 
-  //  public static String BASE_URL_SEP = "https://epaytest.albaraka.com.sy:4433/SEP";
-  //  public static String BASE_URL_SEP_ICON = "https://epaytest.albaraka.com.sy:4433";
+    //public static String BASE_URL_SEP = "https://epaytest.albaraka.com.sy:4433/SEP";
+    //public static String BASE_URL_SEP_ICON = "https://epaytest.albaraka.com.sy:4433";
 
 
    public static String BASE_URL_SEP = "https://epay.albaraka.com.sy/SEP";
@@ -42,7 +42,9 @@ public class Constants {
             ADSL = 7, // quick services ids
             RESTAURANTS = 8,
 
-            SEP = 9,
+            SEP = 15,
+
+            BILLS = 9,
             ALPHA_CAPITAL = 10,
             ATM_CARDS = 11,
             SYGS = 12,

@@ -135,6 +135,8 @@ class PersonalizeQuickServicesActivity : BaseActivity<ActivityPersonalizeQuickSe
             }
             Constants.SEP -> {
             }
+            Constants.BILLS -> {
+            }
             Constants.RESTAURANTS -> {
             }
             Constants.HF -> {
