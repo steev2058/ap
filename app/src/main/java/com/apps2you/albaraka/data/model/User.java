@@ -70,6 +70,9 @@ public class User extends BaseObservable {
     @SerializedName("enable_notifications")
     private int enableNotifications;
 
+    @SerializedName("enable_otp")
+    private int enableOtp;
+
     @SerializedName("phone_number")
     private String phone;
 
@@ -172,8 +175,16 @@ public class User extends BaseObservable {
         return enableNotifications;
     }
 
+    public int getEnableOtp() {
+        return enableOtp;
+    }
+
     public void setEnableNotifications(int enableNotifications) {
         this.enableNotifications = enableNotifications;
+    }
+
+    public void setEnableOtp(int enableOtp) {
+        this.enableOtp = enableOtp;
     }
 
     public boolean shouldChangePassword() {

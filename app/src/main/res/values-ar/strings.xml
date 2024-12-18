@@ -375,6 +375,7 @@
     <string name="my_financing">تمويلاتي</string>
     <string name="no_deals">لا يوجد تمويلات قائمة</string>
     <string name="my_financingChart">التمويل</string>
+    <string name="turn_otp">تفعيل (Otp)</string>
     <string name="my_financingTable">جدول الأقساط</string>
     <string name="order_atm_card">طلب بطاقة صراف آلي</string>
     <string name="scan_canceled">تم إلغاء المسح</string>

@@ -374,6 +374,7 @@
     <string name="my_financing">My Financing</string>
     <string name="no_deals">No Deals</string>
     <string name="my_financingChart">Financing</string>
+    <string name="turn_otp">Turn Otp</string>
     <string name="my_financingTable">Installment Table</string>
     <string name="order_atm_card">Order an ATM card</string>
     <string name="scan_canceled">Scan canceled</string>

@@ -106,6 +106,10 @@ public class HomeViewModel extends BaseViewModel {
         return userRepository.turnNotifications(status);
     }
 
+    public LiveData<Resource<String>> turnOtp(int status) {
+        return userRepository.turnOtp(status);
+    }
+
     public LiveData<Resource<ArrayList<QuickService>>> getQuickServices() {
         return userRepository.getQuickServices();
     }

@@ -352,6 +352,16 @@ public class UserRepository {
         }.getAsLiveServerData();
     }
 
+    public LiveData<Resource<String>> turnOtp(int status) {
+        return new NetworkBoundResource<String>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<String>> createCall() {
+                return apiService.turnOtp(status);
+            }
+        }.getAsLiveServerData();
+    }
+
     public LiveData<Resource<ArrayList<QuickService>>> getQuickServices() {
         return new NetworkBoundResource<ArrayList<QuickService>>() {
             @NonNull

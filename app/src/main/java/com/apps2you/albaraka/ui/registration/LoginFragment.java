@@ -203,6 +203,13 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
                     } else {
                         FirebaseMessaging.getInstance().unsubscribeFromTopic(Constants.FCM_TOPIC);
                     }
+                    //fcm topic otp
+                    if (resource.data.getEnableOtp() == 1) {
+                        FirebaseMessaging.getInstance().subscribeToTopic(Constants.FCM_TOPIC);
+                    } else {
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic(Constants.FCM_TOPIC);
+                    }
+
 
                     if (resource.data.shouldChangePassword()) {
 

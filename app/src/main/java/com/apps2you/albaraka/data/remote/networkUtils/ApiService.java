@@ -207,6 +207,10 @@ public interface ApiService {
     @POST("turn_notifications")
     Call<MyResponse<String>> turnNotifications(@Field("status") int status);
 
+    @FormUrlEncoded
+    @POST("turn_otp")
+    Call<MyResponse<String>> turnOtp(@Field("status") int status);
+
     @GET("get_quick_services")
     Call<MyResponse<ArrayList<QuickService>>> getQuickServices();
 

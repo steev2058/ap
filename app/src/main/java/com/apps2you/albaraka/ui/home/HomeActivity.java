@@ -63,6 +63,14 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         }
     };
 
+    CompoundButton.OnCheckedChangeListener otpListener = (buttonView, isChecked) -> {
+        if (isChecked) {
+            turnOtp(1);
+        } else {
+            turnOtp(0);
+        }
+    };
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -76,6 +84,14 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         mViewDataBinding.bottomSheet.switchNotification.setChecked(mViewModel.getUser()
                 .getEnableNotifications() == 1);
         mViewDataBinding.bottomSheet.switchNotification.setOnCheckedChangeListener(notificationListener);
+        mViewDataBinding.bottomSheet.switchNotification.setOnCheckedChangeListener(notificationListener);
+
+        //otp
+        mViewDataBinding.bottomSheet.switchOtp.setOnCheckedChangeListener(null);
+        mViewDataBinding.bottomSheet.switchOtp.setChecked(mViewModel.getUser()
+                .getEnableOtp() == 1);
+        mViewDataBinding.bottomSheet.switchOtp.setOnCheckedChangeListener(otpListener);
+        mViewDataBinding.bottomSheet.switchOtp.setOnCheckedChangeListener(otpListener);
     }
 
     @Override
@@ -329,6 +345,36 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
                     .getEnableNotifications() == 1);
             mViewDataBinding.bottomSheet.switchNotification.setOnCheckedChangeListener(notificationListener);
             if (resource.status != Status.LOADING && mViewModel.getUser().getEnableNotifications() == 1) {
+                FirebaseMessaging.getInstance().subscribeToTopic(Constants.FCM_TOPIC);
+            } else {
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(Constants.FCM_TOPIC);
+            }
+        });
+    }
+
+    private void turnOtp(int status) {
+        getViewModel().turnOtp(status).observe(this, resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    showProgress();
+                    break;
+
+                case ERROR:
+                    hideProgress();
+                    showToast(resource.getMessage());
+                    break;
+
+                case SUCCESS:
+                    hideProgress();
+                    mViewModel.getUser().setEnableOtp(status);
+                    UserUtils.getInstance(this).saveUser(mViewModel.getUser());
+                    break;
+            }
+            mViewDataBinding.bottomSheet.switchOtp.setOnCheckedChangeListener(null);
+            mViewDataBinding.bottomSheet.switchOtp.setChecked(mViewModel.getUser()
+                    .getEnableOtp() == 1);
+            mViewDataBinding.bottomSheet.switchOtp.setOnCheckedChangeListener(otpListener);
+            if (resource.status != Status.LOADING && mViewModel.getUser().getEnableOtp() == 1) {
                 FirebaseMessaging.getInstance().subscribeToTopic(Constants.FCM_TOPIC);
             } else {
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(Constants.FCM_TOPIC);

@@ -45,3 +45,12 @@
     public static int i(...);
     public static int e(...);
 }
+
+# Keep Kotlin metadata
+-keepclassmembers class kotlin.Metadata { *; }
+
+# Keep annotations for reflection
+-keepattributes RuntimeVisibleAnnotations
+
+# Keep Kotlin class members for coroutines
+-keepclassmembers class kotlinx.coroutines.** { *; }
