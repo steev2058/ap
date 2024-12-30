@@ -157,7 +157,7 @@ public class AppModule {
 
             User user = UserUtils.getInstance(MyApplication.getAppContext()).getUser();
             if (user != null) {
-                requestBuilder.addHeader("Authorization", "Bearer " + user.getAccessToken());
+                requestBuilder.addHeader("Authorization", "Bearer " + user.getAccessToken().trim().replace("\n", "").replace("\r", ""));
             }
 
             Request request = requestBuilder.build();

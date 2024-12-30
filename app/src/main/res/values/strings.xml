@@ -192,6 +192,10 @@
     <string name="pin_code_confirm">Please enter your PIN code to confirm the operation</string>
     <string name="confirm">Confirm</string>
     <string name="today">Today</string>
+    <string name="resend_available_with_time">Resend available in: %1$d seconds</string>
+    <string name="resend_available_no_time">Resend available in:</string>
+    <string name="resend_enabled">You can now resend the OTP</string>
+
     <string name="Choose_the_date">Choose the date</string>
     <string name="donate_to_zakat_box">Donate to Zakat box</string>
     <string name="donate_to_charities">Donate to charities</string>
@@ -374,7 +378,10 @@
     <string name="my_financing">My Financing</string>
     <string name="no_deals">No Deals</string>
     <string name="my_financingChart">Financing</string>
-    <string name="turn_otp">Turn Otp</string>
+    <string name="turn_otp">Activate One Time Password (OTP)</string>
+    <string name="notif_otp">OTP Resend</string>
+    <string name="enter_otp">Enter the OTP</string>
+    <string name="resend2">Resend Otp</string>
     <string name="my_financingTable">Installment Table</string>
     <string name="order_atm_card">Order an ATM card</string>
     <string name="scan_canceled">Scan canceled</string>

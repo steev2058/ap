@@ -186,9 +186,17 @@
     <string name="another_transfer_text">تحويل أموال إلى حساب آخر في بنك آخر (SYGS)</string>
     <string name="my_transfer_text">تحويل أموال بين حساباتي</string>
     <string name="albaraka_transfer_text">تحويل أموال ضمن حسابات بنك البركة</string>
-    <string name="pin_code_confirm">يرجى إدخال رمز التحقق الخاص بك لتأكيد العملية</string>
+    <string name="pin_code_confirm">يرجى إدخال رمز التحقق (PIN) الخاص بك لتأكيد العملية</string>
     <string name="confirm">تأكيد</string>
     <string name="today">اليوم</string>
+    <string name="resend_available_with_time">إعادة الإرسال متاحة خلال: %1$d ثانية</string>
+    <string name="resend_available_no_time">إعادة الإرسال متاحة خلال:</string>
+    <string name="resend_enabled">يمكنك الآن إعادة إرسال الرمز</string>
+
+
+
+
+
     <string name="Choose_the_date">اختر تاريخ</string>
     <string name="donate_to_zakat_box">تبرع لصندوق الزكاة</string>
     <string name="donate_to_charities">تبرع للجمعيات الخيرية</string>
@@ -375,7 +383,10 @@
     <string name="my_financing">تمويلاتي</string>
     <string name="no_deals">لا يوجد تمويلات قائمة</string>
     <string name="my_financingChart">التمويل</string>
-    <string name="turn_otp">تفعيل (Otp)</string>
+    <string name="turn_otp">تفعيل رمز التحقق لمرة واحدة (OTP)</string>
+    <string name="notif_otp">تم إعادة إرسال رمز التحقق</string>
+    <string name="enter_otp">أدخل رمز التحقق المرسل اليك عبر رسالة SMS</string>
+    <string name="resend2">إعادة طلب</string>
     <string name="my_financingTable">جدول الأقساط</string>
     <string name="order_atm_card">طلب بطاقة صراف آلي</string>
     <string name="scan_canceled">تم إلغاء المسح</string>

@@ -60,6 +60,13 @@
         <item name="android:textSize">@dimen/font_medium</item>
     </style>
 
+    <style name="ButtonPrimary4" parent="Widget.AppCompat.Button">
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_shadow_gray</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+    </style>
+
     <style name="ButtonPrimary3" parent="Widget.AppCompat.Button">
         <item name="textAllCaps">false</item>
         <item name="android:textColor">@color/white</item>

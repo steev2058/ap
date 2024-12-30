@@ -363,7 +363,7 @@ private fun showOtpDialog() {
 
     private fun sendOtpAndHandleResponse(cifNumber: String?) {
     // UI logic before sending OTP
-showProgress()
+    showProgress()
     // Launch a coroutine in the background
     lifecycleScope.launch(Dispatchers.IO) {
         try {

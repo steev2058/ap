@@ -412,6 +412,8 @@ public abstract class BaseActivity<VB extends ViewDataBinding, VM extends BaseVi
 
     }
 
+
+
     protected void showProgress() {
 
         if (progressDialog == null) {
@@ -421,12 +423,16 @@ public abstract class BaseActivity<VB extends ViewDataBinding, VM extends BaseVi
             progressDialog.setContentText(getString(R.string.loading));
             progressDialog.setCancelable(false);
         }
-        progressDialog.show();
+        if (!isFinishing() && !isDestroyed()) {
+            progressDialog.show();
+        }
     }
 
     protected void hideProgress() {
         if (progressDialog != null)
-            progressDialog.dismiss();
+            if (!isFinishing() && !isDestroyed()) {
+                progressDialog.dismiss();
+            }
     }
 
     public void showToast(final String message) {

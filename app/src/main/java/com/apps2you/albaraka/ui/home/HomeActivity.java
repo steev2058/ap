@@ -215,7 +215,9 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         dialog.show();
 
         dialogDataBinding.buttonSubmit.setOnClickListener(v -> {
-            dialog.dismiss();
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
             getViewModel().lang = "en";
             if (dialogDataBinding.rgLanguage.getCheckedRadioButtonId() ==
                     dialogDataBinding.rbArabic.getId()) {
@@ -229,9 +231,13 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         });
 
         dialogDataBinding.cancelButton.setOnClickListener(v -> {
-            dialog.dismiss();
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
             performCancelAction(Constants.LANGUAGE_SELECTION_ACTION_TYPE);
         });
+
+
     }
 
     @Override
@@ -281,7 +287,9 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         getViewModel().changeLanguage(getViewModel().lang).observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
+                    if (!isFinishing() && !isDestroyed()) {
                     showProgress();
+                    }
                     break;
 
                 case ERROR:
@@ -356,7 +364,9 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         getViewModel().turnOtp(status).observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
-                    showProgress();
+                    if (!isFinishing() && !isDestroyed()) {
+                        showProgress();
+                    }
                     break;
 
                 case ERROR:

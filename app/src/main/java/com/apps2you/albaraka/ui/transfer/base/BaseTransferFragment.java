@@ -320,6 +320,8 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
     }
 
     protected void openConfirmPinDialog() {
+        int transferTypeId = getViewModel().getTransferTypeId();
+        ConfirmPinDialog.setTransferTypeId(transferTypeId);
         ConfirmPinDialog.show(getChildFragmentManager(), (pinCode) -> {
             mViewModel.setPinCode(pinCode);
             mViewModel.transfer();
