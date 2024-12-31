@@ -244,7 +244,7 @@
     <string name="personalization">Personalization</string>
     <string name="ADSL_payment">ADSL payment</string>
     <string name="HF_payment">Al-Haram &amp; Al-Fouad payment</string>
-    <string name="provider_hf">Provider</string>
+    <string name="provider_hf">Select Transfer Company</string>
     <string name="SEP_payment">SEP Payment</string>
     <string name="SEP_tab1">Instant Payment</string>
 

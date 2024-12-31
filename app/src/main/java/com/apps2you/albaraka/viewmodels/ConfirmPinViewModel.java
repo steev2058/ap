@@ -67,31 +67,7 @@ public class ConfirmPinViewModel extends BaseViewModel {
         countDownTimer.start();
     }
 
-//    public void startTimer(String resendAvailableWithTime, String resendAvailableWithNoTime, String resendEnabled) {
-//        isResendEnabled.setValue(false); // Disable button
-//
-//        // Set initial text
-//        timerText.setValue(String.format(resendAvailableWithTime, 60)
-//        );
-//
-//        countDownTimer = new CountDownTimer(60000, 1000) { // 1-minute timer
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                // Update timer text on each tick
-//                timerText.setValue(
-//                        String.format(resendAvailableWithNoTime, millisUntilFinished / 1000)
-//                );
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                timerText.setValue(resendEnabled
-//                );
-//                isResendEnabled.setValue(true); // Re-enable button
-//            }
-//        };
-//        countDownTimer.start();
-//    }
+
 
     public void resetTimer(String resendAvailableWithTime, String resendAvailableWithNoTime, String resendEnabled) {
         stopTimer(); // Stop any existing timer
