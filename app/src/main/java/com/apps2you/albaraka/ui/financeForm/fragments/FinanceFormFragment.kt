@@ -697,22 +697,22 @@ private fun initializeDatePicker() {
         when (step) {
             0 -> {
                 mViewDataBinding.personalDetails.visibility = View.VISIBLE
-                mViewDataBinding.button.text = "التالي"
+                mViewDataBinding.button.text = getString(R.string.btn_next)
                 mViewDataBinding.previousButton.visibility = View.GONE
             }
             1 -> {
                 mViewDataBinding.CommunicationInfo.visibility = View.VISIBLE
-                mViewDataBinding.button.text = "التالي"
+                mViewDataBinding.button.text = getString(R.string.btn_next)
                 mViewDataBinding.previousButton.visibility = View.VISIBLE
             }
             2 -> {
                 mViewDataBinding.ContactAndJob.visibility = View.VISIBLE
-                mViewDataBinding.button.text = "التالي"
+                mViewDataBinding.button.text = getString(R.string.btn_next)
                 mViewDataBinding.previousButton.visibility = View.VISIBLE
             }
             3 -> {
                 mViewDataBinding.Attachments.visibility = View.VISIBLE
-                mViewDataBinding.button.text = "التالي"
+                mViewDataBinding.button.text = getString(R.string.btn_next)
                 mViewDataBinding.previousButton.visibility = View.VISIBLE
             }
 
@@ -720,7 +720,7 @@ private fun initializeDatePicker() {
 
 
                 mViewDataBinding.CreditCard.visibility = View.VISIBLE
-                mViewDataBinding.button.text = "إدخال الطلب"
+                mViewDataBinding.button.text = getString(R.string.submit)
             }
         }
 

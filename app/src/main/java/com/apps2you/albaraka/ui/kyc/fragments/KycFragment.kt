@@ -332,22 +332,22 @@ private fun initializeDatePicker() {
         when (step) {
             0 -> {
                 mViewDataBinding.personalDetails.visibility = View.VISIBLE
-                mViewDataBinding.button.text = "التالي"
+                mViewDataBinding.button.text = getString(R.string.btn_next)
                 mViewDataBinding.previousButton.visibility = View.GONE
             }
             1 -> {
                 mViewDataBinding.ConfirmPersonalty.visibility = View.VISIBLE
-                mViewDataBinding.button.text = "التالي"
+                mViewDataBinding.button.text = getString(R.string.btn_next)
                 mViewDataBinding.previousButton.visibility = View.VISIBLE
             }
             2 -> {
                 mViewDataBinding.ContactAndJob.visibility = View.VISIBLE
-                mViewDataBinding.button.text = "التالي"
+                mViewDataBinding.button.text = getString(R.string.btn_next)
                 mViewDataBinding.previousButton.visibility = View.VISIBLE
             }
             3 -> {
                 mViewDataBinding.Attachments.visibility = View.VISIBLE
-                mViewDataBinding.button.text = "التالي"
+                mViewDataBinding.button.text = getString(R.string.btn_next)
                 mViewDataBinding.previousButton.visibility = View.VISIBLE
             }
 
@@ -355,7 +355,7 @@ private fun initializeDatePicker() {
 
 
                 mViewDataBinding.CreditCard.visibility = View.VISIBLE
-                mViewDataBinding.button.text = "إدخال"
+                mViewDataBinding.button.text = getString(R.string.submit)
             }
         }
 
@@ -366,18 +366,18 @@ private fun initializeDatePicker() {
 
 
     }
-    private fun setupDatePicker() {
-        val today = Calendar.getInstance()
-        datePicker.init(
-            today.get(Calendar.YEAR),
-            today.get(Calendar.MONTH),
-            today.get(Calendar.DAY_OF_MONTH)
-        ) { view, year, month, day ->
-            val formattedMonth = month + 1 // Adjust month since it's zero-based
-            val msg = " تمت قراءة الباركود: $day/$formattedMonth/$year"
-//            Toast.makeText(this@KycFragment.requireContext(), msg, Toast.LENGTH_SHORT).show()
-        }
-    }
+//    private fun setupDatePicker() {
+//        val today = Calendar.getInstance()
+//        datePicker.init(
+//            today.get(Calendar.YEAR),
+//            today.get(Calendar.MONTH),
+//            today.get(Calendar.DAY_OF_MONTH)
+//        ) { view, year, month, day ->
+//            val formattedMonth = month + 1 // Adjust month since it's zero-based
+//            val msg = " تمت قراءة الباركود: $day/$formattedMonth/$year"
+////            Toast.makeText(this@KycFragment.requireContext(), msg, Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
 
     //Validation
@@ -385,12 +385,12 @@ private fun initializeDatePicker() {
         when (position) {
             0 -> {
                 // Validate the form on the first step (personal details) if needed
-                val firstName = mViewDataBinding.etFirstName.text.toString().trim()
-                val fatherName = mViewDataBinding.etFirstNamde.text.toString().trim()
-                val lastName = mViewDataBinding.etFirstNamde2.text.toString().trim()
-                val motherName = mViewDataBinding.moss.text.toString().trim()
-                val motherLastName = mViewDataBinding.mos22.text.toString().trim()
-                val birthPlace = mViewDataBinding.mos33.text.toString().trim()
+                val firstName = mViewDataBinding.etFirstName?.text?.toString()?.trim() ?: ""
+                val fatherName = mViewDataBinding.etFirstNamde?.text?.toString()?.trim() ?: ""
+                val lastName = mViewDataBinding.etFirstNamde2?.text?.toString()?.trim() ?: ""
+                val motherName = mViewDataBinding.moss?.text?.toString()?.trim() ?: ""
+                val motherLastName = mViewDataBinding.mos22?.text?.toString()?.trim() ?: ""
+                val birthPlace = mViewDataBinding.mos33?.text?.toString()?.trim() ?: ""
 
 
 
@@ -449,26 +449,26 @@ private fun initializeDatePicker() {
 
                 // Validate the gender spinner
                 val selectedGender = mViewDataBinding.genderSpinner.selectedItem.toString()
-                if (selectedGender == "اختر الجنس") {
+                if (selectedGender == getString(R.string.select_gender)) {
                     showToast("يرجى تحديد الجنس")
                     return false
                 }
 
                 val selectedNationality = mViewDataBinding.gender2Spinner.selectedItem.toString()
-                if (selectedNationality == "اختر الجنسية") {
+                if (selectedNationality == getString(R.string.select_nationality)) {
                     showToast("يرجى تحديد الجنسية")
                     return false
                 }
             }
             1 -> {
                 // Validate the form on the second step (Confirm_Personalty) if needed
-                val nationalNumber = mViewDataBinding.nationalNumberr.text.toString().trim()
-                val nationalPlace = mViewDataBinding.nationalPlacec.text.toString().trim()
-                val kayed = mViewDataBinding.kayed.text.toString().trim()
+                val nationalNumber = mViewDataBinding.nationalNumberr?.text?.toString()?.trim() ?: ""
+                val nationalPlace = mViewDataBinding.nationalPlacec?.text?.toString()?.trim() ?: ""
+                val kayed = mViewDataBinding.kayed?.text?.toString()?.trim() ?: ""
 
                 // Validate the Spinner
                 val selectedTypeId = mViewDataBinding.typeIdSpinner.selectedItem.toString()
-                if (selectedTypeId == "اختر نوع الوثيقة") {
+                if (selectedTypeId == getString(R.string.select_document_type)) {
                     showToast("يرجى تحديد خيار نوع الوثيقة")
                     return false
                 }
@@ -504,16 +504,16 @@ private fun initializeDatePicker() {
                 if (mViewDataBinding.btnFinancing.isChecked) {
                     // Spinner validations
 
-                    val selectedUniversity = mViewDataBinding.universitySpinner.selectedItem.toString()
-                    if (selectedUniversity == "اختر الجامعة") {
+                    val selectedUniversity = mViewDataBinding.universitySpinner.selectedItem?.toString()?.trim() ?: ""
+                    if (selectedUniversity == getString(R.string.select_university)) {
                         (mViewDataBinding.universitySpinner.parent.parent as? TextInputLayout)?.error = "يرجى تحديد الجامعة"
                         return false
                     } else {
                         (mViewDataBinding.universitySpinner.parent.parent as? TextInputLayout)?.error = null
                     }
 
-                    val selectedCollege = mViewDataBinding.collegeSpinner.selectedItem.toString()
-                    if (selectedCollege == "اختر الكلية") {
+                    val selectedCollege = mViewDataBinding.collegeSpinner.selectedItem?.toString()?.trim() ?: ""
+                    if (selectedCollege == getString(R.string.select_college) ) {
                         (mViewDataBinding.collegeSpinner.parent.parent as? TextInputLayout)?.error = "يرجى تحديد الكلية"
                         return false
                     } else {
@@ -562,7 +562,7 @@ private fun initializeDatePicker() {
             3 -> {
                 // Validate the form on the fourth step (Attachments) if needed
                 val selectedQanon = mViewDataBinding.qanonSpinner.selectedItem.toString()
-                if (selectedQanon == "اختر نوع الوثيقة") {
+                if (selectedQanon == getString(R.string.select_document_type)) {
                     showToast("يرجى تحديد خيار قانون الامتثال الضريبي للحسابات الخارجية (FATCA)")
                     return false
                 }
@@ -617,7 +617,7 @@ private fun initializeDatePicker() {
 //                }
 
                 val selectedBranch = mViewDataBinding.branchSpinnerId.selectedItem.toString()
-                if (selectedBranch == "اختر الفرع الذي ترغب بفتح الحساب فيه") {
+                if (selectedBranch == getString(R.string.select_branch)) {
                     showToast("يرجى تحديد الفرع")
                     return false
                 }
@@ -759,46 +759,46 @@ private fun initializeDatePicker() {
 
 
 
-     private fun setupQRScannerDialog() {
-         val tvPersonalInfo = mViewDataBinding.tvPersonalInfo
-         val text = context?.getString(R.string.personal_information_kyc)
-
-         // Check if the clickable portion string is present in the text
-         val clickableText = context?.getString(R.string.personal_info_kyc_qr)
-         val startIndex = text?.indexOf(clickableText ?: "")
-
-         if (startIndex != -1 && clickableText != null) {
-             val endIndex = startIndex?.plus(clickableText.length)
-
-             val spannableString = SpannableString(text)
-             startIndex?.let {
-                 if (endIndex != null) {
-                     spannableString.setSpan(object : ClickableSpan() {
-                         override fun onClick(widget: View) {
-                             // Handle the click event (e.g., show a modal dialog)
-                             showQRDialog()
-                         }
-
-                         override fun updateDrawState(ds: TextPaint) {
-                             super.updateDrawState(ds)
-                             // Customize the appearance of the clickable text if needed
-                             ds.isUnderlineText = false
-                             ds.color = ContextCompat.getColor(requireContext(), R.color.red)
-                         }
-                     }, it, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                 }
-             }
-
-             // Make the clickable portion appear as a link
-             tvPersonalInfo.text = spannableString
-             tvPersonalInfo.movementMethod = LinkMovementMethod.getInstance()
-             tvPersonalInfo.highlightColor = Color.TRANSPARENT // To remove the link highlight color
-         } else {
-             // Handle the case where the clickable text is not found in the main text
-             tvPersonalInfo.text = text
-         }
-     }
-
+//     private fun setupQRScannerDialog() {
+//         val tvPersonalInfo = mViewDataBinding.tvPersonalInfo
+//         val text = context?.getString(R.string.personal_information_kyc)
+//
+//         // Check if the clickable portion string is present in the text
+//         val clickableText = context?.getString(R.string.personal_info_kyc_qr)
+//         val startIndex = text?.indexOf(clickableText ?: "")
+//
+//         if (startIndex != -1 && clickableText != null) {
+//             val endIndex = startIndex?.plus(clickableText.length)
+//
+//             val spannableString = SpannableString(text)
+//             startIndex?.let {
+//                 if (endIndex != null) {
+//                     spannableString.setSpan(object : ClickableSpan() {
+//                         override fun onClick(widget: View) {
+//                             // Handle the click event (e.g., show a modal dialog)
+//                             showQRDialog()
+//                         }
+//
+//                         override fun updateDrawState(ds: TextPaint) {
+//                             super.updateDrawState(ds)
+//                             // Customize the appearance of the clickable text if needed
+//                             ds.isUnderlineText = false
+//                             ds.color = ContextCompat.getColor(requireContext(), R.color.red)
+//                         }
+//                     }, it, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//                 }
+//             }
+//
+//             // Make the clickable portion appear as a link
+//             tvPersonalInfo.text = spannableString
+//             tvPersonalInfo.movementMethod = LinkMovementMethod.getInstance()
+//             tvPersonalInfo.highlightColor = Color.TRANSPARENT // To remove the link highlight color
+//         } else {
+//             // Handle the case where the clickable text is not found in the main text
+//             tvPersonalInfo.text = text
+//         }
+//     }
+//
 
 
 
@@ -1309,7 +1309,7 @@ private fun initializeDatePicker() {
     override fun setUpView() {
 
         // Set up QR scanner dialog
-        setupQRScannerDialog()
+      //  setupQRScannerDialog()
 
         // Set up spinners
         val urlString = "https://albaraka.com.sy/KYC/ApiController/universities"
@@ -1333,7 +1333,7 @@ private fun initializeDatePicker() {
         datePicker =mViewDataBinding.datePicker2;
 
         initializeDatePicker()
-        setupDatePicker()
+       // setupDatePicker()
 
 
 
