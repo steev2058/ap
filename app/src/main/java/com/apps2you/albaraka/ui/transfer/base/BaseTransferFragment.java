@@ -383,6 +383,8 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
             mViewModel.calculateCommission();
         else if (getViewModel().getTransferFee() == -2) // fee might be 0 or -1
             mViewModel.calculateCommission();
+        else if(getViewModel().getTransferFee() ==0 && !getViewModel().selectedAccount.getValue().getCurrency().getCode().equals("760"))
+            feeConfirmationDialog(title);
         else
             openConfirmPinDialog();
     }
