@@ -103,6 +103,18 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
                             };
                         })
                 );
+        mViewModel.exchangeMessageFetched
+                .observe(
+                        getViewLifecycleOwner(),
+                        new EventObserver<>(result -> {
+
+                            if (result) {
+
+                                    exchangeConfirmationDialog(title,mViewModel.exchangeMessage.toString());
+
+                            };
+                        })
+                );
     }
 
     @Override
@@ -383,8 +395,9 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
             mViewModel.calculateCommission();
         else if (getViewModel().getTransferFee() == -2) // fee might be 0 or -1
             mViewModel.calculateCommission();
-        else if(getViewModel().getTransferFee() ==0 && !getViewModel().selectedAccount.getValue().getCurrency().getCode().equals("760"))
-            feeConfirmationDialog(title);
+        else if(getViewModel().getTransferFee() ==0 && !getViewModel().selectedAccount.getValue().getCurrency().getCode().equals("760")) {
+            mViewModel.calculateCommission();
+        }
         else
             openConfirmPinDialog();
     }
@@ -496,6 +509,36 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
         dialogDataBinding.textView.setText(title);
         BindingUtils.setFontDependingOnLanguage(dialogDataBinding.text, getString(R.string.commission_question, String.valueOf(getViewModel().getTransferFee())));//
         dialogDataBinding.text.setText(getString(R.string.commission_question, String.valueOf(getViewModel().getTransferFee())));//
+
+        dialogDataBinding.btnOk.setVisibility(View.GONE);
+
+        dialog.show();
+
+        dialogDataBinding.buttonSubmit.setOnClickListener(v -> {
+            dialog.dismiss();
+            openConfirmPinDialog();
+        });
+
+        dialogDataBinding.cancelButton.setOnClickListener(v -> dialog.dismiss());
+    }
+
+    private void exchangeConfirmationDialog(String title, String message) {
+        Dialog dialog = new Dialog(requireContext());
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            // dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        }
+
+        DialogConfirmBinding dialogDataBinding = DialogConfirmBinding.inflate(LayoutInflater.from(requireContext()),
+                null,
+                false);
+
+        dialog.setContentView(dialogDataBinding.getRoot());
+        BindingUtils.setFontDependingOnLanguage(dialogDataBinding.textView, title);
+        dialogDataBinding.textView.setText(title);
+        BindingUtils.setFontDependingOnLanguage(dialogDataBinding.text, message);//String.valueOf(getViewModel().getTransferFee())
+        dialogDataBinding.text.setText(message);//String.valueOf(getViewModel().getTransferFee())
 
         dialogDataBinding.btnOk.setVisibility(View.GONE);
 

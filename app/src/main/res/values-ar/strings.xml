@@ -354,6 +354,7 @@
     <string name="calculate">احسب الآن</string>
     <string name="calculating_result">نتيجة الحساب</string>
     <string name="min_first_payment">الحد الأدنى للدفعة الأولى</string>
+    <string name="exchange_label">أدخل المبلغ بعملة الحساب المحول منه</string>
     <string name="financing_amount">قيمة التمويل</string>
     <string name="max_financing_term">الحد الأعلى لمدة التمويل</string>
     <string name="profit_ratio">نسبة الربح</string>

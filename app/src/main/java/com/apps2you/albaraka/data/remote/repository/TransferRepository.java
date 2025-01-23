@@ -590,4 +590,20 @@ public class TransferRepository {
             }
         }.getAsLiveServerData();
     }
+
+    public LiveData<Resource<SygsCommissionData>> getExchangeInfo(
+                                                                        String fromAccountCur,
+                                                                        String toAccountCur,
+                                                                        String amount
+
+    ) {
+        return new NetworkBoundResource<SygsCommissionData>() {
+
+            @NonNull
+            @Override
+            protected Call<MyResponse<SygsCommissionData>> createCall() {
+                return apiService.getExchangeInfo(fromAccountCur,toAccountCur,amount);
+            }
+        }.getAsLiveServerData();
+    }
 }

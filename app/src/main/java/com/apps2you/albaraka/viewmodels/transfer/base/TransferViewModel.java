@@ -115,6 +115,9 @@ public abstract class TransferViewModel extends BaseViewModel {
         }
     }
 
+
+
+
     public void fetchAccounts() {
 
         if (isContentLoadingValue()) {
@@ -171,8 +174,12 @@ public abstract class TransferViewModel extends BaseViewModel {
     public final MediatorLiveData<Event<Boolean>> _commissionFetched = new MediatorLiveData<>();
     public final LiveData<Event<Boolean>> commissionFetched = _commissionFetched;
 
-    public BigDecimal commission = new BigDecimal(0);
 
+    public final MediatorLiveData<Event<Boolean>> _exchangeMessageFetched = new MediatorLiveData<>();
+    public final LiveData<Event<Boolean>> exchangeMessageFetched = _exchangeMessageFetched;
+
+    public BigDecimal commission = new BigDecimal(0);
+    public String exchangeMessage = new String("");
     public String toFullName = new String();
 
 

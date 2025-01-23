@@ -56,7 +56,16 @@
                 app:existence="@{!(viewModel.selectedToAccount == null)}"
                 app:selectedAccount="@{viewModel.selectedToAccount}"
                 app:title="@{@string/To}" />
-
+            <TextView
+                android:id="@+id/label_min_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/exchange_label"
+                android:textColor="@color/gray"
+                app:layout_constraintTop_toBottomOf="@id/layout_expandable_to_accounts_recycler"
+                app:layout_constraintStart_toStartOf="parent"
+                />
             <include
                 android:id="@+id/layout_form"
                 layout="@layout/layout_base_transfer_form"
@@ -64,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
                 app:form="@{viewModel.myTransferForm}"
-                app:layout_constraintTop_toBottomOf="@id/layout_expandable_to_accounts_recycler" />
+                app:layout_constraintTop_toBottomOf="@id/label_min_payment" />
 
             <Button
                 android:id="@+id/button_submit"

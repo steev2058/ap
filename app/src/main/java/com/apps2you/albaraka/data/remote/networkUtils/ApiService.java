@@ -97,6 +97,13 @@ public interface ApiService {
                                                                  @Field("type_code") int type,
                                                                  @Field("currency_code") String currencyCode);
 
+
+    @FormUrlEncoded
+    @POST("exchange_info")
+    Call<MyResponse<SygsCommissionData>> getExchangeInfo(@Field("from_cur") String fromCur,
+                                                                 @Field("to_cur") String toCur,
+                                                                 @Field("from_amount") String amount);
+
     @FormUrlEncoded
     @POST("get_charge_exchange_mob")
     Call<MyResponse<HfCommissionData>> calculateHfCommission(@Field("amount") String amount,

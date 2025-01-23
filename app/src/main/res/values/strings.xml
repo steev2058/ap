@@ -349,6 +349,7 @@
     <string name="calculate">Calculate now</string>
     <string name="calculating_result">Calculation result</string>
     <string name="min_first_payment">Minimum first payment</string>
+    <string name="exchange_label">Enter the amount in the currency of the account you are transferring from</string>
     <string name="financing_amount">Finance amount</string>
     <string name="max_financing_term">Maximum duration of finance</string>
     <string name="profit_ratio">Profit ratio</string>
