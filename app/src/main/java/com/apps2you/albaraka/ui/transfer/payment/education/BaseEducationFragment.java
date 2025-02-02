@@ -33,7 +33,7 @@ public abstract class BaseEducationFragment<VM extends BaseEducationViewModel<?>
         } else if (!thereIsEnoughBalance(educationForm.amount.getValue())) {
             showToast(R.string.balance_msg);
         } else {
-            nextStep(mViewDataBinding.getIsSchoolPayment() ? getString(R.string.schools_payment) : getString(R.string.universities_payment));
+            nextStep(mViewDataBinding.getIsSchoolPayment() ? getString(R.string.schools_payment) : getString(R.string.universities_payment),null);
         }
     }
 

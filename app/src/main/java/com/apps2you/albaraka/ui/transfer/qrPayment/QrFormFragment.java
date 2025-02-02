@@ -76,7 +76,7 @@ public class QrFormFragment extends BaseTransferFragment<FragmentQrFormBinding, 
         } else if (!thereIsEnoughBalance(form.amount.getValue()))
             showToast(R.string.balance_msg);
         else {
-            nextStep(getString(R.string.scan_qr_code));
+            nextStep(getString(R.string.scan_qr_code),null);
         }
     }
 }

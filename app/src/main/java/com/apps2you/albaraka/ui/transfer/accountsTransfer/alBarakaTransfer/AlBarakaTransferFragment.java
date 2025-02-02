@@ -59,7 +59,7 @@ public class AlBarakaTransferFragment extends BaseTransferFragment<FragmentAlbar
         } else if (!thereIsEnoughBalance(transferForm.amount.getValue())) {
             showToast(R.string.balance_msg);
         } else {
-            nextStep(getString(R.string.alBaraka_transfer));
+            nextStep(getString(R.string.alBaraka_transfer),null);
         }
     }
 

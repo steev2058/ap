@@ -75,7 +75,7 @@ public class ADSLFragment extends BaseTransferFragment<FragmentAdslBinding, ADSL
         } else {
             mViewModel.setSelectedCity((City)mViewDataBinding.citiesSpinner.getSelectedItem());
 
-            nextStep(getString(R.string.ADSL_payment));
+            nextStep(getString(R.string.ADSL_payment),null);
         }
     }
 

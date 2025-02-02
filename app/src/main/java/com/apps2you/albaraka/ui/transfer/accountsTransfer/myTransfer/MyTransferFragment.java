@@ -12,7 +12,7 @@ import com.apps2you.albaraka.ui.base.adapter.OnItemClickListener;
 import com.apps2you.albaraka.ui.common.adapters.AccountsRecyclerAdapter;
 import com.apps2you.albaraka.ui.transfer.base.BaseTransferFragment;
 import com.apps2you.albaraka.utils.NumberTextWatcher;
-import com.apps2you.albaraka.utils.NumberTextWatcher2;
+//import com.apps2you.albaraka.utils.NumberTextWatcher2;
 import com.apps2you.albaraka.viewmodels.transfer.MyTransferViewModel;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class MyTransferFragment extends BaseTransferFragment<FragmentMyTransferB
         super.setUpView();
         setUpToAccountsRecycler();
 
-        getViewDataBinding().layoutForm.etAmount.addTextChangedListener(new NumberTextWatcher2(getViewDataBinding().layoutForm.etAmount));
+        getViewDataBinding().layoutForm.etAmount.addTextChangedListener(new NumberTextWatcher(getViewDataBinding().layoutForm.etAmount));
 
         mViewDataBinding.layoutForm.etReason.setVisibility(View.GONE);
         mViewDataBinding.buttonSubmit.setOnClickListener(view -> transfer());
@@ -61,7 +61,7 @@ public class MyTransferFragment extends BaseTransferFragment<FragmentMyTransferB
         } else if (!thereIsEnoughBalance(transferForm.amount.getValue())) {
             showToast(R.string.balance_msg);
         } else {
-            nextStep(getString(R.string.my_transfers));
+            nextStep(getString(R.string.my_transfers),selectedToAccount);
         }
     }
 

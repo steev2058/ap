@@ -1,0 +1,29 @@
+{
+  "buildFiles": [
+    "D:\\mobile application new albaraka\\albaraka-android\\app\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\a.hosary\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "D:\\mobile application new albaraka\\albaraka-android\\app\\.cxx\\Debug\\5p3d6r5s\\arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\a.hosary\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "D:\\mobile application new albaraka\\albaraka-android\\app\\.cxx\\Debug\\5p3d6r5s\\arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "native-lib::@6890427a1f51a3e7e1df": {
+      "artifactName": "native-lib",
+      "abi": "arm64-v8a",
+      "output": "D:\\mobile application new albaraka\\albaraka-android\\app\\build\\intermediates\\cxx\\Debug\\5p3d6r5s\\obj\\arm64-v8a\\libnative-lib.so",
+      "runtimeFiles": [
+        "C:\\Users\\a.hosary\\AppData\\Local\\Android\\Sdk\\ndk\\24.0.8215888\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\21\\liblog.so"
+      ]
+    }
+  }
+}

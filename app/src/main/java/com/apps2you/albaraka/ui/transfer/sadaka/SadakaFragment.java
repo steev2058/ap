@@ -55,7 +55,7 @@ public class SadakaFragment extends BaseTransferFragment<FragmentSadakaBinding, 
         } else if (!thereIsEnoughBalance(sadakaForm.amount.getValue())) {
             showToast(R.string.balance_msg);
         } else {
-            nextStep(getString(R.string.donate_to_charities));
+            nextStep(getString(R.string.donate_to_charities),null);
         }
     }
 
