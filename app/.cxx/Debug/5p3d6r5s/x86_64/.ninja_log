@@ -1,0 +1,9 @@
+# ninja log v5
+1	455	7562105001423233	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	ab8e1c0812b38af
+457	764	7562105004344859	../../../../build/intermediates/cxx/Debug/5p3d6r5s/obj/x86_64/libnative-lib.so	b2b75299aee83a46
+0	12	0	clean	c179a05aadb4c77e
+3	441	7565736915615376	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	ab8e1c0812b38af
+442	647	7565736917485369	../../../../build/intermediates/cxx/Debug/5p3d6r5s/obj/x86_64/libnative-lib.so	b2b75299aee83a46
+1	13	0	clean	c179a05aadb4c77e
+5	696	7590653880402426	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	ab8e1c0812b38af
+697	986	7590653883092449	../../../../build/intermediates/cxx/Debug/5p3d6r5s/obj/x86_64/libnative-lib.so	b2b75299aee83a46

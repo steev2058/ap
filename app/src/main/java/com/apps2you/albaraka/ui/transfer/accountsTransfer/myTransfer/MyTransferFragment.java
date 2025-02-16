@@ -83,7 +83,6 @@ public class MyTransferFragment extends BaseTransferFragment<FragmentMyTransferB
     @Override
     protected void onAccountSelected(Account account) {
         super.onAccountSelected(account);
-
         mViewDataBinding.motionLayout.transitionToStart();
     }
 
