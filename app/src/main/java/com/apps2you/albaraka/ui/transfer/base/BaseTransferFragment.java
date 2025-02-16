@@ -396,7 +396,7 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
             mViewModel.calculateCommission();
         else if (getViewModel().getTransferFee() == -2) // fee might be 0 or -1
             mViewModel.calculateCommission();
-        else if(getViewModel().getTransferFee() ==0 && (selectedToAccount != null && getViewModel().selectedAccount.getValue().getCurrency().getCode()  != selectedToAccount.getCurrency().getCode())) {
+        else if(getViewModel().getTransferFee() ==0 && (selectedToAccount != null && !getViewModel().selectedAccount.getValue().getCurrency().getCode().equals(selectedToAccount.getCurrency().getCode()))) {
             mViewModel.calculateCommission();
             //mViewModel.selectedToAccount.getValue()
         }

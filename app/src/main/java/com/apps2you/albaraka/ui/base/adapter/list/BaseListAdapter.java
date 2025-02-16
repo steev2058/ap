@@ -1,6 +1,7 @@
 package com.apps2you.albaraka.ui.base.adapter.list;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -20,12 +21,31 @@ abstract public class BaseListAdapter<T, VH extends BaseViewHolder<T, ?>>
 
     public BaseListAdapter(Context context) {
         this.context = context;
+        setHasStableIds(true);
     }
+
+//    @Override
+//    public void onBindViewHolder(@NonNull VH holder, int position) {
+//        T item = data != null && data.size() > position ? data.get(position) : null;
+//        holder.onBind(item, position);
+//    }
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        T item = data != null && data.size() > position ? data.get(position) : null;
+        if (data == null || position >= data.size()) return;
+
+        T item = data.get(position);
+
+        // Reset UI elements to prevent old data from interfering
+        holder.itemView.setBackgroundColor(Color.TRANSPARENT); // Example
+        holder.itemView.setAlpha(1.0f);
+
         holder.onBind(item, position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return data.get(position).hashCode(); // Use unique identifier
     }
 
     @Override
