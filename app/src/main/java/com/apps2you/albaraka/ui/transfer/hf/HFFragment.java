@@ -117,7 +117,7 @@ public class HFFragment extends BaseTransferFragment<FragmentHfBinding, HFViewMo
         else {
             mViewModel.setSelectedCity((City)mViewDataBinding.citiesSpinner.getSelectedItem());
 
-            nextStep(getString(R.string.HF_payment));
+            nextStep(getString(R.string.HF_payment),null);
         }
     }
 

@@ -42,7 +42,7 @@ public class ZakatFragment extends BaseTransferFragment<FragmentZakatBinding, Za
         } else if (!thereIsEnoughBalance(zakatForm.amount.getValue())) {
             showToast(R.string.balance_msg);
         } else {
-            nextStep(getString(R.string.donate_to_zakat_box));
+            nextStep(getString(R.string.donate_to_zakat_box),null);
         }
     }
 

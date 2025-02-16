@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/M.Joha/Desktop/BBarka/albaraka-android/app
+# Install script for directory: D:/mobile application new albaraka/albaraka-android/app
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Users/M.Joha/AppData/Local/Android/Sdk/ndk/24.0.8215888/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-objdump.exe")
+  set(CMAKE_OBJDUMP "C:/Users/a.hosary/AppData/Local/Android/Sdk/ndk/24.0.8215888/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/M.Joha/Desktop/BBarka/albaraka-android/app/.cxx/Debug/5p3d6r5s/arm64-v8a/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/mobile application new albaraka/albaraka-android/app/.cxx/Debug/5p3d6r5s/arm64-v8a/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

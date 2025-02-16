@@ -74,7 +74,7 @@ public class AlphaPaymentFragment extends BaseTransferFragment<FragmentAlphaPaym
         } else if (!thereIsEnoughBalance(getViewModel().getAmount()))
             showToast(R.string.balance_msg);
         else {
-            nextStep(getString(R.string.alpha_capital_payment));
+            nextStep(getString(R.string.alpha_capital_payment),null);
         }
     }
 }

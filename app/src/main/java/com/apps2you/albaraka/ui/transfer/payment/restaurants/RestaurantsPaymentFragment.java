@@ -44,7 +44,7 @@ public class RestaurantsPaymentFragment extends BaseTransferFragment<FragmentRes
         } else if (!thereIsEnoughBalance(form.amount.getValue(), form.tips.getValue())) {
             showToast(R.string.balance_msg);
         } else {
-            nextStep(getString(R.string.restaurants_payment));
+            nextStep(getString(R.string.restaurants_payment),null);
         }
     }
 

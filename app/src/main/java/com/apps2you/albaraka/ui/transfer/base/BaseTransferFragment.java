@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.ViewDataBinding;
@@ -387,7 +388,7 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
         return new BigDecimal("0.0");
     }
 
-    protected void nextStep(String title1) {
+    protected void nextStep(String title1, @Nullable Account selectedToAccount) {
         title = title1;
         if (getViewModel().getTransferFee() > 0) // fee might be 0 or -1
             feeConfirmationDialog(title);
@@ -395,8 +396,9 @@ public abstract class BaseTransferFragment<DB extends ViewDataBinding, VM extend
             mViewModel.calculateCommission();
         else if (getViewModel().getTransferFee() == -2) // fee might be 0 or -1
             mViewModel.calculateCommission();
-        else if(getViewModel().getTransferFee() ==0 && !getViewModel().selectedAccount.getValue().getCurrency().getCode().equals("760")) {
+        else if(getViewModel().getTransferFee() ==0 && (selectedToAccount != null && getViewModel().selectedAccount.getValue().getCurrency().getCode()  != selectedToAccount.getCurrency().getCode())) {
             mViewModel.calculateCommission();
+            //mViewModel.selectedToAccount.getValue()
         }
         else
             openConfirmPinDialog();

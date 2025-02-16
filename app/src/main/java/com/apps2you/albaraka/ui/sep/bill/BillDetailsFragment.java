@@ -478,7 +478,7 @@ private void showPinConfirmationDialog(List<JSONObject> selectedBills) {
         if (selectedAccount == null) {
             showToast(R.string.you_must_select_account);
         }  else {
-            nextStep(getString(R.string.ADSL_payment));
+            nextStep(getString(R.string.ADSL_payment),null);
         }
     }
 
