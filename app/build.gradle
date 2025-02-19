@@ -18,8 +18,8 @@ android {
         applicationId "com.apps2you.albaraka"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 48
-        versionName "3.10"
+        versionCode 49
+        versionName "3.11"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
