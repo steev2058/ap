@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
@@ -34,9 +35,12 @@ import com.apps2you.albaraka.ui.transfer.qrPayment.QrPaymentActivity;
 import com.apps2you.albaraka.utils.Constants;
 import com.apps2you.albaraka.viewmodels.HomeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import static com.apps2you.albaraka.utils.cryptography.ConstantsKt.NOTIFICATION_EXTRA;
+
+import io.reactivex.annotations.NonNull;
 
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements CryptPasswordCallback {
 
@@ -119,6 +123,14 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
+        FloatingActionButton fabChatBot = findViewById(R.id.fab_chatbot);
+        fabChatBot.setOnClickListener(view -> {
+            new ChatBotDialogFragment().show(getSupportFragmentManager(), "ChatBotDialog");
+        });
+
+
+
+
         mViewDataBinding.iBtnNotifications.setOnClickListener(v -> startActivity(new Intent(this, NotificationsActivity.class)));
 
         mViewDataBinding.iBtnLocations.setOnClickListener(v -> startActivity(new Intent(this, LocationsActivity.class)));
@@ -132,7 +144,19 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         mViewDataBinding.bottomSheet.setViewModel(mViewModel);
         mViewDataBinding.bottomSheet.executePendingBindings();
         bottomSheetBehavior = BottomSheetBehavior.from(mViewDataBinding.bottomSheet.bottomSheetLayout);
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    fabChatBot.hide();
+                } else {
+                    fabChatBot.show();
+                }
+            }
 
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
+        });
         mViewDataBinding.bottomSheet.tvPrivacy.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, PrivacyPolicyActivity.class)));
         mViewDataBinding.bottomSheet.tvLogout.setOnClickListener(v -> logoutConfirmation());
         mViewDataBinding.bottomSheet.closeBtn.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
