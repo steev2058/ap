@@ -339,6 +339,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         }
     }
 
+
+
     private fun openTransferActivity() {
         activityNavigation.navigate(
             TransferActivity.getIntent(
