@@ -1,5 +1,6 @@
 package com.apps2you.albaraka.utils;
 
+import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -41,11 +42,13 @@ public class NumberTextWatcher implements TextWatcher {
 
             Number n = df.parse(v);
             int cp = et.getSelectionStart();
-            if (hasFractionalPart) {
-                et.setText(df.format(n));
-            } else {
-                et.setText(dfnd.format(n));
-            }
+
+                if (hasFractionalPart) {
+                    et.setText(df.format(n));
+                } else {
+                    et.setText(dfnd.format(n));
+                }
+
             endlen = et.getText().length();
             int sel = (cp + (endlen - inilen));
             if (sel > 0 && sel <= et.getText().length()) {
@@ -54,11 +57,25 @@ public class NumberTextWatcher implements TextWatcher {
                 // place cursor at the end?
                 et.setSelection(et.getText().length() - 1);
             }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) { // Android 15
+                final int finalSel = sel;
+                et.postDelayed(() -> {
+                    if (!et.isFocused()) {
+                        et.requestFocus();
+                    }
+                    et.setSelection(Math.min(finalSel, et.getText().length()));
+                }, 100); // Delay just enough for layout to settle
+            } else {
+                et.setSelection(sel);
+            }
+
         } catch (NumberFormatException | ParseException nfe) {
             // do nothing?
         }
 
+
         et.addTextChangedListener(this);
+
     }
 
     @Override
