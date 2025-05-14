@@ -274,9 +274,9 @@
     <string name="paid_date_print">تاريخ الدفع: </string>
     <string name="paid_amount_print">المبلغ المدفوع: </string>
     <string name="billing_no">رقم الفاتورة: %s</string>
-    <string name="due_amount">قيمة الفاتورة:</string>
+    <string name="due_amount">قيمة الفاتورة: %s</string>
     <string name="due_amount2">قيمة الفاتورة:</string>
-    <string name="fee_amount">العمولة:</string>
+    <string name="fee_amount">العمولة: %s</string>
     <string name="issue_date">تاريخ الاصدار: %s</string>
     <string name="due_date">تاريخ الاستحقاق: %s</string>
 

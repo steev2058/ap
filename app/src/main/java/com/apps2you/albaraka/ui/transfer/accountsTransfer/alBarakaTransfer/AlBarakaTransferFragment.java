@@ -1,6 +1,7 @@
 package com.apps2you.albaraka.ui.transfer.accountsTransfer.alBarakaTransfer;
 
 import android.content.Context;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.library.baseAdapters.BR;
@@ -27,6 +28,23 @@ public class AlBarakaTransferFragment extends BaseTransferFragment<FragmentAlbar
         super.setUpView();
 
         getViewDataBinding().etAmount.addTextChangedListener(new NumberTextWatcher(getViewDataBinding().etAmount));
+        /*getViewDataBinding().etAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            v.requestFocus();
+                            if (v instanceof android.widget.EditText) {
+                                android.widget.EditText editText = (android.widget.EditText) v;
+                                editText.setSelection(editText.getText().length());
+                            }
+                        }
+                    });
+                }
+            }
+        });*/
 
         mViewDataBinding.buttonSubmit.setOnClickListener(view -> transfer());
         mViewDataBinding.buttonPickContact.setOnClickListener(view -> pickContact());
@@ -43,7 +61,6 @@ public class AlBarakaTransferFragment extends BaseTransferFragment<FragmentAlbar
             showToast(R.string.you_must_select_account);
         } else if (!transferForm.allowed()) {
             showToast(transferForm.getErrorResource());
-
             if (transferForm.isCIFSelected() && transferForm.isCIFEmpty()) {
                 mViewDataBinding.etCifNumber.requestFocus();
             } else if (!transferForm.isCIFSelected() && transferForm.isGSSMEmpty()) {

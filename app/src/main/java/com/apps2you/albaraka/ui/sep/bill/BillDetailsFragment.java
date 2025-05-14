@@ -118,7 +118,7 @@ public class BillDetailsFragment extends BaseTransferFragment<FragmentBillDetail
             }
         });
         progressDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
-        //progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         progressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorAccent));
         progressDialog.setContentText(getString(R.string.loading));
         progressDialog.setCancelable(false);

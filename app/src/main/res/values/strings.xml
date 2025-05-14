@@ -274,7 +274,7 @@
     <string name="billing_no">Bill.No : %s</string>
     <string name="due_amount">Amount : %s</string>
     <string name="due_amount2">Amount : </string>
-    <string name="fee_amount">Fee : </string>
+    <string name="fee_amount">Fee : %s</string>
     <string name="issue_date">Release Date : %s</string>
     <string name="due_date">Payment due date : %s</string>
 

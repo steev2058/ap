@@ -55,7 +55,7 @@ class DialogAlert implements IDialogAlert {
         AlertDialog alertDialog = builder.create(); //creating the dialog instance
 
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-     //   alertDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        alertDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         //TEXTS
         if (title != null) {

@@ -98,6 +98,13 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, HomeViewModel>(),
 
             Constants.SEP -> openSEPActivity()
 
+            Constants.BILLS ->activityNavigation.navigate(
+                Intent(
+                    requireContext(),
+                    BillsActivity::class.java
+                )
+            )
+
             Constants.RESTAURANTS -> openRestaurantsPaymentActivity()
 
             //Constants.BILLS -> activityNavigation.navigate(Intent(requireContext(), BillsActivity::class.java))
