@@ -18,6 +18,7 @@ import com.apps2you.albaraka.viewmodels.KycViewModel;
 import com.apps2you.albaraka.viewmodels.LocationsVM;
 import com.apps2you.albaraka.viewmodels.LoginViewModel;
 import com.apps2you.albaraka.viewmodels.MobFormViewModel;
+import com.apps2you.albaraka.viewmodels.MyDevicesVM;
 import com.apps2you.albaraka.viewmodels.MyFinancing2ViewModel;
 import com.apps2you.albaraka.viewmodels.MyFinancingViewModel;
 import com.apps2you.albaraka.viewmodels.NotificationsViewModel;
@@ -90,6 +91,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PrivacyPolicyVM.class)
     abstract ViewModel bindsPrivacyPolicyVM(PrivacyPolicyVM viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MyDevicesVM.class)
+    abstract ViewModel bindsMyDevicesVM(MyDevicesVM viewModel);
 
     @Binds
     @IntoMap

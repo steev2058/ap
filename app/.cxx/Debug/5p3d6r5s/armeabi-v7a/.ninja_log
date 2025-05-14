@@ -1,3 +1,10 @@
 # ninja log v5
 1	403	7674511545293996	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	a80a047e5b1ef535
 406	580	7674511546943960	../../../../build/intermediates/cxx/Debug/5p3d6r5s/obj/armeabi-v7a/libnative-lib.so	d8f60cac71986dff
+0	16	0	clean	c179a05aadb4c77e
+0	15	0	clean	c179a05aadb4c77e
+4	535	7689261010587042	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	a80a047e5b1ef535
+535	843	7689261013496984	../../../../build/intermediates/cxx/Debug/5p3d6r5s/obj/armeabi-v7a/libnative-lib.so	d8f60cac71986dff
+0	16	0	clean	c179a05aadb4c77e
+3	1099	7689261718412923	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	a80a047e5b1ef535
+1100	1610	7689261723242909	../../../../build/intermediates/cxx/Debug/5p3d6r5s/obj/armeabi-v7a/libnative-lib.so	d8f60cac71986dff

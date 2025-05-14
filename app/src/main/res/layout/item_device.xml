@@ -1,0 +1,87 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textDirection="ltr"
+    android:layoutDirection="ltr"
+    app:cardCornerRadius="15dp"
+    android:layout_gravity="center"
+    android:elevation="4dp">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Circular image on the left -->
+        <ImageView
+            android:id="@+id/deviceImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="35dp"
+            android:src="@drawable/sm"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/circle_background"
+            android:padding="9dp" />
+
+        <!-- Right side content -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/deviceName"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/lastLogin"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/card_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginTop="5dp"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_marginTop="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+                <Button
+                    android:id="@+id/btnTrusted"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="موثوق"
+                    android:background="@drawable/rounded_background_g"
+                    android:backgroundTint="@color/blue"
+                    android:textColor="@android:color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/rounded_background_g"
+                    android:backgroundTint="@color/red"
+                    android:src="@drawable/ic_delete"
+                    app:tint="@android:color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

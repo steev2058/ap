@@ -11,6 +11,7 @@ import com.apps2you.albaraka.data.model.Complaint;
 import com.apps2you.albaraka.data.model.FinancingTransaction;
 import com.apps2you.albaraka.data.model.FinancingTransactionDetails;
 import com.apps2you.albaraka.data.model.MobForm;
+import com.apps2you.albaraka.data.model.MyDevices;
 import com.apps2you.albaraka.data.model.NotificationContent;
 import com.apps2you.albaraka.data.model.PrivacyPolicy;
 import com.apps2you.albaraka.data.model.ProductCategory;
@@ -60,6 +61,35 @@ public class AppRepository {
             }
         }.getAsLiveServerData();
     }
+    public LiveData<Resource<ArrayList<MyDevices>>> getMyDevices() {
+        return new NetworkBoundResource<ArrayList<MyDevices>>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<ArrayList<MyDevices>>> createCall() {
+                return apiService.getMyDevices();
+            }
+        }.getAsLiveServerData();
+    }
+    public LiveData<Resource<String>> changeTrusting(int id, int status) {
+        return new NetworkBoundResource<String>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<String>> createCall() {
+                return apiService.changeTrusting(id, status);
+            }
+        }.getAsLiveServerData();
+    }
+
+    public LiveData<Resource<String>> deleteDevice(int id) {
+        return new NetworkBoundResource<String>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<String>> createCall() {
+                return apiService.deleteDevice(id);
+            }
+        }.getAsLiveServerData();
+    }
+
 
 
     public NetworkBoundResource<ArrayList<Branch>> getBranchesRequest(final String type) {

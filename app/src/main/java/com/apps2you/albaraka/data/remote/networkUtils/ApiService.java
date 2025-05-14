@@ -18,6 +18,7 @@ import com.apps2you.albaraka.data.model.FinancingTransactionDetails;
 import com.apps2you.albaraka.data.model.FinancingType;
 import com.apps2you.albaraka.data.model.HfTransferType;
 import com.apps2you.albaraka.data.model.MobForm;
+import com.apps2you.albaraka.data.model.MyDevices;
 import com.apps2you.albaraka.data.model.NotificationContent;
 import com.apps2you.albaraka.data.model.Operator;
 import com.apps2you.albaraka.data.model.Partner;
@@ -145,6 +146,9 @@ public interface ApiService {
     @GET("privacy_policy")
     Call<MyResponse<PrivacyPolicy>> getPrivacyPolicy();
 
+    @GET("my_devices")
+    Call<MyResponse<ArrayList<MyDevices>>> getMyDevices();
+
     @FormUrlEncoded
     @POST("change_client_language")
     Call<MyResponse<String>> changeClientLanguage(@Field("lang") String lang);
@@ -217,6 +221,18 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("turn_otp")
     Call<MyResponse<String>> turnOtp(@Field("status") int status);
+
+
+    @FormUrlEncoded
+    @POST("change_trusting")
+    Call<MyResponse<String>> changeTrusting(@Field("id") int id, @Field("status") int status);
+
+
+    @FormUrlEncoded
+    @POST("delete_device")
+    Call<MyResponse<String>> deleteDevice(@Field("id") int deviceId);
+
+
 
     @GET("get_quick_services")
     Call<MyResponse<ArrayList<QuickService>>> getQuickServices();

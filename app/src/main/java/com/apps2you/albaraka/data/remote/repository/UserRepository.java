@@ -362,6 +362,8 @@ public class UserRepository {
         }.getAsLiveServerData();
     }
 
+
+
     public LiveData<Resource<ArrayList<QuickService>>> getQuickServices() {
         return new NetworkBoundResource<ArrayList<QuickService>>() {
             @NonNull

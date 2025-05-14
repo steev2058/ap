@@ -52,12 +52,12 @@
                 android:id="@+id/tv_buy"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="center_vertical|start"
                 android:lines="1"
-                android:textAlignment="center"
+                android:textAlignment="viewStart"
                 formattedNum="@{item.buyingRate}"
                 />
 
@@ -66,9 +66,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="end"
+                android:gravity="center_vertical|start"
                 android:lines="1"
-                android:textAlignment="viewEnd"
+                android:textAlignment="viewStart"
                 formattedNum="@{item.sellingRate}"
                 />
         </LinearLayout>

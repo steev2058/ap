@@ -16,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.apps2you.albaraka.BR;
 import com.apps2you.albaraka.MyApplication;
 import com.apps2you.albaraka.R;
+import com.apps2you.albaraka.data.model.MyDevices;
 import com.apps2you.albaraka.data.model.NotificationContent;
 import com.apps2you.albaraka.data.model.User;
 import com.apps2you.albaraka.data.preference.UserUtils;
@@ -24,6 +25,7 @@ import com.apps2you.albaraka.databinding.ActivityHomeBinding;
 import com.apps2you.albaraka.databinding.DialogLanguageBinding;
 import com.apps2you.albaraka.ui.PrivacyPolicyActivity;
 import com.apps2you.albaraka.ui.base.BaseActivity;
+import com.apps2you.albaraka.ui.devices.MyDevicesActivity;
 import com.apps2you.albaraka.ui.locations.LocationsActivity;
 import com.apps2you.albaraka.ui.notifications.NotificationsActivity;
 import com.apps2you.albaraka.ui.registration.CryptPasswordCallback;
@@ -158,6 +160,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
         });
         mViewDataBinding.bottomSheet.tvPrivacy.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, PrivacyPolicyActivity.class)));
+        mViewDataBinding.bottomSheet.tvMyDevices.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, MyDevicesActivity.class)));
         mViewDataBinding.bottomSheet.tvLogout.setOnClickListener(v -> logoutConfirmation());
         mViewDataBinding.bottomSheet.closeBtn.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
         mViewDataBinding.bottomSheet.tvChangeLanguage.setOnClickListener(v -> languageDialog());
@@ -173,6 +176,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             intent.putExtra("navigation_type", Constants.NAVIGATION_FROM_SETTINGS_TO_RESET_PASS);
             startActivity(intent);
         });
+
+
 
         mViewDataBinding.bottomSheet.tvChangePin.setOnClickListener(view -> {
             Intent intent = new Intent(HomeActivity.this, SettingsActivityTwo.class);

@@ -74,11 +74,11 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
                 Settings.Secure.ANDROID_ID
         );
 
-        return "Brand: " + Build.BRAND + "-" +
-                "DeviceID: " + deviceID + "-" +
-                "Model: " + Build.MODEL + "-" +
-                "ID: " + Build.ID + "-" +
-                "Manufacture: " + Build.MANUFACTURER;
+        return "Brand: " + Build.BRAND + "\n"+
+                "DeviceID: " + deviceID + "\n"+
+                "Model: " + Build.MODEL;
+
+             //   "Manufacture: " + Build.MANUFACTURER;
     }
 
 

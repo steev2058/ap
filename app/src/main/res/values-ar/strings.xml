@@ -25,6 +25,7 @@
     <string name="prompt_info_cancel">إلغاء</string>
     <string name="Change_language">تغيير اللغة</string>
     <string name="password_title">تغيير كلمة المرور</string>
+    <string name="my_devices">الأجهزة</string>
     <string name="more_pass">نسيت كلمة السر</string>
     <string name="pin_title">تغيير رمز التحقق</string>
     <string name="cif_number">رقم الحساب</string>

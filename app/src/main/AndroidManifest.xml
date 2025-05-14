@@ -106,6 +106,10 @@
             android:name=".ui.PrivacyPolicyActivity"
             android:screenOrientation="portrait"
             android:taskAffinity="" />
+        <activity
+            android:name=".ui.devices.MyDevicesActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
 
         <activity
             android:name=".ui.settings.SettingsActivity"

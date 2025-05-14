@@ -14,6 +14,7 @@ import com.apps2you.albaraka.ui.calculator.CalculatorActivity;
 import com.apps2you.albaraka.ui.calculator.CalculatorProvider;
 import com.apps2you.albaraka.ui.complaints.ComplaintActivity;
 import com.apps2you.albaraka.ui.complaints.ComplaintProvider;
+import com.apps2you.albaraka.ui.devices.MyDevicesActivity;
 import com.apps2you.albaraka.ui.exchange.ExchangeActivity;
 import com.apps2you.albaraka.ui.exchange.ExchangeProvider;
 import com.apps2you.albaraka.ui.financeForm.FinanceFormActivity;
@@ -101,6 +102,9 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector
     abstract PrivacyPolicyActivity privacyPolicyActivity();
+
+    @ContributesAndroidInjector
+    abstract MyDevicesActivity myDevicesActivity();
 
     @ContributesAndroidInjector
     abstract LocationsActivity locationsActivity();
