@@ -27,6 +27,8 @@ import com.apps2you.albaraka.viewmodels.PrivacyPolicyVM;
 
 import java.util.ArrayList;
 
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+
 
 public class MyDevicesActivity extends BaseActivity<ActivityMyDevicesBinding, MyDevicesVM> {
 
