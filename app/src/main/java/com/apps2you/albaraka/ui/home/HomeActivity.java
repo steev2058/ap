@@ -2,13 +2,18 @@ package com.apps2you.albaraka.ui.home;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -77,6 +82,15 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         }
     };
 
+    public void toggleDarkMode(boolean isDarkMode) {
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -98,6 +112,22 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
                 .getEnableOtp() == 1);
         mViewDataBinding.bottomSheet.switchOtp.setOnCheckedChangeListener(otpListener);
         mViewDataBinding.bottomSheet.switchOtp.setOnCheckedChangeListener(otpListener);
+
+
+        SwitchCompat darkModeSwitch = findViewById(R.id.switch_dark_mode);
+        darkModeSwitch.setChecked(isDarkThemeEnabled());
+
+        darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            toggleDarkMode(isChecked);
+            // optional: store in shared preferences
+        });
+
+    }
+    private boolean isDarkThemeEnabled() {
+        int nightMode = AppCompatDelegate.getDefaultNightMode();
+        return nightMode == AppCompatDelegate.MODE_NIGHT_YES ||
+                (nightMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM &&
+                        (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES);
     }
 
     @Override
@@ -128,6 +158,12 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         FloatingActionButton fabChatBot = findViewById(R.id.fab_chatbot);
         fabChatBot.setOnClickListener(view -> {
             new ChatBotDialogFragment().show(getSupportFragmentManager(), "ChatBotDialog");
+        });
+        mViewDataBinding.bottomSheet.switchDarkMode.setChecked(isDarkThemeEnabled());
+        mViewDataBinding.bottomSheet.switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+            editor.putBoolean("dark_mode", isChecked).apply();
+            toggleDarkMode(isChecked);
         });
 
 

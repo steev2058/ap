@@ -50,11 +50,7 @@ public class MyDevicesActivity extends BaseActivity<ActivityMyDevicesBinding, My
     @Override
     public void setUpView() {
         setToolbarTitle(getViewDataBinding().toolbar, getString(R.string.my_devices));
-        Button btnLogoutAll = findViewById(R.id.btnLogoutAll);
-        btnLogoutAll.setOnClickListener(v -> {
-            // TODO: call API to logout from all devices
-            Toast.makeText(this, "تم تسجيل الخروج من جميع الأجهزة الأخرى", Toast.LENGTH_SHORT).show();
-        });
+
 
     }
 
@@ -85,6 +81,8 @@ public class MyDevicesActivity extends BaseActivity<ActivityMyDevicesBinding, My
                     showToast(resource.message);
             }
         });
+
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView,
@@ -137,7 +135,7 @@ public class MyDevicesActivity extends BaseActivity<ActivityMyDevicesBinding, My
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY,
                         actionState, isCurrentlyActive)
                         .addBackgroundColor(ContextCompat.getColor(MyDevicesActivity.this, R.color.red))
-                        .addActionIcon(R.drawable.ic_delete) // Replace with your delete icon
+                        .addActionIcon(R.drawable.ic_delete_white) // Replace with your delete icon
                         .create()
                         .decorate();
 

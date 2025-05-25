@@ -77,11 +77,18 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
                 holder.status.setVisibility(View.VISIBLE);
                 holder.status.setTextColor(holder.itemView.getContext().getResources().getColor(android.R.color.white));
                 holder.status.setBackgroundResource(R.drawable.rounded_background_g);
+
+                // Hide buttons
+                holder.btnTrusted.setVisibility(View.GONE);
+                holder.btnDelete.setVisibility(View.GONE);
             } else {
-                holder.status.setText("");
+                holder.status.setText("الجهاز غير موثوق");
                 holder.status.setVisibility(View.VISIBLE); // You can set GONE if you want to hide untrusted
                 holder.status.setTextColor(holder.itemView.getContext().getResources().getColor(android.R.color.white));
                 holder.status.setBackgroundResource(R.drawable.rounded_background_red);
+                // Show buttons
+                holder.btnTrusted.setVisibility(View.VISIBLE);
+                holder.btnDelete.setVisibility(View.VISIBLE);
             }
 
         }
@@ -123,29 +130,33 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
 
 
 
-
-
         holder.btnDelete.setOnClickListener(v -> {
-            viewModel.deleteDevice(device.getId()).observe(lifecycleOwner, result -> {
-                switch (result.status) {
-                    case LOADING:
-                        showProgress();
-                        break;
-                    case SUCCESS:
-                        Toast.makeText(holder.btnDelete.getContext(), "تم حذف الجهاز", Toast.LENGTH_SHORT).show();
-                        hideProgress();
-                        deviceList.remove(position);
-                        notifyItemRemoved(position);
-                        break;
-                    case ERROR:
-                        Toast.makeText(holder.btnDelete.getContext(), result.message, Toast.LENGTH_SHORT).show();
-                        hideProgress();
-                        break;
-                }
-            });
+            showConfirmationDialog(
+                    holder.itemView.getContext(),
+                    "تأكيد الحذف",
+                    "هل أنت متأكد أنك تريد حذف هذا الجهاز؟",
+                    () -> {
+                        viewModel.deleteDevice(device.getId()).observe(lifecycleOwner, result -> {
+                            switch (result.status) {
+                                case LOADING:
+                                    showProgress();
+                                    break;
+                                case SUCCESS:
+                                    Toast.makeText(holder.btnDelete.getContext(), "تم حذف الجهاز", Toast.LENGTH_SHORT).show();
+                                    hideProgress();
+                                    deviceList.remove(position);
+                                    notifyItemRemoved(position);
+                                    break;
+                                case ERROR:
+                                    Toast.makeText(holder.btnDelete.getContext(), result.message, Toast.LENGTH_SHORT).show();
+                                    hideProgress();
+                                    break;
+                            }
+                        });
+                    }
+            );
         });
 
-        //holder.trustedIcon.setImageResource(device.isTrusted() == 1 ? R.drawable.checklist : R.drawable.alert);
     }
     private void updateTrustedButton(Button button, boolean isTrusted) {
         if (isTrusted) {
