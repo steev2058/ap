@@ -31,7 +31,7 @@
             android:elevation="9dp"
             android:padding="10dp"
             android:src="@drawable/close_icon"
-            app:tint="@color/black" />
+            app:tint="@color/textColor" />
 
         <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -185,28 +185,31 @@
                     android:background="@color/bright_gray"
                     app:layout_constraintTop_toBottomOf="@id/switch_music" />
 
-                <TextView
-                    android:id="@+id/tv_changePass"
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_dark_mode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:drawablePadding="8dp"
                     android:padding="12dp"
-                    android:text="@string/password_title"
+                    android:text="@string/dark_mode"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/dark_gray"
                     android:textSize="16sp"
-                    android:layout_marginTop="10dp"
-                    app:drawableStartCompat="@drawable/ic_change_password"
+                    app:drawableStartCompat="@drawable/ic_mobile_phone"
+                    app:thumbTint="@color/white"
+                    app:trackTint="@color/switch_track_color"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_music" />
 
                 <View
-                    android:id="@+id/divider_change_pass"
+                    android:id="@+id/divider_dark_mode"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_margin="10dp"
                     android:background="@color/bright_gray"
-                    app:layout_constraintTop_toBottomOf="@id/tv_changePass" />
+                    app:layout_constraintTop_toBottomOf="@id/switch_dark_mode" />
+
+
 
                 <TextView
                     android:id="@+id/tv_myDevices"
@@ -221,7 +224,7 @@
                     android:layout_marginTop="10dp"
                     app:drawableStartCompat="@drawable/ic_mobile_phone_more"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_change_pass" />
+                    app:layout_constraintTop_toBottomOf="@id/divider_dark_mode" />
 
                 <View
                     android:id="@+id/divider_myDevices"
@@ -230,6 +233,55 @@
                     android:layout_margin="10dp"
                     android:background="@color/bright_gray"
                     app:layout_constraintTop_toBottomOf="@id/tv_myDevices" />
+
+
+                <TextView
+                    android:id="@+id/tv_loyaltyPoints"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:text="@string/loyalty_points"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    app:drawableStartCompat="@drawable/ic_financing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_myDevices" />
+
+                <View
+                    android:id="@+id/divider_loyaltyPoints"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/bright_gray"
+                    app:layout_constraintTop_toBottomOf="@id/tv_loyaltyPoints" />
+
+                <TextView
+                    android:id="@+id/tv_changePass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:text="@string/password_title"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    app:drawableStartCompat="@drawable/ic_change_password"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_loyaltyPoints" />
+
+                <View
+                    android:id="@+id/divider_change_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/bright_gray"
+                    app:layout_constraintTop_toBottomOf="@id/tv_changePass" />
+
+
 
                 <TextView
                     android:id="@+id/tv_changePin"
@@ -244,7 +296,7 @@
                     android:layout_marginTop="10dp"
                     app:drawableStartCompat="@drawable/ic_change_pin"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_myDevices" />
+                    app:layout_constraintTop_toBottomOf="@id/divider_change_pass" />
 
                 <View
                     android:id="@+id/divider_change_pin"

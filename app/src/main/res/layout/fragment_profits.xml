@@ -193,7 +193,7 @@
                     android:layout_marginTop="12dp"
                     android:gravity="end"
                     android:text="@{result.expectedProfit +' '+ result.currency}"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/label_profit"
                     app:layout_constraintTop_toBottomOf="@+id/text" />

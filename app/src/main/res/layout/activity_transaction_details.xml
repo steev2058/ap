@@ -86,7 +86,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="@dimen/padding_details"
                         android:text="@{String.valueOf(viewModel.transaction.operationName)}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/line_tv" />
 
@@ -106,7 +106,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="@dimen/padding_details"
                         android:text="@{String.valueOf(viewModel.transaction.originalId)}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_operation" />
 
@@ -126,7 +126,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="@dimen/padding_details"
                         android:text="@{viewModel.transaction.date}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_branch" />
 
@@ -166,7 +166,7 @@
                         android:layout_marginEnd="@dimen/padding_details"
                         android:text="@{viewModel.transaction.toCustomer}"
                         android:textAlignment="viewEnd"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         app:goneUnless="@{!TextUtils.isEmpty(viewModel.transaction.toCustomer)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/tv_label_recipient"
@@ -189,7 +189,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="@dimen/padding_details"
                         android:text="@{viewModel.transaction.branch}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         app:goneUnless="@{!TextUtils.isEmpty(viewModel.transaction.branch)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_number" />
@@ -213,7 +213,7 @@
                         android:layout_marginEnd="@dimen/padding_details"
                         android:text="@{viewModel.transaction.fromCustomer}"
                         android:textAlignment="viewEnd"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         app:goneUnless="@{!TextUtils.isEmpty(viewModel.transaction.fromCustomer)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/tv_label_from"
@@ -236,7 +236,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="@dimen/padding_details"
                         android:text="@{viewModel.transaction.fromAccountNumber}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         app:goneUnless="@{!TextUtils.isEmpty(viewModel.transaction.fromAccountNumber)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_from" />
@@ -266,7 +266,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="@dimen/padding_details"
                         android:text="@{viewModel.transaction.displayedAmount}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         app:goneUnless="@{!TextUtils.isEmpty(viewModel.transaction.displayedAmount)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/line2" />
@@ -288,7 +288,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="@dimen/padding_details"
                         android:text="@{viewModel.transaction.charge}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         app:goneUnless="@{!TextUtils.isEmpty(viewModel.transaction.charge)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_amount" />

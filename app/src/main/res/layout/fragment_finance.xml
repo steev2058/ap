@@ -58,7 +58,7 @@
                         app:sv_doneCircleColor="@color/orange"
                         app:sv_doneCircleRadius="20dp"
                         app:sv_doneStepLineColor="@color/orange"
-                        app:sv_doneStepMarkColor="@android:color/white"
+                        app:sv_doneStepMarkColor="@color/white"
                         app:sv_doneTextColor="@android:color/darker_gray"
                         app:sv_nextStepLineColor="@color/gray"
                         app:sv_nextTextColor="@color/gray"

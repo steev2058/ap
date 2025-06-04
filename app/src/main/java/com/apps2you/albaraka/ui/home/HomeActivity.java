@@ -32,6 +32,7 @@ import com.apps2you.albaraka.ui.PrivacyPolicyActivity;
 import com.apps2you.albaraka.ui.base.BaseActivity;
 import com.apps2you.albaraka.ui.devices.MyDevicesActivity;
 import com.apps2you.albaraka.ui.locations.LocationsActivity;
+import com.apps2you.albaraka.ui.loyaltyPoints.LoyaltyPointsActivity;
 import com.apps2you.albaraka.ui.notifications.NotificationsActivity;
 import com.apps2you.albaraka.ui.registration.CryptPasswordCallback;
 import com.apps2you.albaraka.ui.registration.LoginActivity;
@@ -197,6 +198,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         });
         mViewDataBinding.bottomSheet.tvPrivacy.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, PrivacyPolicyActivity.class)));
         mViewDataBinding.bottomSheet.tvMyDevices.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, MyDevicesActivity.class)));
+        mViewDataBinding.bottomSheet.tvLoyaltyPoints.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, LoyaltyPointsActivity.class)));
         mViewDataBinding.bottomSheet.tvLogout.setOnClickListener(v -> logoutConfirmation());
         mViewDataBinding.bottomSheet.closeBtn.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
         mViewDataBinding.bottomSheet.tvChangeLanguage.setOnClickListener(v -> languageDialog());
@@ -263,7 +265,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+           // dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         }
 
         DialogLanguageBinding dialogDataBinding = DialogLanguageBinding.inflate(LayoutInflater.from(this),

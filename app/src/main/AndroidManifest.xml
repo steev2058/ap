@@ -112,6 +112,11 @@
             android:taskAffinity="" />
 
         <activity
+            android:name=".ui.loyaltyPoints.LoyaltyPointsActivity"
+            android:screenOrientation="portrait"
+            android:taskAffinity="" />
+
+        <activity
             android:name=".ui.settings.SettingsActivity"
             android:screenOrientation="portrait"
             android:taskAffinity="" />
@@ -328,6 +333,9 @@
             android:screenOrientation="portrait"
             android:taskAffinity=""
             android:windowSoftInputMode="adjustResize"/>
+
+
+
         <service
             android:name=".BarakaFirebaseMessagingService"
             android:exported="false">

@@ -26,6 +26,12 @@
     <string name="Change_language">Change language</string>
     <string name="password_title">Change password</string>
     <string name="my_devices">Linked Devices</string>
+    <string name="loyalty_points">Loyalty Points</string>
+    <string name="transaction_description">Transaction Description</string>
+    <string name="points">Points</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="available_points">Available Points</string>
+    <string name="loyalty_points_screen">🎁 Loyalty Points</string>
     <string name="more_pass">Forget Password</string>
     <string name="pin_title">Change PIN code</string>
     <string name="cif_number">Account Number</string>
@@ -438,6 +444,7 @@
     <string name="write_external_storage_permission">Write External Storage Permission</string>
     <string name="msg_write_external_storage_permission">alBaraka app requires access to the external storage in order to save files</string>
     <string name="cancel">Cancel</string>
+    <string name="dark_mode">Dark Mode</string>
     <string name="another_transfer_haram_fouad">Transfer to Al-Haram or Al-Fouad</string>
     <string name="merchant">Merchants</string>
     <string name="another_transfer_text_haram_fouad">Transfer funds to another account in Al-Haram or Al-Fouad</string>

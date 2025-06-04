@@ -20,7 +20,7 @@
             android:layout_margin="16dp"
             android:maxLines="1"
             android:text="@{item.limit}"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textSize="@dimen/font_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iv_selected"

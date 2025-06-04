@@ -4,6 +4,7 @@ package com.apps2you.albaraka.ui.registration;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -102,6 +103,15 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
             getViewModel().getUser().setCif_number(cifNumber);
             mViewDataBinding.textViewTitle.setVisibility(View.GONE);
         }
+//        int nightModeFlags =
+//                getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+//
+//        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+//            mViewDataBinding.imageView.setImageResource(R.drawable.img_logo_night);
+//        } else {
+//            mViewDataBinding.imageView.setImageResource(R.drawable.img_logo);
+//        }
+
 
         if (mActivity.canUseBiometric()) {
             mViewDataBinding.fingerPrintText.setVisibility(View.VISIBLE);

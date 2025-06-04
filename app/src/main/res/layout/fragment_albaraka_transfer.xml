@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_light">
+        android:background="@color/white">
 
         <include
             android:id="@+id/layout_toolbar"
@@ -65,7 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/To"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/font_medium"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/button_favorite_list"
@@ -199,10 +199,10 @@
                                     android:layout_marginTop="@dimen/margin_small"
                                     android:drawablePadding="@dimen/margin_xsmall"
                                     android:text="@string/gsm_condition"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/textColor"
                                     android:textSize="@dimen/font_small"
                                     app:drawableStartCompat="@drawable/ic_information_small_red"
-                                    app:drawableTint="@color/black"
+                                    app:drawableTint="@color/textColor"
                                     app:layout_constraintStart_toStartOf="@+id/et_gsm_number"
                                     app:layout_constraintTop_toBottomOf="@+id/et_gsm_number" />
                             </androidx.constraintlayout.widget.ConstraintLayout>

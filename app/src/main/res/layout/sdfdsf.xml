@@ -51,7 +51,7 @@
                         android:text="@string/no_rest_satelment"
                         android:textAlignment="center"
                         android:textSize="15sp"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/deposits_amount"
@@ -59,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:text="10"
                         android:textSize="13sp"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -88,7 +88,7 @@
                         android:text="@string/no_satelment"
                         android:textSize="15sp"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/commission_amount"
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:text="20"
                         android:textSize="13sp"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -134,7 +134,7 @@
                         android:text="@string/value_rest_satelment"
                         android:textSize="15sp"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/commission_amount2"
@@ -142,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:text="8,000 SP"
                         android:textSize="13sp"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -170,7 +170,7 @@
                         android:text="@string/value_satelment"
                         android:textAlignment="center"
                         android:textSize="15sp"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/deposits_amount2"
@@ -178,7 +178,7 @@
                         android:layout_height="wrap_content"
                         android:text="500,000 SP"
                         android:textSize="13sp"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

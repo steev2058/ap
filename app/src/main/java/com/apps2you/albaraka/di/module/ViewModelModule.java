@@ -26,7 +26,6 @@ import com.apps2you.albaraka.viewmodels.PrivacyPolicyVM;
 import com.apps2you.albaraka.viewmodels.ProductsViewModel;
 import com.apps2you.albaraka.viewmodels.ProfitsCalculatorVM;
 import com.apps2you.albaraka.viewmodels.ResetPassFormViewModel;
-import com.apps2you.albaraka.viewmodels.SharedViewModel;
 import com.apps2you.albaraka.viewmodels.TransactionViewModel;
 import com.apps2you.albaraka.viewmodels.TransactionsViewModel;
 import com.apps2you.albaraka.viewmodels.transfer.ADSLViewModel;
@@ -92,10 +91,15 @@ public abstract class ViewModelModule {
     @ViewModelKey(PrivacyPolicyVM.class)
     abstract ViewModel bindsPrivacyPolicyVM(PrivacyPolicyVM viewModel);
 
+
+
     @Binds
     @IntoMap
     @ViewModelKey(MyDevicesVM.class)
     abstract ViewModel bindsMyDevicesVM(MyDevicesVM viewModel);
+
+
+
 
     @Binds
     @IntoMap

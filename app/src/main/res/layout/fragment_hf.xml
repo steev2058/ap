@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_light">
+        android:background="@color/white">
 
         <include
             android:id="@+id/layout_toolbar"
@@ -247,10 +247,10 @@
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/margin_xsmall"
                             android:text="@{@string/hf_limit(BindingUtils.formatNumber(String.valueOf(viewModel.getTransferMinLimit())), BindingUtils.formatNumber(String.valueOf(viewModel.getTransferMaxLimit())), viewModel.selectedAccount.currency.symbol) }"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor"
                             android:textSize="@dimen/font_xsmall"
                             app:drawableStartCompat="@drawable/ic_information_small_red"
-                            app:drawableTint="@color/black" />
+                            app:drawableTint="@color/textColor" />
 
                         <Space
                             android:layout_width="wrap_content"

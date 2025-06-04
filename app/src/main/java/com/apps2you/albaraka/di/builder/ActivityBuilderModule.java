@@ -26,6 +26,7 @@ import com.apps2you.albaraka.ui.kyc.KycActivity;
 import com.apps2you.albaraka.ui.kyc.KycProvider;
 import com.apps2you.albaraka.ui.locations.LocationsActivity;
 import com.apps2you.albaraka.ui.locations_v2.LocationsV2Activity;
+import com.apps2you.albaraka.ui.loyaltyPoints.LoyaltyPointsActivity;
 import com.apps2you.albaraka.ui.mobForm.MobFormActivity;
 import com.apps2you.albaraka.ui.mobForm.MobFormProvider;
 import com.apps2you.albaraka.ui.my_financing.MyFinancingActivity;
@@ -105,6 +106,9 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector
     abstract MyDevicesActivity myDevicesActivity();
+
+    @ContributesAndroidInjector
+    abstract LoyaltyPointsActivity loyaltyPointsActivity();
 
     @ContributesAndroidInjector
     abstract LocationsActivity locationsActivity();

@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor"
         android:textStyle="bold"
         android:text="@string/Bank_AlBaraka_Bank_Statement_List"
         />
@@ -31,7 +31,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor"
         android:textStyle="bold"
         />
 
@@ -42,7 +42,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor"
         android:textStyle="bold"
         />
 
@@ -60,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textStyle="bold"
             android:textAlignment="center"
             android:text="@string/Date"
@@ -70,7 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textStyle="bold"
             android:textAlignment="center"
             android:text="@string/Name"
@@ -80,7 +80,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textStyle="bold"
             android:textAlignment="center"
             android:text="@string/Amount"

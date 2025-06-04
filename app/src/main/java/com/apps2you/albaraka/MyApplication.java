@@ -2,6 +2,8 @@ package com.apps2you.albaraka;
 
 import android.app.Application;
 import android.app.Service;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -56,7 +58,14 @@ public class MyApplication extends Application implements HasAndroidInjector {
         initializeLinks();
         initializeComponent();
         setInstance(this);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+       // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isDarkMode = prefs.getBoolean("dark_mode", false);
+
+        AppCompatDelegate.setDefaultNightMode(
+                isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+        );
 
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {

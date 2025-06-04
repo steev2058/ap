@@ -18,7 +18,7 @@
         <item name="fontFamily">@font/tahoma</item>
         <item name="android:fontFamily">@font/tahoma</item>
     </style>
-    <style name="RoundedDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="RoundedDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:windowBackground">@drawable/dialog_rounded_background</item>
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>

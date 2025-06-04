@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_light">
+        android:background="@color/white">
 
         <include
             android:id="@+id/layout_toolbar"
@@ -198,7 +198,7 @@
                                 android:id="@+id/checkbox"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/black"
+                                android:textColor="@color/textColor"
                                 android:layout_marginTop="10dp"
                                 android:text="@string/check_box"
                                 app:layout_constraintStart_toStartOf="@id/input_fields_container"
@@ -264,7 +264,7 @@
                             android:visibility="gone"
                             app:layout_constraintTop_toBottomOf="@id/bills_card"
                             app:layout_constraintStart_toStartOf="@id/bills_card"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/textColor" />
 
 
 

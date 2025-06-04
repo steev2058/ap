@@ -12,6 +12,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -162,7 +163,7 @@
                     android:layout_marginStart="4dp"
                     android:gravity="end"
                     android:text="@{result.expectedDeposit +' '+ result.currency}"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/label_deposit"
                     app:layout_constraintTop_toBottomOf="@+id/text" />
@@ -191,7 +192,7 @@
                     android:layout_marginTop="16dp"
                     android:gravity="end"
                     android:text="@{result.firstPatchDate}"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/label_date"
                     app:layout_constraintTop_toBottomOf="@+id/tv_advance" />

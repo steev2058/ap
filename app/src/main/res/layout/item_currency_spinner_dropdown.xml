@@ -16,7 +16,7 @@
             android:id="@+id/tv_currency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:padding="@dimen/text_padding"
             android:text="@{item.currency.name + ` - `+item.currency.symbol}"
             app:layout_constraintStart_toStartOf="parent"

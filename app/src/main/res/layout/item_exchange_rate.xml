@@ -45,7 +45,7 @@
                     android:lines="1"
                     android:text="@{item.currency.symbol}"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/textColor" />
             </RelativeLayout>
 
             <TextView

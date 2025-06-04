@@ -3,6 +3,9 @@
     <color name="colorPrimary">@color/red</color>
     <color name="colorPrimaryDark">@color/red</color>
     <color name="colorAccent">@color/gray</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="textColor">#747474</color>
+    <color name="textColor2">#FFFFFF</color>
 
     <color name="red">#C60C30</color>
     <color name="orange">#FF5800</color>
@@ -12,6 +15,7 @@
     <color name="green">#1EC835</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black_icon">#000000</color>
     <color name="white_light">#BEFFFFFF</color>
 
     <color name="gray_light">#8a8a8f</color>

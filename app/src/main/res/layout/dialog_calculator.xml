@@ -109,7 +109,7 @@
                 android:background="@android:color/transparent"
                 android:enabled="false"
                 android:padding="@dimen/text_padding"
-                android:textColor="@color/black" />
+                android:textColor="@color/textColor" />
 
             <View
                 android:layout_width="0.5dp"
@@ -125,7 +125,7 @@
                 android:paddingStart="@dimen/text_padding"
                 android:paddingEnd="@dimen/text_padding"
                 android:text="@string/SYP"
-                android:textColor="@color/black" />
+                android:textColor="@color/textColor" />
 
         </LinearLayout>
 

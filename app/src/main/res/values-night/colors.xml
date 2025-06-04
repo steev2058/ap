@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/red</color>
+    <color name="colorPrimaryDark">@color/red</color>
+    <color name="colorAccent">@color/gray</color>
+    <color name="backgroundColor">#36121212</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="textColor2">#FFFFFF</color>
+    <color name="red">#C60C30</color>
+    <color name="orange">#FF5800</color>
+    <color name="gray">#5E6167</color>
+
+    <color name="blue">#0073b0</color>
+    <color name="green">#1EC835</color>
+
+    <color name="white">#121212</color>
+    <color name="black_icon">#FFFFFF</color>
+    <color name="white_light">#BE000000</color>
+
+
+    <color name="gray_light">#8a8a8f</color>
+    <color name="gray_light2">#1E1E1E</color>
+    <color name="black">#FFFFFF</color>
+    <color name="dark_gray">#4A4A4A</color>
+    <color name="bright_gray">#F21E1E1E</color>
+    <color name="gray_line_view">#121212</color>
+
+    <color name="colorTextGray">#666666</color>
+
+
+    <color name="blue_btn_bg_color">#AEDEF4</color>
+    <color name="blue_btn_bg_pressed_color">#96BFD2</color>
+    <color name="button_text_color">#121212</color>
+    <color name="error_stroke_color">#F27474</color>
+    <color name="float_transparent">#00000000</color>
+    <color name="gray_btn_bg_color">#222121</color>
+    <color name="gray_btn_bg_pressed_color">#B6B6B6</color>
+    <color name="material_blue_grey_80">#ff37474f</color>
+    <color name="material_blue_grey_90">#ff263238</color>
+    <color name="material_blue_grey_95">#ff21272b</color>
+    <color name="material_deep_teal_20">#ff80cbc4</color>
+    <color name="material_deep_teal_50">#ff009688</color>
+    <color name="red_btn_bg_color">#DD6B55</color>
+    <color name="red_btn_bg_pressed_color">#CD5B55</color>
+    <color name="success_stroke_color">#C60C30</color>
+    <color name="sweet_dialog_bg_color">#121212</color>
+    <color name="text_color">#575757</color>
+    <color name="trans_success_stroke_color">#33A5DC86</color>
+    <color name="warning_stroke_color">#F8BB86</color>
+
+</resources>

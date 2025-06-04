@@ -65,7 +65,7 @@
 <!--                android:paddingBottom="10dp"-->
 <!--                android:textSize="12sp"-->
 <!--                android:lineSpacingExtra="3dp"-->
-<!--                android:textColor="@color/black"-->
+<!--                android:textColor="@color/textColor"-->
 <!--                android:text="@string/mobFormtext"-->
 <!--                android:textAlignment="viewStart"-->
 <!--                android:textStyle="normal"-->

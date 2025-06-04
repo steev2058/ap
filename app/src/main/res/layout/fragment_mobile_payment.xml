@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_light">
+        android:background="@color/white">
 
         <include
             android:id="@+id/layout_toolbar"
@@ -122,10 +122,10 @@
                                 android:layout_marginTop="@dimen/margin_small"
                                 android:drawablePadding="@dimen/margin_xsmall"
                                 android:text="@{@string/operator_msg + ` ` + viewModel.selectedOperator.name}"
-                                android:textColor="@color/black"
+                                android:textColor="@color/textColor"
                                 android:textSize="@dimen/font_small"
                                 app:drawableStartCompat="@drawable/ic_information_small_red"
-                                app:drawableTint="@color/black"
+                                app:drawableTint="@color/textColor"
                                 tools:text="This number is MTN"
                                 app:existence="@{viewModel.selectedOperator != null}"
                                 />
@@ -212,10 +212,10 @@
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="@dimen/margin_xsmall"
                                 android:text="@{@string/maximum_msg + ` ` + viewModel.selectedOperator.maxLimit}"
-                                android:textColor="@color/black"
+                                android:textColor="@color/textColor"
                                 android:textSize="@dimen/font_small"
                                 app:drawableStartCompat="@drawable/ic_information_small_red"
-                                app:drawableTint="@color/black"
+                                app:drawableTint="@color/textColor"
                                 app:existence="@{viewModel.selectedOperator != null}"
                                 tools:text="The maximum allowed amount per transfer is: 9900" />
                         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/margin_xsmall"
                     android:text="@string/receiver_name"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor"
                     android:textSize="@dimen/font_small"
                     app:drawableStartCompat="@drawable/ic_benef_info" />
 
@@ -62,7 +62,7 @@
                     android:layout_marginTop="4dp"
                     android:text="@{viewModel.qrCode.receiverName}"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/textColor" />
 
                 <include
                     android:id="@+id/layout_form"

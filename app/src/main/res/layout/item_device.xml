@@ -70,7 +70,7 @@
                     android:text="موثوق"
                     android:background="@drawable/rounded_background_g"
                     android:backgroundTint="@color/blue"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/white" />
 
                 <ImageButton
                     android:id="@+id/btnDelete"
@@ -80,7 +80,7 @@
                     android:background="@drawable/rounded_background_g"
                     android:backgroundTint="@color/red"
                     android:src="@drawable/ic_delete"
-                    app:tint="@android:color/white" />
+                    app:tint="@color/white" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

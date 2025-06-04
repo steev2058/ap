@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxHeight = "500dp"
-        android:background="@android:color/background_light">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/tv_title"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/margin_small"
             android:text="@{title}"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textSize="@dimen/font_medium"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"

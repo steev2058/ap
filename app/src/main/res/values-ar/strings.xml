@@ -26,6 +26,13 @@
     <string name="Change_language">تغيير اللغة</string>
     <string name="password_title">تغيير كلمة المرور</string>
     <string name="my_devices">الأجهزة</string>
+    <string name="loyalty_points">نقاط الولاء</string>
+    <string name="transaction_history">سجل المعاملات</string>
+    <string name="transaction_description">وصف المعاملة</string>
+
+    <string name="points">النقاط</string>
+    <string name="available_points">النقاط المتاحة</string>
+    <string name="loyalty_points_screen">🎁 نقاط الولاء</string>
     <string name="more_pass">نسيت كلمة السر</string>
     <string name="pin_title">تغيير رمز التحقق</string>
     <string name="cif_number">رقم الحساب</string>
@@ -443,6 +450,7 @@
     <string name="write_external_storage_permission">إذن الوصول للتخزين الخارجي</string>
     <string name="msg_write_external_storage_permission">يتطلب تطبيق البركة الوصول إلى وحدة التخزين الخارجية من أجل حفظ الملفات</string>
     <string name="cancel">الغاء</string>
+    <string name="dark_mode">الوضع الليلي</string>
     <string name="another_transfer_text_haram_fouad">تحويل أموال إلى مستفيد في شركات الحوالات </string>
     <string name="merchant">المعتمدين</string>
     <string name="another_transfer_haram_fouad">التحويل إلى شركات الحوالات  </string>
