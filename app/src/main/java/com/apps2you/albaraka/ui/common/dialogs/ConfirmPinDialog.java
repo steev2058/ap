@@ -1,5 +1,6 @@
 package com.apps2you.albaraka.ui.common.dialogs;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +39,7 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import dagger.android.support.AndroidSupportInjection;
 
 public class ConfirmPinDialog extends MVVMFragmentDialog<ConfirmPinViewModel, DialogConfirmPinBinding> {
     public static final String TAG_CONFIRM_PIN_DIALOG = "confirm_pin_dialog";
@@ -45,6 +47,8 @@ public class ConfirmPinDialog extends MVVMFragmentDialog<ConfirmPinViewModel, Di
     private final PinConfirmationListener pinConfirmationListener;
     private static int transferTypeId = -1;
     private SweetAlertDialog progressDialog;
+
+    private static boolean forceOTP = false;
 
     public static void setTransferTypeId(int transferTypeId2) {
         transferTypeId = transferTypeId2;
@@ -62,6 +66,12 @@ public class ConfirmPinDialog extends MVVMFragmentDialog<ConfirmPinViewModel, Di
     public static void show(FragmentManager fragmentManager, PinConfirmationListener pinConfirmationListener) {
         create(pinConfirmationListener).show(fragmentManager, TAG_CONFIRM_PIN_DIALOG);
     }
+
+
+    public static void show(FragmentManager fragmentManager,boolean forceOTP2, PinConfirmationListener pinConfirmationListener) {
+        forceOTP = forceOTP2;
+        create(pinConfirmationListener).show(fragmentManager, TAG_CONFIRM_PIN_DIALOG);
+    }
     User user = UserUtils.getInstance(MyApplication.getAppContext()).getUser();
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -75,7 +85,8 @@ public class ConfirmPinDialog extends MVVMFragmentDialog<ConfirmPinViewModel, Di
         progressDialog.setCancelable(false);
 
         // Set the text dynamically based on TransferTypeId
-        if (transferTypeId == Constants.TRANSFER_AL_BARAKA  && user.getEnableOtp() == 1) {
+        if (forceOTP == true || (transferTypeId == Constants.TRANSFER_AL_BARAKA  && user.getEnableOtp() == 1)) {
+            resendOtp();
             binding.tvEnterPinCode.setText(R.string.enter_otp);
             binding.buttonResend.setVisibility(View.VISIBLE); // Show the "Resend" button
             binding.tvTimer.setVisibility(View.VISIBLE);
@@ -84,6 +95,7 @@ public class ConfirmPinDialog extends MVVMFragmentDialog<ConfirmPinViewModel, Di
             binding.buttonResend.setVisibility(View.GONE); // Hide the "Resend" button
             binding.tvTimer.setVisibility(View.GONE);
         }
+        forceOTP = false;
 
 
         binding.pinView.setTransformationMethod(new AsteriskPasswordTransformationMethod());
@@ -144,6 +156,8 @@ public class ConfirmPinDialog extends MVVMFragmentDialog<ConfirmPinViewModel, Di
         Animation shake = AnimationUtils.loadAnimation(requireContext(), R.anim.shake);
         binding.pinView.startAnimation(shake);
     }
+
+
     private void resendOtp() {
         // Run the network operation on a background thread
         Executors.newSingleThreadExecutor().execute(() -> {

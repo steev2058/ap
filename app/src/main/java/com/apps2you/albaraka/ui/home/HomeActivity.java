@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
@@ -30,6 +31,7 @@ import com.apps2you.albaraka.databinding.ActivityHomeBinding;
 import com.apps2you.albaraka.databinding.DialogLanguageBinding;
 import com.apps2you.albaraka.ui.PrivacyPolicyActivity;
 import com.apps2you.albaraka.ui.base.BaseActivity;
+import com.apps2you.albaraka.ui.common.dialogs.ConfirmPinDialog;
 import com.apps2you.albaraka.ui.devices.MyDevicesActivity;
 import com.apps2you.albaraka.ui.locations.LocationsActivity;
 import com.apps2you.albaraka.ui.loyaltyPoints.LoyaltyPointsActivity;
@@ -75,12 +77,32 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         }
     };
 
+//    CompoundButton.OnCheckedChangeListener otpListener = (buttonView, isChecked) -> {
+//        if (isChecked) {
+//            turnOtp(1);
+//        } else {
+//            turnOtp(0);
+//        }
+//    };
+
     CompoundButton.OnCheckedChangeListener otpListener = (buttonView, isChecked) -> {
         if (isChecked) {
+            // User is turning ON OTP directly
             turnOtp(1);
         } else {
-            turnOtp(0);
+            // User is trying to turn OFF OTP: First verify via PIN/OTP
+            ConfirmPinDialog.show(getSupportFragmentManager(),true, pin -> {
+                // Success: PIN confirmed, disable OTP
+                turnOtp(0);
+            });
+
+            // Revert switch temporarily until user confirms
+            mViewDataBinding.bottomSheet.switchOtp.setOnCheckedChangeListener(null);
+            mViewDataBinding.bottomSheet.switchOtp.setChecked(true);
+           // mViewDataBinding.bottomSheet.switchOtp.setOnCheckedChangeListener(otpListener);
+
         }
+
     };
 
     public void toggleDarkMode(boolean isDarkMode) {

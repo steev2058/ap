@@ -393,7 +393,7 @@
     <string name="no_deals">لا يوجد تمويلات قائمة</string>
     <string name="my_financingChart">التمويل</string>
     <string name="turn_otp">تفعيل رمز التحقق لمرة واحدة (OTP)</string>
-    <string name="notif_otp">تم إعادة إرسال رمز التحقق</string>
+    <string name="notif_otp">تم إرسال رمز التحقق</string>
     <string name="enter_otp">أدخل رمز التحقق المرسل اليك عبر رسالة SMS</string>
     <string name="resend2">إعادة طلب</string>
     <string name="my_financingTable">جدول الأقساط</string>

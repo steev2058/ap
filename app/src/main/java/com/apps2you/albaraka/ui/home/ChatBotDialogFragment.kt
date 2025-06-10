@@ -47,7 +47,7 @@ class ChatBotDialogFragment : DialogFragment() {
     private lateinit var sendButton: ImageButton
     private lateinit var micBtn: ImageButton
     private lateinit var chatMessages: LinearLayout
-    private val apiUrl = "http://10.0.206.122:3000/api/v1/prediction/1be4a2ba-668c-4040-b888-e3a4bb11e450"
+    private val apiUrl = "/api/v1/prediction/1be4a2ba-668c-4040-b888-e3a4bb11e450"
     private val REQUEST_CODE_SPEECH_INPUT = 1
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = Dialog(requireContext())
@@ -207,7 +207,7 @@ class ChatBotDialogFragment : DialogFragment() {
 
         val body = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), jsonBody.toString())
         val request = Request.Builder()
-            .url("http://10.0.206.122:3000/api/v1/prediction/1be4a2ba-668c-4040-b888-e3a4bb11e450")
+            .url("https://chatbot.albarakasyria.com:3001/api/v1/prediction/1be4a2ba-668c-4040-b888-e3a4bb11e450")
             .post(body)
             .build()
 
