@@ -182,12 +182,12 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         fabChatBot.setOnClickListener(view -> {
             new ChatBotDialogFragment().show(getSupportFragmentManager(), "ChatBotDialog");
         });
-        mViewDataBinding.bottomSheet.switchDarkMode.setChecked(isDarkThemeEnabled());
-        mViewDataBinding.bottomSheet.switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-            editor.putBoolean("dark_mode", isChecked).apply();
-            toggleDarkMode(isChecked);
-        });
+//        mViewDataBinding.bottomSheet.switchDarkMode.setChecked(isDarkThemeEnabled());
+//        mViewDataBinding.bottomSheet.switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+//            editor.putBoolean("dark_mode", isChecked).apply();
+//            toggleDarkMode(isChecked);
+//        });
 
 
 
@@ -219,8 +219,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
         });
         mViewDataBinding.bottomSheet.tvPrivacy.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, PrivacyPolicyActivity.class)));
-        mViewDataBinding.bottomSheet.tvMyDevices.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, MyDevicesActivity.class)));
-        mViewDataBinding.bottomSheet.tvLoyaltyPoints.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, LoyaltyPointsActivity.class)));
+//        mViewDataBinding.bottomSheet.tvMyDevices.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, MyDevicesActivity.class)));
+//        mViewDataBinding.bottomSheet.tvLoyaltyPoints.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, LoyaltyPointsActivity.class)));
         mViewDataBinding.bottomSheet.tvLogout.setOnClickListener(v -> logoutConfirmation());
         mViewDataBinding.bottomSheet.closeBtn.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
         mViewDataBinding.bottomSheet.tvChangeLanguage.setOnClickListener(v -> languageDialog());
