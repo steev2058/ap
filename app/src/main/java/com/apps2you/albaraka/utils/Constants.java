@@ -22,7 +22,7 @@ package com.apps2you.albaraka.utils;
     // live link
     public static String BASE_URL = "RLTWlkMoTClzcij5FhztackcT0FhNy6tBKB/DwqOpJgYSVNA47xPT5FTjPuRKpXGnGu3N1ApQcH87GcjWwnJCkGh6uLEG+1Ei5FV89JS9i9ong==";
 
-    //public static String BASE_URL_SEP = "https://epaytest.albaraka.com.sy:4433/SEP";
+    //public static String BASE_URL_SEP = "https://epaytest.albaraka.com.sy:4433/SEP";//gggggg
     //public static String BASE_URL_SEP_ICON = "https://epaytest.albaraka.com.sy:4433";
 
 
