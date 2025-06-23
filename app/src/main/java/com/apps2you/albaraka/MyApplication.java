@@ -64,7 +64,7 @@ public class MyApplication extends Application implements HasAndroidInjector {
         boolean isDarkMode = prefs.getBoolean("dark_mode", false);
 
         AppCompatDelegate.setDefaultNightMode(
-                isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+               AppCompatDelegate.MODE_NIGHT_NO
         );
 
         FirebaseMessaging.getInstance().getToken()

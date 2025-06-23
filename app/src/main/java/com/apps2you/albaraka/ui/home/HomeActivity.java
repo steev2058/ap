@@ -137,13 +137,13 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         mViewDataBinding.bottomSheet.switchOtp.setOnCheckedChangeListener(otpListener);
 
 
-        SwitchCompat darkModeSwitch = findViewById(R.id.switch_dark_mode);
-        darkModeSwitch.setChecked(isDarkThemeEnabled());
-
-        darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            toggleDarkMode(isChecked);
-            // optional: store in shared preferences
-        });
+//        SwitchCompat darkModeSwitch = findViewById(R.id.switch_dark_mode);
+//        darkModeSwitch.setChecked(isDarkThemeEnabled());
+//
+//        darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            toggleDarkMode(isChecked);
+//            // optional: store in shared preferences
+//        });
 
     }
     private boolean isDarkThemeEnabled() {
