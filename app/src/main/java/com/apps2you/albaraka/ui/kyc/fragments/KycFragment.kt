@@ -279,21 +279,7 @@ class KycFragment  : BaseFragment<FragmentKycBinding, KycViewModel>() , ZXingSca
             isRunning = false
         }
     }
-//    private fun initializeDatePicker() {
-//        val calendar = Calendar.getInstance()
-//        val maxDate = Calendar.getInstance()
-//        maxDate.set(2006, 1, 1) // January 1, 2006
-//
-//        datePicker.init(
-//            calendar.get(Calendar.YEAR),
-//            calendar.get(Calendar.MONTH),
-//            calendar.get(Calendar.DAY_OF_MONTH),
-//            null
-//        )
-//
-//        // Set max date
-//        datePicker.maxDate = maxDate.timeInMillis
-//    }
+
 private fun initializeDatePicker() {
     val calendar = Calendar.getInstance()
 
@@ -366,18 +352,18 @@ private fun initializeDatePicker() {
 
 
     }
-//    private fun setupDatePicker() {
-//        val today = Calendar.getInstance()
-//        datePicker.init(
-//            today.get(Calendar.YEAR),
-//            today.get(Calendar.MONTH),
-//            today.get(Calendar.DAY_OF_MONTH)
-//        ) { view, year, month, day ->
-//            val formattedMonth = month + 1 // Adjust month since it's zero-based
-//            val msg = " تمت قراءة الباركود: $day/$formattedMonth/$year"
-////            Toast.makeText(this@KycFragment.requireContext(), msg, Toast.LENGTH_SHORT).show()
-//        }
-//    }
+    private fun setupDatePicker() {
+        val today = Calendar.getInstance()
+        datePicker.init(
+            today.get(Calendar.YEAR),
+            today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH)
+        ) { view, year, month, day ->
+            val formattedMonth = month + 1 // Adjust month since it's zero-based
+            val msg = " تمت قراءة الباركود: $day/$formattedMonth/$year"
+//            Toast.makeText(this@KycFragment.requireContext(), msg, Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
     //Validation
@@ -759,46 +745,46 @@ private fun initializeDatePicker() {
 
 
 
-//     private fun setupQRScannerDialog() {
-//         val tvPersonalInfo = mViewDataBinding.tvPersonalInfo
-//         val text = context?.getString(R.string.personal_information_kyc)
-//
-//         // Check if the clickable portion string is present in the text
-//         val clickableText = context?.getString(R.string.personal_info_kyc_qr)
-//         val startIndex = text?.indexOf(clickableText ?: "")
-//
-//         if (startIndex != -1 && clickableText != null) {
-//             val endIndex = startIndex?.plus(clickableText.length)
-//
-//             val spannableString = SpannableString(text)
-//             startIndex?.let {
-//                 if (endIndex != null) {
-//                     spannableString.setSpan(object : ClickableSpan() {
-//                         override fun onClick(widget: View) {
-//                             // Handle the click event (e.g., show a modal dialog)
-//                             showQRDialog()
-//                         }
-//
-//                         override fun updateDrawState(ds: TextPaint) {
-//                             super.updateDrawState(ds)
-//                             // Customize the appearance of the clickable text if needed
-//                             ds.isUnderlineText = false
-//                             ds.color = ContextCompat.getColor(requireContext(), R.color.red)
-//                         }
-//                     }, it, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-//                 }
-//             }
-//
-//             // Make the clickable portion appear as a link
-//             tvPersonalInfo.text = spannableString
-//             tvPersonalInfo.movementMethod = LinkMovementMethod.getInstance()
-//             tvPersonalInfo.highlightColor = Color.TRANSPARENT // To remove the link highlight color
-//         } else {
-//             // Handle the case where the clickable text is not found in the main text
-//             tvPersonalInfo.text = text
-//         }
-//     }
-//
+     private fun setupQRScannerDialog() {
+         val tvPersonalInfo = mViewDataBinding.tvPersonalInfo
+         val text = context?.getString(R.string.personal_information_kyc)
+
+         // Check if the clickable portion string is present in the text
+         val clickableText = context?.getString(R.string.personal_info_kyc_qr)
+         val startIndex = text?.indexOf(clickableText ?: "")
+
+         if (startIndex != -1 && clickableText != null) {
+             val endIndex = startIndex?.plus(clickableText.length)
+
+             val spannableString = SpannableString(text)
+             startIndex?.let {
+                 if (endIndex != null) {
+                     spannableString.setSpan(object : ClickableSpan() {
+                         override fun onClick(widget: View) {
+                             // Handle the click event (e.g., show a modal dialog)
+                             showQRDialog()
+                         }
+
+                         override fun updateDrawState(ds: TextPaint) {
+                             super.updateDrawState(ds)
+                             // Customize the appearance of the clickable text if needed
+                             ds.isUnderlineText = false
+                             ds.color = ContextCompat.getColor(requireContext(), R.color.red)
+                         }
+                     }, it, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                 }
+             }
+
+             // Make the clickable portion appear as a link
+             tvPersonalInfo.text = spannableString
+             tvPersonalInfo.movementMethod = LinkMovementMethod.getInstance()
+             tvPersonalInfo.highlightColor = Color.TRANSPARENT // To remove the link highlight color
+         } else {
+             // Handle the case where the clickable text is not found in the main text
+             tvPersonalInfo.text = text
+         }
+     }
+
 
 
 
@@ -1309,7 +1295,7 @@ private fun initializeDatePicker() {
     override fun setUpView() {
 
         // Set up QR scanner dialog
-      //  setupQRScannerDialog()
+        setupQRScannerDialog()
 
         // Set up spinners
         val urlString = "https://albaraka.com.sy/KYC/ApiController/universities"
