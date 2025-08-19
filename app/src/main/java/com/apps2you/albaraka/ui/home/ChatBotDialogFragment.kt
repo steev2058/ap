@@ -36,6 +36,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import okio.IOException
+import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -47,7 +48,6 @@ class ChatBotDialogFragment : DialogFragment() {
     private lateinit var sendButton: ImageButton
     private lateinit var micBtn: ImageButton
     private lateinit var chatMessages: LinearLayout
-    private val apiUrl = "/api/v1/prediction/1be4a2ba-668c-4040-b888-e3a4bb11e450"
     private val REQUEST_CODE_SPEECH_INPUT = 1
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = Dialog(requireContext())
@@ -61,10 +61,17 @@ class ChatBotDialogFragment : DialogFragment() {
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog.window?.setGravity(Gravity.BOTTOM)
 
+        dialog.window?.setBackgroundDrawableResource(R.drawable.bg_chatbot)
+        dialog.window?.setElevation(8f)
+
+
         messageInput = dialog.findViewById(R.id.etMessage)
         sendButton = dialog.findViewById(R.id.btnSend)
         chatMessages = dialog.findViewById(R.id.chatMessages)
         micBtn= dialog.findViewById(R.id.btnMic)
+
+
+
 
         sendButton.setOnClickListener {
             val question = messageInput.text.toString()
@@ -77,8 +84,47 @@ class ChatBotDialogFragment : DialogFragment() {
         micBtn.setOnClickListener {
             startVoiceInput()
         }
+        val splashLogo = dialog.findViewById<ImageView>(R.id.splashLogo)
 
+// عرض اللوجو
+        splashLogo.visibility = View.VISIBLE
+        val waveAnim = android.view.animation.AnimationUtils.loadAnimation(requireContext(), R.anim.wave_anim)
+        splashLogo.startAnimation(waveAnim)
 
+// بعد انتهاء الأنيميشن -> نخفي اللوجو ونضيف Placeholder
+        splashLogo.postDelayed({
+            splashLogo.visibility = View.GONE
+
+            // Placeholder الترحيبي
+            val placeholder = TextView(requireContext()).apply {
+                text = "👋 أهلاً! أنا وافي ، كيف بقدر ساعدك اليوم؟"
+                textSize = 16f
+                setTextColor(Color.DKGRAY)
+                gravity = Gravity.CENTER
+                setPadding(32, 64, 32, 64)
+                tag = "placeholder" // ✨ ضع علامة للتمييز
+            }
+            chatMessages.addView(placeholder)
+
+            val anim = android.view.animation.AnimationUtils.loadAnimation(requireContext(), R.anim.message_anim)
+            placeholder.startAnimation(anim)
+
+        }, 1500) // بعد 1.5 ثانية
+
+// عند الضغط على زر الإرسال، حذف Placeholder إذا موجود
+        sendButton.setOnClickListener {
+            val question = messageInput.text.toString()
+            if (question.isNotBlank()) {
+                // حذف Placeholder إذا موجود
+                val firstChild = chatMessages.getChildAt(0)
+                if (firstChild?.tag == "placeholder") {
+                    chatMessages.removeView(firstChild)
+                }
+
+                sendMessageToBot(question)
+                messageInput.setText("")
+            }
+        }
         return dialog
     }
 
@@ -147,11 +193,18 @@ class ChatBotDialogFragment : DialogFragment() {
 
         chatMessages.addView(messageLayout)
 
+// ✨ تطبيق الأنيميشن على كل رسالة جديدة
+        val anim = android.view.animation.AnimationUtils.loadAnimation(requireContext(), R.anim.message_anim)
+        messageLayout.startAnimation(anim)
+
+
         // Scroll to bottom automatically
         val scrollView = dialog?.findViewById<ScrollView>(R.id.scrollView)
         scrollView?.post {
             scrollView.fullScroll(ScrollView.FOCUS_DOWN)
         }
+
+
     }
     private fun addTypingMessage(): View {
         val typingLayout = LinearLayout(context)
@@ -174,9 +227,9 @@ class ChatBotDialogFragment : DialogFragment() {
         // Animation: make dots blink
         val animatorSet = AnimatorSet()
         animatorSet.playSequentially(
-            ObjectAnimator.ofFloat(dot1, "alpha", 0f, 1f).setDuration(300),
-            ObjectAnimator.ofFloat(dot2, "alpha", 0f, 1f).setDuration(300),
-            ObjectAnimator.ofFloat(dot3, "alpha", 0f, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(dot1, "alpha", 0f, 1f).setDuration(1200),
+            ObjectAnimator.ofFloat(dot2, "alpha", 0f, 1f).setDuration(1200),
+            ObjectAnimator.ofFloat(dot3, "alpha", 0f, 1f).setDuration(1200)
         )
         animatorSet.doOnRepeat {ValueAnimator.INFINITE}
         animatorSet.start()
@@ -197,41 +250,68 @@ class ChatBotDialogFragment : DialogFragment() {
     }
 
     private fun sendMessageToBot(question: String) {
-        addMessageToChat(question, isUser = true)
+        try {
+            addMessageToChat(question, isUser = true)
 
-        // Show "Bot is typing..." message
-        val typingView = addTypingMessage()
+            // Show "Bot is typing..." message
+            val typingView = addTypingMessage()
 
-        val jsonBody = JSONObject()
-        jsonBody.put("question", question)
-
-        val body = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), jsonBody.toString())
-        val request = Request.Builder()
-            .url("https://chatbot.albarakasyria.com:3001/api/v1/prediction/1be4a2ba-668c-4040-b888-e3a4bb11e450")
-            .post(body)
-            .build()
-
-        val client = OkHttpClient()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                activity?.runOnUiThread {
-                    removeTypingMessage(typingView)
-                    addMessageToChat("فشل الاتصال بالخادم", isUser = false)
-                }
+            val jsonBody = JSONObject().apply {
+                put("inputs", JSONObject())             // ✅ empty object {}
+                put("query", question)                  // الاستعلام
+                put("response_mode", "blocking")        // ✅ blocking mode
+                put("conversation_id", "")              // optional
+                put("user", "abc-123")
+                put("files", JSONArray())               // ✅ empty array []
             }
 
-            override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body?.string()
-                val jsonResponse = JSONObject(responseBody ?: "{}")
-                val botReply = jsonResponse.optString("text", "لم يتم العثور على رد")
+            val body = RequestBody.create(
+                "application/json; charset=utf-8".toMediaTypeOrNull(),
+                jsonBody.toString()
+            )
 
-                activity?.runOnUiThread {
-                    removeTypingMessage(typingView)
-                    addMessageToChat(botReply, isUser = false)
+            val request = Request.Builder()
+                .url("https://chatbot.albarakasyria.com:3001/v1/chat-messages") // ✅ removed stray '
+                .addHeader("Authorization", "Bearer app-YCk9WxCaKgUgb9rSZRIsTzO4")
+                .post(body)
+                .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    activity?.runOnUiThread {
+                        removeTypingMessage(typingView)
+                        addMessageToChat("خطأ: ${e.message}", isUser = false)
+                    }
                 }
+
+                override fun onResponse(call: Call, response: Response) {
+                    try {
+                        val responseBody = response.body?.string()
+                        val jsonResponse = JSONObject(responseBody ?: "{}")
+
+                        // ✅ Parse "answer" instead of "text"
+                        val botReply = jsonResponse.optString("answer", "هناك ضغط على الخدمة يرجى المحاولة لاحقا")
+
+                        activity?.runOnUiThread {
+                            removeTypingMessage(typingView)
+                            addMessageToChat(botReply, isUser = false)
+                        }
+                    } catch (e: Exception) {
+                        activity?.runOnUiThread {
+                            removeTypingMessage(typingView)
+                            addMessageToChat("خطأ أثناء معالجة الرد: ${e.message}", isUser = false)
+                        }
+                    }
+                }
+            })
+        } catch (e: Exception) {
+            activity?.runOnUiThread {
+                addMessageToChat("خطأ عام: ${e.message}", isUser = false)
             }
-        })
+        }
     }
+
 
 }

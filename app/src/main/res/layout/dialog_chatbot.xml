@@ -1,43 +1,114 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white"
-    android:padding="16dp">
+    android:background="@drawable/bg_chatbot"
+    android:padding="0dp">
+
+    <!-- Header -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end">
+        android:layout_height="60dp"
+
+        android:background="@color/colorPrimaryDark"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/botAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_albaraka_logo"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/circle_white_bg"
+            android:scaleType="centerInside"/>
+
+        <LinearLayout
+            android:id="@+id/botInfo"
+            android:layout_toEndOf="@id/botAvatar"
+            android:layout_marginStart="8dp"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/botName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="مساعد البركة وافي"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/green_circle"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Active Now"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:src="@drawable/arrow_chat"
+            android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
-            android:contentDescription="Close" />
+            android:layout_alignParentEnd="true"
+            app:tint="@android:color/white" />
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/splashLogo"
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:src="@drawable/ic_albaraka_e_logo"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="80dp"/>
+
+    <!-- Chat Messages -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:fillViewport="true">
+        android:layout_height="400dp"
+        android:fillViewport="true"
+        android:background="@drawable/bg_rounded_white_top">
 
         <LinearLayout
             android:id="@+id/chatMessages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical"
+            android:gravity="center"/>
+
     </ScrollView>
 
+    <!-- Input Area -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:gravity="center_vertical">
+        android:padding="8dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:elevation="4dp">
 
         <EditText
             android:id="@+id/etMessage"
@@ -51,20 +122,19 @@
 
         <ImageButton
             android:id="@+id/btnMic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@android:drawable/ic_btn_speak_now"
             android:background="@android:color/transparent"
             android:contentDescription="Mic" />
 
         <ImageButton
             android:id="@+id/btnSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@android:drawable/ic_menu_send"
             android:background="@android:color/transparent"
             android:contentDescription="Send" />
     </LinearLayout>
-
 
 </LinearLayout>
