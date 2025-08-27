@@ -97,13 +97,13 @@ class ChatBotDialogFragment : DialogFragment() {
         splashLogo.postDelayed({
             splashLogo.visibility = View.GONE
 
-            // 🚀 جلب الترحيب والأسئلة من API
+
             loadBotParameters()
 
         }, 1500)
 
 
-// عند الضغط على زر الإرسال، حذف Placeholder إذا موجود
+
         sendButton.setOnClickListener {
             val question = messageInput.text.toString()
             if (question.isNotBlank()) {
@@ -299,10 +299,10 @@ class ChatBotDialogFragment : DialogFragment() {
                         val suggested = json.optJSONArray("suggested_questions")
 
                         activity?.runOnUiThread {
-                            // ✨ عرض الرسالة الترحيبية
+                            //  عرض الرسالة الترحيبية
                             addMessageToChat(openingStatement, isUser = false)
 
-                            // ✨ عرض الأسئلة المقترحة كـ Buttons
+                            //  عرض الأسئلة المقترحة كـ Buttons
                             if (suggested != null && suggested.length() > 0) {
                                 showSuggestedQuestions(suggested)
                             }
