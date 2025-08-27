@@ -11,10 +11,13 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -91,25 +94,14 @@ class ChatBotDialogFragment : DialogFragment() {
         val waveAnim = android.view.animation.AnimationUtils.loadAnimation(requireContext(), R.anim.wave_anim)
         splashLogo.startAnimation(waveAnim)
 
-// بعد انتهاء الأنيميشن -> نخفي اللوجو ونضيف Placeholder
         splashLogo.postDelayed({
             splashLogo.visibility = View.GONE
 
-            // Placeholder الترحيبي
-            val placeholder = TextView(requireContext()).apply {
-                text = "👋 أهلاً! أنا وافي ، كيف بقدر ساعدك اليوم؟"
-                textSize = 16f
-                setTextColor(Color.DKGRAY)
-                gravity = Gravity.CENTER
-                setPadding(32, 64, 32, 64)
-                tag = "placeholder" // ✨ ضع علامة للتمييز
-            }
-            chatMessages.addView(placeholder)
+            // 🚀 جلب الترحيب والأسئلة من API
+            loadBotParameters()
 
-            val anim = android.view.animation.AnimationUtils.loadAnimation(requireContext(), R.anim.message_anim)
-            placeholder.startAnimation(anim)
+        }, 1500)
 
-        }, 1500) // بعد 1.5 ثانية
 
 // عند الضغط على زر الإرسال، حذف Placeholder إذا موجود
         sendButton.setOnClickListener {
@@ -162,6 +154,10 @@ class ChatBotDialogFragment : DialogFragment() {
             requireContext(),
             if (isUser) R.drawable.bg_user_message else R.drawable.bg_bot_message
         )
+        // ✅ make links clickable
+        textView.autoLinkMask = Linkify.WEB_URLS
+        textView.movementMethod = LinkMovementMethod.getInstance()
+
         if (!isUser) {
             // Add bot avatar
             val avatar = ImageView(context)
@@ -247,6 +243,78 @@ class ChatBotDialogFragment : DialogFragment() {
 
     private fun removeTypingMessage(view: View) {
         chatMessages.removeView(view)
+    }
+
+
+    private fun showSuggestedQuestions(array: JSONArray) {
+        val container = LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(16, 16, 16, 16)
+        }
+
+        for (i in 0 until array.length()) {
+            val question = array.optString(i)
+            val btn = Button(requireContext()).apply {
+                text = question
+                textSize = 14f
+                setPadding(16, 8, 16, 8)
+                background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_suggested_question)
+                setOnClickListener {
+                    // عند الضغط على سؤال -> نحذف القائمة ونرسله
+                    chatMessages.removeView(container)
+                    sendMessageToBot(question)
+                }
+            }
+            container.addView(btn)
+        }
+
+        chatMessages.addView(container)
+
+        val scrollView = dialog?.findViewById<ScrollView>(R.id.scrollView)
+        scrollView?.post { scrollView.fullScroll(ScrollView.FOCUS_DOWN) }
+    }
+
+    private fun loadBotParameters() {
+        val request = Request.Builder()
+            .url("https://chatbot.albarakasyria.com:3001/v1/parameters")
+            .addHeader("Authorization", "Bearer app-YCk9WxCaKgUgb9rSZRIsTzO4")
+            .get()
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                activity?.runOnUiThread {
+                    addMessageToChat("⚠️ فشل جلب إعدادات البوت", isUser = false)
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body?.string()
+                if (!body.isNullOrEmpty()) {
+                    try {
+                        val json = JSONObject(body)
+                        val openingStatement = json.optString("opening_statement")
+                        val suggested = json.optJSONArray("suggested_questions")
+
+                        activity?.runOnUiThread {
+                            // ✨ عرض الرسالة الترحيبية
+                            addMessageToChat(openingStatement, isUser = false)
+
+                            // ✨ عرض الأسئلة المقترحة كـ Buttons
+                            if (suggested != null && suggested.length() > 0) {
+                                showSuggestedQuestions(suggested)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        activity?.runOnUiThread {
+                            addMessageToChat("خطأ بالبارسنج: ${e.message}", isUser = false)
+                        }
+                    }
+                }
+            }
+        })
     }
 
     private fun sendMessageToBot(question: String) {

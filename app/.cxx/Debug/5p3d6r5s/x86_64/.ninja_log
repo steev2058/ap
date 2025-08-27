@@ -12,3 +12,5 @@
 0	19	0	clean	c179a05aadb4c77e
 3	433	7712563601781885	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	ab8e1c0812b38af
 433	816	7712563605261866	../../../../build/intermediates/cxx/Debug/5p3d6r5s/obj/x86_64/libnative-lib.so	b2b75299aee83a46
+0	493	7772970340573348	CMakeFiles/native-lib.dir/src/cpp/lib.cpp.o	ab8e1c0812b38af
+493	737	7772970342873352	../../../../build/intermediates/cxx/Debug/5p3d6r5s/obj/x86_64/libnative-lib.so	b2b75299aee83a46
