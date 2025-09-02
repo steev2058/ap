@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg_chatbot"
     android:padding="0dp">
@@ -84,10 +84,11 @@
         android:layout_marginTop="80dp"/>
 
     <!-- Chat Messages -->
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:fillViewport="true"
         android:background="@drawable/bg_rounded_white_top">
 
@@ -98,7 +99,7 @@
             android:orientation="vertical"
             android:gravity="center"/>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Input Area -->
     <LinearLayout

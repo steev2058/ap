@@ -8,6 +8,8 @@ import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -27,8 +29,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.animation.doOnRepeat
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.DialogFragment
 import com.apps2you.albaraka.R
+import com.google.android.material.button.MaterialButton
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
@@ -44,6 +48,8 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.UUID
+import java.util.concurrent.TimeUnit
 
 class ChatBotDialogFragment : DialogFragment() {
 
@@ -52,9 +58,19 @@ class ChatBotDialogFragment : DialogFragment() {
     private lateinit var micBtn: ImageButton
     private lateinit var chatMessages: LinearLayout
     private val REQUEST_CODE_SPEECH_INPUT = 1
+    private var conversationId: String? = null
+    private var userId: String? = null
+
+    companion object {
+        private const val PREFS_NAME = "ChatBotPrefs"
+        private const val KEY_USER_ID = "user_id"
+        private const val KEY_CONVERSATION_ID = "conversation_id"
+    }
+
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = Dialog(requireContext())
-
+        loadUserAndConversationIds()
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_chatbot)
         val closeButton = dialog.findViewById<ImageButton>(R.id.btnClose)
@@ -97,9 +113,11 @@ class ChatBotDialogFragment : DialogFragment() {
         splashLogo.postDelayed({
             splashLogo.visibility = View.GONE
 
-
-            loadBotParameters()
-
+            if (!userId.isNullOrEmpty() && !conversationId.isNullOrEmpty()) {
+                loadChatHistory()
+            } else {
+                loadBotParameters()
+            }
         }, 1500)
 
 
@@ -119,7 +137,100 @@ class ChatBotDialogFragment : DialogFragment() {
         }
         return dialog
     }
+    private fun loadUserAndConversationIds() {
+        val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        userId = prefs.getString(KEY_USER_ID, null)
+        conversationId = prefs.getString(KEY_CONVERSATION_ID, null)
 
+        // Generate new IDs if they don't exist
+        if (userId.isNullOrEmpty()) {
+            userId = UUID.randomUUID().toString()
+            prefs.edit().putString(KEY_USER_ID, userId).apply()
+        }
+    }
+    private fun saveConversationId(id: String) {
+        conversationId = id
+        val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        prefs.edit().putString(KEY_CONVERSATION_ID, id).apply()
+    }
+
+    private fun loadChatHistory() {
+        if (userId.isNullOrEmpty() || conversationId.isNullOrEmpty()) return
+
+        val url = "https://chatbot.albarakasyria.com:3001/v1/messages?user=$userId&conversation_id=$conversationId"
+
+        val request = Request.Builder()
+            .url(url)
+            .addHeader("Authorization", "Bearer app-YCk9WxCaKgUgb9rSZRIsTzO4")
+            .get()
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                activity?.runOnUiThread {
+                    // If history loading fails, show the bot parameters
+                    loadBotParameters()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body?.string()
+                if (!body.isNullOrEmpty()) {
+                    try {
+                        // Parse the response as JSONObject first
+                        val jsonResponse = JSONObject(body)
+                        // Extract the "data" array from the response
+                        val jsonArray = jsonResponse.optJSONArray("data")
+
+                        activity?.runOnUiThread {
+                            // Clear any existing messages
+                            chatMessages.removeAllViews()
+
+                            // Add all messages from history if data exists
+                            if (jsonArray != null && jsonArray.length() > 0) {
+                                for (i in 0 until jsonArray.length()) {
+                                    val messageObj = jsonArray.getJSONObject(i)
+                                    val query = messageObj.optString("query", "")
+                                    val answer = messageObj.optString("answer", "")
+
+                                    // Add user message (query)
+                                    if (query.isNotBlank()) {
+                                        addMessageToChat(query, isUser = true)
+                                    }
+
+                                    // Add bot message (answer)
+                                    if (answer.isNotBlank()) {
+                                        addMessageToChat(answer, isUser = false)
+                                    }
+                                }
+
+                                // Scroll to bottom
+                                val scrollView = dialog?.findViewById<NestedScrollView>(R.id.scrollView)
+                                scrollView?.post {
+                                    scrollView.fullScroll(View.FOCUS_DOWN)
+                                }
+                            }
+
+                            // Always show bot parameters after loading history (or if no history)
+                            loadBotParameters()
+                        }
+                    } catch (e: Exception) {
+                        activity?.runOnUiThread {
+                            // If parsing fails, show the bot parameters
+                            loadBotParameters()
+                        }
+                    }
+                } else {
+                    activity?.runOnUiThread {
+                        // If no history, show the bot parameters
+                        loadBotParameters()
+                    }
+                }
+            }
+        })
+    }
     private fun startVoiceInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
@@ -195,10 +306,11 @@ class ChatBotDialogFragment : DialogFragment() {
 
 
         // Scroll to bottom automatically
-        val scrollView = dialog?.findViewById<ScrollView>(R.id.scrollView)
+        val scrollView = dialog?.findViewById<NestedScrollView>(R.id.scrollView)
         scrollView?.post {
-            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
+            scrollView.fullScroll(View.FOCUS_DOWN)
         }
+
 
 
     }
@@ -233,10 +345,11 @@ class ChatBotDialogFragment : DialogFragment() {
         chatMessages.addView(typingLayout)
 
         // Scroll down
-        val scrollView = dialog?.findViewById<ScrollView>(R.id.scrollView)
+        val scrollView = dialog?.findViewById<NestedScrollView>(R.id.scrollView)
         scrollView?.post {
-            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
+            scrollView.fullScroll(View.FOCUS_DOWN)
         }
+
 
         return typingLayout
     }
@@ -249,30 +362,71 @@ class ChatBotDialogFragment : DialogFragment() {
     private fun showSuggestedQuestions(array: JSONArray) {
         val container = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(16, 16, 16, 16)
+            gravity = Gravity.START
+            setPadding(14.dpToPx(), 12.dpToPx(), 14.dpToPx(), 12.dpToPx())
+            dividerDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.divider_vertical_8dp)
+            showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
         }
 
         for (i in 0 until array.length()) {
             val question = array.optString(i)
-            val btn = Button(requireContext()).apply {
+            val btn = MaterialButton(requireContext()).apply {
                 text = question
                 textSize = 14f
-                setPadding(16, 8, 16, 8)
-                background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_suggested_question)
+                isAllCaps = false
+                gravity = Gravity.CENTER
+
+                setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+
+                cornerRadius = 12.dpToPx()
+
+                strokeWidth = 1.dpToPx()
+                strokeColor = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.outline_variant))
+
+                elevation = 0f
+
+                val lp = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                lp.setMargins(12.dpToPx(), 8.dpToPx(), 12.dpToPx(), 8.dpToPx())
+                layoutParams = lp
+
                 setOnClickListener {
-                    // عند الضغط على سؤال -> نحذف القائمة ونرسله
                     chatMessages.removeView(container)
                     sendMessageToBot(question)
                 }
             }
+
             container.addView(btn)
+
+            // Add margin between buttons
+            (btn.layoutParams as LinearLayout.LayoutParams).apply {
+                setMargins(0, 4.dpToPx(), 0, 4.dpToPx())
+            }
         }
 
-        chatMessages.addView(container)
+        // Add some margin to the container
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            setMargins(8.dpToPx(), 8.dpToPx(), 8.dpToPx(), 16.dpToPx())
+        }
 
-        val scrollView = dialog?.findViewById<ScrollView>(R.id.scrollView)
-        scrollView?.post { scrollView.fullScroll(ScrollView.FOCUS_DOWN) }
+        chatMessages.addView(container, layoutParams)
+
+        // Smooth scroll to bottom
+        val scrollView = dialog?.findViewById<NestedScrollView>(R.id.scrollView)
+        scrollView?.postDelayed({
+            scrollView.smoothScrollTo(0, scrollView.getChildAt(0).height)
+        }, 100)
     }
+
+    // Extension function to convert dp to pixels
+    private fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     private fun loadBotParameters() {
         val request = Request.Builder()
@@ -317,6 +471,19 @@ class ChatBotDialogFragment : DialogFragment() {
         })
     }
 
+
+    fun getConversationId(context: Context): String {
+        val prefs = context.getSharedPreferences("chatbot_prefs", Context.MODE_PRIVATE)
+        var conversationId = prefs.getString("conversation_id", null)
+
+        if (conversationId.isNullOrEmpty()) {
+            conversationId = UUID.randomUUID().toString()
+            prefs.edit().putString("conversation_id", conversationId).apply()
+        }
+
+        return conversationId
+    }
+
     private fun sendMessageToBot(question: String) {
         try {
             addMessageToChat(question, isUser = true)
@@ -328,8 +495,8 @@ class ChatBotDialogFragment : DialogFragment() {
                 put("inputs", JSONObject())             // ✅ empty object {}
                 put("query", question)                  // الاستعلام
                 put("response_mode", "blocking")        // ✅ blocking mode
-                put("conversation_id", "")              // optional
-                put("user", "abc-123")
+                put("conversation_id", conversationId ?: "")            // optional
+                put("user",  userId ?: "")
                 put("files", JSONArray())               // ✅ empty array []
             }
 
@@ -344,7 +511,12 @@ class ChatBotDialogFragment : DialogFragment() {
                 .post(body)
                 .build()
 
-            val client = OkHttpClient()
+            val client = OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build()
+
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
@@ -358,8 +530,10 @@ class ChatBotDialogFragment : DialogFragment() {
                     try {
                         val responseBody = response.body?.string()
                         val jsonResponse = JSONObject(responseBody ?: "{}")
-
-                        // ✅ Parse "answer" instead of "text"
+                        val newConversationId = jsonResponse.optString("conversation_id", "")
+                        if (newConversationId.isNotBlank() && conversationId != newConversationId) {
+                            saveConversationId(newConversationId)
+                        }
                         val botReply = jsonResponse.optString("answer", "هناك ضغط على الخدمة يرجى المحاولة لاحقا")
 
                         activity?.runOnUiThread {
@@ -374,6 +548,7 @@ class ChatBotDialogFragment : DialogFragment() {
                     }
                 }
             })
+
         } catch (e: Exception) {
             activity?.runOnUiThread {
                 addMessageToChat("خطأ عام: ${e.message}", isUser = false)
