@@ -57,11 +57,19 @@ public class MyDevicesActivity extends BaseActivity<ActivityMyDevicesBinding, My
     @Override
     public void fetchData() {
         RecyclerView recyclerView = getViewDataBinding().recyclerViewDevices;
-        DevicesAdapter adapter = new DevicesAdapter(new ArrayList<>(), Build.MODEL, getViewModel(),this);
+        DevicesAdapter adapter = new DevicesAdapter(new ArrayList<>(), Settings.Secure.getString(
+                getContentResolver(),
+                Settings.Secure.ANDROID_ID
+        ), getViewModel(),this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        getViewModel().getMyDevices().observe(this, resource -> {
+        String androidId = Settings.Secure.getString(
+                getContentResolver(),
+                Settings.Secure.ANDROID_ID
+        );
+
+        getViewModel().getMyDevices(androidId).observe(this, resource -> {
             switch (resource.status) {
                 case LOADING:
                     getViewDataBinding().progressBar.setVisibility(View.VISIBLE);
@@ -83,68 +91,68 @@ public class MyDevicesActivity extends BaseActivity<ActivityMyDevicesBinding, My
         });
 
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView,
-                                  @NonNull RecyclerView.ViewHolder viewHolder,
-                                  @NonNull RecyclerView.ViewHolder target) {
-                return false; // We don't support moving items
-            }
+       // ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView,
+//                                  @NonNull RecyclerView.ViewHolder viewHolder,
+//                                  @NonNull RecyclerView.ViewHolder target) {
+//                return false; // We don't support moving items
+//            }
 
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
-                MyDevices device = adapter.deviceList.get(position);
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                int position = viewHolder.getAdapterPosition();
+//                MyDevices device = adapter.deviceList.get(position);
+//
+//                // Optional: Show confirmation dialog
+//                new AlertDialog.Builder(MyDevicesActivity.this)
+//                        .setTitle("تأكيد الحذف")
+//                        .setMessage("هل أنت متأكد أنك تريد حذف هذا الجهاز؟")
+//                        .setPositiveButton("نعم", (dialog, which) -> {
+//                            adapter.showProgress();
+//                            getViewModel().deleteDevice(device.getId()).observe(MyDevicesActivity.this, result -> {
+//                                switch (result.status) {
+//                                    case SUCCESS:
+//                                        adapter.hideProgress();
+//                                        Toast.makeText(MyDevicesActivity.this, "تم حذف الجهاز", Toast.LENGTH_SHORT).show();
+//                                        adapter.deviceList.remove(position);
+//                                        adapter.notifyItemRemoved(position);
+//                                        break;
+//                                    case ERROR:
+//                                        adapter.hideProgress();
+//                                        Toast.makeText(MyDevicesActivity.this, "فشل الحذف: " + result.message, Toast.LENGTH_SHORT).show();
+//                                        adapter.notifyItemChanged(position); // Restore item
+//                                        break;
+//                                }
+//                            });
+//                        })
+//                        .setNegativeButton("إلغاء", (dialog, which) -> {
+//                            dialog.dismiss();
+//                            adapter.notifyItemChanged(position); // Cancel deletion
+//                        })
+//                        .setCancelable(false)
+//                        .show();
+//            }
 
-                // Optional: Show confirmation dialog
-                new AlertDialog.Builder(MyDevicesActivity.this)
-                        .setTitle("تأكيد الحذف")
-                        .setMessage("هل أنت متأكد أنك تريد حذف هذا الجهاز؟")
-                        .setPositiveButton("نعم", (dialog, which) -> {
-                            adapter.showProgress();
-                            getViewModel().deleteDevice(device.getId()).observe(MyDevicesActivity.this, result -> {
-                                switch (result.status) {
-                                    case SUCCESS:
-                                        adapter.hideProgress();
-                                        Toast.makeText(MyDevicesActivity.this, "تم حذف الجهاز", Toast.LENGTH_SHORT).show();
-                                        adapter.deviceList.remove(position);
-                                        adapter.notifyItemRemoved(position);
-                                        break;
-                                    case ERROR:
-                                        adapter.hideProgress();
-                                        Toast.makeText(MyDevicesActivity.this, "فشل الحذف: " + result.message, Toast.LENGTH_SHORT).show();
-                                        adapter.notifyItemChanged(position); // Restore item
-                                        break;
-                                }
-                            });
-                        })
-                        .setNegativeButton("إلغاء", (dialog, which) -> {
-                            dialog.dismiss();
-                            adapter.notifyItemChanged(position); // Cancel deletion
-                        })
-                        .setCancelable(false)
-                        .show();
-            }
-
-            @Override
-            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
-                                    @NonNull RecyclerView.ViewHolder viewHolder,
-                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-                // Optionally customize swipe background (e.g. red delete background)
-                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY,
-                        actionState, isCurrentlyActive)
-                        .addBackgroundColor(ContextCompat.getColor(MyDevicesActivity.this, R.color.red))
-                        .addActionIcon(R.drawable.ic_delete_white) // Replace with your delete icon
-                        .create()
-                        .decorate();
-
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            }
-        });
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
-
+//            @Override
+//            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+//                                    @NonNull RecyclerView.ViewHolder viewHolder,
+//                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
+//
+//                // Optionally customize swipe background (e.g. red delete background)
+//                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY,
+//                        actionState, isCurrentlyActive)
+//                        .addBackgroundColor(ContextCompat.getColor(MyDevicesActivity.this, R.color.red))
+//                        .addActionIcon(R.drawable.ic_delete_white) // Replace with your delete icon
+//                        .create()
+//                        .decorate();
+//
+//                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+//            }
+//        });
+//        itemTouchHelper.attachToRecyclerView(recyclerView);
+//
+//
 
     }
 

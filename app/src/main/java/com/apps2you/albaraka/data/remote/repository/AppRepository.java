@@ -61,34 +61,40 @@ public class AppRepository {
             }
         }.getAsLiveServerData();
     }
-    public LiveData<Resource<ArrayList<MyDevices>>> getMyDevices() {
+    public LiveData<Resource<ArrayList<MyDevices>>> getMyDevices(String androidId) {
+
         return new NetworkBoundResource<ArrayList<MyDevices>>() {
             @NonNull
             @Override
             protected Call<MyResponse<ArrayList<MyDevices>>> createCall() {
-                return apiService.getMyDevices();
-            }
-        }.getAsLiveServerData();
-    }
-    public LiveData<Resource<String>> changeTrusting(int id, int status) {
-        return new NetworkBoundResource<String>() {
-            @NonNull
-            @Override
-            protected Call<MyResponse<String>> createCall() {
-                return apiService.changeTrusting(id, status);
+                return apiService.getMyDevices(androidId);
             }
         }.getAsLiveServerData();
     }
 
-    public LiveData<Resource<String>> deleteDevice(int id) {
+    public LiveData<Resource<String>> changeTrusting(int id, int status, String androidId) {
+
         return new NetworkBoundResource<String>() {
             @NonNull
             @Override
             protected Call<MyResponse<String>> createCall() {
-                return apiService.deleteDevice(id);
+                return apiService.changeTrusting(id, status, androidId);
             }
         }.getAsLiveServerData();
     }
+
+
+    public LiveData<Resource<String>> deleteDevice(int id, String androidId) {
+
+        return new NetworkBoundResource<String>() {
+            @NonNull
+            @Override
+            protected Call<MyResponse<String>> createCall() {
+                return apiService.deleteDevice(id, androidId);
+            }
+        }.getAsLiveServerData();
+    }
+
 
 
 

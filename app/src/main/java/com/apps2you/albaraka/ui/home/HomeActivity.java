@@ -219,7 +219,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
         });
         mViewDataBinding.bottomSheet.tvPrivacy.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, PrivacyPolicyActivity.class)));
-//        mViewDataBinding.bottomSheet.tvMyDevices.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, MyDevicesActivity.class)));
+        mViewDataBinding.bottomSheet.tvMyDevices.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, MyDevicesActivity.class)));
 //        mViewDataBinding.bottomSheet.tvLoyaltyPoints.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, LoyaltyPointsActivity.class)));
         mViewDataBinding.bottomSheet.tvLogout.setOnClickListener(v -> logoutConfirmation());
         mViewDataBinding.bottomSheet.closeBtn.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));

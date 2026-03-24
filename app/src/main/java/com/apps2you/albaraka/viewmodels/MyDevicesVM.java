@@ -23,18 +23,19 @@ public class MyDevicesVM extends BaseViewModel {
     public MyDevicesVM(AppRepository appRepository) {
         this.appRepository = appRepository;
     }
-
-    public LiveData<Resource<ArrayList<MyDevices>>> getMyDevices() {
-        return appRepository.getMyDevices();
+    public LiveData<Resource<ArrayList<MyDevices>>> getMyDevices(String androidId) {
+        return appRepository.getMyDevices(androidId);
     }
 
-    public LiveData<Resource<String>> changeTrusting(int id, int status) {
-        return appRepository.changeTrusting(id, status);
+    public LiveData<Resource<String>> changeTrusting(int id, int status, String androidId) {
+        return appRepository.changeTrusting(id, status, androidId);
     }
 
-    public LiveData<Resource<String>> deleteDevice(int id) {
-        return appRepository.deleteDevice(id);
+    public LiveData<Resource<String>> deleteDevice(int id, String androidId) {
+        return appRepository.deleteDevice(id, androidId);
     }
+
+
     public void onConfirmClicked() {
         confirmClicked.setValue(true);
     }

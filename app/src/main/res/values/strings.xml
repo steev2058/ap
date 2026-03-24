@@ -91,6 +91,8 @@
     <string name="Logging_in_to_access_password">Logging in to access password</string>
     <string name="login">Login</string>
     <string name="logout_title">Logout</string>
+    <string name="logout_title2">Are you sure ?</string>
+
     <string name="delete_title">Delete Bill</string>
     <string name="bill_search_title">Get Bill info</string>
     <string name="mini_statement">Account Statement</string>

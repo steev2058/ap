@@ -10,6 +10,9 @@ class MyDevices {
     @SerializedName("device")
     var device: String? = null
 
+    @SerializedName("android_id")
+    var androidId: String? = null;
+
     @SerializedName("is_trusted")
     var isTrusted = 0
 

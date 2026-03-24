@@ -146,8 +146,13 @@ public interface ApiService {
     @GET("privacy_policy")
     Call<MyResponse<PrivacyPolicy>> getPrivacyPolicy();
 
+//    @GET("my_devices")
+//    Call<MyResponse<ArrayList<MyDevices>>> getMyDevices();
+//
     @GET("my_devices")
-    Call<MyResponse<ArrayList<MyDevices>>> getMyDevices();
+    Call<MyResponse<ArrayList<MyDevices>>> getMyDevices(
+            @Query("android_id") String androidId
+    );
 
     @FormUrlEncoded
     @POST("change_client_language")
@@ -225,12 +230,21 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("change_trusting")
-    Call<MyResponse<String>> changeTrusting(@Field("id") int id, @Field("status") int status);
+    Call<MyResponse<String>> changeTrusting(
+            @Field("id") int id,
+            @Field("status") int status,
+            @Field("android_id") String androidId
+    );
+
 
 
     @FormUrlEncoded
     @POST("delete_device")
-    Call<MyResponse<String>> deleteDevice(@Field("id") int deviceId);
+    Call<MyResponse<String>> deleteDevice(
+            @Field("id") int id,
+            @Field("android_id") String androidId
+    );
+
 
 
 

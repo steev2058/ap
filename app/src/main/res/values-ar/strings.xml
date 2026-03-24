@@ -17,6 +17,7 @@
     <string name="Apply">تطبيق</string>
     <string name="Arabic">العربية</string>
     <string name="logout_confirmation">هل أنت متأكد من رغبتك في تسجيل الخروج؟</string>
+
     <string name="ATM">صراف آلي</string>
     <string name="Bank_AlBaraka_Bank_Statement_List">كشف حساب</string>
     <string name="biometric_id">Biometric ID</string>
@@ -25,7 +26,7 @@
     <string name="prompt_info_cancel">إلغاء</string>
     <string name="Change_language">تغيير اللغة</string>
     <string name="password_title">تغيير كلمة المرور</string>
-    <string name="my_devices">الأجهزة</string>
+    <string name="my_devices">الأجهزة الموثوقة</string>
     <string name="loyalty_points">نقاط الولاء</string>
     <string name="transaction_history">سجل المعاملات</string>
     <string name="transaction_description">وصف المعاملة</string>
@@ -90,6 +91,8 @@
     <string name="Logging_in_to_access_password">تسجيل الدخول للوصول إلى كلمة المرور</string>
     <string name="login">تسجيل الدخول</string>
     <string name="logout_title">تسجيل الخروج</string>
+    <string name="logout_title2">هل أنت متأكد ؟</string>
+
     <string name="delete_title">حذف الفاتورة</string>
     <string name="bill_search_title">استعلام عن فاتورة</string>
     <string name="mini_statement">كشف حساب</string>

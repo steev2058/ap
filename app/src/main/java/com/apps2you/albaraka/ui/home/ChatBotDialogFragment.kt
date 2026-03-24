@@ -45,6 +45,7 @@ import okhttp3.Response
 import okio.IOException
 import org.json.JSONArray
 import org.json.JSONObject
+import java.nio.charset.Charset
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -81,7 +82,9 @@ class ChatBotDialogFragment : DialogFragment() {
         dialog.window?.setGravity(Gravity.BOTTOM)
 
         dialog.window?.setBackgroundDrawableResource(R.drawable.bg_chatbot)
-        dialog.window?.setElevation(8f)
+        dialog.window?.apply {
+            decorView.elevation = 8f    // يعمل من API 21 بدون مشاكل
+        }
 
 
         messageInput = dialog.findViewById(R.id.etMessage)
@@ -161,7 +164,7 @@ class ChatBotDialogFragment : DialogFragment() {
 
         val request = Request.Builder()
             .url(url)
-            .addHeader("Authorization", "Bearer app-YCk9WxCaKgUgb9rSZRIsTzO4")
+            .addHeader("Authorization", "Bearer albaraka-default-key")
             .get()
             .build()
 
@@ -429,42 +432,80 @@ class ChatBotDialogFragment : DialogFragment() {
     private fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     private fun loadBotParameters() {
+
         val request = Request.Builder()
             .url("https://chatbot.albarakasyria.com:3001/v1/parameters")
-            .addHeader("Authorization", "Bearer app-YCk9WxCaKgUgb9rSZRIsTzO4")
+            .addHeader("Authorization", "Bearer albaraka-default-key") // ← عدّل حسب مفتاحك الصحيح
             .get()
             .build()
 
         val client = OkHttpClient()
 
         client.newCall(request).enqueue(object : Callback {
+
             override fun onFailure(call: Call, e: IOException) {
                 activity?.runOnUiThread {
-                    addMessageToChat("⚠️ فشل جلب إعدادات البوت", isUser = false)
+                    addMessageToChat("⚠️ فشل الاتصال بالسيرفر: ${e.message}", false)
                 }
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val body = response.body?.string()
-                if (!body.isNullOrEmpty()) {
-                    try {
-                        val json = JSONObject(body)
-                        val openingStatement = json.optString("opening_statement")
-                        val suggested = json.optJSONArray("suggested_questions")
 
-                        activity?.runOnUiThread {
-                            //  عرض الرسالة الترحيبية
-                            addMessageToChat(openingStatement, isUser = false)
+                val raw = response.body?.string()?.trim() ?: ""
 
-                            //  عرض الأسئلة المقترحة كـ Buttons
-                            if (suggested != null && suggested.length() > 0) {
-                                showSuggestedQuestions(suggested)
-                            }
+                println("🔵 RAW PARAMETERS RESPONSE:\n$raw")
+
+                // ---------------------------------------------
+                // 1. حماية ضد HTML / صفحات خطأ
+                // ---------------------------------------------
+                if (!raw.startsWith("{")) {
+                    activity?.runOnUiThread {
+                        addMessageToChat(
+                            "⚠️ السيرفر أرسل رد غير صالح (HTML أو صفحة خطأ)\n\n" +
+                                    "الرد:\n$raw",
+                            false
+                        )
+                    }
+                    return
+                }
+
+                try {
+                    // ---------------------------------------------
+                    // 2. محاولة تحويله إلى JSON
+                    // ---------------------------------------------
+                    val json = JSONObject(raw)
+
+                    val openingStatement = json.optString("opening_statement", "")
+                    val suggested = json.optJSONArray("suggested_questions")
+
+                    activity?.runOnUiThread {
+
+                        // -----------------------------------------
+                        // 3. رسالة ترحيب — حتى لو فارغة
+                        // -----------------------------------------
+                        if (openingStatement.isNotBlank()) {
+                            addMessageToChat(openingStatement, false)
+                        } else {
+                            addMessageToChat("👋 أهلاً بك! كيف يمكنني مساعدتك اليوم؟", false)
                         }
-                    } catch (e: Exception) {
-                        activity?.runOnUiThread {
-                            addMessageToChat("خطأ بالبارسنج: ${e.message}", isUser = false)
+
+                        // -----------------------------------------
+                        // 4. الأسئلة المقترحة
+                        // -----------------------------------------
+                        if (suggested != null && suggested.length() > 0) {
+                            showSuggestedQuestions(suggested)
                         }
+                    }
+
+                } catch (e: Exception) {
+                    // ---------------------------------------------
+                    // 5. في حال JSON غير صالح
+                    // ---------------------------------------------
+                    activity?.runOnUiThread {
+                        addMessageToChat(
+                            "⚠️ خطأ ببارسنج JSON:\n${e.message}\n\nالنص الكامل:\n$raw",
+                            false
+                        )
                     }
                 }
             }
@@ -486,64 +527,154 @@ class ChatBotDialogFragment : DialogFragment() {
 
     private fun sendMessageToBot(question: String) {
         try {
+            // 1) أضف رسالة المستخدم
             addMessageToChat(question, isUser = true)
 
-            // Show "Bot is typing..." message
+            // 2) رسالة "البوت يكتب..."
             val typingView = addTypingMessage()
 
+            // 3) جسم الطلب (streaming)
             val jsonBody = JSONObject().apply {
-                put("inputs", JSONObject())             // ✅ empty object {}
-                put("query", question)                  // الاستعلام
-                put("response_mode", "blocking")        // ✅ blocking mode
-                put("conversation_id", conversationId ?: "")            // optional
-                put("user",  userId ?: "")
-                put("files", JSONArray())               // ✅ empty array []
+                put("inputs", JSONObject())
+                put("query", question)
+                put("response_mode", "streaming")
+                put("conversation_id", conversationId ?: "")
+                put("user", userId ?: "")
+                put("files", JSONArray())
             }
 
-            val body = RequestBody.create(
-                "application/json; charset=utf-8".toMediaTypeOrNull(),
-                jsonBody.toString()
-            )
+            val body = jsonBody.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaType())
 
             val request = Request.Builder()
-                .url("https://chatbot.albarakasyria.com:3001/v1/chat-messages") // ✅ removed stray '
-                .addHeader("Authorization", "Bearer app-YCk9WxCaKgUgb9rSZRIsTzO4")
+                .url("https://chatbot.albarakasyria.com:3001/v1/chat-messages")
+                .addHeader("Authorization", "Bearer albaraka-default-key")
                 .post(body)
                 .build()
 
             val client = OkHttpClient.Builder()
                 .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(0, TimeUnit.SECONDS)   // مهم للـ streaming (بدون تايم أوت قراءة)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .build()
 
-
             client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
+                override fun onFailure(call: Call, e: java.io.IOException) {
                     activity?.runOnUiThread {
                         removeTypingMessage(typingView)
-                        addMessageToChat("خطأ: ${e.message}", isUser = false)
+                        addMessageToChat("خطأ في الاتصال: ${e.message}", isUser = false)
                     }
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    try {
-                        val responseBody = response.body?.string()
-                        val jsonResponse = JSONObject(responseBody ?: "{}")
-                        val newConversationId = jsonResponse.optString("conversation_id", "")
-                        if (newConversationId.isNotBlank() && conversationId != newConversationId) {
-                            saveConversationId(newConversationId)
-                        }
-                        val botReply = jsonResponse.optString("answer", "هناك ضغط على الخدمة يرجى المحاولة لاحقا")
+                    // 4) حضّر فقاعة البوت الفارغة وخُذ الـ TextView تبعها
+                    var botTextView: TextView? = null
 
-                        activity?.runOnUiThread {
-                            removeTypingMessage(typingView)
-                            addMessageToChat(botReply, isUser = false)
+                    activity?.runOnUiThread {
+                        removeTypingMessage(typingView)
+
+                        // أضف رسالة بوت فارغة
+                        addMessageToChat("", isUser = false)
+
+                        // آخر layout مضاف
+                        val lastLayout =
+                            chatMessages.getChildAt(chatMessages.childCount - 1) as? LinearLayout
+
+                        // ابحث عن أول TextView داخلها (تجاوز الأفاتار)
+                        lastLayout?.let { layout ->
+                            for (i in 0 until layout.childCount) {
+                                val v = layout.getChildAt(i)
+                                if (v is TextView) {
+                                    botTextView = v
+                                    break
+                                }
+                            }
+                        }
+                    }
+
+                    val source = response.body?.source() ?: return
+
+                    var buffer = ""
+                    var fullAnswer = ""
+
+                    try {
+                        while (!source.exhausted()) {
+                            val line = source.readUtf8Line() ?: continue
+
+                            buffer += line + "\n"
+                            val lines = buffer.split("\n")
+                            buffer = lines.last()              // السطر غير المكتمل
+                            val completeLines = lines.dropLast(1)
+
+                            for (raw in completeLines) {
+                                // مثل كود الويب: نتعامل فقط مع "data: ..."
+                                if (!raw.startsWith("data:")) continue
+
+                                val jsonPart = raw.removePrefix("data:").trim()
+                                if (jsonPart.isEmpty()) continue
+
+                                try {
+                                    val data = JSONObject(jsonPart)
+                                    val event = data.optString("event", "")
+                                    val answerChunk = data.optString("answer", "")
+
+                                    if (event == "message") {
+                                        // تراكم النص
+                                        fullAnswer += answerChunk
+
+                                        val textToShow = fullAnswer
+
+                                        activity?.runOnUiThread {
+                                            botTextView?.text = textToShow
+
+                                            // Scroll لأسفل
+                                            val scrollView =
+                                                dialog?.findViewById<NestedScrollView>(R.id.scrollView)
+                                            scrollView?.post {
+                                                scrollView.fullScroll(View.FOCUS_DOWN)
+                                            }
+                                        }
+
+                                        // تحديت conversation_id لو وصل جديد
+                                        val convId = data.optString("conversation_id", "")
+                                        if (convId.isNotBlank()) {
+                                            saveConversationId(convId)
+                                        }
+                                    } else if (event == "message_end") {
+                                        // نفس منطق الويب: قراءة الميتاداتا/الكلفة (اختياري)
+                                        val metadata = data.optJSONObject("metadata")
+                                        val usage = metadata?.optJSONObject("usage")
+                                        val cost = metadata?.optJSONObject("cost")
+
+                                        if (usage != null && cost != null) {
+                                            println("━━━━━━━━━━━━━━━━━━━━━━")
+                                            println("💰 OpenAI Cost Breakdown")
+                                            println("Prompt:     ${usage.optInt("prompt_tokens")}")
+                                            println("Completion: ${usage.optInt("completion_tokens")}")
+                                            println("Total:      ${usage.optInt("total_tokens")}")
+                                            println("Input  \$:  ${cost.optDouble("input_cost_usd")}")
+                                            println("Output \$:  ${cost.optDouble("output_cost_usd")}")
+                                            println("Total  \$:  ${cost.optDouble("total_cost_usd")}")
+                                            println("Model:      ${cost.optString("model")}")
+                                            println("━━━━━━━━━━━━━━━━━━━━━━")
+                                        }
+                                    }
+                                } catch (pe: Exception) {
+                                    // خطأ بارسنج لسطر واحد → نتجاهله
+                                    println("Parse error: ${pe.message}")
+                                }
+                            }
                         }
                     } catch (e: Exception) {
                         activity?.runOnUiThread {
-                            removeTypingMessage(typingView)
-                            addMessageToChat("خطأ أثناء معالجة الرد: ${e.message}", isUser = false)
+                            if (fullAnswer.isBlank()) {
+                                addMessageToChat(
+                                    "خطأ أثناء قراءة الـ Stream: ${e.message}",
+                                    isUser = false
+                                )
+                            } else {
+                                botTextView?.text = fullAnswer
+                            }
                         }
                     }
                 }
@@ -555,6 +686,5 @@ class ChatBotDialogFragment : DialogFragment() {
             }
         }
     }
-
 
 }
