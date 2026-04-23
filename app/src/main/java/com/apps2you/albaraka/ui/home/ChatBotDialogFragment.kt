@@ -197,7 +197,7 @@ class ChatBotDialogFragment : DialogFragment() {
                                     val messageObj = jsonArray.getJSONObject(i)
                                     val query = messageObj.optString("query", "")
                                     val answer = messageObj.optString("answer", "")
-
+0
                                     // Add user message (query)
                                     if (query.isNotBlank()) {
                                         addMessageToChat(query, isUser = true)
