@@ -303,15 +303,15 @@ public class AppRepository {
             @Override
             public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    result.postValue(Resource.success(response.body()));
+                    result.postValue(Resource.success(response.body(), null));
                 } else {
-                    result.postValue(Resource.error("Version check failed", null));
+                    result.postValue(Resource.error("Version check failed", null, response.code()));
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable t) {
-                result.postValue(Resource.error(t.getMessage(), null));
+                result.postValue(Resource.error(t.getMessage(), null, -1));
             }
         });
 
