@@ -623,4 +623,7 @@ public interface ApiService {
 
     @GET("check_visitor")
     Call<MyResponse<Boolean>> checkVisitor();
+
+    @GET("version")
+    Call<Boolean> checkAppVersion(@Query("version") String version);
 }

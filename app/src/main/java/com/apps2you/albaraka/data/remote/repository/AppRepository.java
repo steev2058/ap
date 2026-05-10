@@ -2,6 +2,7 @@ package com.apps2you.albaraka.data.remote.repository;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.apps2you.albaraka.data.model.ATMForm;
 import com.apps2you.albaraka.data.model.About;
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AppRepository {
 
@@ -290,5 +293,28 @@ public class AppRepository {
                 return apiService.checkVisitor();
             }
         }.getAsLiveServerData();
+    }
+
+    public LiveData<Resource<Boolean>> checkAppVersion(String version) {
+        MutableLiveData<Resource<Boolean>> result = new MutableLiveData<>();
+        result.postValue(Resource.loading(null));
+
+        apiService.checkAppVersion(version).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    result.postValue(Resource.success(response.body()));
+                } else {
+                    result.postValue(Resource.error("Version check failed", null));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable t) {
+                result.postValue(Resource.error(t.getMessage(), null));
+            }
+        });
+
+        return result;
     }
 }

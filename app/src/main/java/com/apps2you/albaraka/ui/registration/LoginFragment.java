@@ -3,6 +3,7 @@ package com.apps2you.albaraka.ui.registration;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -44,6 +46,9 @@ import com.google.firebase.messaging.FirebaseMessaging;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewModel> implements CryptPasswordCallback {
+
+    private static final String APP_VERSION = "1.0.0";
+    private static final String PLAY_STORE_PACKAGE = "com.apps2you.albaraka";
 
     @Override
     public void createViewModel() {
@@ -91,11 +96,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
         mViewDataBinding.etCifNumber.addTextChangedListener(new CustomTextWatcher(mViewDataBinding.inputCif));
         mViewDataBinding.etPassword.addTextChangedListener(new CustomTextWatcher(mViewDataBinding.textInputLayout));
 
-        if (!UserUtils.getInstance(getContext()).isPrivacyAgreed()) // show privacy policy when user opens the app for the first time
-            showPrivacyPolicy();
-        else {
-            checkVisitor();
-        }
+        checkVersionAndGateApp();
 
         String cifNumber = UserUtils.getInstance(getContext()).getCIFNumber();
         if (cifNumber != null) { //not first login
@@ -316,6 +317,58 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
         });
     }
 
+
+    private void checkVersionAndGateApp() {
+        getViewModel().checkAppVersion(APP_VERSION).observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    showProgress();
+                    break;
+                case SUCCESS:
+                    hideProgress();
+                    Boolean isAllowed = resource.data;
+                    if (Boolean.FALSE.equals(isAllowed)) {
+                        showForceUpdateDialog();
+                    } else {
+                        continueLoginInit();
+                    }
+                    break;
+                default:
+                    hideProgress();
+                    // fail-open to avoid blocking users if version endpoint has temporary issue
+                    continueLoginInit();
+                    break;
+            }
+        });
+    }
+
+    private void continueLoginInit() {
+        if (!UserUtils.getInstance(getContext()).isPrivacyAgreed()) {
+            showPrivacyPolicy();
+        } else {
+            checkVisitor();
+        }
+    }
+
+    private void showForceUpdateDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                .setTitle("تحديث مطلوب")
+                .setMessage("يوجد إصدار جديد من التطبيق. يرجى التحديث للمتابعة.")
+                .setCancelable(false)
+                .setPositiveButton("تحديث", (dialog, which) -> openPlayStore());
+
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
+    private void openPlayStore() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + PLAY_STORE_PACKAGE)));
+        } catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + PLAY_STORE_PACKAGE)));
+        }
+    }
 
     private void checkVisitor() {
         boolean isVisitorChecked = UserUtils.getInstance(requireContext()).isVisitorChecked();

@@ -53,4 +53,8 @@ public class LoginViewModel extends BaseViewModel {
     public LiveData<Resource<Boolean>> checkVisitor(){
         return appRepository.checkVisitor();
     }
+
+    public LiveData<Resource<Boolean>> checkAppVersion(String version) {
+        return appRepository.checkAppVersion(version);
+    }
 }
