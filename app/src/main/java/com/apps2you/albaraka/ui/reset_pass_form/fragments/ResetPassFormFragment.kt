@@ -53,6 +53,8 @@ import java.net.URLEncoder
 import java.util.Locale
 import java.util.Random
 
+private const val RESET_PASSWORD_PIN_KEY = "reset_password_pin"
+
 class ResetPassFormFragment : BaseFragment<FragmentResetpassformBinding, ResetPassFormViewModel>() {
     var responseWaiting: Boolean = false
 
@@ -91,6 +93,7 @@ class ResetPassFormFragment : BaseFragment<FragmentResetpassformBinding, ResetPa
         }
 
         setupAgreementCheckbox()
+        loadAgreementAmount()
 //        setupCaptcha()
 
 
@@ -212,8 +215,29 @@ class ResetPassFormFragment : BaseFragment<FragmentResetpassformBinding, ResetPa
 
 
     private fun setupAgreementCheckbox(){
+        renderAgreementText("2,000")
+    }
+
+    private fun loadAgreementAmount() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val request = Request.Builder()
+                    .url(com.apps2you.albaraka.utils.Constants.BASE_URL + "/api/get_parameter?key=" + RESET_PASSWORD_PIN_KEY)
+                    .get()
+                    .build()
+                val response = OkHttpClient().newCall(request).execute()
+                val amount = response.body?.string()?.trim()?.replace("\"", "")
+                withContext(Dispatchers.Main) {
+                    if (!amount.isNullOrBlank()) renderAgreementText(amount)
+                }
+            } catch (_: Exception) {
+            }
+        }
+    }
+
+    private fun renderAgreementText(amount: String){
         val checkBox = mViewDataBinding.agreementCheckbox2
-        val spannableString = SpannableString("افوض البنك بخصم مبلغ 2,000 ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف إعادة تعيين كلمة سر موبايل و أوافق على الشروط والأحكام")
+        val spannableString = SpannableString("افوض البنك بخصم مبلغ ${amount} ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف إعادة تعيين كلمة سر موبايل و أوافق على الشروط والأحكام")
         // Define a ForegroundColorSpan to color the text in blue
         val blueColor = ContextCompat.getColor(requireContext(), R.color.blue) // Replace with your blue color resource
         val blueText = "الشروط والأحكام"

@@ -21,6 +21,8 @@ import okhttp3.Request
 import org.json.JSONObject
 import java.util.Random
 
+private const val REQUEST_CARD_KEY = "request_card"
+
 class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>() {
     var responseWaiting: Boolean = false
     private var user: User? = null
@@ -71,6 +73,9 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
         checkbox1 = mViewDataBinding.checkbox1
         checkbox2 = mViewDataBinding.checkbox2
         checkbox3 = mViewDataBinding.checkbox3
+
+        setAtmAgreementText("25,000")
+        loadAtmAgreementAmount()
 
         // Set initial state of btn_send
         updateSendButtonState()
@@ -195,6 +200,27 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
 
 
 
+
+    private fun loadAtmAgreementAmount() {
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val request = Request.Builder()
+                    .url(com.apps2you.albaraka.utils.Constants.BASE_URL + "/api/get_parameter?key=" + REQUEST_CARD_KEY)
+                    .get()
+                    .build()
+                val response = OkHttpClient().newCall(request).execute()
+                val amount = response.body?.string()?.trim()?.replace("\"", "")
+                withContext(Dispatchers.Main) {
+                    if (!amount.isNullOrBlank()) setAtmAgreementText(amount)
+                }
+            } catch (_: Exception) {
+            }
+        }
+    }
+
+    private fun setAtmAgreementText(amount: String) {
+        mViewDataBinding.checkbox1.text = "افوض البنك بخصم مبلغ ${amount} ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف اصدار بطاقة الصراف الالي"
+    }
 
     override fun fetchData() {
 
