@@ -209,7 +209,14 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
                     .get()
                     .build()
                 val response = OkHttpClient().newCall(request).execute()
-                val amount = response.body?.string()?.trim()?.replace("\"", "")
+                val raw = response.body?.string().orEmpty()
+                val amount = try {
+                    val root = JSONObject(raw)
+                    val data = root.optJSONObject("data")
+                    data?.opt("value")?.toString()
+                } catch (_: Exception) {
+                    raw.trim().replace("\"", "")
+                }
                 withContext(Dispatchers.Main) {
                     if (!amount.isNullOrBlank()) setAtmAgreementText(amount)
                 }
