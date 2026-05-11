@@ -630,4 +630,9 @@
     <string name="more_kyc">فتح حساب إلكتروني</string>
     <string name="more_application">اشتراك بتطبيق البركة</string>
 
+    <string name="atm_checkbox_1">افوض البنك بخصم مبلغ %1$s ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف اصدار بطاقة الصراف الالي</string>
+    <string name="atm_checkbox_2">أوافق على طباعة الاسم باللغة الإنكليزية على بطاقة الصراف الصادرة حسب ماهو مدرج ضمن سجلات بنك البركة</string>
+    <string name="atm_checkbox_3">أفوض البنك باقتطاع قيمة الطوابع اللازمة لطلب اصدار البطاقة ( لمزيد من المعلومات مركز الاتصال 011-9525)</string>
+    <string name="reset_checkbox_change_password">تغيير كلمة السر</string>
+    <string name="reset_checkbox_change_pin">(PIN) تغيير رمز التحقق</string>
 </resources>

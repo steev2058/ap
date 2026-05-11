@@ -631,4 +631,9 @@
         <item>Attachments</item>
         <item>Card</item>
     </array>
+    <string name="atm_checkbox_1">I authorize the bank to deduct an amount of %1$s SYP from any of my accounts at Al Baraka Bank for ATM card issuance fees</string>
+    <string name="atm_checkbox_2">I agree to print the name in English on the issued ATM card as recorded in Al Baraka Bank records</string>
+    <string name="atm_checkbox_3">I authorize the bank to deduct the required stamp fees for card issuance request (for more information call center 011-9525)</string>
+    <string name="reset_checkbox_change_password">Change password</string>
+    <string name="reset_checkbox_change_pin">Change PIN code (PIN)</string>
 </resources>

@@ -226,7 +226,7 @@ class ATMFormFragment  : BaseFragment<FragmentAtmformBinding, ATMFormViewModel>(
     }
 
     private fun setAtmAgreementText(amount: String) {
-        mViewDataBinding.checkbox1.text = "افوض البنك بخصم مبلغ ${amount} ل.س من أي من حساباتي لدى بنك البركة لقاء تكاليف اصدار بطاقة الصراف الالي"
+        mViewDataBinding.checkbox1.text = getString(R.string.atm_checkbox_1, amount)
     }
 
     override fun fetchData() {
